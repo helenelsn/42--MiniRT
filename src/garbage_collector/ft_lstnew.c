@@ -1,35 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_rt.h                                          :+:      :+:    :+:   */
+/*   ft_glstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/18 15:55:13 by srapin            #+#    #+#             */
-/*   Updated: 2023/10/18 23:00:54 by srapin           ###   ########.fr       */
+/*   Created: 2022/11/11 04:11:10 by srapin            #+#    #+#             */
+/*   Updated: 2023/10/18 22:14:27 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINI_RT_H
-#define MINI_RT_H
+#include "../../inc/mini_rt.h"
 
-# include "../libs/libft/ft_printf.h"
-# include "../libs/minilibx-linux/mlx.h"
-# include "struct.h"
-# include <X11/X.h>
-# include <X11/keysym.h>
-# include <math.h>
-# include <stdio.h>
-# include <stdlib.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <stdbool.h>
+t_glist	*ft_glstnew(void * content, void foo(void *))
+{
+	t_glist	*new_lst;
 
-# include "foo.h"
-
-#define EXIT_SUCCES 0
-#define EXIT_FAILURE 1
-
-
-#endif
+	new_lst = malloc(sizeof(t_glist));
+	if (!new_lst)
+		return (NULL);
+	new_lst->next = NULL;
+	new_lst->content = content;
+	new_lst->free_foo = foo;
+	return (new_lst);
+}

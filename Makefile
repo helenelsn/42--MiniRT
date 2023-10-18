@@ -6,7 +6,7 @@
 #    By: srapin <srapin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 22:16:42 by srapin            #+#    #+#              #
-#    Updated: 2023/10/18 16:00:05 by srapin           ###   ########.fr        #
+#    Updated: 2023/10/18 23:47:26 by srapin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,14 +16,27 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g3
 
 FILES = \
+		create_elem/cr_mood_light\
+		garbage_collector/ft_lstnew\
+		garbage_collector/ft_lstadd_front\
+		garbage_collector/ft_lstsize\
+		garbage_collector/ft_lstlast\
+		garbage_collector/ft_lstadd_back\
+		garbage_collector/ft_lstdelone\
+		garbage_collector/ft_lstclear\
+		garbage_collector/ft_lstiter \
+		utils/atof \
+		utils/ft_strcheck \
 		main\
 		parse\
+		
 	
 SRCS_DIR = src
-SRCS = $(addprefix $(SRCS_DIR)/, $(addsuffix .c, $(FILES)))
+SRCS = $(addprefix $(SRCS_DIR)/, $(addsuffix .c, $(FILES))) 
 
 OBJS_DIR = obj
 OBJS = ${patsubst ${SRCS_DIR}/%.c, ${OBJS_DIR}/%.o, ${SRCS}}
+# OBJS = ${patsubst ${SRCS_DIR}/%.c, %.o, ${SRCS}}
 
 LIBS_FOLDER = libs
 
@@ -48,6 +61,9 @@ bonus: $(NAME)
 
 ${OBJS_DIR}/%.o: ${SRCS_DIR}/%.c 
 	@mkdir -p $(OBJS_DIR)
+	@mkdir -p $(OBJS_DIR)/create_elem
+	@mkdir -p $(OBJS_DIR)/garbage_collector
+	@mkdir -p $(OBJS_DIR)/utils
 	$(CC) $(CFLAGS) -o $@ -c $<
 
 clean: cleanlibs

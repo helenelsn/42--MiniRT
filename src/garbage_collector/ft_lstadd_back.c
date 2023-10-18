@@ -1,35 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_rt.h                                          :+:      :+:    :+:   */
+/*   ft_glstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/18 15:55:13 by srapin            #+#    #+#             */
-/*   Updated: 2023/10/18 23:00:54 by srapin           ###   ########.fr       */
+/*   Created: 2022/11/11 04:23:40 by srapin            #+#    #+#             */
+/*   Updated: 2023/10/18 22:12:04 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINI_RT_H
-#define MINI_RT_H
+#include "../../inc/mini_rt.h"
 
-# include "../libs/libft/ft_printf.h"
-# include "../libs/minilibx-linux/mlx.h"
-# include "struct.h"
-# include <X11/X.h>
-# include <X11/keysym.h>
-# include <math.h>
-# include <stdio.h>
-# include <stdlib.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <stdbool.h>
+void	ft_glstadd_back(t_glist **lst, t_glist *new)
+{
+	t_glist	*last;
 
-# include "foo.h"
-
-#define EXIT_SUCCES 0
-#define EXIT_FAILURE 1
-
-
-#endif
+	if (lst)
+		last = ft_glstlast(*lst);
+	else
+		last = NULL;
+	if (last)
+		last->next = new;
+	else
+		*lst = new;
+}
