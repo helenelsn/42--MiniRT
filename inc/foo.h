@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/10/19 01:48:45 by srapin           ###   ########.fr       */
+/*   Updated: 2023/10/19 17:58:57 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ bool	get_point(char *str, t_point_3d *p);
 bool	get_vec(char *str, t_vec_3d *p);
 int get_fov(char *str);
 int	create_rgb(unsigned char r, unsigned char g, unsigned char b);
-int	get_rgb(char *str);
+bool	get_rgb(char *str, int *color);
 t_parse_error parse(int ac, char **av, t_glist **garbage);
 void free_tab(void *arg);
 int null_term_tab_len(void **tab);

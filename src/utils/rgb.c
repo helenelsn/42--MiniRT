@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 00:08:53 by srapin            #+#    #+#             */
-/*   Updated: 2023/10/19 00:32:42 by srapin           ###   ########.fr       */
+/*   Updated: 2023/10/19 18:03:20 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,27 +21,29 @@ int	create_rgb(unsigned char r, unsigned char g, unsigned char b)
 	return (c.hex);
 }
 
-int	get_rgb(char *str)
+bool	get_rgb(char *str, int *hex)
 {
 	int i = 0;
-	int hex = 0;
+	bool flag;
+	// int hex = 0;
 	if (!str)
 		return -1;
 	char **sp;
+	flag = true;
 	sp = ft_split(str, ',');
 	if (!sp || null_term_tab_len((void **) sp) != 3)
-		hex = -1;
+		flag=false;
 	else 
 	{
 		while(i < 3)
 		{
 			if (!ft_strisint(sp[i]) || 0 > ft_atoi(str) || 255 < ft_atoi(str))
-				hex = -1;
+				flag = false;
 			i++;
 		}
-		if (!hex) //bizzare mais partique
-			hex = create_rgb(ft_atoi(sp[0]), ft_atoi(sp[1]), ft_atoi(sp[2]));
+		if (!flag) 
+			*hex = create_rgb(ft_atoi(sp[0]), ft_atoi(sp[1]), ft_atoi(sp[2]));
 	}
 	free_tab(sp);
-	return hex;
+	return flag;
 }

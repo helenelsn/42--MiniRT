@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 01:17:10 by srapin            #+#    #+#             */
-/*   Updated: 2023/10/19 01:18:28 by srapin           ###   ########.fr       */
+/*   Updated: 2023/10/19 18:05:42 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ t_light *create_light(char **tab, t_glist **garbage)
     if (!elem)
         return NULL;
     elem->rat = get_ratio(tab[2]);
-    elem->color = get_rgb(tab[3]);
-    if (elem->color < 0 || elem->rat < 0 || !get_point(tab[1], &elem->p))
+    if (!get_rgb(tab[3], &elem->color) || elem->rat < 0 || !get_point(tab[1], &elem->p))
     {
         free(elem);
         return NULL;

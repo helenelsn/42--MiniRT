@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 23:34:39 by srapin            #+#    #+#             */
-/*   Updated: 2023/10/19 02:11:30 by srapin           ###   ########.fr       */
+/*   Updated: 2023/10/19 18:06:15 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,11 @@ t_mood_light *create_mood_light(char **tab, t_glist **garbage)
     if (!elem)
         return NULL;
     elem->rat = get_ratio(tab[1]);
-    elem->color = get_rgb(tab[2]);
-    if (elem->color < 0 || elem->rat < 0)
+    if (elem->rat < 0 || !get_rgb(tab[2], &elem->color))
     {
         //todo
-        // free(elem);
-        // return NULL;
+        free(elem);
+        return NULL;
     }
     ft_glstadd_back(garbage, ft_glstnew(elem, free));
     return elem;

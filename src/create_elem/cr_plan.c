@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 01:26:34 by srapin            #+#    #+#             */
-/*   Updated: 2023/10/19 01:27:32 by srapin           ###   ########.fr       */
+/*   Updated: 2023/10/19 18:06:54 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ t_plan *create_plan(char **tab, t_glist **garbage)
     elem = ft_calloc(1, sizeof(t_plan));
     if (!elem)
         return NULL;
-    elem->color = get_rgb(tab[3]);
-    if (elem->color < 0 || !get_point(tab[1], &elem->p) || !get_vec(tab[2], &elem->vec))
+    if (!get_rgb(tab[3], &elem->color)|| !get_point(tab[1], &elem->p) || !get_vec(tab[2], &elem->vec))
     {
         free(elem);
         return NULL;

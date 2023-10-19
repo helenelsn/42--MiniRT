@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:23 by srapin            #+#    #+#             */
-/*   Updated: 2023/10/19 02:06:36 by srapin           ###   ########.fr       */
+/*   Updated: 2023/10/19 17:57:33 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,15 @@ int get_file(char *filename)
 
     len = ft_strlen(filename);
     if (len < 3 || !ft_strisequal(filename + len - 3, ".rt"))
+    {
         parse_error_occured(file, NULL, -1);
-    fd = open("../lol.rt", O_RDONLY);
+        
+    }
+    fd = open(filename, O_RDONLY);
     if (fd < 0)
+    {
         parse_error_occured(file, NULL, -1);
+    }
     return fd;
 }
 
@@ -88,6 +93,7 @@ void parse_and_create(int fd, t_glist **garbage)
     char **sp_line;
 
     line = get_next_line(fd);
+    printf("%s", line);
     if (!line)
         parse_error_occured(file, garbage, fd);
     while (line)
@@ -99,7 +105,7 @@ void parse_and_create(int fd, t_glist **garbage)
             parse_error_occured(file_content, garbage, fd);
         get_obj(sp_line, garbage, fd);
         line = get_next_line(fd);
-        
+        printf("%s", line);
     }
     close(fd);
     ft_glstclear(garbage);
@@ -111,9 +117,11 @@ t_parse_error parse(int ac, char **av, t_glist **garbage)
     int fd;
 
     if (ac < 2)
+	{
         parse_error_occured(invalid_args_nb, garbage, -1);
+		
+	}
     fd = get_file(av[1]);
     parse_and_create(fd, garbage);
-    
     return none;
 }
