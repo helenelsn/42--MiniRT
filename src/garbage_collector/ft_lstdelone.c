@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_glstdelone.c                                     :+:      :+:    :+:   */
+/*   ft_vlstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "../../inc/mini_rt.h"
 
-void	ft_glstdelone(t_glist *lst)
+void	ft_vlstdelone(t_vlist *lst)
 {
 	if (lst)
 	{

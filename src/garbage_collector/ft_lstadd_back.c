@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_glstadd_back.c                                   :+:      :+:    :+:   */
+/*   ft_vlstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,12 +12,12 @@
 
 #include "../../inc/mini_rt.h"
 
-void	ft_glstadd_back(t_glist **lst, t_glist *new)
+void	ft_vlstadd_back(t_vlist **lst, t_vlist *new)
 {
-	t_glist	*last;
+	t_vlist	*last;
 
 	if (lst)
-		last = ft_glstlast(*lst);
+		last = ft_vlstlast(*lst);
 	else
 		last = NULL;
 	if (last)

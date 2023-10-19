@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_glstmap.c                                        :+:      :+:    :+:   */
+/*   ft_vlstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,24 +12,24 @@
 
 #include "../../inc/mini_rt.h"
 
-t_glist	*ft_glstmap(t_glist *lst, void *(*f)(void *), void (*del)(void *))
+t_vlist	*ft_vlstmap(t_vlist *lst, void *(*f)(void *), void (*del)(void *))
 {
-	t_glist	*start;
-	t_glist	*last;
+	t_vlist	*start;
+	t_vlist	*last;
 
 	if (!lst)
 		return (NULL);
-	start = ft_glstnew(f(lst->content));
+	start = ft_vlstnew(f(lst->content));
 	if (!start)
 		return (NULL);
 	lst = lst->next;
 	last = start;
 	while (lst)
 	{
-		last->next = ft_glstnew(f(lst->content));
+		last->next = ft_vlstnew(f(lst->content));
 		if (!last->next)
 		{
-			ft_glstclear(&start, del);
+			ft_vlstclear(&start, del);
 			return (NULL);
 		}
 		last = last->next;

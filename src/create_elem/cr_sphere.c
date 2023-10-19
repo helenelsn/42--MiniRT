@@ -6,13 +6,13 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 01:20:17 by srapin            #+#    #+#             */
-/*   Updated: 2023/10/19 18:07:23 by srapin           ###   ########.fr       */
+/*   Updated: 2023/10/19 22:47:46 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/mini_rt.h"
 
-t_sphere *create_sphere(char **tab, t_glist **garbage)
+t_sphere *create_sphere(char **tab, t_vlist **garbage, t_parsing_data *data)
 {
     t_sphere *elem;
 
@@ -27,6 +27,7 @@ t_sphere *create_sphere(char **tab, t_glist **garbage)
         free(elem);
         return NULL;
     }
-    ft_glstadd_back(garbage, ft_glstnew(elem, free));
+    ft_vlstadd_back(garbage, ft_vlstnew(elem, free, sphere));
+    ft_vlstadd_back(&data->obj, ft_vlstnew(elem, free, sphere));
     return elem;
 }

@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:20 by srapin            #+#    #+#             */
-/*   Updated: 2023/10/18 23:48:51 by srapin           ###   ########.fr       */
+/*   Updated: 2023/10/19 22:38:43 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int main(int ac, char **av)
 {
-    t_glist *garbage;
+    t_vlist *garbage;
+    t_parsing_data data;
     garbage = NULL;
-    parse(ac, av, &garbage);
+    parse(ac, av, &garbage, &data);
 }

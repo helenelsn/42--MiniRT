@@ -6,17 +6,17 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 01:17:10 by srapin            #+#    #+#             */
-/*   Updated: 2023/10/19 18:05:42 by srapin           ###   ########.fr       */
+/*   Updated: 2023/10/19 22:46:01 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/mini_rt.h"
 
-t_light *create_light(char **tab, t_glist **garbage)
+t_light *create_light(char **tab, t_vlist **garbage, t_parsing_data *data)
 {
     t_light *elem;
 
-    if (null_term_tab_len((void **) tab) != 4)
+    if (null_term_tab_len((void **) tab) != 4 || data->lig)
         return NULL;
     elem = ft_calloc(1, sizeof(t_light));
     if (!elem)
@@ -27,6 +27,7 @@ t_light *create_light(char **tab, t_glist **garbage)
         free(elem);
         return NULL;
     }
-    ft_glstadd_back(garbage, ft_glstnew(elem, free));
+    ft_vlstadd_back(garbage, ft_vlstnew(elem, free, light));
+    data->lig = elem;
     return elem;
 }
