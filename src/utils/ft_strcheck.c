@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 00:01:45 by srapin            #+#    #+#             */
-/*   Updated: 2023/10/18 23:54:23 by srapin           ###   ########.fr       */
+/*   Updated: 2023/10/19 02:15:55 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ bool	ft_strisint(char *str)
 		return (false);
 	while (str[i])
 	{
-		if (!ft_isdigit(str[i]))
+		if (!ft_isdigit(str[i]) && str[i]!= '\n' )
 			flag = false;
 		i++;
 	}
@@ -72,10 +72,5 @@ bool	ft_strisequal(char *s1, char *s2)
 	if (!ft_strnstr(s1, s2, ft_strlen(s1)))
 		return (false);
 	return (true);
-}
-
-bool	ft_strisrgb(char *str)
-{
-	
 }
 

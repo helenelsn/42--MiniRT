@@ -6,7 +6,7 @@
 #    By: srapin <srapin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 22:16:42 by srapin            #+#    #+#              #
-#    Updated: 2023/10/18 23:47:26 by srapin           ###   ########.fr        #
+#    Updated: 2023/10/19 01:55:52 by srapin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,12 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g3
 
 FILES = \
+		create_elem/cr_camera\
+		create_elem/cr_cylindre\
+		create_elem/cr_light\
 		create_elem/cr_mood_light\
+		create_elem/cr_plan\
+		create_elem/cr_sphere\
 		garbage_collector/ft_lstnew\
 		garbage_collector/ft_lstadd_front\
 		garbage_collector/ft_lstsize\
@@ -26,7 +31,12 @@ FILES = \
 		garbage_collector/ft_lstclear\
 		garbage_collector/ft_lstiter \
 		utils/atof \
+		utils/fov \
 		utils/ft_strcheck \
+		utils/point3d \
+		utils/ratio \
+		utils/rgb \
+		utils/vec3d \
 		main\
 		parse\
 		

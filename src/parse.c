@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:23 by srapin            #+#    #+#             */
-/*   Updated: 2023/10/18 23:52:04 by srapin           ###   ########.fr       */
+/*   Updated: 2023/10/19 02:06:36 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int get_file(char *filename)
     len = ft_strlen(filename);
     if (len < 3 || !ft_strisequal(filename + len - 3, ".rt"))
         parse_error_occured(file, NULL, -1);
-    fd = open(filename, O_RDONLY);
+    fd = open("../lol.rt", O_RDONLY);
     if (fd < 0)
         parse_error_occured(file, NULL, -1);
     return fd;
@@ -50,6 +50,38 @@ void free_tab(void *arg)
     // free(tab);
 }
 
+int null_term_tab_len(void **tab)
+{
+    int i = 0;
+    while (tab && tab[i])
+        i++;
+    return i;
+}
+
+void *get_obj(char **tab, t_glist **garbage, int fd)
+{
+    void *elem;
+    elem = NULL;
+    
+    if (ft_strisequal(tab[0], "A"))
+        elem = create_mood_light(tab, garbage);
+    else if (ft_strisequal(tab[0], "C"))
+        elem = create_camera(tab, garbage);
+    else if (ft_strisequal(tab[0], "L"))
+        elem = create_light(tab, garbage);
+    else if (ft_strisequal(tab[0], "sp"))
+        elem = create_sphere(tab, garbage);
+    else if (ft_strisequal(tab[0], "pl"))
+        elem = create_plan(tab, garbage);
+    else if (ft_strisequal(tab[0], "cy"))
+        elem = create_cylindre(tab, garbage);
+    else
+        parse_error_occured(file_content, garbage, fd);
+    if (!elem)
+        parse_error_occured(file_content, garbage, fd);
+    return elem;
+}
+
 void parse_and_create(int fd, t_glist **garbage)
 {
     char *line;
@@ -64,11 +96,13 @@ void parse_and_create(int fd, t_glist **garbage)
         ft_glstadd_back(garbage, ft_glstnew(sp_line, free_tab)); 
         free(line);
         if (!sp_line || !sp_line[0])
-            parse_error_occured(file_content, garbage, -1);
-        // if (ft_strisequal(sp_line[0], "A"))
-            // mood_light
+            parse_error_occured(file_content, garbage, fd);
+        get_obj(sp_line, garbage, fd);
+        line = get_next_line(fd);
+        
     }
     close(fd);
+    ft_glstclear(garbage);
 }
 
 

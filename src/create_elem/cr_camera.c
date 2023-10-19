@@ -1,33 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cr_mood_light.c                                    :+:      :+:    :+:   */
+/*   cr_camera.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/18 23:34:39 by srapin            #+#    #+#             */
-/*   Updated: 2023/10/19 02:11:30 by srapin           ###   ########.fr       */
+/*   Created: 2023/10/19 00:53:38 by srapin            #+#    #+#             */
+/*   Updated: 2023/10/19 01:01:34 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/mini_rt.h"
 
-t_mood_light *create_mood_light(char **tab, t_glist **garbage)
+t_camera *create_camera(char **tab, t_glist **garbage)
 {
-    t_mood_light *elem;
+    t_camera *elem;
 
-    if (null_term_tab_len((void **) tab) != 3)
+    if (null_term_tab_len((void **) tab) != 4)
         return NULL;
-    elem = ft_calloc(1, sizeof(t_mood_light));
+    elem = ft_calloc(1, sizeof(t_camera));
     if (!elem)
         return NULL;
-    elem->rat = get_ratio(tab[1]);
-    elem->color = get_rgb(tab[2]);
-    if (elem->color < 0 || elem->rat < 0)
+    elem->fov = get_fov(tab[3]);
+    if (elem->fov < 0 || !get_point(tab[1], &elem->p) || !get_vec(tab[2], &elem->vec))
     {
-        //todo
-        // free(elem);
-        // return NULL;
+        free(elem);
+        return NULL;
     }
     ft_glstadd_back(garbage, ft_glstnew(elem, free));
     return elem;
