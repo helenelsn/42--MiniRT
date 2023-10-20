@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_glstsize.c                                       :+:      :+:    :+:   */
+/*   ft_vlstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "../../inc/mini_rt.h"
 
-int	ft_glstsize(t_glist *lst)
+int	ft_vlstsize(t_vlist *lst)
 {
 	int	i;
 

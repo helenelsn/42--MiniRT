@@ -6,13 +6,13 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 01:29:43 by srapin            #+#    #+#             */
-/*   Updated: 2023/10/19 18:04:43 by srapin           ###   ########.fr       */
+/*   Updated: 2023/10/19 22:46:31 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/mini_rt.h"
 
-t_cylindre *create_cylindre(char **tab, t_glist **garbage)
+t_cylindre *create_cylindre(char **tab, t_vlist **garbage, t_parsing_data *data)
 {
     t_cylindre *elem;
 
@@ -29,6 +29,7 @@ t_cylindre *create_cylindre(char **tab, t_glist **garbage)
         free(elem);
         return NULL;
     }
-    ft_glstadd_back(garbage, ft_glstnew(elem, free));
+    ft_vlstadd_back(garbage, ft_vlstnew(elem, free, cylindre));
+    ft_vlstadd_back(&data->obj, ft_vlstnew(elem, free, cylindre));
     return elem;
 }

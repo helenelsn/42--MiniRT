@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_glstclear.c                                      :+:      :+:    :+:   */
+/*   ft_vlstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,15 +12,15 @@
 
 #include "../../inc/mini_rt.h"
 
-void	ft_glstclear(t_glist **lst)
+void	ft_vlstclear(t_vlist **lst)
 {
-	t_glist	*tmp;
+	t_vlist	*tmp;
 
 	while (lst && *lst)
 	{
 		tmp = *lst;
 		*lst = (*lst)->next;
-		ft_glstdelone(tmp);
+		ft_vlstdelone(tmp);
 	}
 	lst = NULL;
 }

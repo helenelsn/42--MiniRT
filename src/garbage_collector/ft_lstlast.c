@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_glstlast.c                                       :+:      :+:    :+:   */
+/*   ft_vlstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "../../inc/mini_rt.h"
 
-t_glist	*ft_glstlast(t_glist *lst)
+t_vlist	*ft_vlstlast(t_vlist *lst)
 {
 	while (lst && lst->next)
 		lst = lst->next;

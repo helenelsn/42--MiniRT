@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_glstadd_front.c                                  :+:      :+:    :+:   */
+/*   ft_vlstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "../../inc/mini_rt.h"
 
-void	ft_glstadd_front(t_glist **lst, t_glist *new)
+void	ft_vlstadd_front(t_vlist **lst, t_vlist *new)
 {
 	new->next = *lst;
 	*lst = new;

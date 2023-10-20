@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_glstiter.c                                       :+:      :+:    :+:   */
+/*   ft_vlstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "../../inc/mini_rt.h"
 
-void	ft_glstiter(t_glist *lst, void (*f)(void *))
+void	ft_vlstiter(t_vlist *lst, void (*f)(void *))
 {
 	while (lst)
 	{

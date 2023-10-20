@@ -6,20 +6,20 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:23 by srapin            #+#    #+#             */
-/*   Updated: 2023/10/19 17:57:33 by srapin           ###   ########.fr       */
+/*   Updated: 2023/10/19 23:25:17 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/mini_rt.h"
 
 
-void parse_error_occured(t_parse_error e, t_glist **garbage, int fd)
+void parse_error_occured(t_parse_error e, t_vlist **garbage, int fd)
 {
     ft_printf("Error %d\n", e);
     if (fd > -1)
         close(fd);
     if (garbage)
-        ft_glstclear(garbage);
+        ft_vlstclear(garbage);
     exit(EXIT_FAILURE);
 }
 
@@ -63,23 +63,23 @@ int null_term_tab_len(void **tab)
     return i;
 }
 
-void *get_obj(char **tab, t_glist **garbage, int fd)
+void *add_obj(char **tab, t_vlist **garbage, int fd, t_parsing_data *data)
 {
     void *elem;
     elem = NULL;
     
     if (ft_strisequal(tab[0], "A"))
-        elem = create_mood_light(tab, garbage);
+        elem = create_mood_light(tab, garbage, data);
     else if (ft_strisequal(tab[0], "C"))
-        elem = create_camera(tab, garbage);
+        elem = create_camera(tab, garbage, data);
     else if (ft_strisequal(tab[0], "L"))
-        elem = create_light(tab, garbage);
+        elem = create_light(tab, garbage, data);
     else if (ft_strisequal(tab[0], "sp"))
-        elem = create_sphere(tab, garbage);
+        elem = create_sphere(tab, garbage, data);
     else if (ft_strisequal(tab[0], "pl"))
-        elem = create_plan(tab, garbage);
+        elem = create_plan(tab, garbage, data);
     else if (ft_strisequal(tab[0], "cy"))
-        elem = create_cylindre(tab, garbage);
+        elem = create_cylindre(tab, garbage, data);
     else
         parse_error_occured(file_content, garbage, fd);
     if (!elem)
@@ -87,7 +87,7 @@ void *get_obj(char **tab, t_glist **garbage, int fd)
     return elem;
 }
 
-void parse_and_create(int fd, t_glist **garbage)
+void parse_and_create(int fd, t_vlist **garbage, t_parsing_data *data)
 {
     char *line;
     char **sp_line;
@@ -99,29 +99,29 @@ void parse_and_create(int fd, t_glist **garbage)
     while (line)
     {
         sp_line = ft_split(line, ' ');
-        ft_glstadd_back(garbage, ft_glstnew(sp_line, free_tab)); 
+        ft_vlstadd_back(garbage, ft_vlstnew(sp_line, free_tab, 0)); 
         free(line);
         if (!sp_line || !sp_line[0])
             parse_error_occured(file_content, garbage, fd);
-        get_obj(sp_line, garbage, fd);
+        add_obj(sp_line, garbage, fd, data);
         line = get_next_line(fd);
         printf("%s", line);
     }
     close(fd);
-    ft_glstclear(garbage);
+    // ft_vlstclear(garbage);
 }
 
 
-t_parse_error parse(int ac, char **av, t_glist **garbage)
+t_parse_error parse(int ac, char **av, t_vlist **garbage, t_parsing_data *data)
 {
     int fd;
 
     if (ac < 2)
 	{
         parse_error_occured(invalid_args_nb, garbage, -1);
-		
 	}
+    ft_memset(data, 0, sizeof(t_parsing_data));
     fd = get_file(av[1]);
-    parse_and_create(fd, garbage);
+    parse_and_create(fd, garbage, data);
     return none;
 }

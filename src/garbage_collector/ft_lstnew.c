@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_glstnew.c                                        :+:      :+:    :+:   */
+/*   ft_vlstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,15 +12,16 @@
 
 #include "../../inc/mini_rt.h"
 
-t_glist	*ft_glstnew(void * content, void foo(void *))
+t_vlist	*ft_vlstnew(void * content, void foo(void *), t_type t)
 {
-	t_glist	*new_lst;
+	t_vlist	*new_lst;
 
-	new_lst = malloc(sizeof(t_glist));
+	new_lst = malloc(sizeof(t_vlist));
 	if (!new_lst)
 		return (NULL);
 	new_lst->next = NULL;
 	new_lst->content = content;
 	new_lst->free_foo = foo;
+	new_lst->type = t;
 	return (new_lst);
 }
