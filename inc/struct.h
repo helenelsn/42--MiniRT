@@ -3,16 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/10/20 18:24:25 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/10/21 00:14:12 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 #define STRUCT_H
 #include "mini_rt.h"
+
+
+# define T_INF 0.00001 //new
+
+typedef struct s_point2d
+{
+    double x;
+    double y;
+} t_point_2d;
 
 typedef struct s_point_3d
 {
@@ -72,8 +81,8 @@ typedef struct s_mood_light
 typedef struct s_light
 {
     t_point_3d p;
-    double rat;
     int color;
+    double rat;
     double intensity;
 }   t_light;
 

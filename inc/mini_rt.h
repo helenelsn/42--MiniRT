@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_rt.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:13 by srapin            #+#    #+#             */
-/*   Updated: 2023/10/20 17:43:57 by srapin           ###   ########.fr       */
+/*   Updated: 2023/10/20 23:59:24 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,13 @@
 #define WINDOWS_HEIGHT 1500
 #define WINDOWS_WIDHT 1500
 
+typedef struct s_image
+{
+	void			*img;
+	char			*addr;
+	int				bpp;
+	int				line_length;
+	int				endian;
+}					t_image;
 
 #endif
