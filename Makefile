@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: srapin <srapin@student.42.fr>              +#+  +:+       +#+         #
+#    By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 22:16:42 by srapin            #+#    #+#              #
-#    Updated: 2023/10/19 01:55:52 by srapin           ###   ########.fr        #
+#    Updated: 2023/10/20 15:28:19 by hlesny           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ FILES = \
 		garbage_collector/ft_lstdelone\
 		garbage_collector/ft_lstclear\
 		garbage_collector/ft_lstiter \
+		trace_rays/trace_ray \ #new 
 		utils/atof \
 		utils/fov \
 		utils/ft_strcheck \

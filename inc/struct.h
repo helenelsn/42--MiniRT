@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/10/19 01:29:22 by srapin           ###   ########.fr       */
+/*   Updated: 2023/10/20 16:05:24 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,13 @@ typedef enum e_parse_error
     
 } t_parse_error;
 
+
+
 typedef struct s_mood_light
 {
     int color;
     double rat;
+    double intensity;
 }   t_mood_light;
 
 typedef struct s_light
@@ -56,6 +59,7 @@ typedef struct s_light
     t_point_3d p;
     double rat;
     int color;
+    double intensity;
 }   t_light;
 
 typedef struct s_sphere

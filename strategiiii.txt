@@ -1,0 +1,24 @@
+Structures :
+- Prendre en compte, pour chaque objet modelise : 
+    - son taux de reflexion
+    - de transparence
+    -  
+
+Fonctions :
+
+- Resolution des intersections droite-sphere/plan/cylindre/Cone/Hyperboloid/Paraboloid
+- Produit scalaire
+- Produit vectoriel (calcul de la normale a un plan a l aide de ses deux vecteurs generateurs notamment)
+- Computation de la couleur et l intensite lumineuse pour chaque light ray touchant un 
+  objet (ou aucun objet a l infini)
+- Computation des reflections (3), ie implementer une fonction recursive s aidant du point precedent
+- Computation des ombres
+
+
+
+For each pixel on the screen :
+-   Canvas-to-vieport function : translater les coordonnees utilisees 
+    (si a mis l'origine (ie la camera) au centre de l ecran par ex) en celles
+    de l ecran (ie origine en haut a gauche, axe y positif vers le bas)
+
+- Modeliser anneau de moebius ?? please please please
