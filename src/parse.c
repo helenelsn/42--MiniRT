@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:23 by srapin            #+#    #+#             */
-/*   Updated: 2023/10/19 22:50:18 by srapin           ###   ########.fr       */
+/*   Updated: 2023/10/19 23:25:17 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void parse_and_create(int fd, t_vlist **garbage, t_parsing_data *data)
         printf("%s", line);
     }
     close(fd);
-    ft_vlstclear(garbage);
+    // ft_vlstclear(garbage);
 }
 
 
