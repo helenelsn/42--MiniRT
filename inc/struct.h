@@ -6,7 +6,7 @@
 /*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/10/21 00:14:12 by Helene           ###   ########.fr       */
+/*   Updated: 2023/10/22 13:36:06 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,32 +73,48 @@ typedef enum e_parse_error
 
 typedef struct s_mood_light
 {
-    int color;
-    double rat;
-    double intensity;
+    int     color;
+    double  ratio;
+    double  intensity;
 }   t_mood_light;
 
 typedef struct s_light
 {
     t_point_3d p;
-    int color;
-    double rat;
-    double intensity;
+    int     color;
+    double  ratio;
+    double  intensity;
 }   t_light;
+
+// si jamais a d'autres choses en commun par la suite
+typedef struct  s_raytracing_material
+{
+    int color;
+}               t_raytracing_material;
 
 typedef struct s_sphere
 {
-    t_point_3d p;
-    double diam;
-    int color;
+    t_point_3d              p;
+    double                  radius;
+    t_raytracing_material   material;
 }   t_sphere;
 
 typedef struct s_plan
 {
-    t_point_3d p;
-    t_vec_3d    vec;
-    int         color;
+    t_point_3d              p; // pas défini par 2 vecteurs plutot ?
+    t_vec_3d                vec;
+    t_raytracing_material   material;
 }   t_plan;
+
+typedef struct s_cylindre
+{
+    t_point_3d p;
+    t_vec_3d                vec;
+    double                  radius;
+    double                  height;
+    t_raytracing_material   material;
+    
+}   t_cylindre;
 
 typedef struct s_frame
 {
@@ -110,29 +126,19 @@ typedef struct s_frame
 
 }   t_frame;
 
-typedef struct s_cylindre
-{
-    t_point_3d p;
-    t_vec_3d    vec;
-    double      diam;
-    double      height;
-    int         color;
-    
-}   t_cylindre;
-
 typedef struct s_camera
 {
     t_point_3d p;
-    t_vec_3d    vec;
+    t_vec_3d    direction;
     int         fov;
 }   t_camera;
 
 typedef struct s_parsing_data
 {
     t_camera *cam;
-    t_mood_light *moo;
-    t_light *lig;
-    t_vlist *obj;
+    t_mood_light *mooooo;
+    t_light *lights;
+    t_vlist *objects;
 } t_parsing_data;
 
 typedef struct s_app

@@ -6,7 +6,7 @@
 /*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 15:27:01 by hlesny            #+#    #+#             */
-/*   Updated: 2023/10/21 00:46:32 by Helene           ###   ########.fr       */
+/*   Updated: 2023/10/21 14:32:10 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,15 @@ double get_intersections(t_point_3d origin, t_point_3d p, t_vlist *obj)
 }
 
 /* Avoir un tableau de tmin tmax correspondant à chaque forme geometrique */
+/* trace_ray() : given a ray, returns the color of the light coming from its direction*/
+
+/* 
+typedef struct  s_ray
+{
+    t_point_3d  origin; // camera position
+    t_vec_3d    direction; // viewpoint - ray.origin
+}               t_ray;              
+*/
 int    trace_ray(t_vlist *obj, double t_min, double t_max)
 {
     t_vlist *curr;
@@ -101,7 +110,8 @@ int    trace_ray(t_vlist *obj, double t_min, double t_max)
         accede directement a la fonction via tab_fct[type] 
         */
        /* peut avoir plusieurs intersections selon la forme géometrique,
-          il faudra adapter ce code en conséquence */
+          il faudra adapter ce code en conséquence 
+          -> retourner un tableau de double t et non un unique double t*/
         t_temp = get_intersection(obj);
         if (t_temp > t_min && t_temp < t_max && t_temp < t)
         {
@@ -116,6 +126,12 @@ int    trace_ray(t_vlist *obj, double t_min, double t_max)
     return (closest_shape->color);
 }
 
+/* O represents the origin of the ray; 
+although we’re tracing rays from the camera, 
+which is placed at the origin, this won’t necessarily be the case in later stages, 
+so it has to be a parameter. 
+The same applies to t_min and t_max. 
+*/
 void    compute_image(t_vlist *obj)
 {
     int x;
