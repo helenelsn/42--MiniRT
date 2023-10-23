@@ -6,11 +6,11 @@
 /*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 23:02:48 by Helene            #+#    #+#             */
-/*   Updated: 2023/10/23 15:35:48 by Helene           ###   ########.fr       */
+/*   Updated: 2023/10/23 20:33:19 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../inc/struct.h"
+#include "../../inc/mini_rt.h"
 
 /* Add a function to normalise a vector ? */
 
@@ -38,12 +38,15 @@ t_point_2d  canvas_to_screen(t_point_2d c)
 
 /* Computes the height and width of the viewpoint, as well as the
 distance Camera-Viewpoint according to the field of view (FOV) parameter*/
-double    *get_viewpoint_dimensions(float fov)
-{
-    double viewpoint[2];
 
-    /* Calcule uniquement le width a partir du fov car il s'agit du fov horizontal */
-    viewpoint[0] = FOCUS_DIST * tan(fov * 0.5f * DEG_TO_RAD) * 2; /* Width */
-    viewpoint[1] = viewpoint[0] * SCREEN_RATIO; /* Height */
-    return (viewpoint);
-}
+//->>>>>>commenter pour compilation (todo add garbage et malloc le tableau ou prendre le tab en argument)
+
+// double    *get_viewpoint_dimensions(float fov)
+// {
+//     double viewpoint[2];
+
+
+//     viewpoint[0] = FOCUS_DIST * tan(fov * 0.5f * DEG_TO_RAD) * 2; /* Width */
+//     viewpoint[1] = viewpoint[0] * SCREEN_RATIO; /* Height */
+//     return (viewpoint);
+// }

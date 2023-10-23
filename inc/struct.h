@@ -6,13 +6,13 @@
 /*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/10/23 15:33:42 by Helene           ###   ########.fr       */
+/*   Updated: 2023/10/23 20:30:27 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 #define STRUCT_H
-#include "mini_rt.h"
+// #include "mini_rt.h"
 
 
 # define T_INF 0.00001 //new
@@ -73,27 +73,29 @@ typedef enum e_parse_error
 } t_parse_error;
 
 
+typedef struct  s_raytracing_material
+{
+    int color;
+}               t_raytracing_material;
 
 typedef struct s_mood_light
 {
-    int     color;
+    // int     color;
     double  ratio;
     double  intensity;
+    t_raytracing_material   material;
 }   t_mood_light;
+
 
 typedef struct s_light
 {
     t_point_3d p;
-    int     color;
+    t_raytracing_material   material;
     double  ratio;
     double  intensity;
 }   t_light;
 
 // si jamais a d'autres choses en commun par la suite
-typedef struct  s_raytracing_material
-{
-    int color;
-}               t_raytracing_material;
 
 typedef struct s_sphere
 {
