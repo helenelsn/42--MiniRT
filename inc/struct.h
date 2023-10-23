@@ -6,7 +6,7 @@
 /*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/10/22 13:36:06 by Helene           ###   ########.fr       */
+/*   Updated: 2023/10/23 15:33:42 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ typedef struct s_point2d
     double y;
 } t_point_2d;
 
+/* aura besoin de vecteurs 2d aussi ? */
+
 typedef struct s_point_3d
 {
     double x;
@@ -36,6 +38,7 @@ typedef struct s_vec_3d
     double x;
     double y;
     double z;
+    double norm; /* ca fait tout couiller ?*/
 } t_vec_3d;
 
 typedef enum e_type
@@ -115,6 +118,60 @@ typedef struct s_cylindre
     t_raytracing_material   material;
     
 }   t_cylindre;
+
+typedef struct  s_hyperboloid
+{
+    
+    t_raytracing_material   material;
+}               t_hyperboloid;
+
+typedef struct  s_paraboloid
+{
+    
+    t_raytracing_material   material;
+}               t_paraboloid;
+
+typedef struct  s_disk
+{
+    t_point_3d  center;
+    double      radius;
+}              t_disk;
+
+typedef struct  s_cone
+{
+    t_disk                  base;
+    double                  height;
+    double                  slant_height; /* hauteur oblique, calculée avec pythagore */
+    t_vec_3d                orientation; // ou direction
+    t_raytracing_material   material;
+}               t_cone;
+
+/* forme de la section résultant de la coupe
+du tore/toroid 
+s'en blc en vrai non ? fera que avec des cercles
+et basta */
+enum    e_section_type
+{
+    circle,
+    rectangle   
+}       t_section_type;
+
+typedef struct  s_toroid
+{
+    t_section_type          type; // ?
+    t_point_2d              center;
+    t_disk                  section_infos; // ?
+    t_raytracing_material   material;
+}               t_toroid;
+
+typedef struct  s_moebius
+{
+    double                  twists_count;
+    /* quoi d'autre pour le définir ? */
+    t_raytracing_material   material;
+}               t_moebius;
+
+
 
 typedef struct s_frame
 {

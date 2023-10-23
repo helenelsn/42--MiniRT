@@ -6,7 +6,7 @@
 /*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:13 by srapin            #+#    #+#             */
-/*   Updated: 2023/10/20 23:59:24 by Helene           ###   ########.fr       */
+/*   Updated: 2023/10/23 15:30:39 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@
 #define EXIT_FAILURE 1
 #define WINDOWS_HEIGHT 1500
 #define WINDOWS_WIDHT 1500
+
+# define SCREEN_WIDTH   1400.0
+# define SCREEN_HEIGHT  800.0
+# define SCREEN_RATIO  16/9
+# define FOCUS_DIST 1
+# define DEG_TO_RAD 180/M_PI 
 
 typedef struct s_image
 {

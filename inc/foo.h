@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   foo.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/10/19 22:43:36 by srapin           ###   ########.fr       */
+/*   Updated: 2023/10/23 15:31:26 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ t_light *create_light(char **tab, t_vlist **garbage, t_parsing_data *data);
 t_mood_light *create_mood_light(char **tab, t_vlist **garbage, t_parsing_data *data);
 t_plan *create_plan(char **tab, t_vlist **garbage, t_parsing_data *data);
 t_sphere *create_sphere(char **tab, t_vlist **garbage, t_parsing_data *data);
+
+void    compute_image(t_vlist *obj);
 
 
 #endif

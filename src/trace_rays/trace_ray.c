@@ -6,7 +6,7 @@
 /*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 15:27:01 by hlesny            #+#    #+#             */
-/*   Updated: 2023/10/21 14:32:10 by Helene           ###   ########.fr       */
+/*   Updated: 2023/10/23 14:34:35 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ t_vec_3d get_directional_vect(t_point_3d a, t_point_3d b)
     u.x = b.x - a.x;
     u.y = b.y - a.y;
     u.z = b.z - a.z;
+    u.norm = sqrt(pow(u.x, 2) + pow(u.y, 2) + pow(u.z, 2));
     return (u);
 }
 
@@ -154,3 +155,48 @@ void    compute_image(t_vlist *obj)
     }
     /* put image to window */
 }
+
+/* -------------- Get normal vectors --------------- */
+
+void    normalise(t_vec_3d *v)
+{
+    v->x /= v->norm;
+    v->y /= v->norm;
+    v->z /= v->norm;
+    v->norm = 1;
+}
+
+t_vec_3d    normal_to_sphere(t_sphere sp, t_point_3d p)
+{
+    return (normalise(&get_directional_vect(sp.p, p)));
+}
+
+t_vec_3d normal_to_plane(t_plan pl, t_point_3d p)
+{
+    
+}
+
+t_vec_3d normal_to_cylinder(t_cylindre cy, t_point_3d p)
+{
+    
+}
+
+t_vec_3d normal_to_cone(t_cone cone, t_point_3d p)
+{
+    
+}
+
+// t_vec_3d normal_to_(, t_point_3d p)
+// {
+    
+// }
+
+// t_vec_3d normal_to_(, t_point_3d p)
+// {
+    
+// }
+
+// t_vec_3d normal_to_(, t_point_3d p)
+// {
+    
+// }
