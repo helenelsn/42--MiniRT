@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: Helene <Helene@student.42.fr>              +#+  +:+       +#+         #
+#    By: srapin <srapin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 22:16:42 by srapin            #+#    #+#              #
-#    Updated: 2023/10/20 23:03:46 by Helene           ###   ########.fr        #
+#    Updated: 2023/10/23 17:59:42 by srapin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,8 +30,6 @@ FILES = \
 		garbage_collector/ft_lstdelone\
 		garbage_collector/ft_lstclear\
 		garbage_collector/ft_lstiter \
-		trace_rays/convert \ #new
-		trace_rays/trace_ray \ #new 
 		utils/atof \
 		utils/fov \
 		utils/ft_strcheck \
@@ -41,6 +39,9 @@ FILES = \
 		utils/vec3d \
 		main\
 		parse\
+		# trace_rays/trace_ray \
+		# trace_rays/convert \ 
+
 		
 	
 SRCS_DIR = src
@@ -74,6 +75,7 @@ bonus: $(NAME)
 ${OBJS_DIR}/%.o: ${SRCS_DIR}/%.c 
 	@mkdir -p $(OBJS_DIR)
 	@mkdir -p $(OBJS_DIR)/create_elem
+	@mkdir -p $(OBJS_DIR)/trace_rays
 	@mkdir -p $(OBJS_DIR)/garbage_collector
 	@mkdir -p $(OBJS_DIR)/utils
 	$(CC) $(CFLAGS) -o $@ -c $<
