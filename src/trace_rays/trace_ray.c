@@ -6,11 +6,12 @@
 /*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 15:27:01 by hlesny            #+#    #+#             */
-/*   Updated: 2023/10/23 14:34:35 by Helene           ###   ########.fr       */
+/*   Updated: 2023/10/23 20:37:39 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/struct.h"
+#include "../../inc/mini_rt.h"
 
 /* Reflectiveness : assign a number between 0
  and 1 to every surface, specifying how reflective it is.
