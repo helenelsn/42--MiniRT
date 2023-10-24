@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   foo.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/10/23 20:30:40 by Helene           ###   ########.fr       */
+/*   Updated: 2023/10/24 19:21:24 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,8 @@ t_sphere *create_sphere(char **tab, t_vlist **garbage, t_parsing_data *data);
 
 void    compute_image(t_vlist *obj);
 
+double vec_x_vec_scal(t_vec_3d v, t_vec_3d w);
+
+double norm(t_vec_3d v);
 
 #endif
