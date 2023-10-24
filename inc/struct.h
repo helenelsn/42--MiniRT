@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/10/23 20:30:27 by Helene           ###   ########.fr       */
+/*   Updated: 2023/10/24 18:59:39 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ typedef struct s_sphere
 
 typedef struct s_plan
 {
-    t_point_3d              p; // pas défini par 2 vecteurs plutot ?
+    t_point_3d              p; // pas défini par 2 vecteurs plutot ? -> 
     t_vec_3d                vec;
     t_raytracing_material   material;
 }   t_plan;
@@ -152,7 +152,7 @@ typedef struct  s_cone
 du tore/toroid 
 s'en blc en vrai non ? fera que avec des cercles
 et basta */
-enum    e_section_type
+typedef enum e_section_type
 {
     circle,
     rectangle   

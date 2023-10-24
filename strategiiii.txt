@@ -7,11 +7,11 @@ Structures :
 Fonctions :
 
 // - Compute la distance d au viewport, ainsi que la hauteur et largeur du viewport,
-  a partir du FOV 
+  a partir du FOV ->ln
 
-- Resolution des intersections droite-sphere/plan/cylindre/Cone/Hyperboloid/Paraboloid
-- Produit scalaire
-- Produit vectoriel (calcul de la normale a un plan a l aide de ses deux vecteurs generateurs notamment)
+- Resolution des intersections droite-sphere/plan/cylindre/Cone/Hyperboloid/Paraboloid -
+- Produit scalaire -> suz
+- Produit vectoriel (calcul de la normale a un plan a l aide de ses deux vecteurs generateurs notamment) ->suz
 - Computation de la couleur et l intensite lumineuse pour chaque light ray touchant un 
   objet (ou aucun objet a l infini)
 - Fonction qui calcule, pour chaque forme géométrique pour un point P donné sur sa surface,
