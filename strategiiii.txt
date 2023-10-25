@@ -10,15 +10,14 @@ Fonctions :
   a partir du FOV ->ln
 
 - Resolution des intersections droite-sphere/plan/cylindre/Cone/Hyperboloid/Paraboloid -
-- Produit scalaire -> suz
-- Produit vectoriel (calcul de la normale a un plan a l aide de ses deux vecteurs generateurs notamment) ->suz
+      - sphere ->suz
 - Computation de la couleur et l intensite lumineuse pour chaque light ray touchant un 
   objet (ou aucun objet a l infini)
 - Fonction qui calcule, pour chaque forme géométrique pour un point P donné sur sa surface,
   la normale à ce point
 - Computation des reflections (3), ie implementer une fonction recursive s aidant du point precedent
 - Computation des ombres
-
+-mlx création
 
 
 For each pixel on the screen :
@@ -26,9 +25,12 @@ For each pixel on the screen :
     Compute, for each pixel on of the screen, the corresponding point on the viewport. 
     translater les coordonnees utilisees 
     (si a mis l'origine (ie la camera) au centre de l ecran par ex) en celles
-    de l ecran (ie origine en haut a gauche, axe y positif vers le bas)
+    de l ecran (ie origine en haut a gauche, axe y positif vers le bas) 
+          -> on fais ça ou yolo on gere la géométrie dans l'espace
     ->  compute the intersections of the ray and each sphere, 
         keep the intersection closest to the camera, 
         and paint the pixel on the canvas with the appropriate color.
 
 - Modeliser anneau de moebius ?? please please please
+
+

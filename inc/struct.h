@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/10/24 18:59:39 by srapin           ###   ########.fr       */
+/*   Updated: 2023/10/25 10:23:55 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ typedef struct s_point2d
     double y;
 } t_point_2d;
 
-/* aura besoin de vecteurs 2d aussi ? */
+/* aura besoin de vecteurs 2d aussi ?  no idea*/
 
 typedef struct s_point_3d
 {
@@ -32,13 +32,17 @@ typedef struct s_point_3d
     double z;
 } t_point_3d;
 
+typedef struct s_droite
+{
+    
+} t_droite;
 
 typedef struct s_vec_3d
 {
     double x;
     double y;
     double z;
-    double norm; /* ca fait tout couiller ?*/
+    double norm; /* ca fait tout couiller ? pense oas juste a ajouter dans la construction*/
 } t_vec_3d;
 
 typedef enum e_type
@@ -177,6 +181,7 @@ typedef struct  s_moebius
 
 typedef struct s_frame
 {
+     // pas sur que c'est le meilleur moyen de rpz
     t_plan plan;
     t_point_3d c0;
     t_point_3d c1;
