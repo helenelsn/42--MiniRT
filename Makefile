@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: srapin <srapin@student.42.fr>              +#+  +:+       +#+         #
+#    By: Helene <Helene@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 22:16:42 by srapin            #+#    #+#              #
-#    Updated: 2023/10/23 17:59:42 by srapin           ###   ########.fr        #
+#    Updated: 2023/10/26 00:08:00 by Helene           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,8 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g3
 
 FILES = \
+		bsp/bottom_up_bsp \
+		bsp/search \
 		create_elem/cr_camera\
 		create_elem/cr_cylindre\
 		create_elem/cr_light\
