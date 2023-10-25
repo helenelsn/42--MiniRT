@@ -19,6 +19,8 @@ Fonctions :
 - Computation des ombres
 - mlx création
 - implémenter bsp -> ln (ou tu veux le faire ?)
+- Implementer les matrices + surcharge operateurs opérations de base pour matrices 
+  (addition, soustraction, multiplication) pour les transformations a effectuer (rotation, zoom, etc....)
 
 
 For each pixel on the screen :
