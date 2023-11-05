@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "mini_rt.h": "c",
-        "space_partioning.C": "cpp"
+        "space_partioning.C": "cpp",
+        "bsp.h": "c"
     }
 }

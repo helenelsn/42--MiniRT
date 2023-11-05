@@ -1,0 +1,2 @@
+- Implementer le calcul des bounding boxes pour chaque type d'objet
+- Calculer le nombre d'objets se trouvant à gauche et/ou à droite d'un plan séparateur
