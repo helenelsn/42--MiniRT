@@ -6,7 +6,7 @@
 /*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 15:35:11 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/04 13:14:56 by Helene           ###   ########.fr       */
+/*   Updated: 2023/11/06 01:46:07 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,13 @@ double  ft_max(double a, double b)
     return (b);
 }
 
+void    set_point(t_point_3d *p, double x, double y, double z)
+{
+    p->x = x;
+    p->y = y;
+    p->z = z;
+}
+
 t_point_3d double_to_point(double a)
 {
     t_point_3d p;
@@ -46,6 +53,17 @@ t_point_3d  points_addition(t_point_3d *p1, t_point_3d *p2)
     new.y = p1->y + p2->y;
     new.z = p1->z + p2->z;
     return (new);
+}
+
+t_vec_3d vectors_addition(t_vec_3d u, t_vec_3d v)
+{
+    t_vec_3d w;
+
+    w.x = u.x + v.x;
+    w.y = u.y + v.y;
+    w.z = u.z + v.z;
+    /* set norm ? */
+    return (w);
 }
 
 void    init_bbox(t_bbox_description *bv)
@@ -84,9 +102,17 @@ void    bbox_add_point(t_bbox_description *bv, t_point_3d p)
     bv->max.z = ft_max(bv->max.z, p.z);
 }
 
+/* to be done at the end : sets the width, height, length and surface_area */
 void    set_infos(t_bbox_description *bv)
 {
     
+}
+
+void    set_bbox(t_bbox_description *bv, t_point_3d min, t_point_3d max)
+{
+    bv->min = min;
+    bv->max = max;
+    set_infos(bv);
 }
 
 void    set_sphere_bbox(t_sphere *sphere)
@@ -97,12 +123,16 @@ void    set_sphere_bbox(t_sphere *sphere)
 
 void    set_cylinder_bbox(t_cylindre *cylinder)
 {
-    
+    bbox_reset(&cylinder->material.bbox, points_addition(cylinder->p, cylinder->radius));
+    bbox_add_point(&cylinder->material.bbox, points_addition(cylinder->p, -(cylinder->radius)));
+    bbox_add_point(&cylinder->material.bbox, points_addition(points_addition(cylinder->p, cylinder->radius), cylinder->height));
 }
 
 void    set_cone_bbox(t_cone *cone)
 {
-    
+    bbox_reset(&cone->material.bbox, points_addition(cone->base.center, cone->base.radius));
+    bbox_add_point(&cone->material.bbox, points_addition(cone->base.center, -(cone->base.radius)));
+    bbox_add_point(&cone->material.bbox, points_addition(cone->base.center, cone->height));
 }
 /*
 For planes, the bounding box will stretch from 
@@ -127,6 +157,38 @@ void    set_bounding_boxes(objects)
             set_cylinder_bbox((*current)->content);
         else if ((*current)->type == cone)
             set_cone_bbox((*current)->content);
+        /* implémenter pour les autres formes plus tard */
         *current = (*current)->next;
     }
+}
+
+void    split_objects(t_bsp_node *parent)
+{
+    
+}
+
+void    split_voxel(t_bsp_node *parent, t_dim dim, double split_coord)
+{
+    t_point_3d l_max;
+    t_point_3d r_min;
+    
+    if (dim == x)
+    {
+        set_point(&l_max, split_coord, parent->bbox.max.y, parent->bbox.max.z);
+        set_point(&r_min, split_coord, parent->bbox.min.y, parent->bbox.min.z);
+    }
+    else if (dim == y)
+    {
+        set_point(&l_max, parent->bbox.max.x, split_coord, parent->bbox.max.z);
+        set_point(&r_min, parent->bbox.min.x, split_coord, parent->bbox.min.z);
+    }
+    else if (dim == z)
+    {
+        set_point(&l_max, parent->bbox.max.x, parent->bbox.max.y, split_coord);
+        set_point(&r_min, parent->bbox.min.x, parent->bbox.min.y, split_coord);
+    }
+    set_bbox(parent->left->bbox, parent->bbox.min, l_max);
+    set_bbox(parent->right->bbox, r_min, parent->bbox.max);
+    
+    split_objects(parent);
 }

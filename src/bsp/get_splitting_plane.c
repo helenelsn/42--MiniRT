@@ -6,7 +6,7 @@
 /*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:51:57 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/03 16:03:07 by Helene           ###   ########.fr       */
+/*   Updated: 2023/11/06 12:22:32 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,6 @@
 #include "../../inc/mini_rt.h"
 #include "../../inc/bsp.h"
 
-double get_voxel_surface_area()
-{
-    
-}
 
 void    bbox_voxel_intersect()
 {
@@ -29,13 +25,30 @@ int     items_count_left_side()
     
 }
 
-/* pondère selon la taille des objets dans le voxel */
-double  get_intersection_cost(t_bbox_description bv)
+bool    is_in_subvoxel(t_bbox_description voxel, t_vlist *object, t_split_infos si)
 {
-    double  sa;
+    if (object->content->material.bbox.min)
+}
 
-    sa = get_voxel_surface_area(); 
-    return (UNITARY_INTERSECT_COST * sa);   
+double  get_object_intersect_cost(t_vlist *object)
+{
+    return (UNITARY_INTERSECT_COST * object->content->material.bbox.surface_area);
+}
+
+/* pondère selon la taille des objets dans le voxel */
+double  get_intersection_cost(t_bsp_node *parent)
+{
+    t_vlist **current;
+    double cost;
+    
+    cost = 0;
+    *current = parent->items;
+    while (*current)
+    {
+        cost += get_object_intersect_cost()
+        *current = (*current)->next;
+    }
+      
 }
 
 double  get_traverse_cost() /* est une constante ou pas ? */
@@ -47,16 +60,21 @@ double  get_traverse_cost() /* est une constante ou pas ? */
 
 Nécessite : le voxel parent, et l'intersection plan séparateur - voxel parent
 */
-double  compute_cost(t_bsp_node *parent_voxel, double dim, double componant, t_bbox_voxel_intersect_info *info, double sa_voxel)
+double  compute_cost(t_bsp_node *parent_voxel, double dim, double componant)
 {
     double  cost;
     double  nb_left;
     double  nb_right;
+    double  sa_left;
+    double  sa_right;
 
     nb_left = items_count_left_side();
     nb_right = parent_voxel->items - nb_left;
-    cost = TRAVERSE_COST + get_intersection_cost() 
-        * (( * nb_left) + ( * nb_right)) / get_voxel_surface_area(parent_voxel);
+    sa_left = ;
+    sa_right = parent_voxel->bbox.surface_area - sa_left;
+    cost = TRAVERSE_COST + 
+        (get_intersection_cost() * (sa_left * nb_left) + 
+        get_intersection_cost() * (sa_right * nb_right)) / get_voxel_surface_area(parent_voxel);
     /* f(x) = Ct + Ci * (( (SAl(x) * Nl(x)) + (SAr(x) * Nr(x)) ) / SAparent) */
     
     /* Pondère le coût pour privilégier de grands voxels vides */
@@ -65,18 +83,6 @@ double  compute_cost(t_bsp_node *parent_voxel, double dim, double componant, t_b
     else
         return (cost);
 }
-
-t_bbox_voxel_intersect_info get_infos(t_bsp_node *voxel, t_dim split_dim, t_bbox_description bbox)
-{
-    
-}
-
-t_plan set_split_plane()
-{
-    
-}
-
-
 
 /* 
 
@@ -99,40 +105,19 @@ void    get_splitting_plane(t_bsp_node *current_node)
     int     i;
     double  curr_cost;
     double  min_cost;
-    t_plan  split_plane;
     t_vlist **curr_obj;
     bool    first;
-    double  sa_voxel;
+    
     
     *curr_obj = current_node->items;
     first = true;
     
     while (*curr_obj) /* itère sur chaque objet dans le voxel parent */
     {
-        i = 0;
-        while (i < 6) /* itère sur les 6 faces de la bounding box de l'objet */
-        {
-            
-            curr_cost = compute_cost(current_node, get_infos(current_node, i % 3, (*curr_obj)->content->material->bbox));
-            if (first)
-            {
-                min_cost = curr_cost;
-                split_plane = set_split_plane();
-                first = false;
-            }
-            else if (curr_cost < min_cost)
-            {
-                min_cost = curr_cost;
-                split_plane = set_split_plane();
-            }
-            i++;
-        }
+        
         *curr_obj = (*curr_obj)->next;
     }
-    current_node->split_plane = split_plane; /* ? */
 }
-
-void    init_bbox(t_bbox_description *bv);
 
 t_bbox_description get_scene_limits(t_vlist *objects)
 {
@@ -163,11 +148,11 @@ t_bbox_description get_scene_limits(t_vlist *objects)
         *current = (*current)->next;
     }
     /* along x */
-    scene_space.length = scene_space.coord[1] = scene_space.coord[0];
+    scene_space.length = scene_space.coord[1] - scene_space.coord[0];
     /* along y */
-    scene_space.height = scene_space.coord[3] = scene_space.coord[2];
+    scene_space.height = scene_space.coord[3] - scene_space.coord[2];
     /* along z */
-    scene_space.width = scene_space.coord[5] = scene_space.coord[4];
+    scene_space.width = scene_space.coord[5] - scene_space.coord[4];
     scene_space.surface_area = 2 * (scene_space.length * scene_space.height +
         scene_space.height * scene_space.width + scene_space.width * scene_space.length);
     return (scene_space);
