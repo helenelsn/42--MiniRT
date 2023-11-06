@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/06 01:06:44 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/06 02:11:23 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // #include "mini_rt.h"
 
 
-# define T_INF 0.00001 //new
+# define T_INF      0.00001 //new
 
 typedef struct s_point2d
 {
@@ -57,7 +57,7 @@ typedef enum e_type
     sphere,
     vec_3d,
     vlist,
-    
+    cone
 } t_type;
 
 typedef struct s_vlist
@@ -77,10 +77,22 @@ typedef enum e_parse_error
     
 } t_parse_error;
 
+/* bounding volume */
+typedef struct  s_bbox_description
+{
+    /* Points ou vecteurs ?? */ 
+    t_point_3d  min;
+    t_point_3d  max;
+    double      width;
+    double      height;
+    double      length;
+    double      surface_area;
+}               t_bbox_description;
 
 typedef struct  s_raytracing_material
 {
-    int color;
+    int         color;
+    t_bbox_description    bbox; /* tout à 0 ou -1 si s'agit d'une source lumineuse ? */
 }               t_raytracing_material;
 
 typedef struct s_mood_light
@@ -99,8 +111,6 @@ typedef struct s_light
     double  ratio;
     double  intensity;
 }   t_light;
-
-// si jamais a d'autres choses en commun par la suite
 
 typedef struct s_sphere
 {
