@@ -6,7 +6,7 @@
 /*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 15:35:11 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/06 01:46:07 by Helene           ###   ########.fr       */
+/*   Updated: 2023/11/06 15:41:20 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,30 +162,105 @@ void    set_bounding_boxes(objects)
     }
 }
 
-void    split_objects(t_bsp_node *parent)
+bool    point_is_in(t_bbox_description bv, t_point_3d p)
 {
-    
+    if (p.x < bv.min[i].x || p.x > bv.max[i].x)
+        return (false);
+    if (p.y < bv.min[i].y || p.y > bv.max[i].y)
+        return (false);
+    if (p.z < bv.min[i].z || p.z > bv.max[i].z)
+        return (false);
 }
 
-void    split_voxel(t_bsp_node *parent, t_dim dim, double split_coord)
+/* 3 cas :
+    - est entièrement dans le voxel
+        ->  voxel.min[i] <= object.min[i], et voxel.max[i] >= object.max[i]
+            -> object.min et object.max sont dans [voxel.min, voxel.max]
+        OU  object.min[i] < voxel.min[i] ET object.max[i] > voxel.max[i]
+            (l'objet englobe le voxel)
+    
+    - est entièrement en dehors du voxel
+        ->  voxel.min[i] > object.max[i], ou object.min[i] > voxel.max[i]
+            -> ni object.min ni object.max ne sont dans [voxel.min, voxel.max]
+    
+    - coupe le voxel
+        ->  object.min[i] < voxel.min[i] et (object.max[i] < object.max[i])
+            OU 
+            object.min[i] > voxel.min[i] et (object.max[i] > object.max[i])
+            -> object.min ou object.max est dans [voxel.min, voxel.max]
+        ->  dans ce cas la : si a plus de la moitié dedans, le prend en compte
+            dans le calcul du cout d'intersection. sinon, non
+*/
+bool    is_in_subvoxel(t_bbox_description *subvoxel, t_vlist *object)
+{
+    int     i;
+    bool    is_in;
+
+    i = 0;
+    is_in = true;
+    while (i < 3)
+    {
+        /* cas ou est entièrement dans le subvoxel */
+        if (point_is_in(subvoxel, object->content.material.bbox.min)
+            && point_is_in(subvoxel, object->content.material.bbox.max))
+            return (true);
+        /* cas ou est entièrement en dehors le subvoxel */
+        if (!point_is_in(subvoxel, object->content.material.bbox.min)
+            && !point_is_in(subvoxel, object->content.material.bbox.max))
+            return (false);
+        /* cas ou coupe le subvoxel */
+        if ((point_is_in(subvoxel, object->content.material.bbox.min)
+            && !point_is_in(subvoxel, object->content.material.bbox.max))
+            || (!point_is_in(subvoxel, object->content.material.bbox.min)
+            && point_is_in(subvoxel, object->content.material.bbox.max)))
+            return (true);
+        i++;
+    }
+    return (is_in);
+}
+
+/* split the objects contained into the parent voxel in the right and left subvoxels*/
+void    split_objects(t_bsp_node *parent, t_split_infos si)
+{
+    t_vlist **curr_obj;
+    int     objects_left;
+
+    *curr_obj = parent->items;
+    while (*curr_obj)
+    {
+        if (is_in_subvoxel(parent->left->bbox, *curr_obj))
+        {
+            /* add item to the left subvoxel */
+            parent->left->items_count++;
+        }
+        if (is_in_subvoxel(parent->right->bbox, *curr_obj));
+        {
+            /* add item to the right subvoxel */
+            parent->right->items_count++;
+        }
+        *curr_obj = (*curr_obj)->next;
+    }
+}
+
+void    split_voxel(t_bsp_node *parent, t_split_infos si)
 {
     t_point_3d l_max;
     t_point_3d r_min;
     
-    if (dim == x)
+    if (si.dim == x)
     {
-        set_point(&l_max, split_coord, parent->bbox.max.y, parent->bbox.max.z);
-        set_point(&r_min, split_coord, parent->bbox.min.y, parent->bbox.min.z);
+        set_point(&l_max, si.split_coord, parent->bbox.max.y, parent->bbox.max.z);
+        set_point(&r_min, si.split_coord, parent->bbox.min.y, parent->bbox.min.z);
     }
-    else if (dim == y)
+    else if (si.dim == y)
     {
-        set_point(&l_max, parent->bbox.max.x, split_coord, parent->bbox.max.z);
-        set_point(&r_min, parent->bbox.min.x, split_coord, parent->bbox.min.z);
+        set_point(&l_max, parent->bbox.max.x, si.split_coord, parent->bbox.max.z);
+        set_point(&r_min, parent->bbox.min.x, si.split_coord, parent->bbox.min.z);
     }
-    else if (dim == z)
+    else if (si.dim == z)
     {
-        set_point(&l_max, parent->bbox.max.x, parent->bbox.max.y, split_coord);
-        set_point(&r_min, parent->bbox.min.x, parent->bbox.min.y, split_coord);
+        set_point(&l_max, parent->bbox.max.x, parent->bbox.max.y, si.split_coord);
+        set_point(&r_min, parent->bbox.min.x, parent->bbox.min.y, si.split_coord);
     }
     set_bbox(parent->left->bbox, parent->bbox.min, l_max);
     set_bbox(parent->right->bbox, r_min, parent->bbox.max);
