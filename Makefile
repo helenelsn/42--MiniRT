@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: Helene <Helene@student.42.fr>              +#+  +:+       +#+         #
+#    By: srapin <srapin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 22:16:42 by srapin            #+#    #+#              #
-#    Updated: 2023/10/26 00:08:00 by Helene           ###   ########.fr        #
+#    Updated: 2023/11/06 00:43:57 by srapin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,6 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g3
 
 FILES = \
-		bsp/bottom_up_bsp \
-		bsp/search \
 		create_elem/cr_camera\
 		create_elem/cr_cylindre\
 		create_elem/cr_light\
@@ -32,6 +30,8 @@ FILES = \
 		garbage_collector/ft_lstdelone\
 		garbage_collector/ft_lstclear\
 		garbage_collector/ft_lstiter \
+		intersection/i_sphere \
+		intersection/i_plan \
 		utils/atof \
 		utils/fov \
 		utils/ft_strcheck \
@@ -41,6 +41,8 @@ FILES = \
 		utils/vec3d \
 		main\
 		parse\
+		# bsp/bottom_up_bsp \
+		# bsp/search \
 		# trace_rays/trace_ray \
 		# trace_rays/convert \ 
 
@@ -79,6 +81,7 @@ ${OBJS_DIR}/%.o: ${SRCS_DIR}/%.c
 	@mkdir -p $(OBJS_DIR)/create_elem
 	@mkdir -p $(OBJS_DIR)/trace_rays
 	@mkdir -p $(OBJS_DIR)/garbage_collector
+	@mkdir -p $(OBJS_DIR)/intersection
 	@mkdir -p $(OBJS_DIR)/utils
 	$(CC) $(CFLAGS) -o $@ -c $<
 

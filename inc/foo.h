@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/10/24 19:21:24 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/06 00:39:39 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,9 @@ void    compute_image(t_vlist *obj);
 double vec_x_vec_scal(t_vec_3d v, t_vec_3d w);
 
 double norm(t_vec_3d v);
+
+
+void    get_inter_for_sphere(t_sphere *elem, t_droite d);
+void    get_inter_for_plan(t_plan *p, t_droite d);
 
 #endif
