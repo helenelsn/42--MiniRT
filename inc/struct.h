@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/10/25 10:23:55 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/06 01:06:44 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,6 @@ typedef struct s_point_3d
     double z;
 } t_point_3d;
 
-typedef struct s_droite
-{
-    
-} t_droite;
 
 typedef struct s_vec_3d
 {
@@ -45,6 +41,11 @@ typedef struct s_vec_3d
     double norm; /* ca fait tout couiller ? pense oas juste a ajouter dans la construction*/
 } t_vec_3d;
 
+typedef struct s_droite
+{
+    t_point_3d p;
+    t_vec_3d v;
+} t_droite;
 typedef enum e_type
 {
     camera,
@@ -113,11 +114,15 @@ typedef struct s_plan
     t_point_3d              p; // pas défini par 2 vecteurs plutot ? -> 
     t_vec_3d                vec;
     t_raytracing_material   material;
+    double a;
+    double b;
+    double c;
+    double d;
 }   t_plan;
 
 typedef struct s_cylindre
 {
-    t_point_3d p;
+    t_point_3d              p;
     t_vec_3d                vec;
     double                  radius;
     double                  height;

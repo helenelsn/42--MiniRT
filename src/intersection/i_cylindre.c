@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   i_sphere.c                                         :+:      :+:    :+:   */
+/*   i_cylindre.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/25 10:19:12 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/06 00:43:37 by srapin           ###   ########.fr       */
+/*   Created: 2023/11/06 00:52:41 by srapin            #+#    #+#             */
+/*   Updated: 2023/11/06 00:54:00 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/mini_rt.h"
+#include "../../mini_rt.h"
 
-void    get_inter_for_sphere(t_sphere *s, t_droite d)
+
+void    get_inter_for_cylindre(t_cylindre *c, t_droite d)
 {
     // 
     // t_sphere *s;
