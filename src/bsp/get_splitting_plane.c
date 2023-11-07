@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_splitting_plane.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:51:57 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/07 19:32:31 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/08 00:03:31 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,19 @@
 #include "../../inc/bsp.h"
 
 
-void    bbox_voxel_intersect()
+int     items_count_subvoxel(t_bsp_node *voxel, t_bbox_description subvoxel)
 {
-    
-}
+    int     count;
+    t_vlist *current;
 
-int     items_count_left_side()
-{
-    return 0;
+    count = 0;
+    current = voxel->items;
+    while(current)
+    {
+        if (is_in_subvoxel(subvoxel, current))
+            count++;
+        current = current->next;
+    }
 }
 
 double  get_object_intersect_cost(t_vlist *object)
@@ -32,7 +37,7 @@ double  get_object_intersect_cost(t_vlist *object)
     return (UNITARY_INTERSECT_COST * object->material.bbox.surface_area);
 }
 
-double get_voxel_intersection_cost(t_bsp_node *voxel)
+double get_object_list_intersection_cost(t_bsp_node *voxel)
 {
     t_vlist *current;
     double cost;
@@ -59,50 +64,33 @@ double  get_intersection_cost(t_bsp_node *parent, t_split_infos si, bool left_su
     subvoxel = get_temp_subvoxel(parent, si, left_subvoxel);
     while (current)
     {
-        if (is_in_subvoxel(subvoxel, current))
+        if (is_in_subvoxel(subvoxel, current) && count_in_cost(subvoxel, current))
             cost += get_object_intersect_cost(current);
         current = (current)->next;
     }
     return (cost);
 }
 
-// double  get_traverse_cost() /* est une constante ou pas ? */
-// {
-    
-// }
-
-double  get_sa_subvoxel(t_bbox_description parent, t_split_infos si, bool left_subvoxel)
-{
-    double sa;
-
-    sa = 0;
-    
-    (void)left_subvoxel;
-    (void)parent;
-    (void)si;
-    
-    return (sa);
-}
-
 /*  
-
 Nécessite : le voxel parent, et l'intersection plan séparateur - voxel parent
 */
-double  compute_cost(t_bsp_node *parent_voxel, t_split_infos si)
+double  compute_cost(t_bsp_node *voxel, t_split_infos si)
 {
     double  cost;
     int     nb_left;
     int     nb_right;
-    double  sa_left;
-    double  sa_right;
+    t_bbox_description  subv_l;
+    t_bbox_description  subv_r;
 
-    nb_left = items_count_left_side();
-    nb_right = parent_voxel->items_count - nb_left;
-    sa_left = get_sa_subvoxel(parent_voxel->bbox, si, true);
-    sa_right = parent_voxel->bbox.surface_area - sa_left;
+    subv_l = get_temp_subvoxel(voxel, si, true);
+    subv_r = get_temp_subvoxel(voxel, si, false);
+    nb_left = items_count_subvoxel(voxel, subv_l);
+    nb_right = items_count_subvoxel(voxel, subv_r);
+    
     cost = TRAVERSE_COST + 
-        (get_intersection_cost(parent_voxel, si, true) * (sa_left * nb_left) + 
-        get_intersection_cost(parent_voxel, si, false) * (sa_right * nb_right)) / parent_voxel->bbox.surface_area;
+        (get_intersection_cost(voxel, si, true) * (subv_l.surface_area * nb_left) + 
+        get_intersection_cost(voxel, si, false) * (subv_r.surface_area * nb_right)) 
+        / voxel->bbox.surface_area;
     /* f(x) = Ct + Ci * (( (SAl(x) * Nl(x)) + (SAr(x) * Nr(x)) ) / SAparent) */
     
     /* Pondère le coût pour privilégier de grands voxels vides */
@@ -177,7 +165,8 @@ t_split_infos    get_optimal_split_plane(t_bsp_node *current_node)
     
     curr_obj = current_node->items;
     final_si = test_bounding_planes(current_node, curr_obj);
-    while (curr_obj) /* itère sur chaque objet dans le voxel parent */
+    /* itère sur chaque objet dans le voxel parent */
+    while (curr_obj)
     {
         /* par objet : retourne le plan le plus optimal parmi les 6 plans générés par la bbox */
         si = test_bounding_planes(current_node, curr_obj);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_bsp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:44:16 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/07 20:06:59 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/08 00:07:19 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ bool terminate(t_bsp_node *current, double cost)
 {
     /* Teste :
         1) si Nb_triangles * intersect_cost < cost(best_split_plane), 
-        ie si c'est rentable de subdiviser a nouveau le voxel 
+            ie si c'est rentable de subdiviser a nouveau le voxel 
         2) si on est arrivé à depth_max (reduce memory usage)
         */
-    if ((current->items_count * get_voxel_intersection_cost(current) < cost)
+    if ((current->items_count * get_object_list_intersection_cost(current) < cost)
         || current->depth == MAX_DEPTH)
         return (true);
     return (false);
@@ -83,27 +83,35 @@ void rec_build(t_bsp_node *voxel)
     {
         voxel->type = leaf;
         return ;
-        // return (new_leaf());
     }
     
     /* create the two subvoxels, and insert the parent's objects in the subvoxels */
     split_voxel(voxel, si);
 
-    /* ?????????? */
+    /* ? */
     rec_build(voxel->left);
     rec_build(voxel->right);
     
-    // return (voxel);
 }
 
 void    set_root_voxel(t_bsp_node *root, t_vlist *objects)
 {
+    t_vlist *new_obj;
     t_vlist *curr;
 
     curr = objects;
+    root->items = malloc(sizeof(t_vlist));
+    if (!root->items)
+        return ;
+    root->items = objects; // ?
     while (curr)
     {
         root->items_count++;
+        // new_obj = malloc(sizeof(t_vlist));
+        // if (!new_obj)
+        //     return ; // ?
+        // copy_content(&new_obj, curr);
+        // new_obj = curr;
         curr = curr->next;
     }
     root->type = node;
@@ -142,6 +150,10 @@ t_bsp_node    *build_kd_tree(t_vlist *objects)
     rec_build(root_voxel);
     return (root_voxel);
 }
+
+
+/* --------------------- printing functions -------------------------- */
+
 
 void    print_point(t_point_3d p)
 {

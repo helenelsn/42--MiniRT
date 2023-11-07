@@ -1,0 +1,2 @@
+- voir avec suz comment mettre la liste d'objets (la t_vlist) dans les nodes
+    (ok de stocker un pointeur vers le meme emplacement memoire, ou doit réallouer ?)
