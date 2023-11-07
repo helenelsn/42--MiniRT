@@ -6,7 +6,7 @@
 /*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/06 12:24:03 by Helene           ###   ########.fr       */
+/*   Updated: 2023/11/06 18:06:03 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,8 @@ typedef struct  s_bbox_description
 
 typedef struct  s_raytracing_material
 {
-    int         color;
-    t_bbox_description    bbox; /* tout à 0 ou -1 si s'agit d'une source lumineuse ? */
+    int                 color;
+    t_bbox_description  bbox; /* tout à 0 ou -1 si s'agit d'une source lumineuse ? */
 }               t_raytracing_material;
 
 typedef struct s_mood_light
@@ -177,13 +177,13 @@ typedef enum e_section_type
     rectangle   
 }       t_section_type;
 
-typedef struct  s_toroid
-{
-    t_section_type          type; // ?
-    t_point_2d              center;
-    t_disk                  section_infos; // ?
-    t_raytracing_material   material;
-}               t_toroid;
+// typedef struct  s_toroid
+// {
+//     t_section_type          type; // ?
+//     t_point_2d              center;
+//     t_disk                  section_infos; // ?
+//     t_raytracing_material   material;
+// }               t_toroid;
 
 typedef struct  s_moebius
 {

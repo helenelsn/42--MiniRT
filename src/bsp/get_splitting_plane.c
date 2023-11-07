@@ -6,7 +6,7 @@
 /*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:51:57 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/06 14:19:30 by Helene           ###   ########.fr       */
+/*   Updated: 2023/11/06 17:23:38 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,31 +25,45 @@ int     items_count_left_side()
     
 }
 
-bool    is_in_subvoxel(t_bbox_description voxel, t_vlist *object, t_split_infos si)
-{
-    if (object->content->material.bbox.min)
-}
-
 double  get_object_intersect_cost(t_vlist *object)
 {
+    /* check if is at least half-entirely on the voxel.
+        if not, does not consider it in the cost computation */
     return (UNITARY_INTERSECT_COST * object->content->material.bbox.surface_area);
 }
 
-/* pondère selon la taille des objets dans le voxel */
-double  get_intersection_cost(t_bsp_node *parent, t_split_infos si, bool left_subvoxel)
+double get_voxel_intersection_cost(t_bsp_node *voxel)
 {
     t_vlist **current;
     double cost;
     
     cost = 0;
-    *current = parent->items;
+    *current = voxel->items;
     while (*current)
     {
-        if (is_in_subvoxel(parent->bbox, *current, si))
-        cost += get_object_intersect_cost()
+        cost += get_object_intersect_cost(*current);
+        *current = (*current)->next;
+    }    
+    return (cost);
+}
+
+/* pondère selon la taille des objets dans le voxel */
+double  get_intersection_cost(t_bsp_node *parent, t_split_infos si, bool left_subvoxel)
+{
+    double              cost;
+    t_vlist             **current;
+    t_bbox_description  subvoxel;
+    
+    cost = 0;
+    *current = parent->items;
+    subvoxel = get_temp_subvoxel(parent, si, left_subvoxel);
+    while (*current)
+    {
+        if (is_in_subvoxel(subvoxel, *current, si))
+            cost += get_object_intersect_cost(*current);
         *current = (*current)->next;
     }
-      
+    return (cost);
 }
 
 double  get_traverse_cost() /* est une constante ou pas ? */
@@ -129,7 +143,7 @@ Find the right splitting plane :
     -> SAH 
     Pour chaque objet, on teste les 6 plans générés par chaque face 
     du rectangle enveloppant l'objet */
-void    get_splitting_plane(t_bsp_node *current_node)
+t_split_infos    get_splitting_plane(t_bsp_node *current_node)
 {
     t_vlist         **curr_obj;
     t_split_infos   si;
@@ -145,7 +159,8 @@ void    get_splitting_plane(t_bsp_node *current_node)
             final_si = si;
         *curr_obj = (*curr_obj)->next;
     }
-    split_voxel(current_node, final_si);
+    // split_voxel(current_node, final_si);
+    return (t_split_infos);
 }
 
 /* set the englobing boundig box */

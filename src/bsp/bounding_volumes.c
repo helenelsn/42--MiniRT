@@ -6,7 +6,7 @@
 /*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 15:35:11 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/06 15:41:20 by Helene           ###   ########.fr       */
+/*   Updated: 2023/11/06 18:30:13 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ double  ft_min(double a, double b)
     return (b);
 }
 
-double  ft_max(double a, double b)
+double  ft_max_double(double a, double b)
 {
     if (a > b)
         return (a);
@@ -45,13 +45,13 @@ t_point_3d double_to_point(double a)
     return (p);
 }
 
-t_point_3d  points_addition(t_point_3d *p1, t_point_3d *p2)
+t_point_3d  points_addition(t_point_3d p1, t_point_3d p2)
 {
     t_point_3d  new;
 
-    new.x = p1->x + p2->x;
-    new.y = p1->y + p2->y;
-    new.z = p1->z + p2->z;
+    new.x = p1.x + p2.x;
+    new.y = p1.y + p2.y;
+    new.z = p1.z + p2.z;
     return (new);
 }
 
@@ -68,9 +68,6 @@ t_vec_3d vectors_addition(t_vec_3d u, t_vec_3d v)
 
 void    init_bbox(t_bbox_description *bv)
 {
-    int i;
-
-    i = 0;
     bv->surface_area = 0;
     bv->height = 0;
     bv->length = 0;
@@ -95,17 +92,17 @@ void    bbox_reset(t_bbox_description *bv, t_point_3d p)
 void    bbox_add_point(t_bbox_description *bv, t_point_3d p)
 {
     bv->min.x = ft_min(bv->min.x, p.x);
-    bv->max.x = ft_max(bv->max.x, p.x);
+    bv->max.x = ft_max_double(bv->max.x, p.x);
     bv->min.y = ft_min(bv->min.y, p.y);
-    bv->max.y = ft_max(bv->max.y, p.y);
+    bv->max.y = ft_max_double(bv->max.y, p.y);
     bv->min.z = ft_min(bv->min.z, p.z);
-    bv->max.z = ft_max(bv->max.z, p.z);
+    bv->max.z = ft_max_double(bv->max.z, p.z);
 }
 
 /* to be done at the end : sets the width, height, length and surface_area */
 void    set_infos(t_bbox_description *bv)
 {
-    
+    (void)bv; 
 }
 
 void    set_bbox(t_bbox_description *bv, t_point_3d min, t_point_3d max)
@@ -123,16 +120,16 @@ void    set_sphere_bbox(t_sphere *sphere)
 
 void    set_cylinder_bbox(t_cylindre *cylinder)
 {
-    bbox_reset(&cylinder->material.bbox, points_addition(cylinder->p, cylinder->radius));
-    bbox_add_point(&cylinder->material.bbox, points_addition(cylinder->p, -(cylinder->radius)));
-    bbox_add_point(&cylinder->material.bbox, points_addition(points_addition(cylinder->p, cylinder->radius), cylinder->height));
+    bbox_reset(&cylinder->material.bbox, points_addition(cylinder->p,  double_to_point(cylinder->radius)));
+    bbox_add_point(&cylinder->material.bbox, points_addition(cylinder->p,  double_to_point(-(cylinder->radius))));
+    bbox_add_point(&cylinder->material.bbox, points_addition(points_addition(cylinder->p,  double_to_point(cylinder->radius)),  double_to_point(cylinder->height)));
 }
 
 void    set_cone_bbox(t_cone *cone)
 {
-    bbox_reset(&cone->material.bbox, points_addition(cone->base.center, cone->base.radius));
-    bbox_add_point(&cone->material.bbox, points_addition(cone->base.center, -(cone->base.radius)));
-    bbox_add_point(&cone->material.bbox, points_addition(cone->base.center, cone->height));
+    bbox_reset(&cone->material.bbox, points_addition(cone->base.center,  double_to_point(cone->base.radius)));
+    bbox_add_point(&cone->material.bbox, points_addition(cone->base.center,  double_to_point(-(cone->base.radius))));
+    bbox_add_point(&cone->material.bbox, points_addition(cone->base.center,  double_to_point(cone->height)));
 }
 /*
 For planes, the bounding box will stretch from 
@@ -144,7 +141,7 @@ A scene with a thousand triangles or spheres is interesting,
 a scene with a thousand planes is not.
 */
 
-void    set_bounding_boxes(objects)
+void    set_bounding_boxes(t_vlist *objects)
 {
     t_vlist **current;
 
@@ -164,12 +161,13 @@ void    set_bounding_boxes(objects)
 
 bool    point_is_in(t_bbox_description bv, t_point_3d p)
 {
-    if (p.x < bv.min[i].x || p.x > bv.max[i].x)
+    if (p.x < bv.min.x || p.x > bv.max.x)
         return (false);
-    if (p.y < bv.min[i].y || p.y > bv.max[i].y)
+    if (p.y < bv.min.y || p.y > bv.max.y)
         return (false);
-    if (p.z < bv.min[i].z || p.z > bv.max[i].z)
+    if (p.z < bv.min.z || p.z > bv.max.z)
         return (false);
+    return (true);
 }
 
 /* 3 cas :
@@ -220,20 +218,19 @@ bool    is_in_subvoxel(t_bbox_description *subvoxel, t_vlist *object)
 }
 
 /* split the objects contained into the parent voxel in the right and left subvoxels*/
-void    split_objects(t_bsp_node *parent, t_split_infos si)
+void    split_objects(t_bsp_node *parent)
 {
     t_vlist **curr_obj;
-    int     objects_left;
 
     *curr_obj = parent->items;
     while (*curr_obj)
     {
-        if (is_in_subvoxel(parent->left->bbox, *curr_obj))
+        if (is_in_subvoxel(&parent->left->bbox, *curr_obj))
         {
             /* add item to the left subvoxel */
             parent->left->items_count++;
         }
-        if (is_in_subvoxel(parent->right->bbox, *curr_obj));
+        if (is_in_subvoxel(&parent->right->bbox, *curr_obj))
         {
             /* add item to the right subvoxel */
             parent->right->items_count++;
@@ -262,8 +259,42 @@ void    split_voxel(t_bsp_node *parent, t_split_infos si)
         set_point(&l_max, parent->bbox.max.x, parent->bbox.max.y, si.split_coord);
         set_point(&r_min, parent->bbox.min.x, parent->bbox.min.y, si.split_coord);
     }
-    set_bbox(parent->left->bbox, parent->bbox.min, l_max);
-    set_bbox(parent->right->bbox, r_min, parent->bbox.max);
+    set_bbox(&parent->left->bbox, parent->bbox.min, l_max);
+    set_bbox(&parent->right->bbox, r_min, parent->bbox.max);
     
     split_objects(parent);
+}
+
+t_bbox_description  get_temp_subvoxel(t_bsp_node *parent, t_split_infos si, bool left_subvoxel)
+{
+    t_point_3d          l_max;
+    t_point_3d          r_min;
+    t_bbox_description  temp_bbox;
+    
+    if (si.dim == x)
+    {
+        if (left_subvoxel)
+            set_point(&l_max, si.split_coord, parent->bbox.max.y, parent->bbox.max.z);
+        else
+            set_point(&r_min, si.split_coord, parent->bbox.min.y, parent->bbox.min.z);
+    }
+    else if (si.dim == y)
+    {
+        if (left_subvoxel)
+            set_point(&l_max, parent->bbox.max.x, si.split_coord, parent->bbox.max.z);
+        else
+            set_point(&r_min, parent->bbox.min.x, si.split_coord, parent->bbox.min.z);
+    }
+    else if (si.dim == z)
+    {
+        if (left_subvoxel)
+            set_point(&l_max, parent->bbox.max.x, parent->bbox.max.y, si.split_coord);
+        else
+            set_point(&r_min, parent->bbox.min.x, parent->bbox.min.y, si.split_coord);
+    }
+    if (left_subvoxel)
+        set_bbox(&temp_bbox, parent->bbox.min, l_max);
+    else
+        set_bbox(&temp_bbox, r_min, parent->bbox.max);
+    return (temp_bbox);
 }
