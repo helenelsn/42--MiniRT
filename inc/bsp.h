@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bsp.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:46:51 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/06 18:32:59 by Helene           ###   ########.fr       */
+/*   Updated: 2023/11/07 19:46:43 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,28 +50,35 @@ typedef struct  s_split_infos
 typedef struct s_bsp_node
 {
     t_node_type         type; 
-    int                 depth; /* ? */
+    int                 depth; // ?
     
     t_bbox_description  bbox;
+    t_dim               split_dim; // ?
     
     t_vlist             *items; /* NULL when not a leaf */
-    int                 items_count; /* 0 when not a leaf ? */
+    int                 items_count; /* 0 when not a leaf */
     
+    struct s_bsp_node   *parent;
     struct s_bsp_node    *left;
     struct s_bsp_node    *right;
 }               t_bsp_node;
 
 
-double              compute_cost(t_bsp_node *parent_voxel, t_split_infos si);
-t_split_infos       get_splitting_plane(t_bsp_node *current_node);
 t_bbox_description  get_scene_limits(t_vlist *objects);
-void                set_bounding_boxes(t_vlist *objects);
-void                init_bbox(t_bbox_description *bv);
-void                split_voxel(t_bsp_node *parent, t_split_infos si);
-t_bbox_description  get_temp_subvoxel(t_bsp_node *parent, t_split_infos si, bool left_subvoxel);
-bool                is_in_subvoxel(t_bbox_description *subvoxel, t_vlist *object);
+
+double              compute_cost(t_bsp_node *parent_voxel, t_split_infos si);
 double              get_intersection_cost(t_bsp_node *parent, t_split_infos si, bool left_subvoxel);
-double              get_voxel_intersection_cost(t_bsp_node *voxel);
+double              get_voxel_intersection_cost(t_bsp_node *voxel); /* to rename, ca veut r dire la */
+t_split_infos       get_optimal_split_plane(t_bsp_node *current_node);
+void                split_voxel(t_bsp_node *parent, t_split_infos si);
+
+void                set_bounding_boxes(t_vlist *objects);
+void                bbox_reset(t_bbox_description *bv, t_point_3d p);
+void                bbox_add_point(t_bbox_description *bv, t_point_3d p);
+void                set_infos(t_bbox_description *bbox);
+
+t_bbox_description  get_temp_subvoxel(t_bsp_node *parent, t_split_infos si, bool left_subvoxel);
+bool                is_in_subvoxel(t_bbox_description subvoxel, t_vlist *object);
 
 
 #endif

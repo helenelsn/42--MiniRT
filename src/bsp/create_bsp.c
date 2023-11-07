@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_bsp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:44:16 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/06 18:35:02 by Helene           ###   ########.fr       */
+/*   Updated: 2023/11/07 20:06:59 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void rec_build(t_bsp_node *voxel)
     t_split_infos si;
 
     /* get the dimension and coordinates of the split computed with the lowest cost */
-    si = get_splitting_plane(voxel);
+    si = get_optimal_split_plane(voxel);
     
     /* check for terminating-criterias*/
     if (terminate(voxel, si.cost))
@@ -98,13 +98,13 @@ void rec_build(t_bsp_node *voxel)
 
 void    set_root_voxel(t_bsp_node *root, t_vlist *objects)
 {
-    t_vlist **curr;
+    t_vlist *curr;
 
-    *curr = objects;
-    while (*curr)
+    curr = objects;
+    while (curr)
     {
         root->items_count++;
-        *curr = (*curr)->next;
+        curr = curr->next;
     }
     root->type = node;
     root->depth = 0;
@@ -117,7 +117,7 @@ void    set_root_voxel(t_bsp_node *root, t_vlist *objects)
     
 }
 
-/*  Returns the root node 
+/*  Returns the root node.
     Maps the entire scene.
     The camera will then be moved from one node to another 
     depending on its position.
@@ -139,6 +139,85 @@ t_bsp_node    *build_kd_tree(t_vlist *objects)
     /* set the root voxel's objects (items) list */
     set_root_voxel(root_voxel, objects);
     
-    rec_build(root_voxel); /* ??????? */
+    rec_build(root_voxel);
     return (root_voxel);
+}
+
+void    print_point(t_point_3d p)
+{
+    printf("(%f, %f, %f)\n", p.x, p.y, p.z);
+}
+
+void    print_bbox_infos(t_bbox_description b)
+{
+    printf("min : ");
+    print_point(b.min);
+    printf("max : ");
+    print_point(b.min);
+    printf("height : %f\n", b.height);
+    printf("width : %f\n", b.width);
+    printf("length : %f\n", b.length);
+    printf("sa : %f\n", b.surface_area);
+}
+
+void    print_dim(t_dim dim)
+{
+    printf("splitting dimension : ");
+    if (dim == x)
+        printf("x\n");
+    else if (dim == y)
+        printf("y\n");
+    else if (dim == z)
+        printf("z\n");
+}
+
+void    print_type(t_vlist *object)
+{
+    printf("object type : ");
+    if (object->type == cylindre)
+        printf("cylindre\n");
+    else if (object->type == cone)
+        printf("cone\n");
+    else if (object->type == sphere)
+        printf("sphere\n");
+}
+
+void    print_leaf_infos(t_bsp_node *leaf)
+{
+    printf("------------------Leaf\n");
+    print_dim(leaf->split_dim);
+    printf("----Voxel's bounding box caracteristics : \n");
+    print_bbox_infos(leaf->bbox);
+    printf("----objects in leaf : \n");
+    for (t_vlist *current = leaf->items; current; current = current->next)
+    {
+        print_type(current);
+        printf("--Object's bounding box caracteristics : \n");
+        print_bbox_infos(current->material.bbox);
+        printf("\n");
+    }
+}
+
+void    print_interior_node(t_bsp_node *node)
+{
+    printf("------------------Interior node\n");
+    printf("Node depth : %i\n", node->depth);
+    print_dim(node->split_dim);
+    printf("----Voxel's bounding box caracteristics : \n");
+    print_bbox_infos(node->bbox);
+}
+
+void    print_kd_tree(t_bsp_node *voxel)
+{
+    if (voxel->type == leaf)
+    {
+        print_leaf_infos(voxel);
+        return ;
+    }
+    else
+    {
+        print_interior_node(voxel);
+        print_kd_tree(voxel->left);
+        print_kd_tree(voxel->right);
+    }
 }

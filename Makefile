@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: Helene <Helene@student.42.fr>              +#+  +:+       +#+         #
+#    By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 22:16:42 by srapin            #+#    #+#              #
-#    Updated: 2023/11/07 16:55:09 by Helene           ###   ########.fr        #
+#    Updated: 2023/11/07 19:38:59 by hlesny           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,9 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g3 -I/opt/X11/include
 
 FILES = \
+		bsp/create_bsp \
+		bsp/bounding_volumes \
+		bsp/get_splitting_plane \
 		create_elem/cr_camera\
 		create_elem/cr_cylindre\
 		create_elem/cr_light\
@@ -44,9 +47,6 @@ FILES = \
 		utils_vec_et_droite/prod_vec \
 		main\
 		parse\
-		bsp/create_bsp \
-		bsp/bounding_volumes \
-		bsp/get_splitting_plane \
 		# trace_rays/trace_ray \
 		# trace_rays/convert \ 
 
@@ -82,12 +82,13 @@ bonus: $(NAME)
 
 ${OBJS_DIR}/%.o: ${SRCS_DIR}/%.c 
 	@mkdir -p $(OBJS_DIR)
+	@mkdir -p $(OBJS_DIR)/bsp
 	@mkdir -p $(OBJS_DIR)/create_elem
 	@mkdir -p $(OBJS_DIR)/trace_rays
 	@mkdir -p $(OBJS_DIR)/garbage_collector
 	@mkdir -p $(OBJS_DIR)/intersection
 	@mkdir -p $(OBJS_DIR)/utils
-	@mkdir -p $(OBJS_DIR)/bsp
+	@mkdir -p $(OBJS_DIR)/utils_vec_et_droite
 	$(CC) $(CFLAGS) -o $@ -c $<
 
 clean: cleanlibs
