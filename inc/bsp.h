@@ -6,7 +6,7 @@
 /*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:46:51 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/03 14:54:11 by Helene           ###   ########.fr       */
+/*   Updated: 2023/11/06 14:18:21 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,29 +41,31 @@ typedef enum    e_dim
     z
 }               t_dim;
 
-typedef struct  s_bbox_voxel_intersect_info
+typedef struct  s_split_infos
 {
-    t_dim       splitting_dim; /* sur quelle dimension on split  */
-    t_point_3d  intersections[4]; // est a la norme ça ? me souviens jamais
-    int         items_count; /* ?? */
-}               t_bbox_voxel_intersect_info;
+    t_dim   dim;
+    double  split_coord;
+    double  cost:
+}               t_split_infos;
 
 typedef struct s_bsp_node
 {
-    t_type          type; 
-    int             depth; /* ? */
+    t_type              type; 
+    int                 depth; /* ? */
     
-    /* when an interior node */
-    int             splitting_dim; /*  (i.e. x, y, or z) */
-    t_plan          split_plane; /* le representer avec une donnée plus simple ? */
+    t_bbox_description  bbox;
     
-    /* when a leaf node */
-    t_vlist         *items; /* NULL when not a leaf */
-    int             items_count; /* 0 when not a leaf ? */
+    t_vlist             *items; /* NULL when not a leaf */
+    int                 items_count; /* 0 when not a leaf ? */
     
     struct s_bsp_node    *left;
     struct s_bsp_node    *right;
 }               t_bsp_node;
 
 
+double              compute_cost(t_bsp_node *parent_voxel, double dim, double componant, t_bbox_voxel_intersect_info *info, double sa_voxel);
+void                get_splitting_plane(t_bsp_node *current_node);
+t_bbox_description  get_scene_limits(t_vlist *objects)
+void                init_bbox(t_bbox_description *bv);
+void                split_voxel(t_bsp_node *parent, t_split_infos si);
 #endif

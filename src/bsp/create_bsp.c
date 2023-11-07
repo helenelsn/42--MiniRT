@@ -6,7 +6,7 @@
 /*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:44:16 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/03 15:35:33 by Helene           ###   ########.fr       */
+/*   Updated: 2023/11/06 01:15:15 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,6 @@ Instead of only using the cost-based termination criterion,
 some implementations additionally use the maximum depth criterion, 
 usually to reduce memory usage.
 */
-bool    terminate()
-{
-    
-}
 
 void    cost_bias()
 {
@@ -66,14 +62,43 @@ void    *rec_build(t_vlist *objects)
     
 }
 
+t_bsp_node *new_leaf()
+{
+    
+}
+
+/*
+Instead of only using the cost-based termination criterion,
+some implementations additionally use the maximum depth criterion, 
+usually to reduce memory usage.
+*/
+bool terminate(t_bsp_node *current)
+{
+    /* Teste :
+        1) si Nb_triangles * intersect_cost < cost(bessplit_plane), 
+        ie si c'est rentable de subdiviser a nouveau le voxel 
+        2) si on est arrivé à depth_max (reduce memory usage)
+        */
+}
+
 /*  Returns the root node 
     Maps the entire scene.
     The camera will then be moved from one node to another 
     depending on its position.
 */
 t_bsp_node    *build_kd_tree(t_vlist *objects)
-{
+{ 
+    /* set each object's bounding box */
     set_bounding_boxes(objects);
-    rec_build(); /* quels arguments ? */
+    
+    /* recursively build the kd-tree*/
+    // rec_build();
+
+    t_bsp_node *root_voxel;
+    /* set the root voxel's dimensions */
+    root_voxel->bbox = get_scene_limits(objects);
+    
+    if (terminate())
+        return (new_leaf());
 }
 

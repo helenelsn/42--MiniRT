@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/06 02:16:34 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/07 16:06:13 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ typedef struct s_point2d
     double x;
     double y;
 } t_point_2d;
-
-/* aura besoin de vecteurs 2d aussi ?  no idea*/
 
 typedef struct s_point_3d
 {
@@ -153,15 +151,17 @@ typedef struct  s_paraboloid
     t_raytracing_material   material;
 }               t_paraboloid;
 
-typedef struct  s_disk
+typedef struct  s_circle
 {
     t_point_3d  center;
     double      radius;
-}              t_disk;
+}              t_circle;
 
 typedef struct  s_cone
 {
-    t_disk                  base;
+    t_circle             base;
+    // t_point_3d              center;
+    // double                  radius;
     double                  height;
     double                  slant_height; /* hauteur oblique, calculée avec pythagore */
     t_vec_3d                orientation; // ou direction
