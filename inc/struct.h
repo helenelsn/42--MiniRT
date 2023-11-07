@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/06 02:11:23 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/06 02:16:34 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 
 # define T_INF      0.00001 //new
+
 
 typedef struct s_point2d
 {
@@ -225,6 +226,8 @@ typedef struct s_app
     t_parsing_data p_data;
     t_frame  frame; //represente la fenetre par laquell on regarde
     t_vlist *garbage;
+    void				*mlx_ptr;
+	void				*win_ptr;
 } t_app;
 
 // typedef enum e_elem

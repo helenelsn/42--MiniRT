@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   matrices.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 20:52:41 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/03 12:58:38 by Helene           ###   ########.fr       */
+/*   Updated: 2023/11/06 18:22:31 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct  s_cofactor_calc
 
 
 /* retourner un pointeur ? */
-t_matrix    new_matrix(double *u1, double *u2, double *u3);
+// t_matrix    new_matrix(double *u1, double *u2, double *u3);
 t_matrix    matrix_product(t_matrix a, t_matrix b);
 t_matrix    scalar_product(t_matrix a, double s);
 t_matrix    inverse(t_matrix a);

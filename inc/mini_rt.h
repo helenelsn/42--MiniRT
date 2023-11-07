@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_rt.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:13 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/03 15:28:21 by Helene           ###   ########.fr       */
+/*   Updated: 2023/11/06 02:26:17 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 
 #define EXIT_SUCCES 	0
 #define EXIT_FAILURE 	1
+#define EXIT_MLX_FAILURE 	2
 #define WINDOWS_HEIGHT 	1500
 #define WINDOWS_WIDHT 	1500
 

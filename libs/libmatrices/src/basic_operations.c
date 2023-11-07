@@ -3,18 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   basic_operations.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 21:01:11 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/03 12:58:25 by Helene           ###   ########.fr       */
+/*   Updated: 2023/11/06 22:29:02 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/matrices.h"
+#include "../../../inc/mini_rt.h"
 
-t_matrix  new_matrix(double *u1, double *u2, double *u3)
+// t_matrix  new_matrix(double *u1, double *u2, double *u3)
+// {
+
+// }
+
+t_matrix  *new_matrix(int r, int c, ...)
 {
-
+    t_matrix *m;
+    va_list ap;
+    int i = 0;
+    
+    m = ft_calloc(1, sizeof(t_matrix));
+    m->rows = r;
+    m->columns = c;
+    m->matrix = ft_calloc(m->rows, sizeof(double *));
+    va_start(ap, c);
+    while (i < m->rows)
+    {
+        m->matrix[i] = va_arg(ap, double *);
+        if (!m->matrix[i])
+        i++;
+    }
+    return m;
 }
 
 /* a * b */

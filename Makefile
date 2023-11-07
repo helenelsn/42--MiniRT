@@ -6,7 +6,7 @@
 #    By: srapin <srapin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 22:16:42 by srapin            #+#    #+#              #
-#    Updated: 2023/11/06 00:43:57 by srapin           ###   ########.fr        #
+#    Updated: 2023/11/06 17:18:31 by srapin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,9 @@ FILES = \
 		utils/ratio \
 		utils/rgb \
 		utils/vec3d \
+		utils_vec_et_droite/norm \
+		utils_vec_et_droite/prod_scalaire \
+		utils_vec_et_droite/prod_vec \
 		main\
 		parse\
 		# bsp/bottom_up_bsp \
@@ -83,6 +86,7 @@ ${OBJS_DIR}/%.o: ${SRCS_DIR}/%.c
 	@mkdir -p $(OBJS_DIR)/garbage_collector
 	@mkdir -p $(OBJS_DIR)/intersection
 	@mkdir -p $(OBJS_DIR)/utils
+	@mkdir -p $(OBJS_DIR)/utils_vec_et_droite
 	$(CC) $(CFLAGS) -o $@ -c $<
 
 clean: cleanlibs
