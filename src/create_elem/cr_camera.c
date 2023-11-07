@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 00:53:38 by srapin            #+#    #+#             */
-/*   Updated: 2023/10/23 17:27:59 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/06 17:57:09 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_camera *create_camera(char **tab, t_vlist **garbage, t_parsing_data *data)
     if (!elem)
         return NULL;
     elem->fov = get_fov(tab[3]);
-    if (elem->fov < 0 || !get_point(tab[1], &elem->p) || !get_vec(tab[2], &elem->direction))
+    if (elem->fov < 0 || !get_point(tab[1], &elem->p) || !get_vec_from_str(tab[2], &elem->direction))
     {
         free(elem);
         return NULL;

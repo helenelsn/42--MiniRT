@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/06 00:39:39 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/06 18:14:01 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,11 @@
 //parse
 double get_ratio(char *str);
 bool	get_point(char *str, t_point_3d *p);
-bool	get_vec(char *str, t_vec_3d *p);
+bool	get_vec_from_str(char *str, t_vec_3d *p);
+t_vec_3d get_vec_from_point(t_point_3d p, t_point_3d q);
+double get_dist_between_points(t_point_3d p, t_point_3d q);
+double get_dist_droite_point(t_droite d, t_point_3d p);
+double get_dist_between_droite(t_droite d, t_droite e);
 int get_fov(char *str);
 int	create_rgb(unsigned char r, unsigned char g, unsigned char b);
 bool	get_rgb(char *str, t_raytracing_material *mat);
@@ -53,8 +57,9 @@ t_sphere *create_sphere(char **tab, t_vlist **garbage, t_parsing_data *data);
 void    compute_image(t_vlist *obj);
 
 double vec_x_vec_scal(t_vec_3d v, t_vec_3d w);
+t_vec_3d vec_x_vec_vectoriel(t_vec_3d v, t_vec_3d w);
 
-double norm(t_vec_3d v);
+double get_v_norm(t_vec_3d v);
 
 
 void    get_inter_for_sphere(t_sphere *elem, t_droite d);

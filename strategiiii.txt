@@ -10,7 +10,7 @@ Fonctions :
   a partir du FOV ->ln
 
 - Resolution des intersections droite-sphere/plan/cylindre/Cone/Hyperboloid/Paraboloid -
-      - sphere ->suz
+      - sphere ->suz -> plan sphere ok, cylindre c'est chaud
 - Computation de la couleur et l intensite lumineuse pour chaque light ray touchant un 
   objet (ou aucun objet a l infini)
 - Fonction qui calcule, pour chaque forme géométrique pour un point P donné sur sa surface,
@@ -18,18 +18,18 @@ Fonctions :
 - Computation des reflections (3), ie implementer une fonction recursive s aidant du point precedent
 - Computation des ombres
 - mlx création
-- implémenter bsp (ou kd-tree) -> ln (ou tu veux le faire ?)
+- implémenter bsp (ou kd-tree) -> ln (ou tu veux le faire ?) ->chaud participer
 - Implementer les matrices + surcharge operateurs opérations de base pour matrices 
   (addition, soustraction, multiplication) pour les transformations a effectuer (rotation, zoom, etc....)
-
+    ->suz grave chaud tenter les rotations
 
 For each pixel on the screen :
 -   Canvas-to-vieport function : 
     Compute, for each pixel on of the screen, the corresponding point on the viewport. 
-    translater les coordonnees utilisees 
+    translater les coordonnees utilisees ->ont fais tjrs ça?
     (si a mis l'origine (ie la camera) au centre de l ecran par ex) en celles
     de l ecran (ie origine en haut a gauche, axe y positif vers le bas) 
-          -> on fais ça ou yolo on gere la géométrie dans l'espace
+          -> on fais ça ou yolo on gere la géométrie dans l'espace ?
     ->  compute the intersections of the ray and each sphere, 
         keep the intersection closest to the camera, 
         and paint the pixel on the canvas with the appropriate color.

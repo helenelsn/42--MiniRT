@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_inter.c                                        :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/25 10:20:33 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/06 02:06:45 by srapin           ###   ########.fr       */
+/*   Created: 2023/11/06 02:23:05 by srapin            #+#    #+#             */
+/*   Updated: 2023/11/06 02:28:53 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/mini_rt.h"
 
-void    get_inter(t_vlist *elem, t_droite d) //clairement pas void mais j'ai pas d'idée
+void init_app(t_app *app)
 {
-    if (elem->type == sphere)
-        get_inter_for_sphere((t_sphere *) elem->content, d);
-    else if (elem->type == plan)
-        get_inter_for_plan((t_plan *) elem->content, d);
+    
+    ft_memset(app, 0, sizeof(t_app));
+    app->mlx_ptr = mlx_init();
+	if (!app->mlx_ptr)
+		return (EXIT_MLX_FAILURE);
+	app->win_ptr = mlx_new_window(app->mlx_ptr, WINDOWS_WIDHT, WINDOWS_HEIGHT,
+			"mimi-rt");
+	if (!app->win_ptr)
+	{
+		close_mlx(app);
+		return (0);
+	}
 }

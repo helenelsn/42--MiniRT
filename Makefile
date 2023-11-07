@@ -6,7 +6,7 @@
 #    By: Helene <Helene@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 22:16:42 by srapin            #+#    #+#              #
-#    Updated: 2023/11/06 18:31:36 by Helene           ###   ########.fr        #
+#    Updated: 2023/11/07 16:55:09 by Helene           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,9 @@ FILES = \
 		utils/ratio \
 		utils/rgb \
 		utils/vec3d \
+		utils_vec_et_droite/norm \
+		utils_vec_et_droite/prod_scalaire \
+		utils_vec_et_droite/prod_vec \
 		main\
 		parse\
 		bsp/create_bsp \
