@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   convert.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 23:02:48 by Helene            #+#    #+#             */
-/*   Updated: 2023/10/23 20:33:19 by Helene           ###   ########.fr       */
+/*   Updated: 2023/11/08 21:08:59 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/mini_rt.h"
 
-/* Add a function to normalise a vector ? */
 
 /* Computes the position of the current pixel on the 
 camera's projection plane (ie viewpoint) */
@@ -36,17 +35,16 @@ t_point_2d  canvas_to_screen(t_point_2d c)
     return (s);
 }
 
-/* Computes the height and width of the viewpoint, as well as the
-distance Camera-Viewpoint according to the field of view (FOV) parameter*/
+/* Computes the height and width of the viewpoint, 
+according to the field of view (FOV) parameter*/
 
 //->>>>>>commenter pour compilation (todo add garbage et malloc le tableau ou prendre le tab en argument)
 
-// double    *get_viewpoint_dimensions(float fov)
-// {
-//     double viewpoint[2];
+double    *get_viewpoint_dimensions(float fov)
+{
+    double viewpoint[2];
 
-
-//     viewpoint[0] = FOCUS_DIST * tan(fov * 0.5f * DEG_TO_RAD) * 2; /* Width */
-//     viewpoint[1] = viewpoint[0] * SCREEN_RATIO; /* Height */
-//     return (viewpoint);
-// }
+    viewpoint[0] = FOCUS_DIST * tan(fov * 0.5f * DEG_TO_RAD) * 2; /* Width */
+    viewpoint[1] = viewpoint[0] * SCREEN_RATIO; /* Height */
+    return (viewpoint);
+}
