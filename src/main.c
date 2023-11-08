@@ -6,28 +6,13 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:20 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/08 19:59:10 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/08 20:35:51 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/mini_rt.h"
+#include "../inc/bsp.h"
 
-// void get_dist(t_camera *cam)
-// {
-    
-// }
-
-// void get_frame(t_app *app)
-// {
-//     //plus dur que je pensais
-// }
-
-
-
-void test_mat()
-{
-    
-}
 
 int main(int argc, char **argv)
 {
@@ -37,4 +22,14 @@ int main(int argc, char **argv)
     
     /* tests pour le bsp */
     
+    // create bsp
+
+    /* printf("ok ici\n");
+    
+    t_bsp_node root;
+    ft_memset(&root, 0, sizeof(t_bsp_node));
+    
+    build_kd_tree(&root, app.p_data.objects);
+    
+    print_kd_tree(&root); */
 }

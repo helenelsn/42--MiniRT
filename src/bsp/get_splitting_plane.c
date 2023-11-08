@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_splitting_plane.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:51:57 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/08 18:20:19 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/08 20:18:00 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int     items_count_subvoxel(t_bsp_node *voxel, t_bbox_description subvoxel)
             count++;
         current = current->next;
     }
+    return (count);
 }
 
 double  get_object_intersect_cost(t_vlist *object)
