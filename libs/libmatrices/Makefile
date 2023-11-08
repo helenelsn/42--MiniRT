@@ -6,7 +6,7 @@
 #    By: srapin <srapin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/03 12:01:36 by Helene            #+#    #+#              #
-#    Updated: 2023/11/08 18:37:39 by srapin           ###   ########.fr        #
+#    Updated: 2023/11/08 22:46:55 by srapin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ FILES=	 \
 	create \
 	del \
 	print_mat \
-	basic_operations \
+	prod_mat \
+	# basic_operations \
 
 SRCS_DIR = src
 SRCS = $(addprefix $(SRCS_DIR)/, $(addsuffix .c, $(FILES))) 

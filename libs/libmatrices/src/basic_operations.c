@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 21:01:11 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/08 19:06:58 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/08 22:45:40 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,63 +21,7 @@
 
 
 /* a * b */
-t_matrix  *matrix_product(t_matrix a, t_matrix b)
-{
-    int i;
-    int j;
-    int k;
-    t_matrix    *new;
-    
-    if (a.columns != b.rows)
-        return (NULL); /* msg d'erreur si non multipliable ? */
-    // new = ft_calloc(sizeof(t_matrix), 1);
-    // if (!new)
-    //     return (NULL);
-    // new = new_void_matrix();
-    
-    i = 0;
-    while (i < a.rows)
-    {
-        k = 0;
-        while (k < b.columns)
-        {
-            j = 0;
-            while (j < a.columns) /* ou b.rows */
-            {
-                new->matrix[i][k] += a.matrix[i][j] * b.matrix[j][k];
-                j++;
-            }
-            k++;
-        }
-        i++;
-    }
-    return (new);
-    
-/* c[i][k] = SUM(j = 1, j <= N)(a_ij * b_jk) */
-}
 
-t_matrix    *scalar_product(t_matrix a, double s)
-{
-    int i;
-    int j;
-    t_matrix *new;
-
-    // new = malloc(sizeof(t_matrix));
-    // if (!new)
-    //     return (NULL);
-    i = 0;
-    while (i < a.rows)
-    {
-        j = 0;
-        while (j < a.columns)
-        {
-            new->matrix[i][j] = a.matrix[i][j] * s;
-            j++;
-        }
-        i++;
-    }
-    return (new);
-}
 
 t_matrix    transpose(t_matrix a)
 {

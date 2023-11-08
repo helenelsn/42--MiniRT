@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 20:52:41 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/08 18:19:17 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/08 22:50:40 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,13 @@ typedef struct  s_cofactor_calc
 //create
 t_matrix  *new_void_matrix(int r, int c);
 t_matrix  *new_matrix_from_tab(int r, int c, double **tab);
+t_matrix  *copy_matrix(t_matrix *m);
+t_matrix  *new_matrix_from_var_args(int r, int c, ...);
 
 /* retourner un pointeur ? */
 // t_matrix    new_matrix(double *u1, double *u2, double *u3);
 t_matrix    *matrix_product(t_matrix a, t_matrix b);
-t_matrix    *scalar_product(t_matrix a, double s);
+t_matrix    *scalar_product(t_matrix *a, double s);
 t_matrix    *inverse(t_matrix a);
 // bool        are_equals(t_matrix a, t_matrix b);
 
