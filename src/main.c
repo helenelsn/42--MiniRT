@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:20 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/06 02:22:56 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/08 18:39:17 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int main(int argc, char **argv)
     // t_vlist *garbage;
     t_app   app;
     parse(argc, argv, &app.garbage, &app.p_data);
-    // 0,0,20 20 255,0,0
-    // char **lol =[ "0,0,20"], "20", "255, 0, 0", NULL:
     
+    /* tests pour le bsp */
 }
