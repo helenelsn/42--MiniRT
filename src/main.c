@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:20 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/08 20:56:24 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/08 22:47:21 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int main(int argc, char **argv)
 {
     // t_vlist *garbage;
     t_app   app;
+    ft_bzero(&app, sizeof(t_app));
     parse(argc, argv, &app.garbage, &app.p_data);
     
     /* tests pour le bsp */
