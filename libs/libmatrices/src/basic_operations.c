@@ -6,50 +6,34 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 21:01:11 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/06 22:29:02 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/08 19:06:58 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/matrices.h"
-#include "../../../inc/mini_rt.h"
+
 
 // t_matrix  new_matrix(double *u1, double *u2, double *u3)
 // {
 
 // }
 
-t_matrix  *new_matrix(int r, int c, ...)
-{
-    t_matrix *m;
-    va_list ap;
-    int i = 0;
-    
-    m = ft_calloc(1, sizeof(t_matrix));
-    m->rows = r;
-    m->columns = c;
-    m->matrix = ft_calloc(m->rows, sizeof(double *));
-    va_start(ap, c);
-    while (i < m->rows)
-    {
-        m->matrix[i] = va_arg(ap, double *);
-        if (!m->matrix[i])
-        i++;
-    }
-    return m;
-}
+
 
 /* a * b */
-t_matrix  matrix_product(t_matrix a, t_matrix b)
+t_matrix  *matrix_product(t_matrix a, t_matrix b)
 {
     int i;
     int j;
     int k;
     t_matrix    *new;
+    
     if (a.columns != b.rows)
         return (NULL); /* msg d'erreur si non multipliable ? */
     // new = ft_calloc(sizeof(t_matrix), 1);
     // if (!new)
     //     return (NULL);
+    // new = new_void_matrix();
     
     i = 0;
     while (i < a.rows)
@@ -60,7 +44,7 @@ t_matrix  matrix_product(t_matrix a, t_matrix b)
             j = 0;
             while (j < a.columns) /* ou b.rows */
             {
-                new.matrix[i][k] += a.matrix[i][j] * b.matrix[j][k];
+                new->matrix[i][k] += a.matrix[i][j] * b.matrix[j][k];
                 j++;
             }
             k++;
@@ -72,11 +56,11 @@ t_matrix  matrix_product(t_matrix a, t_matrix b)
 /* c[i][k] = SUM(j = 1, j <= N)(a_ij * b_jk) */
 }
 
-t_matrix    scalar_product(t_matrix a, double s)
+t_matrix    *scalar_product(t_matrix a, double s)
 {
     int i;
     int j;
-    t_matrix new;
+    t_matrix *new;
 
     // new = malloc(sizeof(t_matrix));
     // if (!new)
@@ -87,7 +71,7 @@ t_matrix    scalar_product(t_matrix a, double s)
         j = 0;
         while (j < a.columns)
         {
-            new.matrix[i][j] = a.matrix[i][j] * s;
+            new->matrix[i][j] = a.matrix[i][j] * s;
             j++;
         }
         i++;
@@ -194,17 +178,17 @@ t_cofactor_info get_efficient_index(t_matrix a)
     return (cc);
 }
 
-t_matrix    compute_cofactor_m(t_matrix a)
-{
+// t_matrix    compute_cofactor_m(t_matrix a)
+// {
     
-}
+// }
 
-double  compute_determinant(t_matrix a)
-{
+// double  compute_determinant(t_matrix a)
+// {
     
-}
+// }
 
-t_matrix  inverse(t_matrix a)
+t_matrix  *inverse(t_matrix a)
 {
     double      det;
     t_matrix    cofactor_mat;
@@ -214,8 +198,8 @@ t_matrix  inverse(t_matrix a)
     det = compute_determinant(a);
     if (!det)
         return (NULL);
-    cofactor_mat = compute_cofactor_m(a);
-    
+    // cofactor_mat = compute_cofactor_m(a);
+    return NULL;
     return (scalar_product(transpose(cofactor_mat), 1/det));
 }
 

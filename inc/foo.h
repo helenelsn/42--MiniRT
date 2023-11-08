@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/06 18:14:01 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/08 19:31:07 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ double get_dist_droite_point(t_droite d, t_point_3d p);
 double get_dist_between_droite(t_droite d, t_droite e);
 int get_fov(char *str);
 int	create_rgb(unsigned char r, unsigned char g, unsigned char b);
-bool	get_rgb(char *str, t_raytracing_material *mat);
+bool	get_rgb(char *str, int *c);
 t_parse_error parse(int ac, char **av, t_vlist **garbage, t_parsing_data *data);
 void free_tab(void *arg);
 int null_term_tab_len(void **tab);

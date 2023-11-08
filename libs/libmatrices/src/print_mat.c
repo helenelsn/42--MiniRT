@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_vlstnew.c                                        :+:      :+:    :+:   */
+/*   print_mat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/11 04:11:10 by srapin            #+#    #+#             */
-/*   Updated: 2023/10/18 22:14:27 by srapin           ###   ########.fr       */
+/*   Created: 2023/11/08 18:15:17 by srapin            #+#    #+#             */
+/*   Updated: 2023/11/08 18:37:48 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/mini_rt.h"
+#include "../inc/matrices.h"
 
-t_vlist	*ft_vlstnew(void * content, void foo(void *), t_type t)
+void print_mat(t_matrix *m)
 {
-	t_vlist	*new_lst;
+	printf("r = %d, c = %d\n", m->rows, m->columns);
+	int i = 0;
+	int j = 0;
 
-	new_lst = malloc(sizeof(t_vlist));
-	if (!new_lst)
-		return (NULL);
-	new_lst->next = NULL;
-	new_lst->content = content;
-	new_lst->free_foo = foo;
-	new_lst->type = t;
-	// new_lst->material = mat;
-	return (new_lst);
+	while (i < m->rows)
+	{
+		while (j < m->columns)
+		{
+			printf("%f ", m->matrix[i][j]);
+			j++;
+		}
+		printf("\n");
+		i++;
+	}
 }

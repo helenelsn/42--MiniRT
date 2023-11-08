@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 01:20:17 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/06 02:12:22 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/08 19:32:56 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_sphere *create_sphere(char **tab, t_vlist **garbage, t_parsing_data *data)
     if (!elem)
         return NULL;
     elem->radius = atof(tab[2]) / 2;
-    if (!get_rgb(tab[3], &elem->material) || !ft_strisfloat(tab[2]) ||elem->radius < 0 || !get_point(tab[1], &elem->p))
+    if (!get_rgb(tab[3], &elem->color) || !ft_strisfloat(tab[2]) ||elem->radius < 0 || !get_point(tab[1], &elem->p))
     {
         free(elem);
         return NULL;

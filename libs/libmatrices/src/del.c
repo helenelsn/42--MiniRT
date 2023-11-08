@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_vlstnew.c                                        :+:      :+:    :+:   */
+/*   del.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/11 04:11:10 by srapin            #+#    #+#             */
-/*   Updated: 2023/10/18 22:14:27 by srapin           ###   ########.fr       */
+/*   Created: 2023/11/07 16:45:37 by srapin            #+#    #+#             */
+/*   Updated: 2023/11/07 16:48:33 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/mini_rt.h"
+#include "../inc/matrices.h"
 
-t_vlist	*ft_vlstnew(void * content, void foo(void *), t_type t)
+void	del_mat(void *v)
 {
-	t_vlist	*new_lst;
+	t_matrix *m;
+	int i = 0;
 
-	new_lst = malloc(sizeof(t_vlist));
-	if (!new_lst)
-		return (NULL);
-	new_lst->next = NULL;
-	new_lst->content = content;
-	new_lst->free_foo = foo;
-	new_lst->type = t;
-	// new_lst->material = mat;
-	return (new_lst);
+	m = (t_matrix *) v;
+	while(i < m->rows)
+	{
+		free(m->matrix[i]);
+		i++;
+	}
+	free(m->matrix);
+	free(m);
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: Helene <Helene@student.42.fr>              +#+  +:+       +#+         #
+#    By: srapin <srapin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 22:16:42 by srapin            #+#    #+#              #
-#    Updated: 2023/11/08 15:44:21 by Helene           ###   ########.fr        #
+#    Updated: 2023/11/08 19:33:59 by srapin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,10 +16,6 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g3 -I/opt/X11/include
 
 FILES = \
-		bsp/create_bsp \
-		bsp/bounding_volumes \
-		bsp/get_splitting_plane \
-		bsp/search \
 		create_elem/cr_camera\
 		create_elem/cr_cylindre\
 		create_elem/cr_light\
@@ -50,6 +46,10 @@ FILES = \
 		parse\
 		# trace_rays/trace_ray \
 		# trace_rays/convert \ 
+		# bsp/create_bsp \
+		# bsp/bounding_volumes \
+		# bsp/get_splitting_plane \
+		# bsp/search \
 
 		
 	
@@ -66,9 +66,12 @@ LIBSR_DIR = libft
 LIBSR = $(LIBS_FOLDER)/$(LIBSR_DIR)/libft.a
 
 MLX_DIR = minilibx-linux/
-MLX = ./$(LIBS_FOLDER)/$(MLX_DIR)/libmlx_Linux.a
+MLX = $(LIBS_FOLDER)/$(MLX_DIR)/libmlx_Linux.a
 
-LIBS = $(MLX) $(LIBSR)
+# LIBMATRICE_DIR = libmatrices
+# LIBMATRICE = $(LIBS_FOLDER)/$(LIBMATRICE_DIR)/libmatrice.a
+
+LIBS = $(MLX) $(LIBSR) $(LIBMATRICE)
 
 INCLUDES_DIR = includes
 INCLUDES_FILES = fractol.h
@@ -103,6 +106,7 @@ re: clean all
 $(LIBS):
 	make -C $(LIBS_FOLDER)/$(MLX_DIR)
 	make -C $(LIBS_FOLDER)/$(LIBSR_DIR)
+# make -C $(LIBS_FOLDER)/$(LIBMATRICE_DIR)
 
 cleanlibs:
 	make fclean -C $(LIBS_FOLDER)/$(LIBSR_DIR)

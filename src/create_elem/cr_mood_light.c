@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 23:34:39 by srapin            #+#    #+#             */
-/*   Updated: 2023/10/23 17:37:52 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/08 19:31:58 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_mood_light *create_mood_light(char **tab, t_vlist **garbage, t_parsing_data *d
     if (!elem)
         return NULL;
     elem->ratio = get_ratio(tab[1]);
-    if (elem->ratio < 0 || !get_rgb(tab[2], &elem->material))
+    if (elem->ratio < 0 || !get_rgb(tab[2], &elem->color))
     {
         //todo
         free(elem);

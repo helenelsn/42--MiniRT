@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/07 19:53:03 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/08 19:33:10 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ typedef struct s_mood_light
     double  ratio;
     double  intensity;
     t_raytracing_material   material;
+    int                 color;
 }   t_mood_light;
 
 
@@ -110,12 +111,14 @@ typedef struct s_light
     t_raytracing_material   material;
     double  ratio;
     double  intensity;
+    int                 color;
 }   t_light;
 
 typedef struct s_sphere
 {
     t_point_3d              p;
     double                  radius;
+    int                 color;
 }   t_sphere;
 
 typedef struct s_plan
@@ -126,6 +129,7 @@ typedef struct s_plan
     double b;
     double c;
     double d;
+    int                 color;
 }   t_plan;
 
 typedef struct s_cylindre
@@ -134,6 +138,7 @@ typedef struct s_cylindre
     t_vec_3d                vec;
     double                  radius;
     double                  height;
+    int                 color;
     
 }   t_cylindre;
 
