@@ -1,40 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   del.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/18 15:55:20 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/08 19:06:18 by srapin           ###   ########.fr       */
+/*   Created: 2023/11/07 16:45:37 by srapin            #+#    #+#             */
+/*   Updated: 2023/11/07 16:48:33 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/mini_rt.h"
+#include "../inc/matrices.h"
 
-// void get_dist(t_camera *cam)
-// {
-    
-// }
-
-// void get_frame(t_app *app)
-// {
-//     //plus dur que je pensais
-// }
-
-
-
-void test_mat()
+void	del_mat(void *v)
 {
-    
-}
+	t_matrix *m;
+	int i = 0;
 
-int main(int argc, char **argv)
-{
-    // t_vlist *garbage;
-    t_app   app;
-    parse(argc, argv, &app.garbage, &app.p_data);
-    // 0,0,20 20 255,0,0
-    // char **lol =[ "0,0,20"], "20", "255, 0, 0", NULL:
-    
+	m = (t_matrix *) v;
+	while(i < m->rows)
+	{
+		free(m->matrix[i]);
+		i++;
+	}
+	free(m->matrix);
+	free(m);
 }

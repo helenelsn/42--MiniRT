@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 01:26:34 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/06 17:57:30 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/08 19:32:29 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_plan *create_plan(char **tab, t_vlist **garbage,t_parsing_data *data)
     if (!elem)
         return NULL;
     // printf("lool");
-    if (!get_rgb(tab[3], &elem->material)|| !get_point(tab[1], &elem->p) || !get_vec_from_str(tab[2], &elem->vec))
+    if (!get_rgb(tab[3], &elem->color)|| !get_point(tab[1], &elem->p) || !get_vec_from_str(tab[2], &elem->vec))
     {
         free(elem);
         return NULL;

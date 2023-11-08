@@ -1,40 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   print_mat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/18 15:55:20 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/08 19:06:18 by srapin           ###   ########.fr       */
+/*   Created: 2023/11/08 18:15:17 by srapin            #+#    #+#             */
+/*   Updated: 2023/11/08 18:37:48 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/mini_rt.h"
+#include "../inc/matrices.h"
 
-// void get_dist(t_camera *cam)
-// {
-    
-// }
-
-// void get_frame(t_app *app)
-// {
-//     //plus dur que je pensais
-// }
-
-
-
-void test_mat()
+void print_mat(t_matrix *m)
 {
-    
-}
+	printf("r = %d, c = %d\n", m->rows, m->columns);
+	int i = 0;
+	int j = 0;
 
-int main(int argc, char **argv)
-{
-    // t_vlist *garbage;
-    t_app   app;
-    parse(argc, argv, &app.garbage, &app.p_data);
-    // 0,0,20 20 255,0,0
-    // char **lol =[ "0,0,20"], "20", "255, 0, 0", NULL:
-    
+	while (i < m->rows)
+	{
+		while (j < m->columns)
+		{
+			printf("%f ", m->matrix[i][j]);
+			j++;
+		}
+		printf("\n");
+		i++;
+	}
 }

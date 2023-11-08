@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 00:08:53 by srapin            #+#    #+#             */
-/*   Updated: 2023/10/23 17:30:51 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/08 19:30:38 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	create_rgb(unsigned char r, unsigned char g, unsigned char b)
 	return (c.hex);
 }
 
-bool	get_rgb(char *str, t_raytracing_material *mat)
+bool	get_rgb(char *str, int *c)
 {
 	int i = 0;
 	bool flag;
@@ -42,7 +42,7 @@ bool	get_rgb(char *str, t_raytracing_material *mat)
 			i++;
 		}
 		if (!flag) 
-			mat->color = create_rgb(ft_atoi(sp[0]), ft_atoi(sp[1]), ft_atoi(sp[2]));
+			*c = create_rgb(ft_atoi(sp[0]), ft_atoi(sp[1]), ft_atoi(sp[2]));
 	}
 	free_tab(sp);
 	return flag;

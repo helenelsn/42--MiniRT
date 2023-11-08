@@ -23,5 +23,6 @@ t_vlist	*ft_vlstnew(void * content, void foo(void *), t_type t)
 	new_lst->content = content;
 	new_lst->free_foo = foo;
 	new_lst->type = t;
+	// new_lst->material = mat;
 	return (new_lst);
 }
