@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bsp.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:46:51 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/08 16:16:03 by Helene           ###   ########.fr       */
+/*   Updated: 2023/11/08 19:30:30 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ typedef struct s_bsp_node
     int                 items_count; /* 0 when not a leaf */
     
     struct s_bsp_node   *parent;
-    struct s_bsp_node    *left;
-    struct s_bsp_node    *right;
+    struct s_bsp_node   *left;
+    struct s_bsp_node   *right;
 }               t_bsp_node;
 
 
