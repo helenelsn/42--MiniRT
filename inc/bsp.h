@@ -6,7 +6,7 @@
 /*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:46:51 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/08 00:01:35 by Helene           ###   ########.fr       */
+/*   Updated: 2023/11/08 16:16:03 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void                bbox_reset(t_bbox_description *bv, t_point_3d p);
 void                bbox_add_point(t_bbox_description *bv, t_point_3d p);
 void                set_infos(t_bbox_description *bbox);
 bool                count_in_cost(t_bbox_description voxel, t_vlist *object);
+bool                point_is_in(t_bbox_description bv, t_point_3d p);
 
 t_bbox_description  get_temp_subvoxel(t_bsp_node *parent, t_split_infos si, bool left_subvoxel);
 bool                is_in_subvoxel(t_bbox_description subvoxel, t_vlist *object);

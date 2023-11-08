@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+         #
+#    By: Helene <Helene@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 22:16:42 by srapin            #+#    #+#              #
-#    Updated: 2023/11/07 19:38:59 by hlesny           ###   ########.fr        #
+#    Updated: 2023/11/08 15:44:21 by Helene           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ FILES = \
 		bsp/create_bsp \
 		bsp/bounding_volumes \
 		bsp/get_splitting_plane \
+		bsp/search \
 		create_elem/cr_camera\
 		create_elem/cr_cylindre\
 		create_elem/cr_light\

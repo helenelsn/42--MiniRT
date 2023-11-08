@@ -1,2 +1,6 @@
 - voir avec suz comment mettre la liste d'objets (la t_vlist) dans les nodes
-    (ok de stocker un pointeur vers le meme emplacement memoire, ou doit réallouer ?)
+    (ok de stocker un pointeur vers le meme emplacement memoire, 
+    ou doit réallouer ?)
+    : set_root_voxel()
+- de meme, comment ajouter un objet dans les sous nodes 
+    : split_objects()

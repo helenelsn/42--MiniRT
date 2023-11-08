@@ -6,7 +6,7 @@
 /*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 15:35:11 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/07 23:50:02 by Helene           ###   ########.fr       */
+/*   Updated: 2023/11/08 15:43:47 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,17 +181,17 @@ bool  count_in_cost(t_bbox_description voxel, t_vlist *object)
    t_bbox_description in_v;
 
     set_bbox(&in_v, object->material.bbox.min, object->material.bbox.max);
-    if (object->material.bbox.x < voxel.min.x)
+    if (object->material.bbox.min.x < voxel.min.x)
         in_v.min.x = voxel.min.x;
-    if (object->material.bbox.y < voxel.min.y)
+    if (object->material.bbox.min.y < voxel.min.y)
         in_v.min.y = voxel.min.y;
-    if (object->material.bbox.z < voxel.min.z)
+    if (object->material.bbox.min.z < voxel.min.z)
         in_v.min.z = voxel.min.z;
-    if (object->material.bbox.x < voxel.max.x)
+    if (object->material.bbox.max.x < voxel.max.x)
         in_v.max.x = voxel.max.x;
-    if (object->material.bbox.y < voxel.max.y)
+    if (object->material.bbox.max.y < voxel.max.y)
         in_v.max.y = voxel.max.y;
-    if (object->material.bbox.z < voxel.max.z)
+    if (object->material.bbox.max.z < voxel.max.z)
         in_v.max.z = voxel.max.z;
     set_infos(&in_v);
     return ((in_v.surface_area / object->material.bbox.surface_area) >= 0.5 );
@@ -238,11 +238,7 @@ bool    is_in_subvoxel(t_bbox_description subvoxel, t_vlist *object)
             && !point_is_in(subvoxel, object->material.bbox.max))
             || (!point_is_in(subvoxel, object->material.bbox.min)
             && point_is_in(subvoxel, object->material.bbox.max)))
-            {
-                if (sa_in_voxel)
-                    *sa_in_voxel = get_ratio(subvoxel, object);
-                return (true);
-            }
+            return (true);
         i++;
     }
     return (is_in);
@@ -292,6 +288,8 @@ void    split_voxel(t_bsp_node *parent, t_split_infos si)
     }
     set_bbox(&parent->left->bbox, parent->bbox.min, l_max);
     set_bbox(&parent->right->bbox, r_min, parent->bbox.max);
+    parent->left->parent = parent;
+    parent->right->parent = parent;
     
     split_objects(parent);
 }

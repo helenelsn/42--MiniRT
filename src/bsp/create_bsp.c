@@ -6,7 +6,7 @@
 /*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:44:16 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/08 00:07:19 by Helene           ###   ########.fr       */
+/*   Updated: 2023/11/08 15:40:37 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ void rec_build(t_bsp_node *voxel)
     if (terminate(voxel, si.cost))
     {
         voxel->type = leaf;
+        voxel->left = NULL;
+        voxel->right = NULL;
         return ;
     }
     
@@ -119,6 +121,7 @@ void    set_root_voxel(t_bsp_node *root, t_vlist *objects)
     root->items = objects;
     root->left = NULL;
     root->right = NULL;
+    root->parent = NULL;
     
     /* set la liste d'objets */
     // root->items = malloc(sizeof(t_vlist), root->items_count);
