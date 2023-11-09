@@ -6,7 +6,7 @@
 #    By: srapin <srapin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/03 12:01:36 by Helene            #+#    #+#              #
-#    Updated: 2023/11/09 21:37:53 by srapin           ###   ########.fr        #
+#    Updated: 2023/11/09 23:43:14 by srapin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,6 +59,9 @@ clean:
 	rm -rf $(OBJS_DIR)
 
 fclean: clean
+	rm -f $(NAME)
+
+cleanname:
 	rm -f $(NAME)
 
 re: fclean all

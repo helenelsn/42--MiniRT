@@ -6,14 +6,14 @@
 #    By: srapin <srapin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 22:16:42 by srapin            #+#    #+#              #
-#    Updated: 2023/11/09 22:24:02 by srapin           ###   ########.fr        #
+#    Updated: 2023/11/09 23:43:42 by srapin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = mimirt
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3 -I/opt/X11/include -I/opt/Xext/include
+CFLAGS = -Wall -Wextra -Werror -g3 -I/opt/X11/include -I/opt/Xext/include 
 
 FILES = \
 		create_elem/cr_camera\
@@ -104,7 +104,7 @@ ${OBJS_DIR}/%.o: ${SRCS_DIR}/%.c
 clean: cleanlibs
 	rm -rf $(OBJS_DIR)
 
-fclean: clean
+fclean: clean fcleanlibs 
 	rm -f $(NAME)
 
 re: clean all
@@ -116,7 +116,11 @@ $(LIBS):
 
 cleanlibs:
 	make clean -C $(LIBS_FOLDER)/$(LIBSR_DIR)
-	make clean -C $(LIBS_FOLDER)/$(MLX_DIR)
 	make clean -C $(LIBS_FOLDER)/$(LIBMATRICE_DIR)
+	make clean -C $(LIBS_FOLDER)/$(MLX_DIR)
+
+fcleanlibs:
+	make fclean -C $(LIBS_FOLDER)/$(LIBSR_DIR)
+	make fclean -C $(LIBS_FOLDER)/$(LIBMATRICE_DIR)
 
 .PHONY: all clean fclean re makelib cleanlib
