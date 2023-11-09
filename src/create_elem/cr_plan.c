@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cr_plan.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 01:26:34 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/08 23:01:03 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/09 23:17:31 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_plan *create_plan(char **tab, t_vlist **garbage,t_parsing_data *data)
     // printf("lool");
     set_eq(elem);
     ft_vlstadd_back(garbage, ft_vlstnew(elem, free, plan));
-    ft_vlstadd_back(&data->objects, ft_vlstnew(elem, free, plan));
+    ft_vlstadd_back(&data->planes, ft_vlstnew(elem, free, plan));
     t_droite d;
     
     d.p.x = 1;

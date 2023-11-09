@@ -6,11 +6,11 @@
 #    By: srapin <srapin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 22:16:42 by srapin            #+#    #+#              #
-#    Updated: 2023/11/09 22:20:56 by srapin           ###   ########.fr        #
+#    Updated: 2023/11/09 22:24:02 by srapin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = minirt
+NAME = mimirt
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g3 -I/opt/X11/include -I/opt/Xext/include

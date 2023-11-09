@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:13 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/08 22:55:54 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/09 22:43:35 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "../libs/libmatrices/inc/matrices.h"
 # include "../libs/minilibx-linux/mlx.h"
 # include "struct.h"
+# include "bsp.h"
 # include <X11/X.h>
 # include <X11/keysym.h>
 # include <math.h>

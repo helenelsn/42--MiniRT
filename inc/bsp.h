@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bsp.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:46:51 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/09 20:13:38 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/09 23:02:51 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,46 +27,11 @@ In ray tracing the internal nodes of a space subdivision are not interesting.
 All useful information is in the leaves.
 */
 
-typedef enum    e_node_type
-{
-    node,
-    leaf  
-}               t_node_type;
 
-typedef enum    e_dim
-{
-    x,
-    y,
-    z
-}               t_dim;
-
-typedef struct  s_split_infos
-{
-    t_dim   dim;
-    double  split_coord;
-    double  cost;
-}               t_split_infos;
-
-typedef struct s_bsp_node
-{
-    t_node_type         type; 
-    int                 depth; // ?
-    
-    t_bbox_description  bbox;
-    t_dim               split_dim; // ?
-    t_split_infos       split_inf;
-    
-    t_vlist             *items; /* NULL when not a leaf */
-    int                 items_count; /* 0 when not a leaf */
-    
-    struct s_bsp_node   *parent;
-    struct s_bsp_node   *left;
-    struct s_bsp_node   *right;
-}               t_bsp_node;
 
 
 void                build_kd_tree(t_bsp_node *root_voxel,  t_vlist *objects);
-void                set_planes_list(t_vlist *objects, t_vlist *planes);
+void                set_planes_list(t_app *app);
 
 double              compute_cost(t_bsp_node *parent_voxel, t_split_infos si);
 double              get_intersection_cost(t_bsp_node *parent, t_bbox_description subvoxel);

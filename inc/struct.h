@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/09 20:04:00 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/09 23:18:05 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 
 
 # define T_INF      0.00001 //new
+
+// typedef struct s_vlist;
 
 
 typedef struct s_point2d
@@ -209,16 +211,10 @@ typedef struct s_parsing_data
     t_mood_light *mooooo; // batarde j avais pas vu (drole)
     t_light *lights;
     t_vlist *objects;
+    t_vlist *planes;
 } t_parsing_data;
 
-typedef struct s_app
-{
-    t_parsing_data p_data;
-    t_frame  frame; //represente la fenetre par laquell on regarde
-    t_vlist *garbage;
-    void				*mlx_ptr;
-	void				*win_ptr;
-} t_app;
+
 
 // typedef enum e_elem
 // {
@@ -226,6 +222,57 @@ typedef struct s_app
 //     light,
     
 // } t_elem;
+
+typedef enum    e_node_type
+{
+    node,
+    leaf  
+}               t_node_type;
+
+typedef enum    e_dim
+{
+    x,
+    y,
+    z
+}               t_dim;
+
+typedef struct  s_split_infos
+{
+    t_dim   dim;
+    double  split_coord;
+    double  cost;
+}               t_split_infos;
+
+
+
+typedef struct s_bsp_node
+{
+    t_node_type         type; 
+    int                 depth; // ?
+    
+    t_bbox_description  bbox;
+    t_dim               split_dim; // ?
+    t_split_infos       split_inf;
+    
+    struct s_vlist             *items; /* NULL when not a leaf */
+    int                 items_count; /* 0 when not a leaf */
+    
+    struct s_bsp_node   *parent;
+    struct s_bsp_node   *left;
+    struct s_bsp_node   *right;
+}               t_bsp_node;
+
+
+typedef struct s_app
+{
+    t_parsing_data p_data;
+    t_frame  frame; //represente la fenetre par laquell on regarde
+    t_vlist *garbage;
+    t_bsp_node  root;
+    t_vlist     *planes;
+    void				*mlx_ptr;
+	void				*win_ptr;
+} t_app;
 
 typedef union u_color
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_bsp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:44:16 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/09 20:27:51 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/09 23:16:48 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,25 +154,6 @@ void build_kd_tree(t_bsp_node *root_voxel, t_vlist *objects)
     rec_build(root_voxel);
 }
 
-void    set_planes_list(t_vlist *objects, t_vlist *planes)
-{
-    t_vlist *curr;
-    t_vlist *tmp;
-
-    curr = objects;
-    while (curr)
-    {
-        if (curr->type == plan)
-        {
-            ft_vlstadd_back(&planes, curr);
-            tmp = curr;
-            curr = curr->next;
-            ft_vlst_del_in_list(&objects, tmp); 
-        }
-        else
-            curr = curr->next;
-    }
-}
 
 /* --------------------- printing functions -------------------------- */
 
