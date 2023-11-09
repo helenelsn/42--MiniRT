@@ -6,7 +6,7 @@
 #    By: srapin <srapin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/03 12:01:36 by Helene            #+#    #+#              #
-#    Updated: 2023/11/08 18:37:39 by srapin           ###   ########.fr        #
+#    Updated: 2023/11/09 21:37:53 by srapin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,8 +19,12 @@ AR = ar rcs
 FILES=	 \
 	create \
 	del \
+	det \
+	equality \
 	print_mat \
-	basic_operations \
+	prod_mat \
+	scan \
+	# basic_operations \
 
 SRCS_DIR = src
 SRCS = $(addprefix $(SRCS_DIR)/, $(addsuffix .c, $(FILES))) 
@@ -52,7 +56,7 @@ $(NAME): $(OBJS) $(LIBFT)
 all: $(NAME)
 
 clean:
-	rm -f $(OBJS)
+	rm -rf $(OBJS_DIR)
 
 fclean: clean
 	rm -f $(NAME)

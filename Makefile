@@ -6,7 +6,7 @@
 #    By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 22:16:42 by srapin            #+#    #+#              #
-#    Updated: 2023/11/09 20:21:10 by hlesny           ###   ########.fr        #
+#    Updated: 2023/11/09 22:13:38 by hlesny           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ FILES = \
 		bsp/search \
 		# trace_rays/trace_ray \
 		# trace_rays/convert \ 
-
+Resolving
 		
 	
 SRCS_DIR = src
@@ -71,8 +71,8 @@ MLX_DIR = minilibx-linux
 MLX = $(LIBS_FOLDER)/$(MLX_DIR)/libmlx_Linux.a
 MLXFLAGS = -lX11 -lXext -lm
 
-# LIBMATRICE_DIR = libmatrices
-# LIBMATRICE = $(LIBS_FOLDER)/$(LIBMATRICE_DIR)/libmatrice.a
+LIBMATRICE_DIR = libmatrices
+LIBMATRICE = $(LIBS_FOLDER)/$(LIBMATRICE_DIR)/libmatrice.a
 
 LIBS = $(MLX) $(LIBSR) $(LIBMATRICE)
 
@@ -109,10 +109,11 @@ re: clean all
 $(LIBS):
 	make -C $(LIBS_FOLDER)/$(MLX_DIR)
 	make -C $(LIBS_FOLDER)/$(LIBSR_DIR)
-# make -C $(LIBS_FOLDER)/$(LIBMATRICE_DIR)
+	make -C $(LIBS_FOLDER)/$(LIBMATRICE_DIR)
 
 cleanlibs:
-	make fclean -C $(LIBS_FOLDER)/$(LIBSR_DIR)
+	make clean -C $(LIBS_FOLDER)/$(LIBSR_DIR)
 	make clean -C $(LIBS_FOLDER)/$(MLX_DIR)
+	make clean -C $(LIBS_FOLDER)/$(LIBMATRICE_DIR)
 
 .PHONY: all clean fclean re makelib cleanlib
