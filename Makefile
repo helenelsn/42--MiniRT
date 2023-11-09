@@ -6,7 +6,7 @@
 #    By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 22:16:42 by srapin            #+#    #+#              #
-#    Updated: 2023/11/08 20:22:50 by hlesny           ###   ########.fr        #
+#    Updated: 2023/11/08 22:43:07 by srapin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ FILES = \
 		bsp/search \
 		# trace_rays/trace_ray \
 		# trace_rays/convert \ 
-
+Resolving
 		
 	
 SRCS_DIR = src
@@ -68,8 +68,8 @@ LIBSR = $(LIBS_FOLDER)/$(LIBSR_DIR)/libft.a
 MLX_DIR = minilibx-linux/
 MLX = $(LIBS_FOLDER)/$(MLX_DIR)/libmlx_Linux.a
 
-# LIBMATRICE_DIR = libmatrices
-# LIBMATRICE = $(LIBS_FOLDER)/$(LIBMATRICE_DIR)/libmatrice.a
+LIBMATRICE_DIR = libmatrices
+LIBMATRICE = $(LIBS_FOLDER)/$(LIBMATRICE_DIR)/libmatrice.a
 
 LIBS = $(MLX) $(LIBSR) $(LIBMATRICE)
 
@@ -106,7 +106,7 @@ re: clean all
 $(LIBS):
 	make -C $(LIBS_FOLDER)/$(MLX_DIR)
 	make -C $(LIBS_FOLDER)/$(LIBSR_DIR)
-# make -C $(LIBS_FOLDER)/$(LIBMATRICE_DIR)
+	make -C $(LIBS_FOLDER)/$(LIBMATRICE_DIR)
 
 cleanlibs:
 	make fclean -C $(LIBS_FOLDER)/$(LIBSR_DIR)

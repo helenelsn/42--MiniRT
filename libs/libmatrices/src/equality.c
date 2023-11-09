@@ -1,37 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_mat.c                                        :+:      :+:    :+:   */
+/*   equality.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/08 18:15:17 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/08 23:45:57 by srapin           ###   ########.fr       */
+/*   Created: 2023/11/09 00:36:01 by srapin            #+#    #+#             */
+/*   Updated: 2023/11/09 00:39:33 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/matrices.h"
 
-void print_mat(t_matrix *m)
+bool    matrix_are_equals(t_matrix *a, t_matrix *b)
 {
-	if (!m)
-	{
-		printf("%p\n", m);
-		return;
-	}
-	printf("r = %d, c = %d\n", m->rows, m->columns);
-	int i = 0;
-	int j = 0;
-
-	while (i < m->rows)
-	{
-		j = 0;
-		while (j < m->columns)
-		{
-			printf("%f ;", m->matrix[i][j]);
-			j++;
-		}
-		printf("\n");
-		i++;
-	}
+    int i;
+    int j;
+    
+    if (a->columns != b->columns || a->rows != b->rows)
+        return (false);
+    i = 0;
+    while (i < a->rows)
+    {
+        j = 0;
+        while (j < a->columns)
+        {
+            if (a->matrix[i][j] != b->matrix[i][j])
+                return (false);
+            j++;
+        }
+        i++;
+    }
+    return (true);
 }

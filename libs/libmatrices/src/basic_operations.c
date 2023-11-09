@@ -6,103 +6,12 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 21:01:11 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/08 19:06:58 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/09 00:44:59 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/matrices.h"
 
-
-// t_matrix  new_matrix(double *u1, double *u2, double *u3)
-// {
-
-// }
-
-
-
-/* a * b */
-t_matrix  *matrix_product(t_matrix a, t_matrix b)
-{
-    int i;
-    int j;
-    int k;
-    t_matrix    *new;
-    
-    if (a.columns != b.rows)
-        return (NULL); /* msg d'erreur si non multipliable ? */
-    // new = ft_calloc(sizeof(t_matrix), 1);
-    // if (!new)
-    //     return (NULL);
-    // new = new_void_matrix();
-    
-    i = 0;
-    while (i < a.rows)
-    {
-        k = 0;
-        while (k < b.columns)
-        {
-            j = 0;
-            while (j < a.columns) /* ou b.rows */
-            {
-                new->matrix[i][k] += a.matrix[i][j] * b.matrix[j][k];
-                j++;
-            }
-            k++;
-        }
-        i++;
-    }
-    return (new);
-    
-/* c[i][k] = SUM(j = 1, j <= N)(a_ij * b_jk) */
-}
-
-t_matrix    *scalar_product(t_matrix a, double s)
-{
-    int i;
-    int j;
-    t_matrix *new;
-
-    // new = malloc(sizeof(t_matrix));
-    // if (!new)
-    //     return (NULL);
-    i = 0;
-    while (i < a.rows)
-    {
-        j = 0;
-        while (j < a.columns)
-        {
-            new->matrix[i][j] = a.matrix[i][j] * s;
-            j++;
-        }
-        i++;
-    }
-    return (new);
-}
-
-t_matrix    transpose(t_matrix a)
-{
-    int         i;
-    int         j;
-    t_matrix    b;
-
-    // b = malloc(sizeof(t_matrix));
-    // if (!b)
-    //     return (NULL);
-    i = 0;
-    b.columns = a.rows;
-    b.rows = a.columns;
-    while (i < a.rows)
-    {
-        j = 0;
-        while (j < a.columns)
-        {
-            b.matrix[j][i] = a.matrix[i][j];
-            j++;
-        }
-        i++;
-    }
-    return (b);
-}
 
 t_cofactor_info  scan_rows(t_matrix a)
 {
@@ -198,7 +107,7 @@ t_matrix  *inverse(t_matrix a)
     det = compute_determinant(a);
     if (!det)
         return (NULL);
-    // cofactor_mat = compute_cofactor_m(a);
+    cofactor_mat = compute_cofactor_m(a);
     return NULL;
     return (scalar_product(transpose(cofactor_mat), 1/det));
 }
@@ -213,14 +122,11 @@ bool    are_equals(t_matrix a, t_matrix b)
     i = 0;
     while (i < a.rows)
     {
-        j = 0;
+        j = 0
+        j = 0;;
         while (j < a.columns)
         {
             if (a.matrix[i][j] != b.matrix[i][j])
-                return (false);
-            j++;
-        }
-        i++;
-    }
-    return (true);
+                return (false
+        j = 0;
 }

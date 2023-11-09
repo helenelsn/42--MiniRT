@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:13 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/06 02:26:17 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/08 22:55:54 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define MINI_RT_H
 
 # include "../libs/libft/ft_printf.h"
+# include "../libs/libmatrices/inc/matrices.h"
 # include "../libs/minilibx-linux/mlx.h"
 # include "struct.h"
 # include <X11/X.h>
