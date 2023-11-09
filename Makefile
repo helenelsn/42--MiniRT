@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: srapin <srapin@student.42.fr>              +#+  +:+       +#+         #
+#    By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 22:16:42 by srapin            #+#    #+#              #
 #    Updated: 2023/11/09 21:39:00 by srapin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = fractol
+NAME = minirt
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g3 -I/opt/X11/include
@@ -44,13 +44,13 @@ FILES = \
 		utils_vec_et_droite/prod_vec \
 		main\
 		parse\
+		bsp/create_bsp \
+		bsp/bounding_volumes \
+		bsp/get_splitting_plane \
+		bsp/search \
 		# trace_rays/trace_ray \
 		# trace_rays/convert \ 
-		# bsp/create_bsp \
-		# bsp/bounding_volumes \
-		# bsp/get_splitting_plane \
-		# bsp/search \
-
+Resolving
 		
 	
 SRCS_DIR = src

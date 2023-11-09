@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/08 19:33:10 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/08 20:02:35 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,7 +215,7 @@ typedef struct s_camera
 typedef struct s_parsing_data
 {
     t_camera *cam;
-    t_mood_light *mooooo;
+    t_mood_light *mooooo; // batarde j avais pas vu (drole)
     t_light *lights;
     t_vlist *objects;
 } t_parsing_data;

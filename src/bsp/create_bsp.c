@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_bsp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:44:16 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/08 18:20:22 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/08 20:17:24 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,22 +98,16 @@ void rec_build(t_bsp_node *voxel)
 
 void    set_root_voxel(t_bsp_node *root, t_vlist *objects)
 {
-    t_vlist *new_obj;
     t_vlist *curr;
 
-    curr = objects;
-    root->items = malloc(sizeof(t_vlist));
+    /* root->items = malloc(sizeof(t_vlist));
     if (!root->items)
-        return ;
-    root->items = objects; // ?
+        return  */;
+    curr = objects;
+    root->items = objects; // ? /* set la liste d'objets */
     while (curr)
     {
         root->items_count++;
-        // new_obj = malloc(sizeof(t_vlist));
-        // if (!new_obj)
-        //     return ; // ?
-        // copy_content(&new_obj, curr);
-        // new_obj = curr;
         curr = curr->next;
     }
     root->type = node;
@@ -122,10 +116,7 @@ void    set_root_voxel(t_bsp_node *root, t_vlist *objects)
     root->left = NULL;
     root->right = NULL;
     root->parent = NULL;
-    
-    /* set la liste d'objets */
-    // root->items = malloc(sizeof(t_vlist), root->items_count);
-    
+        
 }
 
 /*  Returns the root node.
@@ -133,25 +124,19 @@ void    set_root_voxel(t_bsp_node *root, t_vlist *objects)
     The camera will then be moved from one node to another 
     depending on its position.
 */
-t_bsp_node    *build_kd_tree(t_vlist *objects)
+void build_kd_tree(t_bsp_node *root_voxel, t_vlist *objects)
 { 
-    t_bsp_node      *root_voxel;
-
-    root_voxel = malloc(sizeof(t_bsp_node));
-    if (!root_voxel)
-        return (NULL);
-    
     /* set each object's bounding box */
     set_bounding_boxes(objects);
-    
-    /* set the root voxel's dimensions */
-    root_voxel->bbox = get_scene_limits(objects);
     
     /* set the root voxel's objects (items) list */
     set_root_voxel(root_voxel, objects);
     
+    /* set the root voxel's dimensions */
+    root_voxel->bbox = get_scene_limits(objects);
+    
+    /* build the tree */
     rec_build(root_voxel);
-    return (root_voxel);
 }
 
 
