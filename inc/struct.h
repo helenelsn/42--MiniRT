@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/08 20:02:35 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/09 20:04:00 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,12 @@ typedef struct s_vec_3d
     double norm; /* ca fait tout couiller ? pense oas juste a ajouter dans la construction*/
 } t_vec_3d;
 
-typedef struct s_droite
+typedef struct  s_droite
 {
-    t_point_3d p;
-    t_vec_3d v;
-} t_droite;
+    t_point_3d  p;
+    t_vec_3d    v;
+}               t_droite;
+
 typedef enum e_type
 {
     camera,
@@ -141,16 +142,6 @@ typedef struct s_cylindre
     int                 color;
     
 }   t_cylindre;
-
-typedef struct  s_hyperboloid
-{
-    
-}               t_hyperboloid;
-
-typedef struct  s_paraboloid
-{
-    
-}               t_paraboloid;
 
 typedef struct  s_circle
 {

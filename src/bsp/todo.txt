@@ -1,25 +1,38 @@
-- voir avec suz comment mettre la liste d'objets (la t_vlist) dans les nodes
-    (ok de stocker un pointeur vers le meme emplacement memoire, 
-    ou doit réallouer ?)
-    : set_root_voxel()
-- de meme, comment ajouter un objet dans les sous nodes 
-    : split_objects()
+
+TODO :
+
+- Ajouter les plans a une liste chainee, et non au kd-tree
+
+
+- Your program must be able to resize the object’s unique properties: diameter for a
+sphere and the width and height for a cylinder.
+
+
+- Your program must be able to apply translation and rotation transformation to
+objects, lights and cameras (except for spheres and lights that cannot be rotated) 
+
+    Translations, rotations, etc de la camera : la repositionne dans l arbre
+
+    Translations, rotations, etc d un objet : soit recalcule entierement l arbre, soit 
+    supprime l objet de l arbre et le met dans une liste chainee, et recalcule entierement l arbre
+    lorsque cette liste a plus de N elements (taille arbitraire)
+    bemol : si rotation d une sphere, ne fait rien
+
+
+
+
+
+
+
+
 
 
 
 ----------------------------------------------------------------------------
 
-creer une structure a part (liste chainee) pour les plans, qui ne seront
-pas stockes dans l arbre.
-comment les supprimer de la t_vlist initiale ? etant donne que va 
-reutiliser la meme dans l arbre, il faudrait donc y enlever les plans
-
-----------------------------------------------------------------------------
-
-Marche a suivre (naive) :
+Marche a suivre (naive) du raytracer :
 
 // positionne la camera dans l arbre
-
 
 pour chaque pixel :
 
@@ -35,9 +48,3 @@ comme origine du rayon le point d intersection trouve precedemment (recursion)
 
 
 
-Translations, rotations, etc de la camera : la repositionne dans l arbre
-
-Translations, rotations, etc d un objet : soit recalcule entierement l arbre, soit 
-supprime l objet de l arbre et le met dans une liste chainee, et recalcule entierement l arbre
-lorsque cette liste a plus de N elements (taille arbitraire)
-bemol : si rotation d une sphere, ne fait rien

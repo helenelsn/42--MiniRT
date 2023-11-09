@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: Helene <Helene@student.42.fr>              +#+  +:+       +#+         #
+#    By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 22:16:42 by srapin            #+#    #+#              #
-#    Updated: 2023/11/09 15:09:48 by Helene           ###   ########.fr        #
+#    Updated: 2023/11/09 20:21:10 by hlesny           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ FILES = \
 		garbage_collector/ft_lstdelone\
 		garbage_collector/ft_lstclear\
 		garbage_collector/ft_lstiter \
+		garbage_collector/ft_vlst_del_in_list\
 		intersection/i_sphere \
 		intersection/i_plan \
 		utils/atof \
