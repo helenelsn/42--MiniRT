@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:20 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/08 22:47:21 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/08 23:02:24 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,13 @@ int main(int argc, char **argv)
     ft_bzero(&app, sizeof(t_app));
     parse(argc, argv, &app.garbage, &app.p_data);
     
-    /* tests pour le bsp */
-    
-    // create bsp
-
-    printf("ok ici\n");
-    
+   
     t_bsp_node root;
     ft_memset(&root, 0, sizeof(t_bsp_node));
     
     build_kd_tree(&root, app.p_data.objects);
     
-    // print_kd_tree(&root);
-
+    print_kd_tree(&root);
     
-        
+    
 }

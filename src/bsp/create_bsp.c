@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:44:16 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/08 20:17:24 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/09 02:08:49 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,7 @@ bool terminate(t_bsp_node *current, double cost)
             ie si c'est rentable de subdiviser a nouveau le voxel 
         2) si on est arrivé à depth_max (reduce memory usage)
         */
-    if ((current->items_count * get_object_list_intersection_cost(current) < cost)
-        || current->depth == MAX_DEPTH)
+    if (current->items_count * get_object_list_intersection_cost(current) < cost)
         return (true);
     return (false);
 }
@@ -75,6 +74,13 @@ void rec_build(t_bsp_node *voxel)
 {
     t_split_infos si;
 
+    if (voxel->items_count < 2 || voxel->depth == MAX_DEPTH) // pas sure du premier... 
+    {
+        voxel->type = leaf;
+        voxel->left = NULL;
+        voxel->right = NULL;
+        return ;
+    }
     /* get the dimension and coordinates of the split computed with the lowest cost */
     si = get_optimal_split_plane(voxel);
     
@@ -104,7 +110,7 @@ void    set_root_voxel(t_bsp_node *root, t_vlist *objects)
     if (!root->items)
         return  */;
     curr = objects;
-    root->items = objects; // ? /* set la liste d'objets */
+    root->items = objects; /* set la liste d'objets */
     while (curr)
     {
         root->items_count++;
@@ -112,7 +118,6 @@ void    set_root_voxel(t_bsp_node *root, t_vlist *objects)
     }
     root->type = node;
     root->depth = 0;
-    root->items = objects;
     root->left = NULL;
     root->right = NULL;
     root->parent = NULL;
@@ -150,19 +155,19 @@ void    print_point(t_point_3d p)
 
 void    print_bbox_infos(t_bbox_description b)
 {
-    printf("min : ");
+    printf("\t\tmin : ");
     print_point(b.min);
-    printf("max : ");
-    print_point(b.min);
-    printf("height : %f\n", b.height);
-    printf("width : %f\n", b.width);
-    printf("length : %f\n", b.length);
-    printf("sa : %f\n", b.surface_area);
+    printf("\t\tmax : ");
+    print_point(b.max);
+    printf("\t\theight : %f\n", b.height);
+    printf("\t\twidth : %f\n", b.width);
+    printf("\t\tlength : %f\n", b.length);
+    printf("\t\tsa : %f\n", b.surface_area);
 }
 
 void    print_dim(t_dim dim)
 {
-    printf("splitting dimension : ");
+    printf("\tsplitting dimension : ");
     if (dim == x)
         printf("x\n");
     else if (dim == y)
@@ -173,7 +178,7 @@ void    print_dim(t_dim dim)
 
 void    print_type(t_vlist *object)
 {
-    printf("object type : ");
+    printf("\t\tobject type : ");
     if (object->type == cylindre)
         printf("cylindre\n");
     else if (object->type == cone)
@@ -184,15 +189,15 @@ void    print_type(t_vlist *object)
 
 void    print_leaf_infos(t_bsp_node *leaf)
 {
-    printf("------------------Leaf\n");
+    printf("\n------------------Leaf\n");
     print_dim(leaf->split_dim);
-    printf("----Voxel's bounding box caracteristics : \n");
+    printf("\t----Voxel's bounding box caracteristics : \n");
     print_bbox_infos(leaf->bbox);
-    printf("----objects in leaf : \n");
+    printf("\t----objects in leaf : \n");
     for (t_vlist *current = leaf->items; current; current = current->next)
     {
         print_type(current);
-        printf("--Object's bounding box caracteristics : \n");
+        printf("\t\t--Object's bounding box caracteristics : \n");
         print_bbox_infos(current->material.bbox);
         printf("\n");
     }
@@ -200,10 +205,16 @@ void    print_leaf_infos(t_bsp_node *leaf)
 
 void    print_interior_node(t_bsp_node *node)
 {
+    int i = 0;
+    while(i < node->depth)
+    {
+        printf("    ");
+        i++;
+    }
     printf("------------------Interior node\n");
-    printf("Node depth : %i\n", node->depth);
+    printf("\tNode depth : %i\n", node->depth);
     print_dim(node->split_dim);
-    printf("----Voxel's bounding box caracteristics : \n");
+    printf("\t----Voxel's bounding box caracteristics : \n");
     print_bbox_infos(node->bbox);
 }
 
@@ -211,6 +222,12 @@ void    print_kd_tree(t_bsp_node *voxel)
 {
     if (voxel->type == leaf)
     {
+        int i = 0;
+        while(i < voxel->depth)
+        {
+            printf("    ");
+            i++;
+        }
         print_leaf_infos(voxel);
         return ;
     }
