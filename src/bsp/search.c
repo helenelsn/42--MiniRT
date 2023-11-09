@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   search.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:44:25 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/08 18:20:12 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/08 20:22:34 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 #include "../../inc/bsp.h"
 
 
-t_bsp_node    *position_object_in_tree(t_bsp_node *root, t_vlist *object)
+/* t_bsp_node    *position_object_in_tree(t_bsp_node *root, t_vlist *object)
 {
     
-}
+} */
 
 
 t_bsp_node    *position_camera_in_tree(t_bsp_node *root, t_camera cam)
@@ -39,5 +39,6 @@ t_bsp_node    *position_camera_in_tree(t_bsp_node *root, t_camera cam)
     {
         return (position_camera_in_tree(curr->parent->left, cam));
     }
-           
+    else
+        return (NULL); // a modif, mieux ecrire les if car ne devrait pas avoir cette ligne      
 }

@@ -14,7 +14,7 @@
 
 t_vlist	*ft_vlstlast(t_vlist *lst)
 {
-	while (lst && lst->next)
+	while (lst && lst->next) /* segfault quand essaie de voir si lst->next est null (car pas initialise ?)*/
 		lst = lst->next;
 	return (lst);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bounding_volumes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 15:35:11 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/08 15:43:47 by Helene           ###   ########.fr       */
+/*   Updated: 2023/11/08 20:10:00 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,15 +255,20 @@ void    split_objects(t_bsp_node *parent)
         if (is_in_subvoxel(parent->left->bbox, curr_obj))
         {
             /* add item to the left subvoxel */
+            ft_vlstadd_back(&parent->items, curr_obj);
             parent->left->items_count++;
         }
         if (is_in_subvoxel(parent->right->bbox, curr_obj))
         {
             /* add item to the right subvoxel */
+            ft_vlstadd_back(&parent->items, curr_obj);
             parent->right->items_count++;
         }
         curr_obj = (curr_obj)->next;
     }
+    
+    parent->items = NULL; // okou efface tout ?
+    parent->items_count = 0;
 }
 
 void    split_voxel(t_bsp_node *parent, t_split_infos si)
