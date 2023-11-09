@@ -6,74 +6,11 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 21:01:11 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/09 00:44:59 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/09 17:33:34 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/matrices.h"
 
-
-t_cofactor_info  scan_rows(t_matrix a)
-{
-    int i;
-    int j;
-    int curr_zeros_count;
-    t_cofactor_info info;
-
-    i = 0;
-    curr_zeros_count = 0;
-    info.zeros_count = 0;
-    info.row = true;
-    while (i < a.rows)
-    {
-        j = 0;
-        curr_zeros_count = 0;
-        while (j < a.columns)
-        {
-            if (!a.matrix[i][j])
-                curr_zeros_count++;
-            j++;
-        }
-        if (curr_zeros_count > info.zeros_count)
-        {
-            info.zeros_count = curr_zeros_count;
-            info.index = i;
-        }
-        i++;
-    }
-    return (info);
-}
-
-t_cofactor_info  scan_columns(t_matrix a)
-{
-    int i;
-    int j;
-    int curr_zeros_count;
-    t_cofactor_info info;
-
-    j = 0;
-    curr_zeros_count = 0;
-    info.zeros_count = 0;
-    info.row = false;
-    while (j < a.columns)
-    {
-        i = 0;
-        curr_zeros_count = 0;
-        while (i < a.rows)
-        {
-            if (!a.matrix[i][j])
-                curr_zeros_count++;
-            i++;
-        }
-        if (curr_zeros_count > info.zeros_count)
-        {
-            info.zeros_count = curr_zeros_count;
-            info.index = j;
-        }
-        j++;
-    }
-    return (info);
-}
 
 t_cofactor_info get_efficient_index(t_matrix a) 
 {

@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 20:52:41 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/09 00:45:10 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/09 18:17:10 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct  s_cofactor_calc
 }               t_cofactor_info;
 
 
+
 //create
 t_matrix  *new_void_matrix(int r, int c);
 t_matrix  *new_matrix_from_tab(int r, int c, double **tab);
@@ -53,4 +54,9 @@ void	del_mat(void *v);
 
 void print_mat(t_matrix *m);
 
+// int		get_best_col(t_matrix *m);
+// int		get_best_row(t_matrix *m);
+
+t_cofactor_info scan_mat(t_matrix *m);
+double get_mat_det(t_matrix *m);
 #endif

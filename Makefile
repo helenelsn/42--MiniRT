@@ -6,7 +6,7 @@
 #    By: srapin <srapin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 22:16:42 by srapin            #+#    #+#              #
-#    Updated: 2023/11/08 22:43:07 by srapin           ###   ########.fr        #
+#    Updated: 2023/11/09 21:39:00 by srapin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -109,7 +109,8 @@ $(LIBS):
 	make -C $(LIBS_FOLDER)/$(LIBMATRICE_DIR)
 
 cleanlibs:
-	make fclean -C $(LIBS_FOLDER)/$(LIBSR_DIR)
+	make clean -C $(LIBS_FOLDER)/$(LIBSR_DIR)
 	make clean -C $(LIBS_FOLDER)/$(MLX_DIR)
+	make clean -C $(LIBS_FOLDER)/$(LIBMATRICE_DIR)
 
 .PHONY: all clean fclean re makelib cleanlib
