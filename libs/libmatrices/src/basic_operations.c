@@ -6,47 +6,12 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 21:01:11 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/08 22:45:40 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/09 00:44:59 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/matrices.h"
 
-
-// t_matrix  new_matrix(double *u1, double *u2, double *u3)
-// {
-
-// }
-
-
-
-/* a * b */
-
-
-t_matrix    transpose(t_matrix a)
-{
-    int         i;
-    int         j;
-    t_matrix    b;
-
-    // b = malloc(sizeof(t_matrix));
-    // if (!b)
-    //     return (NULL);
-    i = 0;
-    b.columns = a.rows;
-    b.rows = a.columns;
-    while (i < a.rows)
-    {
-        j = 0;
-        while (j < a.columns)
-        {
-            b.matrix[j][i] = a.matrix[i][j];
-            j++;
-        }
-        i++;
-    }
-    return (b);
-}
 
 t_cofactor_info  scan_rows(t_matrix a)
 {
@@ -142,7 +107,7 @@ t_matrix  *inverse(t_matrix a)
     det = compute_determinant(a);
     if (!det)
         return (NULL);
-    // cofactor_mat = compute_cofactor_m(a);
+    cofactor_mat = compute_cofactor_m(a);
     return NULL;
     return (scalar_product(transpose(cofactor_mat), 1/det));
 }
@@ -157,14 +122,11 @@ bool    are_equals(t_matrix a, t_matrix b)
     i = 0;
     while (i < a.rows)
     {
-        j = 0;
+        j = 0
+        j = 0;;
         while (j < a.columns)
         {
             if (a.matrix[i][j] != b.matrix[i][j])
-                return (false);
-            j++;
-        }
-        i++;
-    }
-    return (true);
+                return (false
+        j = 0;
 }

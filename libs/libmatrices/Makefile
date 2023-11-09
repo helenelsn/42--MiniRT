@@ -6,7 +6,7 @@
 #    By: srapin <srapin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/03 12:01:36 by Helene            #+#    #+#              #
-#    Updated: 2023/11/08 22:46:55 by srapin           ###   ########.fr        #
+#    Updated: 2023/11/09 00:40:10 by srapin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,10 @@ CFLAGS = -Wall -Wextra -Werror
 AR = ar rcs
 
 FILES=	 \
+	cofactor \
 	create \
 	del \
+	equality \
 	print_mat \
 	prod_mat \
 	# basic_operations \

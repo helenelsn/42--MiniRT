@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 16:44:06 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/08 22:47:47 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/08 23:44:23 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@ t_matrix  *new_matrix_from_var_args(int r, int c, ...)
     int i = 0;
     int j;
     
-    m = ft_calloc(1, sizeof(t_matrix));
-    m->rows = r;
-    m->columns = c;
-    m->matrix = ft_calloc(m->rows, sizeof(double *));
+    m = new_void_matrix(r, c);
     va_start(ap, c);
     while (i < m->rows)
     {
@@ -78,7 +75,7 @@ t_matrix  *copy_matrix(t_matrix *m)
         j = 0;
         while (j < m->columns)
         {
-            new->matrix[i][j] = new->matrix[i][j];
+            new->matrix[i][j] = m->matrix[i][j];
             j++;
         }
         i++;

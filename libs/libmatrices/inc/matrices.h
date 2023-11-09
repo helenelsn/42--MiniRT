@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 20:52:41 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/08 22:50:40 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/09 00:45:10 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,15 @@ t_matrix  *new_matrix_from_var_args(int r, int c, ...);
 
 /* retourner un pointeur ? */
 // t_matrix    new_matrix(double *u1, double *u2, double *u3);
-t_matrix    *matrix_product(t_matrix a, t_matrix b);
+t_matrix    *transpose(t_matrix *m);
+bool    matrix_are_equals(t_matrix *a, t_matrix *b);
+t_matrix *get_sub_matrix(t_matrix *m, int r, int c);
+t_matrix    *matrix_product(t_matrix *a, t_matrix *b);
 t_matrix    *scalar_product(t_matrix *a, double s);
 t_matrix    *inverse(t_matrix a);
 // bool        are_equals(t_matrix a, t_matrix b);
 
+void	del_mat(void *v);
 
 void print_mat(t_matrix *m);
 
