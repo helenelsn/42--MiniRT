@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:20 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/08 22:47:21 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/09 22:14:20 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,10 @@ int main(int argc, char **argv)
 {
     // t_vlist *garbage;
     t_app   app;
-    test_mat();
-    ft_bzero(&app, sizeof(t_app));
+    // test_mat();
+    
+    // ft_bzero(&app, sizeof(t_app));
+    init_app(&app);
     parse(argc, argv, &app.garbage, &app.p_data);
     
     /* tests pour le bsp */

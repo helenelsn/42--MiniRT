@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/08 19:31:07 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/09 22:13:15 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,9 @@ double get_v_norm(t_vec_3d v);
 
 void    get_inter_for_sphere(t_sphere *elem, t_droite d);
 void    get_inter_for_plan(t_plan *p, t_droite d);
+
+
+void init_app(t_app *app);
+void close_mlx(t_app *app);
 
 #endif

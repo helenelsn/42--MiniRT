@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+         #
+#    By: srapin <srapin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 22:16:42 by srapin            #+#    #+#              #
-#    Updated: 2023/11/09 21:39:00 by srapin           ###   ########.fr        #
+#    Updated: 2023/11/09 22:13:07 by srapin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,8 @@ FILES = \
 		garbage_collector/ft_lstiter \
 		intersection/i_sphere \
 		intersection/i_plan \
+		mlx_gestion/init \
+		mlx_gestion/close \
 		utils/atof \
 		utils/fov \
 		utils/ft_strcheck \
@@ -50,7 +52,7 @@ FILES = \
 		bsp/search \
 		# trace_rays/trace_ray \
 		# trace_rays/convert \ 
-Resolving
+# Resolving
 		
 	
 SRCS_DIR = src
@@ -91,6 +93,7 @@ ${OBJS_DIR}/%.o: ${SRCS_DIR}/%.c
 	@mkdir -p $(OBJS_DIR)/trace_rays
 	@mkdir -p $(OBJS_DIR)/garbage_collector
 	@mkdir -p $(OBJS_DIR)/intersection
+	@mkdir -p $(OBJS_DIR)/mlx_gestion
 	@mkdir -p $(OBJS_DIR)/utils
 	@mkdir -p $(OBJS_DIR)/utils_vec_et_droite
 	$(CC) $(CFLAGS) -o $@ -c $<

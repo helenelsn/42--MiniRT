@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   close.c                                            :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 02:23:51 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/06 02:30:35 by srapin           ###   ########.fr       */
+/*   Created: 2023/11/06 02:23:05 by srapin            #+#    #+#             */
+/*   Updated: 2023/11/09 22:12:37 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/mini_rt.h"
 
-void close_mlx(t_app *app)
+void init_app(t_app *app)
 {
-    if (!mlx_loop_end(app->mlx_ptr))
+    ft_bzero(&app, sizeof(t_app));
+    app->mlx_ptr = mlx_init();
+	if (!app->mlx_ptr)
+		return;
+		// return (EXIT_MLX_FAILURE);
+	app->win_ptr = mlx_new_window(app->mlx_ptr, WINDOWS_WIDHT, WINDOWS_HEIGHT,
+			"mimi-rt");
+	if (!app->win_ptr)
 	{
-		write(2, "Error when closing window\n", 26);
-		mlx_destroy_window(app->mlx_ptr, app->win_ptr);
-		return (0);
+		close_mlx(app);
+		return;
 	}
-	// mlx_destroy_image(app->mlx_ptr, app->img->img);
-	// mlx_destroy_image(app->mlx_ptr, app->back_img->img);
-	mlx_destroy_window(app->mlx_ptr, app->win_ptr);
-	mlx_destroy_display(app->mlx_ptr);
-	// free(app->mlx_ptr);
-	// exit(0);
 }
