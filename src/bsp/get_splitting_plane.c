@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:51:57 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/08 20:18:00 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/09 19:44:52 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ double  get_object_intersect_cost(t_vlist *object)
     return (UNITARY_INTERSECT_COST * object->material.bbox.surface_area);
 }
 
+/* calcule le cout d intersection de chaque objet present dans un voxel donne*/
 double get_object_list_intersection_cost(t_bsp_node *voxel)
 {
     t_vlist *current;
@@ -47,26 +48,30 @@ double get_object_list_intersection_cost(t_bsp_node *voxel)
     current = voxel->items;
     while (current)
     {
-        cost += get_object_intersect_cost(current);
+        cost += count_in_cost(voxel->bbox, current) * get_object_intersect_cost(current);
         current = (current)->next;
     }    
     return (cost);
 }
 
-/* pondère selon la taille des objets dans le voxel */
-double  get_intersection_cost(t_bsp_node *parent, t_split_infos si, bool left_subvoxel)
+/* fonction pour calculer le cout d intersection de chaque objet, 
+utilisee lorsaue calcule le cout global lie a un plan separateur p,
+avant d avoir cree les sous voxels.
+c est pourquoi il y a comme argument le voxel parent,
+car les objets sont encore stockes dedans */
+double  get_intersection_cost(t_bsp_node *parent, t_bbox_description subvoxel)
 {
     double              cost;
     t_vlist             *current;
-    t_bbox_description  subvoxel;
+    // t_bbox_description  subvoxel;
     
     cost = 0;
     current = parent->items;
-    subvoxel = get_temp_subvoxel(parent, si, left_subvoxel);
+    // subvoxel = get_temp_subvoxel(parent, si, left_subvoxel);
     while (current)
     {
-        if (is_in_subvoxel(subvoxel, current) && count_in_cost(subvoxel, current))
-            cost += get_object_intersect_cost(current);
+        if (is_in_subvoxel(subvoxel, current))
+            cost += count_in_cost(subvoxel, current) * get_object_intersect_cost(current);
         current = (current)->next;
     }
     return (cost);
@@ -89,8 +94,8 @@ double  compute_cost(t_bsp_node *voxel, t_split_infos si)
     nb_right = items_count_subvoxel(voxel, subv_r);
     
     cost = TRAVERSE_COST + 
-        (get_intersection_cost(voxel, si, true) * (subv_l.surface_area * nb_left) + 
-        get_intersection_cost(voxel, si, false) * (subv_r.surface_area * nb_right)) 
+        (get_intersection_cost(voxel, subv_l) * (subv_l.surface_area * nb_left) + 
+        get_intersection_cost(voxel, subv_r) * (subv_r.surface_area * nb_right)) 
         / voxel->bbox.surface_area;
     /* f(x) = Ct + Ci * (( (SAl(x) * Nl(x)) + (SAr(x) * Nr(x)) ) / SAparent) */
     

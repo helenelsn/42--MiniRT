@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 15:35:11 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/08 20:10:00 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/09 19:39:13 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,7 @@ void    set_bounding_boxes(t_vlist *objects)
         else if ((current)->type == cone)
             set_cone_bbox(current);
         /* implémenter pour les autres formes plus tard */
+        set_infos(&current->material.bbox);
         current = (current)->next;
     }
 }
@@ -176,7 +177,7 @@ bool    point_is_in(t_bbox_description bv, t_point_3d p)
 /* return if the object should be taken into account in the intersection cost computation,
 based on the amount of object's surface area contained in the voxel 
 (since an object could be overlaping a voxel) */
-bool  count_in_cost(t_bbox_description voxel, t_vlist *object)
+double  count_in_cost(t_bbox_description voxel, t_vlist *object)
 {
    t_bbox_description in_v;
 
@@ -194,7 +195,9 @@ bool  count_in_cost(t_bbox_description voxel, t_vlist *object)
     if (object->material.bbox.max.z < voxel.max.z)
         in_v.max.z = voxel.max.z;
     set_infos(&in_v);
-    return ((in_v.surface_area / object->material.bbox.surface_area) >= 0.5 );
+    if (object->material.bbox.surface_area == 0)
+        return (0);
+    return ((in_v.surface_area / object->material.bbox.surface_area));
 }
 
 /* 3 cas :
@@ -244,6 +247,16 @@ bool    is_in_subvoxel(t_bbox_description subvoxel, t_vlist *object)
     return (is_in);
 }
 
+t_vlist *ft_vlstnew_with_mat(void * content, void foo(void *), t_type t,
+    t_raytracing_material mat)
+{
+    t_vlist *new;
+
+    new = ft_vlstnew(content, foo, t);
+    new->material = mat;
+    return (new);
+}
+
 /* split the objects contained into the parent voxel in the right and left subvoxels*/
 void    split_objects(t_bsp_node *parent)
 {
@@ -252,23 +265,69 @@ void    split_objects(t_bsp_node *parent)
     curr_obj = parent->items;
     while (curr_obj)
     {
-        if (is_in_subvoxel(parent->left->bbox, curr_obj))
+        if (parent->left && is_in_subvoxel(parent->left->bbox, curr_obj))
         {
             /* add item to the left subvoxel */
-            ft_vlstadd_back(&parent->items, curr_obj);
+            ft_vlstadd_back(&parent->left->items, ft_vlstnew_with_mat(curr_obj->content,
+                curr_obj->free_foo, curr_obj->type, curr_obj->material));
             parent->left->items_count++;
         }
-        if (is_in_subvoxel(parent->right->bbox, curr_obj))
+        if (parent->right && is_in_subvoxel(parent->right->bbox, curr_obj))
         {
             /* add item to the right subvoxel */
-            ft_vlstadd_back(&parent->items, curr_obj);
+            ft_vlstadd_back(&parent->right->items, ft_vlstnew_with_mat(curr_obj->content,
+                curr_obj->free_foo, curr_obj->type, curr_obj->material));
             parent->right->items_count++;
         }
         curr_obj = (curr_obj)->next;
     }
-    
-    parent->items = NULL; // okou efface tout ?
+    if (parent->left)
+        parent->left->depth = parent->depth + 1;
+    if (parent->right)
+        parent->right->depth = parent->depth + 1;
+
+    parent->items = NULL; // ok ou efface tout ?
     parent->items_count = 0;
+}
+
+void    set_subvoxels(t_bsp_node *parent, t_point_3d l_max, t_point_3d r_min)
+{
+    parent->left = NULL;
+    parent->right = NULL;
+    if (parent->bbox.min.x < l_max.x && parent->bbox.min.y < l_max.y
+        && parent->bbox.min.z < l_max.z) // ou !=
+        {
+            parent->left = ft_calloc(sizeof(t_bsp_node), 1);
+            if (!parent->left)
+                return ; // idk
+            set_bbox(&parent->left->bbox, parent->bbox.min, l_max);
+            parent->left->parent = parent;
+        }
+    if (parent->bbox.max.x > r_min.x && parent->bbox.max.y > r_min.y
+        && parent->bbox.max.z > r_min.z) // ou !=
+        {
+            parent->right = ft_calloc(sizeof(t_bsp_node), 1);
+            if (!parent->right)
+                return ; // idk
+            set_bbox(&parent->right->bbox, r_min, parent->bbox.max);
+            parent->right->parent = parent;
+        }
+   
+    /* parent->right = ft_calloc(sizeof(t_bsp_node), 1);
+    if (!parent->right)
+        return ; // idk
+    
+    // mieux formuler
+    if (parent->bbox.min.x == l_max.x)
+        free(parent->left);
+    // pareil pour y et z, et pour parent->bbox.max et r_min 
+    
+    
+    set_bbox(&parent->right->bbox, r_min, parent->bbox.max);
+    
+    parent->right->parent = parent; */
+    
+    split_objects(parent);
 }
 
 void    split_voxel(t_bsp_node *parent, t_split_infos si)
@@ -276,6 +335,7 @@ void    split_voxel(t_bsp_node *parent, t_split_infos si)
     t_point_3d l_max;
     t_point_3d r_min;
     
+    parent->split_inf = si;
     if (si.dim == x)
     {
         set_point(&l_max, si.split_coord, parent->bbox.max.y, parent->bbox.max.z);
@@ -291,12 +351,8 @@ void    split_voxel(t_bsp_node *parent, t_split_infos si)
         set_point(&l_max, parent->bbox.max.x, parent->bbox.max.y, si.split_coord);
         set_point(&r_min, parent->bbox.min.x, parent->bbox.min.y, si.split_coord);
     }
-    set_bbox(&parent->left->bbox, parent->bbox.min, l_max);
-    set_bbox(&parent->right->bbox, r_min, parent->bbox.max);
-    parent->left->parent = parent;
-    parent->right->parent = parent;
     
-    split_objects(parent);
+    set_subvoxels(parent, l_max, r_min);
 }
 
 t_bbox_description  get_temp_subvoxel(t_bsp_node *parent, t_split_infos si, bool left_subvoxel)

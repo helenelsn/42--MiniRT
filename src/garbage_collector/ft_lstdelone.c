@@ -19,5 +19,6 @@ void	ft_vlstdelone(t_vlist *lst)
 		if (lst->content)
 			lst->free_foo(lst->content);
 		free(lst);
+		lst = NULL;
 	}
 }

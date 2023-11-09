@@ -6,14 +6,14 @@
 #    By: srapin <srapin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 22:16:42 by srapin            #+#    #+#              #
-#    Updated: 2023/11/09 22:13:07 by srapin           ###   ########.fr        #
+#    Updated: 2023/11/09 22:20:56 by srapin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minirt
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3 -I/opt/X11/include
+CFLAGS = -Wall -Wextra -Werror -g3 -I/opt/X11/include -I/opt/Xext/include
 
 FILES = \
 		create_elem/cr_camera\
@@ -30,6 +30,7 @@ FILES = \
 		garbage_collector/ft_lstdelone\
 		garbage_collector/ft_lstclear\
 		garbage_collector/ft_lstiter \
+		garbage_collector/ft_vlst_del_in_list\
 		intersection/i_sphere \
 		intersection/i_plan \
 		mlx_gestion/init \
@@ -67,8 +68,10 @@ LIBS_FOLDER = libs
 LIBSR_DIR = libft
 LIBSR = $(LIBS_FOLDER)/$(LIBSR_DIR)/libft.a
 
-MLX_DIR = minilibx-linux/
+
+MLX_DIR = minilibx-linux
 MLX = $(LIBS_FOLDER)/$(MLX_DIR)/libmlx_Linux.a
+MLXFLAGS = -lX11 -lXext -lm
 
 LIBMATRICE_DIR = libmatrices
 LIBMATRICE = $(LIBS_FOLDER)/$(LIBMATRICE_DIR)/libmatrice.a
@@ -82,7 +85,7 @@ INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(INCLUDES_FILES))
 all: $(NAME)
 
 $(NAME): $(LIBS) $(OBJS)
-	$(CC) $(OBJS) $(LIBS) -lm -lXext -lX11 -g -o $@
+	$(CC) $(OBJS) $(LIBS) $(MLXFLAGS) -g -o $@
 
 bonus: $(NAME)
 

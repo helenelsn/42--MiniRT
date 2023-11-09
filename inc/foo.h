@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/09 22:13:15 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/09 22:20:25 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,11 @@ t_vlist				*ft_vlstlast(t_vlist *lst);
 void				ft_vlstadd_back(t_vlist **lst, t_vlist *new);
 void				ft_vlstdelone(t_vlist *lst);
 void				ft_vlstclear(t_vlist **lst);
+void				ft_vlst_del_in_list(t_vlist **lst, t_vlist *todel); // ln
 void				ft_vlstiter(t_vlist *lst, void (*f)(void *));
 t_vlist				*ft_vlstmap(t_vlist *lst, void *(*f)(void *),
 						void (*del)(void *));
+						
 
 bool					ft_strisint(char *str);
 bool					ft_strisfloat(char *str);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:23 by srapin            #+#    #+#             */
-/*   Updated: 2023/10/19 23:25:17 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/08 22:55:48 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void parse_and_create(int fd, t_vlist **garbage, t_parsing_data *data)
     char **sp_line;
 
     line = get_next_line(fd);
-    printf("%s", line);
+    // printf("%s", line);
     if (!line)
         parse_error_occured(file, garbage, fd);
     while (line)
@@ -105,7 +105,7 @@ void parse_and_create(int fd, t_vlist **garbage, t_parsing_data *data)
             parse_error_occured(file_content, garbage, fd);
         add_obj(sp_line, garbage, fd, data);
         line = get_next_line(fd);
-        printf("%s", line);
+        // printf("%s", line);
     }
     close(fd);
     // ft_vlstclear(garbage);
