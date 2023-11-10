@@ -1,0 +1,1 @@
+- creer singletons pour distance, viewpoint height et viewpoint length

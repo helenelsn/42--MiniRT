@@ -5,62 +5,35 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/20 15:27:01 by hlesny            #+#    #+#             */
-/*   Updated: 2023/11/08 20:58:34 by hlesny           ###   ########.fr       */
+/*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
+/*   Updated: 2023/11/10 01:10:39 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/struct.h"
 #include "../../inc/mini_rt.h"
 
-/* Reflectiveness : assign a number between 0
- and 1 to every surface, specifying how reflective it is.
- Then we’ll compute the weighted average of the locally illuminated color 
- and the reflected color using that number as the weight. */
-
-
-# define BACKGROUND_COLOR   255 // idk
-
-// t_vec_3d    normal_to_vector(t_vec_3d u)
-// {
-    
-// }
-
-double diffuse_reflection_light_received()
+typedef struct	s_hit_info
 {
-    
-}
+	// autre chose ?
+	t_raytracing_material	obj_mat;
+	double					distance; // ray_origin - object distance
+}				t_hit_info;
 
-double specular_reflection_light_received()
+typedef struct	s_ray
 {
-    
-}
+	t_point_3d	origin;
+	t_vec_3d	direction;
+}				t_ray;
 
-double entire_light_received()
+/* ------------------------- UTILS ---------------------------- */
+
+void    normalise(t_vec_3d *v)
 {
-    
-}
-
-void	img_pixel_put(t_image image, int x, int y, int color)
-{
-	char	*pixel;
-	int		i;
-
-    
-	if (x < 0 || y < 0 || y > Y_WIN || x > X_WIN)
-		return ;
-	i = image.bpp - 8;
-	pixel = image.addr + (y * image.line_length) + (x
-			* (image.bpp / 8));
-	*(int *)pixel = color;
-	while (i >= 0)
-	{
-		if (image.endian)
-			*(int *)pixel++ = (color >> i) & 0xFF;
-		else
-			*(int *)pixel++ = (color >> (image.bpp - 8 - i));
-		i -= 8;
-	}
+    v->x /= v->norm;
+    v->y /= v->norm;
+    v->z /= v->norm;
+    v->norm = 1;
 }
 
 t_vec_3d get_directional_vect(t_point_3d a, t_point_3d b)
@@ -71,93 +44,72 @@ t_vec_3d get_directional_vect(t_point_3d a, t_point_3d b)
     u.y = b.y - a.y;
     u.z = b.z - a.z;
     u.norm = sqrt(pow(u.x, 2) + pow(u.y, 2) + pow(u.z, 2));
+	normalise(&u);
     return (u);
 }
 
-/* trace_ray() : given a ray, returns the color of the light coming from its direction*/
+/* ------------------ SCREEN - SCENE CONVERTIONS UTILS --------------- */
 
-/* 
-typedef struct  s_ray
+// tej les 3 une fois qu'a les singletons, juste pr que ca compile
+# define DIST 1
+# define VWP_H 1
+# define VWP_W 1
+
+/* Computes the position of the current pixel on the 
+camera's projection plane (ie viewpoint) */
+t_point_3d pixel_to_viewpoint_coord(int x, int y)
 {
-    t_point_3d  origin; // camera position
-    t_vec_3d    direction; // viewpoint - ray.origin
-}               t_ray;              
-*/
-int    trace_ray(t_vlist *obj, double t_min, double t_max)
-{
-  
+    t_point_3d v;
+
+    v.x = VWP_W * (x / SCREEN_WIDTH);
+    v.y = VWP_H * (y / SCREEN_HEIGHT);
+    v.z = DIST;
+    return (v);
 }
 
-/* O represents the origin of the ray; 
-although we’re tracing rays from the camera, 
-which is placed at the origin, this won’t necessarily be the case in later stages, 
-so it has to be a parameter. 
-The same applies to t_min and t_max.
-*/
-void    compute_image(t_vlist *obj)
+/* canvas = centre au milieu (et non pas (0,0) en haut a gauche de l'ecran) */
+t_point_2d  pixel_to_screen(t_point_2d c)
 {
-    int x;
-    int y;
-    
+    t_point_2d s;
 
-    x = - CW / 2;
-    y = - CH / 2;
-    while (x < CW / 2) // a modif car sinon doit recalculer a chaque passage et pas opti du tout
-    {
-        while (y < CH / 2)
-        {
-            t_point_2d u;
-            u.x = x;
-            u.y = y;
-            img_pixel_put(image, canvas_to_screen(u), trace_ray(obj, ));
-            y++;
-        }
-        x++;
-    }
-    /* put image to window */
+    s.x = SCREEN_WIDTH / 2 + c.x;
+    s.y = SCREEN_HEIGHT / 2 - c.y;
+    return (s);
 }
 
-/* -------------- Get normal vectors --------------- */
+/*  ---------------------- MAIN FUNCTIONS -------------------------- */
 
-void    normalise(t_vec_3d *v)
+void    trace_ray(t_app app, t_point_3d o)
 {
-    v->x /= v->norm;
-    v->y /= v->norm;
-    v->z /= v->norm;
-    v->norm = 1;
+    t_ray	ray;
+	
+	ray.origin = app.p_data.cam->p;
+	ray.direction = get_directional_vect(ray.origin, o);
 }
 
-t_vec_3d    normal_to_sphere(t_sphere sp, t_point_3d p)
+int		get_pixel_color(t_app app)
 {
-    return (normalise(&get_directional_vect(sp.p, p)));
+	t_point_3d	viewp = pixel_to_viewpoint_coord(x, y);
+    trace_ray(app, viewp);
+	
+	
 }
 
-t_vec_3d normal_to_plane(t_plan pl, t_point_3d p)
+void    draw_scene(t_app app)
 {
-    
+	int	x;
+	int	y;
+
+	x = 0;
+	y = 0;
+	// definir l'image
+	while (y < WINDOWS_HEIGHT)
+	{
+		while (x < WINDOWS_WIDHT)
+		{
+			img_pixel_put(app.image, x, y, get_pixel_color(app, x, y));
+			x++;
+		}
+		y++;
+	}
 }
-
-t_vec_3d normal_to_cylinder(t_cylindre cy, t_point_3d p)
-{
-    
-}
-
-t_vec_3d normal_to_cone(t_cone cone, t_point_3d p)
-{
-    
-}
-
-// t_vec_3d normal_to_(, t_point_3d p)
-// {
-    
-// }
-
-// t_vec_3d normal_to_(, t_point_3d p)
-// {
-    
-// }
-
-// t_vec_3d normal_to_(, t_point_3d p)
-// {
-    
-// }
