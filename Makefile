@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: srapin <srapin@student.42.fr>              +#+  +:+       +#+         #
+#    By: Helene <Helene@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 22:16:42 by srapin            #+#    #+#              #
-#    Updated: 2023/11/09 23:43:42 by srapin           ###   ########.fr        #
+#    Updated: 2023/11/10 13:36:26 by Helene           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,10 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g3 -I/opt/X11/include -I/opt/Xext/include 
 
 FILES = \
+		bsp/bounding_volumes \
+		bsp/browse \
+		bsp/create_bsp \
+		bsp/get_splitting_plane \
 		create_elem/cr_camera\
 		create_elem/cr_cylindre\
 		create_elem/cr_light\
@@ -47,10 +51,6 @@ FILES = \
 		utils_vec_et_droite/prod_vec \
 		main\
 		parse\
-		bsp/create_bsp \
-		bsp/bounding_volumes \
-		bsp/get_splitting_plane \
-		bsp/search \
 		# trace_rays/trace_ray \
 		# trace_rays/convert \ 
 # Resolving

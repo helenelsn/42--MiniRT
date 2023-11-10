@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trace_ray.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
-/*   Updated: 2023/11/10 01:10:39 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/10 14:10:21 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,19 @@ t_vec_3d get_directional_vect(t_point_3d a, t_point_3d b)
 # define VWP_H 1
 # define VWP_W 1
 
+/* Computes the height and width of the viewpoint, 
+according to the field of view (FOV) parameter and the distance (arbitrary) */
+void 	get_viewpoint_dimensions(float fov)
+{
+	double 	viewpoint_width;
+	double	viewpoint_height;
+
+    viewpoint_width = FOCUS_DIST * tan(fov * 0.5f * DEG_TO_RAD) * 2; /* Width */
+    viewpoint_height = viewpoint_width * SCREEN_RATIO; /* Height */
+
+    // set the viewpoint's height and width singletons 
+}
+
 /* Computes the position of the current pixel on the 
 camera's projection plane (ie viewpoint) */
 t_point_3d pixel_to_viewpoint_coord(int x, int y)
@@ -79,15 +92,44 @@ t_point_2d  pixel_to_screen(t_point_2d c)
 
 /*  ---------------------- MAIN FUNCTIONS -------------------------- */
 
+int 	get_pixel_color()
+{
+	
+}
+
+double 	get_received_light_intensity()
+{
+	
+}
+
+t_bsp_node	*get_corresponding_node()
+{
+	
+}
+
 void    trace_ray(t_app app, t_point_3d o)
 {
     t_ray	ray;
 	
 	ray.origin = app.p_data.cam->p;
 	ray.direction = get_directional_vect(ray.origin, o);
+	/* get the corresponding bsp_node */
+	/* check for intersections ray - objects in the current and children nodes */
+	/* determine the closest intersection point's reflective ray's  direction */
+	/* compute the received light (diffuse + specular + mood light) 
+		-> use the total light intensity's computing formula */
+	/* compute shadows, etc ? */
+	/* ... */
+	/* re-call the trace_ray function with the intersection point as origin,
+		and the direction computed in the previous step
+	 	-> repeat this 3 (REBOUNDS_NB) times, recursively */
+	/* sum each get_pixel_color() return value from 
+		each recursive call to get the final one ? */
+	
+	/* get the final pixel's color */
 }
 
-int		get_pixel_color(t_app app)
+int		get_final_pixel_color(t_app app)
 {
 	t_point_3d	viewp = pixel_to_viewpoint_coord(x, y);
     trace_ray(app, viewp);
@@ -107,7 +149,7 @@ void    draw_scene(t_app app)
 	{
 		while (x < WINDOWS_WIDHT)
 		{
-			img_pixel_put(app.image, x, y, get_pixel_color(app, x, y));
+			img_pixel_put(app.image, x, y, get_final_pixel_color(app, x, y));
 			x++;
 		}
 		y++;

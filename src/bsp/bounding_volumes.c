@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bounding_volumes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 15:35:11 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/09 19:39:13 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/10 13:39:33 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,8 @@ void    set_sphere_bbox(t_vlist *object)
     t_sphere    *sphere;
 
     sphere = object->content;
-    bbox_reset(&object->material.bbox, points_addition(sphere->p, double_to_point(-(sphere->radius))));
-    bbox_add_point(&object->material.bbox, points_addition(sphere->p, double_to_point(sphere->radius)));
+    bbox_reset(&object->material.bbox, points_addition(sphere->p, double_to_point(-(sphere->radius + T_INF))));
+    bbox_add_point(&object->material.bbox, points_addition(sphere->p, double_to_point(sphere->radius + T_INF)));
 }
 
 void    set_cylinder_bbox(t_vlist *object)
@@ -120,9 +120,10 @@ void    set_cylinder_bbox(t_vlist *object)
     t_cylindre *cylinder;
 
     cylinder = object->content;
-    bbox_reset(&object->material.bbox, points_addition(cylinder->p,  double_to_point(cylinder->radius)));
-    bbox_add_point(&object->material.bbox, points_addition(cylinder->p,  double_to_point(-(cylinder->radius))));
-    bbox_add_point(&object->material.bbox, points_addition(points_addition(cylinder->p,  double_to_point(cylinder->radius)),  double_to_point(cylinder->height)));
+    bbox_reset(&object->material.bbox, points_addition(cylinder->p,  double_to_point(cylinder->radius + T_INF)));
+    bbox_add_point(&object->material.bbox, points_addition(cylinder->p,  double_to_point(-(cylinder->radius + T_INF))));
+    bbox_add_point(&object->material.bbox, points_addition(points_addition(cylinder->p,  double_to_point(cylinder->radius + T_INF)),
+        double_to_point(cylinder->height + T_INF)));
 }
 
 void    set_cone_bbox(t_vlist *object)
@@ -130,9 +131,9 @@ void    set_cone_bbox(t_vlist *object)
     t_cone *cone;
 
     cone = object->content;
-    bbox_reset(&object->material.bbox, points_addition(cone->base.center,  double_to_point(cone->base.radius)));
-    bbox_add_point(&object->material.bbox, points_addition(cone->base.center,  double_to_point(-(cone->base.radius))));
-    bbox_add_point(&object->material.bbox, points_addition(cone->base.center,  double_to_point(cone->height)));
+    bbox_reset(&object->material.bbox, points_addition(cone->base.center,  double_to_point(cone->base.radius + T_INF)));
+    bbox_add_point(&object->material.bbox, points_addition(cone->base.center,  double_to_point(-(cone->base.radius + T_INF))));
+    bbox_add_point(&object->material.bbox, points_addition(cone->base.center,  double_to_point(cone->height + T_INF)));
 }
 /*
 For planes, the bounding box will stretch from 
