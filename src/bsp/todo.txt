@@ -1,8 +1,6 @@
 
 TODO :
 
-- Ajouter les plans a une liste chainee, et non au kd-tree
-
 
 - Your program must be able to resize the object’s unique properties: diameter for a
 sphere and the width and height for a cylinder.

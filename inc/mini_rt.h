@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_rt.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:13 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/09 22:43:35 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/10 00:36:44 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,8 @@
 # define FOCUS_DIST 	1
 # define DEG_TO_RAD 	180/M_PI 
 
-typedef struct s_image
-{
-	void			*img;
-	char			*addr;
-	int				bpp;
-	int				line_length;
-	int				endian;
-}					t_image;
+# define BACKGROUND_COLOR   255 // idk
+
+
 
 #endif

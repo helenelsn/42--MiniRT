@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/09 23:18:05 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/10 00:37:08 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,16 +262,25 @@ typedef struct s_bsp_node
     struct s_bsp_node   *right;
 }               t_bsp_node;
 
+typedef struct s_image
+{
+	void			*img;
+	char			*addr;
+	int				bpp;
+	int				line_length;
+	int				endian;
+}					t_image;
 
 typedef struct s_app
 {
     t_parsing_data p_data;
-    t_frame  frame; //represente la fenetre par laquell on regarde
-    t_vlist *garbage;
-    t_bsp_node  root;
-    t_vlist     *planes;
-    void				*mlx_ptr;
-	void				*win_ptr;
+    t_frame         frame; //represente la fenetre par laquell on regarde
+    t_vlist         *garbage;
+    t_bsp_node      root;
+    t_vlist         *planes;
+	t_image			image; //ln 
+    void		    *mlx_ptr;
+	void		    *win_ptr;
 } t_app;
 
 typedef union u_color

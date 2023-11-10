@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   foo.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/09 22:20:25 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/10 00:46:02 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,11 @@ double get_v_norm(t_vec_3d v);
 void    get_inter_for_sphere(t_sphere *elem, t_droite d);
 void    get_inter_for_plan(t_plan *p, t_droite d);
 
+/*  -------------------- MLX ------------------------ */
 
-void init_app(t_app *app);
-void close_mlx(t_app *app);
+void 	init_app(t_app *app);
+void 	close_mlx(t_app *app);
+
+void	img_pixel_put(t_image image, int x, int y, int color);
 
 #endif
