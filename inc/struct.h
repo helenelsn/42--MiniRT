@@ -6,7 +6,7 @@
 /*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/10 19:06:17 by Helene           ###   ########.fr       */
+/*   Updated: 2023/11/12 18:44:11 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ typedef struct  s_raytracing_material
 {
     int                 color;
     int                 specular; /* -1 si matte */
+    double              reflective; /* in [0, 1] */                 
     t_bbox_description  bbox; /* tout à 0 ou -1 si s'agit d'une source lumineuse ? */
 }               t_raytracing_material;
 
