@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/10 00:37:08 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/10 19:06:17 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ typedef struct  s_bbox_description
 typedef struct  s_raytracing_material
 {
     int                 color;
+    int                 specular; /* -1 si matte */
     t_bbox_description  bbox; /* tout à 0 ou -1 si s'agit d'une source lumineuse ? */
 }               t_raytracing_material;
 
@@ -98,30 +99,39 @@ typedef enum e_parse_error
     
 } t_parse_error;
 
+typedef struct  s_light_infos
+{
+    /* Idealement, the intensities conveniently add up to 1.0.
+    Because of the way the lighting equation works, 
+    this ensures that no point can have a light intensity greater than this value.
+    This means we won’t have any “overexposed” spots. */
+    double  intensity; // pareil que (brightness) ratio;
+    int     color;
+}               t_light_info;
+
 typedef struct s_mood_light
 {
-    // int     color;
-    double  ratio;
-    double  intensity;
-    t_raytracing_material   material;
-    int                 color;
+    //t_light_info          infos;
+    double                  ratio;
+    int                     color;
+    t_raytracing_material   material; // ?
 }   t_mood_light;
 
 
 typedef struct s_light
 {
     t_point_3d p;
-    t_raytracing_material   material;
-    double  ratio;
-    double  intensity;
-    int                 color;
+    //t_light_info          infos;
+    double                  ratio;
+    int                     color;
+    t_raytracing_material   material; // ?
 }   t_light;
 
 typedef struct s_sphere
 {
     t_point_3d              p;
     double                  radius;
-    int                 color;
+    int                     color;
 }   t_sphere;
 
 typedef struct s_plan
