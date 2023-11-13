@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:20 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/09 23:23:14 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/13 15:37:56 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,23 @@ int main(int argc, char **argv)
     // init_app(&app); ->attention planew ft_memset(&app->root, 0, sizeof(t_bsp_node));
     // ft_memset(planes, 0, sizeof(t_vlist));
 
-// passer l adresse de app.p_data.objects ?
-    // set_planes_list(&app);
+    app.mlx_ptr = mlx_init();
+    if (!app.mlx_ptr)
+        return (EXIT_MLX_FAILURE);
+    app.win_ptr = mlx_new_window(app.mlx_ptr, WINDOWS_WIDHT, WINDOWS_HEIGHT, "miniRT");
+    if (!app.win_ptr)
+    {
+        mlx_destroy_display(app.mlx_ptr);
+        free(app.mlx_ptr);
+        return (EXIT_MLX_FAILURE);
+    }
+    app.image.img = mlx_new_image(app.mlx_ptr, WINDOWS_WIDHT, WINDOWS_HEIGHT);
+    app.image.addr = mlx_get_data_addr(app.image.img, &(app.image.bpp), 
+                        &(app.image.line_length), &(app.image.endian));
     
     build_kd_tree(&app.root, app.p_data.objects);
     
-    print_kd_tree(&app.root);
-    printf("cuties but ecoanxious lol <3\n");
+    /* print_kd_tree(&app.root);
+    printf("cuties but ecoanxious lol <3\n"); */
     
 }

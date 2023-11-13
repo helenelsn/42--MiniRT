@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:13 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/10 00:36:44 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/13 15:37:42 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,17 @@
 
 # include "foo.h"
 
-#define EXIT_SUCCES 	0
-#define EXIT_FAILURE 	1
-#define EXIT_MLX_FAILURE 	2
-#define WINDOWS_HEIGHT 	1500
-#define WINDOWS_WIDHT 	1500
+#define EXIT_SUCCES 	    0
+#define EXIT_FAILURE 	    1
+#define EXIT_MLX_FAILURE    2
+#define WINDOWS_HEIGHT 	    1500
+#define WINDOWS_WIDHT 	    1500
 
-# define SCREEN_WIDTH   1400.0
-# define SCREEN_HEIGHT  800.0
-# define SCREEN_RATIO  	16/9
-# define FOCUS_DIST 	1
-# define DEG_TO_RAD 	180/M_PI 
+# define SCREEN_WIDTH       1400.0
+# define SCREEN_HEIGHT      800.0
+# define SCREEN_RATIO  	    16/9
+# define FOCUS_DIST 	    1
+# define DEG_TO_RAD 	    180/M_PI 
 
 # define BACKGROUND_COLOR   255 // idk
 

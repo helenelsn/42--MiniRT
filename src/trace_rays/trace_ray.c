@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trace_ray.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
-/*   Updated: 2023/11/12 18:58:32 by Helene           ###   ########.fr       */
+/*   Updated: 2023/11/13 15:42:37 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ t_vec_3d	vect_addition(t_vec_3d a, t_vec_3d b)
 	c.x = a.x + b.x;
 	c.y = a.y + b.y;
 	c.z = a.z + b.z;
-	u.norm = get_v_norm(u);
-	return (u);
+	c.norm = get_v_norm(c);
+	return (c);
 }
 
 t_vec_3d	vect_substract(t_vec_3d a, t_vec_3d b)
@@ -62,6 +62,8 @@ t_vec_3d	vect_substract(t_vec_3d a, t_vec_3d b)
 t_vec_3d get_normal(t_vlist *object, t_point_3d p)
 {
 	t_vec_3d normal;
+
+	(void)object;
 
 	return (normal);
 }
@@ -147,7 +149,9 @@ int 	get_pixel_color()
 
 t_bsp_node	*get_corresponding_node()
 {
-	
+	t_bsp_node *curr;
+
+	return (curr);
 }
 
 /* get the corresponding bsp_node.
@@ -155,7 +159,11 @@ check for intersections ray - objects in the current and children nodes */
 t_hit_info closest_intersection()
 {
 	// t_bsp_node *start = get_corresponding_node(t_ray ray);
+	
+	t_hit_info h_inf;
 
+
+	return (t_hit_info);
 }
 
 /* ------------- LIGHT -------------- */
