@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: Helene <Helene@student.42.fr>              +#+  +:+       +#+         #
+#    By: srapin <srapin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 22:16:42 by srapin            #+#    #+#              #
-#    Updated: 2023/11/10 13:36:26 by Helene           ###   ########.fr        #
+#    Updated: 2023/11/13 09:02:56 by srapin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ FILES = \
 		intersection/i_sphere \
 		intersection/i_plan \
 		mlx_gestion/init \
+		mlx_gestion/launch \
 		mlx_gestion/close \
 		utils/atof \
 		utils/fov \

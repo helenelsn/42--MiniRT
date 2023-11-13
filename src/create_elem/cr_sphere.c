@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cr_sphere.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 01:20:17 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/08 22:59:37 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/13 08:21:22 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,15 @@ t_sphere *create_sphere(char **tab, t_vlist **garbage, t_parsing_data *data)
     }
     ft_vlstadd_back(garbage, ft_vlstnew(elem, free, sphere));
     ft_vlstadd_back(&data->objects, ft_vlstnew(elem, free, sphere));
-    t_droite d;
+    // t_droite d;
     
-    d.p.x = 1;
-    d.p.y = 2;
-    d.p.z = 0;
+    // d.p.x = 1;
+    // d.p.y = 2;
+    // d.p.z = 0;
 
-    d.v.x = -1;
-    d.v.y = 1;
-    d.v.z = 1;
+    // d.v.x = -1;
+    // d.v.y = 1;
+    // d.v.z = 1;
       
     //   printf("%f\n", elem->p.z);
     // get_inter_for_sphere(elem, d);

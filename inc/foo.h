@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   foo.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/10 00:46:02 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/13 09:05:54 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,9 @@ void    get_inter_for_plan(t_plan *p, t_droite d);
 /*  -------------------- MLX ------------------------ */
 
 void 	init_app(t_app *app);
-void 	close_mlx(t_app *app);
+int 	close_mlx(void *app);
 
 void	img_pixel_put(t_image image, int x, int y, int color);
+void launch_app(t_app *arg);
 
 #endif
