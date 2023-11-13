@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/13 16:11:07 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/13 16:19:03 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,33 +111,28 @@ typedef struct s_vlist
 
 /* ------------------------------ LIGHTS -------------------------------- */
 
-typedef struct  s_light_infos
-{
-    /* Idealement, the intensities conveniently add up to 1.0.
+/* Idealement, the intensities conveniently add up to 1.0.
     Because of the way the lighting equation works, 
     this ensures that no point can have a light intensity greater than this value.
     This means we won’t have any “overexposed” spots. */
-    
-    double  ratio; // brightness
+typedef struct  s_light_infos
+{   
+    double  ratio;
     int     color;
 }               t_light_info;
 
 typedef struct s_mood_light
 {
-    // double                  ratio;
-    // int                     color;
     t_light_info            infos;
-    t_raytracing_material   material; // ?
+    // t_raytracing_material   material; // ?
 }   t_mood_light;
 
 
 typedef struct s_light
 {
     t_point_3d p;
-    // double                  ratio;
-    // int                     color;
     t_light_info            infos;
-    t_raytracing_material   material; // ?
+    // t_raytracing_material   material; // ?
 }   t_light;
 
 
@@ -241,18 +236,16 @@ typedef struct  s_split_infos
     double  cost;
 }               t_split_infos;
 
-
-
 typedef struct s_bsp_node
 {
     t_node_type         type; 
-    int                 depth; // ?
+    int                 depth;
     
     t_bbox_description  bbox;
-    t_dim               split_dim; // ?
+    t_dim               split_dim;
     t_split_infos       split_inf;
     
-    struct s_vlist             *items; /* NULL when not a leaf */
+    struct s_vlist      *items; /* NULL when not a leaf */
     int                 items_count; /* 0 when not a leaf */
     
     struct s_bsp_node   *parent;
@@ -273,6 +266,13 @@ typedef struct s_image
 	int				line_length;
 	int				endian;
 }					t_image;
+
+typedef struct  s_mlx_data
+{
+    t_image			image;
+    void		    *mlx_ptr;
+	void		    *win_ptr;
+}               t_mlx_data;
 
 
 
@@ -295,10 +295,7 @@ typedef struct s_app
     t_vlist         *garbage;
     t_vlist         *planes;
     t_bsp_node      root;
-    /* --- mlx_data --- */
-	t_image			image;
-    void		    *mlx_ptr;
-	void		    *win_ptr;
+    t_mlx_data      mlx_data;
 } t_app;
 
 typedef union u_color

@@ -6,7 +6,7 @@
 #    By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 22:16:42 by srapin            #+#    #+#              #
-#    Updated: 2023/11/13 15:57:03 by hlesny           ###   ########.fr        #
+#    Updated: 2023/11/13 16:21:37 by hlesny           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ FILES = \
 		utils_vec_et_droite/prod_vec \
 		main\
 		parse\
-		#trace_rays/trace_ray \
+		trace_rays/trace_ray \
 		# trace_rays/convert \ 
 # Resolving
 		
