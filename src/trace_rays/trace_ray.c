@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trace_ray.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
-/*   Updated: 2023/11/13 17:47:07 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/14 00:22:49 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,11 +143,6 @@ t_point_2d  pixel_to_screen(t_point_2d c)
 
 /*  ---------------------- MAIN FUNCTIONS -------------------------- */
 
-int 	get_pixel_color()
-{
-	
-}
-
 /* ------ RAY - OBJECTS INTERSECTIONS ----- */
 
 t_bsp_node	*get_corresponding_node()
@@ -174,7 +169,7 @@ t_hit_info closest_intersection()
 /* ------------- LIGHT -------------- */
 
 /* matte objects */
-double	diffuse_reflection_term(t_light *lights, t_ray ray)
+double	diffuse_reflection(t_light *lights, t_ray ray)
 {
 	double 		intensity;
 	double		n_dot_l;
@@ -186,8 +181,8 @@ double	diffuse_reflection_term(t_light *lights, t_ray ray)
 	intensity = 0;
 	while (curr)
 	{
-		closest_hit = closest_intersection();
 		// détermine si l'objet est éclairé par la source lumineuse
+		closest_hit = closest_intersection();
 		if (closest_hit.distance != -1) // set a -1 si le rayon n'intersecte pas d'objets
 		{
 			light_direction = get_directional_vect(ray.intersect_point, curr->p);
@@ -217,7 +212,7 @@ We’ll note this in the scene by setting their specular exponent to −1
 and handling them accordingly.
 
 */
-double 	specular_reflection_term(t_light *lights, double s_term, t_ray ray)
+double 	specular_reflection(t_light *lights, double s_term, t_ray ray)
 {
 	double 		intensity;
 	t_vec_3d	light_direction;
@@ -229,12 +224,13 @@ double 	specular_reflection_term(t_light *lights, double s_term, t_ray ray)
 	intensity = 0;
 	while (curr)
 	{
+		// détermine si l'objet est éclairé par la source lumineuse
 		closest_hit = closest_intersection();
-		if (closest_hit.distance != -1) // détermine si l'objet est éclairé par la source lumineuse
+		if (closest_hit.distance != -1)
 		{
 			light_direction = get_directional_vect(ray.intersect_point, curr->p);
 			r = get_incident_ray_of_light(light_direction, ray.p_normal);
-			intensity += curr->infos.ratio * pow((vec_x_vec_scal(r, ray.direction) / (r.norm * ray.direction.norm)), s_term);	
+			intensity += curr->infos.ratio * pow((vec_x_vec_scal(r, vect_double_multiply(-1, ray.direction)) / (r.norm * ray.direction.norm)), s_term);	
 		}
 		curr = curr->next;
 	}
@@ -259,48 +255,43 @@ don’t add the illumination coming from this light
 double 	compute_lighting(t_parsing_data pdata, t_vlist *object, t_ray ray) 
 {
 	double		intensity;
-	// t_vec_3d	p_normal;
 
-	intensity = pdata.mooooo->infos.ratio; // ou est stocké mood_light ?
-	// p_normal = get_normal(object, p);
-	// normalise(&p_normal);
-	intensity += diffuse_reflection_term(pdata.lights, ray);
+	intensity = pdata.mooooo->infos.ratio;
+	intensity += diffuse_reflection(pdata.lights, ray);
 	if (object->material.specular != -1)
-		intensity += specular_reflection_term(pdata.lights, object->material.specular, ray);
+		intensity += specular_reflection(pdata.lights, object->material.specular, ray);
 	return (intensity);
 }
 
 /* ---------------------------*/
 
-t_ray	set_ray_infos(t_vec_3d direction, t_point_3d intersect_point, t_point_3d ray_origin)
+t_ray	set_ray_infos(t_vec_3d direction, t_point_3d ray_origin)
 {
 	t_ray ray;
 	ft_memset(&ray, 0, sizeof(t_ray));
 
 	ray.origin = ray_origin;
-	ray.direction = direction;
-	ray.hit_info.hit_point = intersect_point;
-	
+	ray.direction = direction;	
 }
 
-int    trace_ray(t_app app, t_vec_3d dir, t_point_3d ray_origin, t_point_3d intersect_point, int rebound_nb)
+int    trace_ray(t_app app, t_vec_3d dir, t_point_3d ray_origin, int rebound_nb)
 {
-    t_ray		ray; // pas utile
-	t_hit_info	intersection;
-	double 		reflected_color;
+    t_ray		ray;
+	t_vec_3d	reflected_ray;
 	double 		local_color;
+	double 		reflected_color;
 	
 	/* ray.origin = ray_origin;
-	ray.direction = get_unitary_dir_vect(ray.origin, intersect_point);
-	ray.intersect_point = intersect_point; */
-	set_ray_infos(dir, intersect_point, ray_origin);
+	ray.direction = get_unitary_dir_vect(ray.origin, intersect_point); */
+	set_ray_infos(dir, ray_origin);
 	
 	/* determine the closest intersection point's reflective ray's  direction */
 	ray.hit_info = closest_intersection();
 	if (ray.hit_info.distance == -1)
 		return (BACKGROUND_COLOR); 
-	ray.p_normal = get_normal(ray.hit_info, ray.intersect_point);
-	normalise(&ray.p_normal);
+	// a mettre directement dans closest_intersection()
+	ray.hit_info.hit_p_normal = get_normal(ray.hit_info, ray.hit_info.hit_point);
+	normalise(&ray.hit_info.hit_p_normal);
 	
 	local_color = ray.hit_info.obj_mat.color * compute_lighting(app.p_data, app.p_data.objects, ray);
 	
@@ -310,7 +301,8 @@ int    trace_ray(t_app app, t_vec_3d dir, t_point_3d ray_origin, t_point_3d inte
 		return (local_color);
 
 	/* compute reflected color */
-	reflected_color = trace_ray(app, ray.hit_info.hit_point, , rebound_nb + 1);
+	reflected_ray = get_incident_ray_of_light(ray.direction, ray.p_normal); // ?
+	reflected_color = trace_ray(app, ray.hit_info.hit_point, reflected_ray, rebound_nb + 1);
 	
 	return (local_color * (1 - ray.hit_info.obj_mat.reflective) + reflected_color * ray.hit_info.obj_mat.reflective);
 }
@@ -320,7 +312,7 @@ int		get_final_pixel_color(t_app app, int x, int y)
 	int	pixel_color;
 	
 	t_point_3d	viewp = pixel_to_viewpoint_coord(x, y);
-    pixel_color = trace_ray(app, app.p_data.cam->p, viewp, 0);
+    pixel_color = trace_ray(app, app.p_data.cam->p, get_directional_vect(app.p_data.cam->p, viewp), 0);
 }
 
 void    draw_scene(t_app app)
