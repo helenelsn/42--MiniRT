@@ -3,34 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   trace_ray.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
-/*   Updated: 2023/11/14 00:22:49 by Helene           ###   ########.fr       */
+/*   Updated: 2023/11/14 19:15:53 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/struct.h"
 #include "../../inc/mini_rt.h"
-
-# define RECURS_LIMIT	3
-
-typedef struct	s_hit_info
-{
-	// autre chose ?
-	t_type 					obj_type;
-	t_raytracing_material	obj_mat;
-	t_point_3d				hit_point;
-	t_vec_3d				hit_p_normal;
-	double					distance; // ray_origin - object distance
-}				t_hit_info;
-
-typedef struct	s_ray
-{
-	t_point_3d	origin;
-	t_vec_3d	direction; // vecteur unitaire ou s'en blc ?
-	t_hit_info	hit_info;
-}				t_ray;
 
 /* ------------------------- UTILS ---------------------------- */
 
@@ -67,6 +48,7 @@ t_vec_3d get_normal(t_hit_info hi, t_point_3d p)
 	t_vec_3d normal;
 
 	(void)hi;
+	(void)p;
 
 	return (normal);
 }
@@ -145,25 +127,19 @@ t_point_2d  pixel_to_screen(t_point_2d c)
 
 /* ------ RAY - OBJECTS INTERSECTIONS ----- */
 
-t_bsp_node	*get_corresponding_node()
-{
-	t_bsp_node *curr;
-
-	return (curr);
-}
-
 /* get the corresponding bsp_node.
 check for intersections ray - objects in the current and children nodes */
-t_hit_info closest_intersection()
+t_hit_info closest_intersection(t_ray ray)
 {
-	// t_bsp_node *start = get_corresponding_node(t_ray ray);
-	
+	t_bsp_node *start;
 	t_hit_info h_inf;
+	
+	start = get_corresponding_node(ray);
 
 
 	/* ray.p_normal = get_normal(ray.hit_info, ray.intersect_point);
 	normalise(&ray.p_normal); */
-	return (t_hit_info);
+	return (h_inf);
 }
 
 /* ------------- LIGHT -------------- */
@@ -182,13 +158,13 @@ double	diffuse_reflection(t_light *lights, t_ray ray)
 	while (curr)
 	{
 		// détermine si l'objet est éclairé par la source lumineuse
-		closest_hit = closest_intersection();
+		closest_hit = closest_intersection(ray);
 		if (closest_hit.distance != -1) // set a -1 si le rayon n'intersecte pas d'objets
 		{
-			light_direction = get_directional_vect(ray.intersect_point, curr->p);
-			n_dot_l = prod_vec(ray.p_normal, light_direction);
+			light_direction = get_directional_vect(ray.hit_info.hit_point, curr->p);
+			n_dot_l = vec_x_vec_scal(ray.hit_info.hit_p_normal, light_direction);
 			if (n_dot_l > 0)
-				intensity += curr->infos.ratio * n_dot_l/(ray.p_normal.norm * light_direction.norm);
+				intensity += curr->infos.ratio * n_dot_l/(ray.hit_info.hit_p_normal.norm * light_direction.norm);
 		}
 		curr = curr->next;
 	}
@@ -225,12 +201,16 @@ double 	specular_reflection(t_light *lights, double s_term, t_ray ray)
 	while (curr)
 	{
 		// détermine si l'objet est éclairé par la source lumineuse
-		closest_hit = closest_intersection();
+		closest_hit = closest_intersection(ray);
 		if (closest_hit.distance != -1)
 		{
-			light_direction = get_directional_vect(ray.intersect_point, curr->p);
-			r = get_incident_ray_of_light(light_direction, ray.p_normal);
-			intensity += curr->infos.ratio * pow((vec_x_vec_scal(r, vect_double_multiply(-1, ray.direction)) / (r.norm * ray.direction.norm)), s_term);	
+			light_direction = get_directional_vect(ray.hit_info.hit_point, curr->p);
+			r = get_incident_ray_of_light(light_direction, ray.hit_info.hit_p_normal);
+			if (vec_x_vec_scal(r, ray.hit_info.reflected_ray) > 0)
+			{
+				intensity += curr->infos.ratio * pow((vec_x_vec_scal(r, ray.hit_info.reflected_ray) 
+					/ (r.norm * ray.hit_info.reflected_ray.norm)), s_term);	
+			}
 		}
 		curr = curr->next;
 	}
@@ -274,7 +254,7 @@ t_ray	set_ray_infos(t_vec_3d direction, t_point_3d ray_origin)
 	ray.direction = direction;	
 }
 
-int    trace_ray(t_app app, t_vec_3d dir, t_point_3d ray_origin, int rebound_nb)
+int    trace_ray(t_app app, t_point_3d ray_origin, t_vec_3d dir, int rebound_nb)
 {
     t_ray		ray;
 	t_vec_3d	reflected_ray;
@@ -286,22 +266,23 @@ int    trace_ray(t_app app, t_vec_3d dir, t_point_3d ray_origin, int rebound_nb)
 	set_ray_infos(dir, ray_origin);
 	
 	/* determine the closest intersection point's reflective ray's  direction */
-	ray.hit_info = closest_intersection();
+	ray.hit_info = closest_intersection(ray);
 	if (ray.hit_info.distance == -1)
 		return (BACKGROUND_COLOR); 
+	
 	// a mettre directement dans closest_intersection()
 	ray.hit_info.hit_p_normal = get_normal(ray.hit_info, ray.hit_info.hit_point);
 	normalise(&ray.hit_info.hit_p_normal);
+	ray.hit_info.reflected_ray = get_directional_vect(ray.hit_info.hit_point, ray.origin); // essayer avec -ray.direction et voir si donne les memes resultats
 	
 	local_color = ray.hit_info.obj_mat.color * compute_lighting(app.p_data, app.p_data.objects, ray);
-	
 	
 	/* get the final pixel's color */
 	if (ray.hit_info.obj_mat.reflective <= 0 || rebound_nb == RECURS_LIMIT)
 		return (local_color);
 
 	/* compute reflected color */
-	reflected_ray = get_incident_ray_of_light(ray.direction, ray.p_normal); // ?
+	reflected_ray = get_incident_ray_of_light(ray.direction, ray.hit_info.hit_p_normal); // ?
 	reflected_color = trace_ray(app, ray.hit_info.hit_point, reflected_ray, rebound_nb + 1);
 	
 	return (local_color * (1 - ray.hit_info.obj_mat.reflective) + reflected_color * ray.hit_info.obj_mat.reflective);

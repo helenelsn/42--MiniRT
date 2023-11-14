@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/13 16:19:03 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/14 19:16:01 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,30 @@ typedef struct s_vlist
 	struct s_vlist	        *next;
     void                    (*free_foo)(void *);
 } t_vlist;
+
+
+
+/* ------------------------------- RAYS --------------------------------- */
+
+# define RECURS_LIMIT	3
+
+typedef struct	s_hit_info
+{
+	// autre chose ?
+	t_type 					obj_type;
+	t_raytracing_material	obj_mat;
+	t_point_3d				hit_point;
+	t_vec_3d				hit_p_normal;
+	t_vec_3d				reflected_ray; // V : vector from P (hit point) to camera
+	double					distance; // ray_origin - object distance
+}				t_hit_info;
+
+typedef struct	s_ray
+{
+	t_point_3d	origin;
+	t_vec_3d	direction; // vecteur unitaire ou s'en blc ?
+	t_hit_info	hit_info;
+}				t_ray;
 
 
 
