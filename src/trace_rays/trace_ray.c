@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
-/*   Updated: 2023/11/14 19:15:53 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/15 18:43:19 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,6 @@ t_vec_3d	vect_substract(t_vec_3d a, t_vec_3d b)
 	return (vect_addition(a, vect_double_multiply(-1, b)));
 }
 
-/* computes the normal of a point p on a given object */
-t_vec_3d get_normal(t_hit_info hi, t_point_3d p)
-{
-	t_vec_3d normal;
-
-	(void)hi;
-	(void)p;
-
-	return (normal);
-}
-
 void    normalise(t_vec_3d *v)
 {
     v->x /= v->norm;
@@ -80,6 +69,68 @@ t_vec_3d	get_unitary_dir_vect(t_point_3d a, t_point_3d b)
 	normalise(&u);
 	return (u);
 }
+
+
+
+
+/* ---------------------- NORMALS COMPUTATIONS ----------------------- */
+
+/* need center coordinates */
+t_vec_3d	normal_to_sphere(void *obj, t_point_3d p)
+{
+	t_sphere *sp;
+
+	sp = obj;
+	
+}
+
+/* produit vectoriel de deux vecteurs generateurs du plan */
+t_vec_3d	normal_to_plan(void *obj, t_point_3d p)
+{
+	t_plan *pl;
+
+	pl = obj;
+}
+
+/* traduit en coord cylindriques, calcule la normale, puis reconvertit en 
+coord cartesiennes (?) */
+t_vec_3d 	normal_to_cylinder(void *obj, t_point_3d p)
+{
+	t_cylindre	*cyl;
+
+	cyl = obj;
+}
+
+t_vec_3d	normal_to_cone(void *obj, t_point_3d p)
+{
+	t_cone *cn;
+
+	cn = obj;	
+}
+
+/* computes the normal of a point p on a given object */
+t_vec_3d get_unit_normal(t_hit_info hi, t_point_3d p)
+{
+	t_vec_3d normal;
+
+	if (hi.obj_type == sphere)
+		normal = normal_to_sphere(hi.obj_content, p);
+	else if (hi.obj_type == plan)
+		normal = normal_to_plan(hi.obj_content, p);
+	else if (hi.obj_type == cylindre)
+		normal = normal_to_cylinder(hi.obj_content, p);
+	else if (hi.obj_type == cone)
+		normal = normal_to_cone(hi.obj_content, p);
+	else
+		;// ?
+	
+	normalise(&normal);
+	return (normal);
+}
+
+
+
+
 
 /* ------------------ SCREEN - SCENE CONVERTIONS UTILS --------------- */
 
@@ -137,7 +188,7 @@ t_hit_info closest_intersection(t_ray ray)
 	start = get_corresponding_node(ray);
 
 
-	/* ray.p_normal = get_normal(ray.hit_info, ray.intersect_point);
+	/* ray.p_normal = get_unit_normal(ray.hit_info, ray.intersect_point);
 	normalise(&ray.p_normal); */
 	return (h_inf);
 }
@@ -271,8 +322,7 @@ int    trace_ray(t_app app, t_point_3d ray_origin, t_vec_3d dir, int rebound_nb)
 		return (BACKGROUND_COLOR); 
 	
 	// a mettre directement dans closest_intersection()
-	ray.hit_info.hit_p_normal = get_normal(ray.hit_info, ray.hit_info.hit_point);
-	normalise(&ray.hit_info.hit_p_normal);
+	ray.hit_info.hit_p_normal = get_unit_normal(ray.hit_info, ray.hit_info.hit_point);
 	ray.hit_info.reflected_ray = get_directional_vect(ray.hit_info.hit_point, ray.origin); // essayer avec -ray.direction et voir si donne les memes resultats
 	
 	local_color = ray.hit_info.obj_mat.color * compute_lighting(app.p_data, app.p_data.objects, ray);

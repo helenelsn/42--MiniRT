@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/14 19:16:01 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/15 18:41:27 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ typedef struct	s_hit_info
 	// autre chose ?
 	t_type 					obj_type;
 	t_raytracing_material	obj_mat;
+    void                    *obj_content;
 	t_point_3d				hit_point;
 	t_vec_3d				hit_p_normal;
 	t_vec_3d				reflected_ray; // V : vector from P (hit point) to camera
