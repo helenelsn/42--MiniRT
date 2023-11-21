@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/15 18:41:27 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/21 18:10:02 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,7 +251,8 @@ typedef enum    e_dim
 {
     x,
     y,
-    z
+    z,
+    no_axis
 }               t_dim;
 
 typedef struct  s_split_infos
@@ -266,14 +267,14 @@ typedef struct s_bsp_node
     t_node_type         type; 
     int                 depth;
     
-    t_bbox_description  bbox;
-    t_dim               split_dim;
-    t_split_infos       split_inf;
+    t_bbox_description  bbox; // pas utile, se débrouiller pour l'enlever
+    t_dim               split_dim; // pas utile, est dans split_inf
+    t_split_infos       split_inf; 
     
     struct s_vlist      *items; /* NULL when not a leaf */
     int                 items_count; /* 0 when not a leaf */
     
-    struct s_bsp_node   *parent;
+    struct s_bsp_node   *parent; // ou autre si utilise les neighbor links
     struct s_bsp_node   *left;
     struct s_bsp_node   *right;
 }               t_bsp_node;

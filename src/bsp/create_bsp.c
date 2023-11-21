@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_bsp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:44:16 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/09 23:16:48 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/21 17:21:01 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void rec_build(t_bsp_node *voxel)
     if (terminate(voxel, si.cost))
     {
         voxel->type = leaf;
+        voxel->split_dim = no_axis;
         voxel->left = NULL;
         voxel->right = NULL;
         return ;

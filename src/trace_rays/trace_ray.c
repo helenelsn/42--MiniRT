@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trace_ray.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
-/*   Updated: 2023/11/15 18:43:19 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/21 18:02:09 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,36 @@
 #include "../../inc/mini_rt.h"
 
 /* ------------------------- UTILS ---------------------------- */
+
+
+/* ------- POINTS -------- */
+
+t_point_3d	point_double_multiply(double n, t_point_3d a)
+{
+	t_point_3d b;
+
+	b.x = n * a.x;
+	b.y = n * a.y;
+	b.z = n * a.z;
+	return (b);
+}
+
+t_point_3d	point_addition(t_point_3d a, t_point_3d b)
+{
+	t_point_3d c;
+
+	c.x = a.x + b.x;
+	c.y = a.y + b.y;
+	c.z = a.z + b.z;
+	return (c);
+}
+
+t_point_3d	point_substract(t_point_3d a, t_point_3d b)
+{
+	return (point_addition(a, point_double_multiply(-1, b)));
+}
+
+/* ------- VECTORS -------- */
 
 t_vec_3d	vect_double_multiply(double n, t_vec_3d a)
 {

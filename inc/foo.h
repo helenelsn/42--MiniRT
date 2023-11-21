@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   foo.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/10 00:46:02 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/21 18:33:32 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,23 @@ double get_v_norm(t_vec_3d v);
 
 void    get_inter_for_sphere(t_sphere *elem, t_droite d);
 void    get_inter_for_plan(t_plan *p, t_droite d);
+
+/* -------------------- TRACE_RAY ------------------- */
+
+double  	pt_get_coord(t_point_3d p, int i);
+double 		vect_get_coord(t_vec_3d v, int i);
+
+t_point_3d	point_double_multiply(double n, t_point_3d a);
+t_point_3d	point_addition(t_point_3d a, t_point_3d b);
+t_point_3d	point_substract(t_point_3d a, t_point_3d b);
+t_vec_3d	vect_double_multiply(double n, t_vec_3d a);
+t_vec_3d	vect_addition(t_vec_3d a, t_vec_3d b);
+t_vec_3d	vect_substract(t_vec_3d a, t_vec_3d b);
+void    	normalise(t_vec_3d *v);
+t_vec_3d	get_directional_vect(t_point_3d a, t_point_3d b);
+t_vec_3d	get_unitary_dir_vect(t_point_3d a, t_point_3d b);
+t_vec_3d 	get_unit_normal(t_hit_info hi, t_point_3d p);
+
 
 /*  -------------------- MLX ------------------------ */
 

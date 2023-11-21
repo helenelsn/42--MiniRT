@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_splitting_plane.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:51:57 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/09 19:44:52 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/21 18:33:37 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,22 @@ double  compute_cost(t_bsp_node *voxel, t_split_infos si)
         return (cost);
 }
 
-double  get_i_coordinate(t_point_3d p, int i)
+double vect_get_coord(t_vec_3d v, int i)
 {
     if (i < 0 || i > 2)
-        return (-1);
+        return (-1); // idk
+    if (i == 0)
+        return (v.x);
+    else if (i == 1)
+        return (v.y);
+    else 
+        return (v.z);
+}
+
+double  pt_get_coord(t_point_3d p, int i)
+{
+    if (i < 0 || i > 2)
+        return (-1); // idk
     if (i == 0)
         return (p.x);
     else if (i == 1)
@@ -134,11 +146,11 @@ t_split_infos test_bounding_planes(t_bsp_node *parent, t_vlist *object)
     {
         si.dim = i;
         
-        si.split_coord = get_i_coordinate(object->material.bbox.min, i);
+        si.split_coord = pt_get_coord(object->material.bbox.min, i);
         si.cost = compute_cost(parent, si);
         if (si.cost < final_si.cost)
             final_si = si;
-        si.split_coord = get_i_coordinate(object->material.bbox.max, i);
+        si.split_coord = pt_get_coord(object->material.bbox.max, i);
         si.cost = compute_cost(parent, si);
         if (si.cost < final_si.cost)
             final_si = si;

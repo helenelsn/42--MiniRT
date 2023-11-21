@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bsp.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:46:51 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/14 21:13:33 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/17 17:50:48 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ t_bsp_node	        *place_ray_origin_in_tree(t_app app, t_ray ray);
 t_bsp_node          *position_camera_in_tree(t_bsp_node *root, t_camera cam);
 
 void                print_kd_tree(t_bsp_node *voxel);
+
+
 
 
 #endif
