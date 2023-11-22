@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   search.c                                           :+:      :+:    :+:   */
+/*   browse.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:44:25 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/08 20:22:34 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/14 21:09:39 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,14 @@
 {
     
 } */
+
+
+t_bsp_node	*place_ray_origin_in_tree(t_app app, t_ray ray)
+{
+	t_bsp_node *curr;
+
+	return (curr);
+}
 
 
 t_bsp_node    *position_camera_in_tree(t_bsp_node *root, t_camera cam)

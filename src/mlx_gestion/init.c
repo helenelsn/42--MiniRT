@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 02:23:05 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/13 08:56:27 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/22 15:44:37 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,20 +46,13 @@ void	set_img(t_app *app)
 
 void init_app(t_app *app)
 {
-    // ft_bzero(&app, sizeof(t_app));
-	app->garbage = NULL;
-	app->planes = NULL;
+    ft_bzero(&app, sizeof(t_app));
     app->mlx_ptr = mlx_init();
-	// printf("1\n");
 	if (!app->mlx_ptr)
 		return;
 		// return (EXIT_MLX_FAILURE);
-	app->win_ptr = mlx_new_window(app->mlx_ptr, WINDOWS_WIDHT, WINDOWS_HEIGHT,
+	app->mlx_data.win_ptr = mlx_new_window(app->mlx_data.mlx_ptr, WINDOWS_WIDHT, WINDOWS_HEIGHT,
 			"mimi-rt");
-	app->image.img = mlx_new_image(app->mlx_ptr, WINDOWS_WIDHT, WINDOWS_HEIGHT);
-	app->image.addr = mlx_get_data_addr(app->image.img, &(app->image.bpp),
-			&(app->image.line_length), &(app->image.endian));
-	// printf("2\n");
 	if (!app->win_ptr)
 	{
 		// close_mlx(app);

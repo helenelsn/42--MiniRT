@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/12 18:44:11 by Helene           ###   ########.fr       */
+/*   Updated: 2023/11/15 18:41:27 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 
 // typedef struct s_vlist;
 
+
+/* -------------------- PARSING AND GEOMETRICAL BASICS ------------------ */
 
 typedef struct s_point2d
 {
@@ -39,7 +41,7 @@ typedef struct s_vec_3d
     double x;
     double y;
     double z;
-    double norm; /* ca fait tout couiller ? pense oas juste a ajouter dans la construction*/
+    double norm;
 } t_vec_3d;
 
 typedef struct  s_droite
@@ -61,6 +63,19 @@ typedef enum e_type
     vlist,
     cone
 } t_type;
+
+typedef enum e_parse_error
+{
+    none,
+    invalid_args_nb,
+    file,
+    file_content,
+    
+} t_parse_error;
+
+
+
+/* ------------ MATERIALS SHARED PROPERTIES, OBJECTS STRUCTURE ------------- */
 
 /* bounding volume */
 typedef struct  s_bbox_description
@@ -91,68 +106,90 @@ typedef struct s_vlist
     void                    (*free_foo)(void *);
 } t_vlist;
 
-typedef enum e_parse_error
-{
-    none,
-    invalid_args_nb,
-    file,
-    file_content,
-    
-} t_parse_error;
 
-typedef struct  s_light_infos
+
+/* ------------------------------- RAYS --------------------------------- */
+
+# define RECURS_LIMIT	3
+
+typedef struct	s_hit_info
 {
-    /* Idealement, the intensities conveniently add up to 1.0.
+	// autre chose ?
+	t_type 					obj_type;
+	t_raytracing_material	obj_mat;
+    void                    *obj_content;
+	t_point_3d				hit_point;
+	t_vec_3d				hit_p_normal;
+	t_vec_3d				reflected_ray; // V : vector from P (hit point) to camera
+	double					distance; // ray_origin - object distance
+}				t_hit_info;
+
+typedef struct	s_ray
+{
+	t_point_3d	origin;
+	t_vec_3d	direction; // vecteur unitaire ou s'en blc ?
+	t_hit_info	hit_info;
+}				t_ray;
+
+
+
+
+/* ------------------------------ LIGHTS -------------------------------- */
+
+/* Idealement, the intensities conveniently add up to 1.0.
     Because of the way the lighting equation works, 
     this ensures that no point can have a light intensity greater than this value.
     This means we won’t have any “overexposed” spots. */
-    double  intensity; // pareil que (brightness) ratio;
+typedef struct  s_light_infos
+{   
+    double  ratio;
     int     color;
 }               t_light_info;
 
 typedef struct s_mood_light
 {
-    //t_light_info          infos;
-    double                  ratio;
-    int                     color;
-    t_raytracing_material   material; // ?
+    t_light_info            infos;
+    // t_raytracing_material   material; // ?
 }   t_mood_light;
 
 
 typedef struct s_light
 {
     t_point_3d p;
-    //t_light_info          infos;
-    double                  ratio;
-    int                     color;
-    t_raytracing_material   material; // ?
+    t_light_info            infos;
+    // t_raytracing_material   material; // ?
 }   t_light;
+
+
+
+
+/* ------------------------- GEOMETRIC ELEMENTS ------------------------- */
 
 typedef struct s_sphere
 {
-    t_point_3d              p;
-    double                  radius;
-    int                     color;
+    t_point_3d  p;
+    double      radius;
+    int         color;
 }   t_sphere;
 
 typedef struct s_plan
 {
-    t_point_3d              p; // pas défini par 2 vecteurs plutot ? -> 
-    t_vec_3d                vec;
-    double a;
-    double b;
-    double c;
-    double d;
-    int                 color;
+    t_point_3d  p; // pas défini par 2 vecteurs plutot ? -> 
+    t_vec_3d    vec;
+    double      a;
+    double      b;
+    double      c;
+    double      d;
+    int         color;
 }   t_plan;
 
 typedef struct s_cylindre
 {
-    t_point_3d              p;
-    t_vec_3d                vec;
-    double                  radius;
-    double                  height;
-    int                 color;
+    t_point_3d  p;
+    t_vec_3d    vec;
+    double      radius;
+    double      height;
+    int         color;
     
 }   t_cylindre;
 
@@ -164,31 +201,11 @@ typedef struct  s_circle
 
 typedef struct  s_cone
 {
-    t_circle             base;
-    // t_point_3d              center;
-    // double                  radius;
-    double                  height;
-    double                  slant_height; /* hauteur oblique, calculée avec pythagore */
-    t_vec_3d                orientation; // ou direction
+    t_circle    base;
+    double      height;
+    double      slant_height; /* hauteur oblique, calculée avec pythagore */
+    t_vec_3d    orientation; // ou direction
 }               t_cone;
-
-/* forme de la section résultant de la coupe
-du tore/toroid 
-s'en blc en vrai non ? fera que avec des cercles
-et basta */
-typedef enum e_section_type
-{
-    circle,
-    rectangle   
-}       t_section_type;
-
-// typedef struct  s_toroid
-// {
-//     t_section_type          type; // ?
-//     t_point_2d              center;
-//     t_disk                  section_infos; // ?
-//   
-// }               t_toroid;
 
 typedef struct  s_moebius
 {
@@ -197,6 +214,9 @@ typedef struct  s_moebius
 }               t_moebius;
 
 
+
+
+/* ---------------------------- CAMERA, FRAME ---------------------------- */
 
 typedef struct s_frame
 {
@@ -216,23 +236,10 @@ typedef struct s_camera
     int         fov;
 }   t_camera;
 
-typedef struct s_parsing_data
-{
-    t_camera *cam;
-    t_mood_light *mooooo; // batarde j avais pas vu (drole)
-    t_light *lights;
-    t_vlist *objects;
-    t_vlist *planes;
-} t_parsing_data;
 
 
 
-// typedef enum e_elem
-// {
-//     bad,
-//     light,
-    
-// } t_elem;
+/* ---------------------------- BSP TREE ----------------------------   */
 
 typedef enum    e_node_type
 {
@@ -254,24 +261,27 @@ typedef struct  s_split_infos
     double  cost;
 }               t_split_infos;
 
-
-
 typedef struct s_bsp_node
 {
     t_node_type         type; 
-    int                 depth; // ?
+    int                 depth;
     
     t_bbox_description  bbox;
-    t_dim               split_dim; // ?
+    t_dim               split_dim;
     t_split_infos       split_inf;
     
-    struct s_vlist             *items; /* NULL when not a leaf */
+    struct s_vlist      *items; /* NULL when not a leaf */
     int                 items_count; /* 0 when not a leaf */
     
     struct s_bsp_node   *parent;
     struct s_bsp_node   *left;
     struct s_bsp_node   *right;
 }               t_bsp_node;
+
+
+
+
+/* ---------------------------- MLX DATA ----------------------------*/
 
 typedef struct s_image
 {
@@ -282,16 +292,35 @@ typedef struct s_image
 	int				endian;
 }					t_image;
 
-typedef struct s_app
+typedef struct  s_mlx_data
 {
-    t_parsing_data p_data;
-    t_frame         frame; //represente la fenetre par laquell on regarde
-    t_vlist         *garbage;
-    t_bsp_node      root;
-    t_vlist         *planes;
-	t_image			image; //ln 
+    t_image			image;
     void		    *mlx_ptr;
 	void		    *win_ptr;
+}               t_mlx_data;
+
+
+
+
+/* ----------------------- MAIN DATA STRUCTURES ---------------------- */
+
+typedef struct s_parsing_data
+{
+    t_camera        *cam;
+    t_mood_light    *mooooo; // batarde j avais pas vu (drole)
+    t_light         *lights;
+    t_vlist         *objects;
+    t_vlist         *planes;
+} t_parsing_data;
+
+typedef struct s_app
+{
+    t_parsing_data  p_data;
+    t_frame         frame;
+    t_vlist         *garbage;
+    t_vlist         *planes;
+    t_bsp_node      root;
+    t_mlx_data      mlx_data;
 } t_app;
 
 typedef union u_color

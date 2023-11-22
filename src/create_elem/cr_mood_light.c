@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cr_mood_light.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 23:34:39 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/08 19:31:58 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/13 16:01:06 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ t_mood_light *create_mood_light(char **tab, t_vlist **garbage, t_parsing_data *d
     elem = ft_calloc(1, sizeof(t_mood_light));
     if (!elem)
         return NULL;
-    elem->ratio = get_ratio(tab[1]);
-    if (elem->ratio < 0 || !get_rgb(tab[2], &elem->color))
+    elem->infos.ratio = get_ratio(tab[1]);
+    if (elem->infos.ratio < 0 || !get_rgb(tab[2], &elem->infos.color))
     {
         //todo
         free(elem);

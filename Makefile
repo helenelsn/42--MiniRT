@@ -6,7 +6,7 @@
 #    By: srapin <srapin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 22:16:42 by srapin            #+#    #+#              #
-#    Updated: 2023/11/13 09:02:56 by srapin           ###   ########.fr        #
+#    Updated: 2023/11/22 15:44:19 by srapin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,12 +27,12 @@ FILES = \
 		create_elem/cr_plan\
 		create_elem/cr_sphere\
 		garbage_collector/ft_lstnew\
-		garbage_collector/ft_lstadd_front\
-		garbage_collector/ft_lstsize\
-		garbage_collector/ft_lstlast\
-		garbage_collector/ft_lstadd_back\
-		garbage_collector/ft_lstdelone\
-		garbage_collector/ft_lstclear\
+		garbage_collector/ft_lstadd_front \
+		garbage_collector/ft_lstsize \
+		garbage_collector/ft_lstlast \
+		garbage_collector/ft_lstadd_back \
+		garbage_collector/ft_lstdelone \
+		garbage_collector/ft_lstclear \
 		garbage_collector/ft_lstiter \
 		garbage_collector/ft_vlst_del_in_list\
 		intersection/i_sphere \
@@ -52,7 +52,7 @@ FILES = \
 		utils_vec_et_droite/prod_vec \
 		main\
 		parse\
-		# trace_rays/trace_ray \
+		trace_rays/trace_ray \
 		# trace_rays/convert \ 
 # Resolving
 		

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:20 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/09 23:23:14 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/13 16:16:49 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,23 @@ int main(int argc, char **argv)
     // init_app(&app); ->attention planew ft_memset(&app->root, 0, sizeof(t_bsp_node));
     // ft_memset(planes, 0, sizeof(t_vlist));
 
-// passer l adresse de app.p_data.objects ?
-    // set_planes_list(&app);
+    app.mlx_data.mlx_ptr = mlx_init();
+    if (!app.mlx_data.mlx_ptr)
+        return (EXIT_MLX_FAILURE);
+    app.mlx_data.win_ptr = mlx_new_window(app.mlx_data.mlx_ptr, WINDOWS_WIDHT, WINDOWS_HEIGHT, "miniRT");
+    if (!app.mlx_data.win_ptr)
+    {
+        mlx_destroy_display(app.mlx_data.mlx_ptr);
+        free(app.mlx_data.mlx_ptr);
+        return (EXIT_MLX_FAILURE);
+    }
+    app.mlx_data.image.img = mlx_new_image(app.mlx_data.mlx_ptr, WINDOWS_WIDHT, WINDOWS_HEIGHT);
+    app.mlx_data.image.addr = mlx_get_data_addr(app.mlx_data.image.img, &(app.mlx_data.image.bpp), 
+                        &(app.mlx_data.image.line_length), &(app.mlx_data.image.endian));
     
     build_kd_tree(&app.root, app.p_data.objects);
     
-    print_kd_tree(&app.root);
-    printf("cuties but ecoanxious lol <3\n");
+    /* print_kd_tree(&app.root);
+    printf("cuties but ecoanxious lol <3\n"); */
     
 }
