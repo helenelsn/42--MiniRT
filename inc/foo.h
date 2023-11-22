@@ -6,7 +6,7 @@
 /*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/22 00:27:10 by Helene           ###   ########.fr       */
+/*   Updated: 2023/11/22 15:57:25 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,9 @@ t_vec_3d 	get_unit_normal(t_hit_info hi, t_point_3d p);
 /*  -------------------- MLX ------------------------ */
 
 void 	init_app(t_app *app);
-void 	close_mlx(t_app *app);
+int 	close_mlx(void *app);
 
 void	img_pixel_put(t_image image, int x, int y, int color);
+void launch_app(t_app *arg);
 
 #endif

@@ -1,14 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/02/14 22:16:42 by srapin            #+#    #+#              #
-#    Updated: 2023/11/13 16:21:37 by hlesny           ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
 
 NAME = mimirt
 
@@ -27,17 +16,18 @@ FILES = \
 		create_elem/cr_plan\
 		create_elem/cr_sphere\
 		garbage_collector/ft_lstnew\
-		garbage_collector/ft_lstadd_front\
-		garbage_collector/ft_lstsize\
-		garbage_collector/ft_lstlast\
-		garbage_collector/ft_lstadd_back\
-		garbage_collector/ft_lstdelone\
-		garbage_collector/ft_lstclear\
+		garbage_collector/ft_lstadd_front \
+		garbage_collector/ft_lstsize \
+		garbage_collector/ft_lstlast \
+		garbage_collector/ft_lstadd_back \
+		garbage_collector/ft_lstdelone \
+		garbage_collector/ft_lstclear \
 		garbage_collector/ft_lstiter \
 		garbage_collector/ft_vlst_del_in_list\
 		intersection/i_sphere \
 		intersection/i_plan \
 		mlx_gestion/init \
+		mlx_gestion/launch \
 		mlx_gestion/close \
 		utils/atof \
 		utils/fov \
