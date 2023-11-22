@@ -6,7 +6,7 @@
 /*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:44:25 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/21 18:39:05 by Helene           ###   ########.fr       */
+/*   Updated: 2023/11/22 15:34:25 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,26 @@ typedef struct s_stack
 
 bool    intersect_ray_bbox(t_bbox_description bbox, t_ray ray, float *a, float *b)
 {
+    
+}
+
+bool    intersect(t_vlist *obj, t_ray ray)
+{
+    
+}
+
+/* intersect ray with each object in the object list, discarding
+    those lying before stack[enPt].t (ici min) or farther than stack[exPt].t (ici max) */
+t_vlist *test_intersections(t_bsp_node *leaf, t_ray ray, double min, double max)
+{
+    t_vlist *obj;
+      
+
+    obj = leaf->items;
+    while (obj)
+    {
+        if (intersect(obj, ray) && )
+    }
     
 }
 
@@ -88,16 +108,18 @@ t_vlist *ray_traversal_algo(t_bsp_node *root, t_ray ray)
             /* similar code for all axes */
             /* nextAxis is x -> y, y -> z, z -> x */
             /* prevAxis is z -> x, y -> x, y -> z */
+            int  prev_axis;
+            int  next_axis;
             
-            if (pt_get_coord(stack[entry_pt].pb, axis) <= split_val)
+            if (pt_get_coord(stack[entry_pt].pb, curr_node->split_inf.dim) <= split_val)
             {
-                if (pt_get_coord(stack[exit_pt].pb, axis) < split_val) // et non pas <= ?? sinon le if suivant ne sert à rien
+                if (pt_get_coord(stack[exit_pt].pb, curr_node->split_inf.dim) < split_val) // et non pas <= ?? sinon le if suivant ne sert à rien
                 {
                     /* case N1, N2, N3, P5, Z2, and Z3 */
                     curr_node = curr_node->left;
                     continue;
                 }
-                if (pt_get_coord(stack[exit_pt].pb, axis) == split_val) 
+                if (pt_get_coord(stack[exit_pt].pb, curr_node->split_inf.dim) == split_val) 
                 {
                     curr_node = curr_node->right;
                     continue; /* case Z1  */
@@ -106,9 +128,9 @@ t_vlist *ray_traversal_algo(t_bsp_node *root, t_ray ray)
                 far_child = curr_node->right;
                 curr_node = curr_node->left;
             }
-            else /* * (stack[enPt].pb[axis] > splitVal) */
+            else /* * (stack[enPt].pb[curr_node->split_inf.dim] > splitVal) */
             {
-                if (split_val < pt_get_coord(stack[exit_pt].pb, axis))
+                if (split_val < pt_get_coord(stack[exit_pt].pb, curr_node->split_inf.dim))
                 {
                     /* case P1, P2, P3, and N5 */
                     curr_node = curr_node->right;
@@ -121,7 +143,7 @@ t_vlist *ray_traversal_algo(t_bsp_node *root, t_ray ray)
             /* case P4 or N4 . . . traverse both children */
             
             /* signed distance to the splitting plane */
-            t = (split_val - pt_get_coord(ray.origin, axis)) / vect_get_coord(ray.direction, axis);
+            t = (split_val - pt_get_coord(ray.origin, curr_node->split_inf.dim)) / vect_get_coord(ray.direction, curr_node->split_inf.dim);
             
             /* setup the new exit point */
             int tmp = exit_pt;
@@ -136,25 +158,30 @@ t_vlist *ray_traversal_algo(t_bsp_node *root, t_ray ray)
             stack[exit_pt].t = t;
             stack[exit_pt].node = far_child;
 
-            
-            stack[exit_pt].pb[axis] = splitVal;
-            stack[exit_pt].pb[nextAxis] = ray.origin[nextAxis] +
-            t * ray.dir[nextAxis];
-            stack[exit_pt].pb[prevAxis] = ray.origin[prevAxis] +
-            t * ray.dir[prevAxis];
+            double tmp_next = pt_get_coord(ray.origin, next_axis) + t * vect_get_coord(ray.direction, next_axis);
+            double tmp_prev = pt_get_coord(ray.origin, prev_axis) + t * vect_get_coord(ray.direction, prev_axis);
+            pt_modify_coord(stack[exit_pt].pb, curr_node->split_inf.dim, split_val);
+            pt_modify_coord(stack[exit_pt].pb, next_axis, tmp_next);
+            pt_modify_coord(stack[exit_pt].pb, prev_axis, tmp_prev);
         }
 
         /* current node is the leaf . . . empty or full */
-        /* intersect ray with each object in the object list, discarding
-        those lying before stack[enPt].t or farther than stack[exPt].t */
-        
+        t_vlist *closest_inter = test_intersections(curr_node, ray, stack[entry_pt].t, stack[exit_pt].t);
         /*if ( any intersection exists )
             return ["object with closest intersection point"];*/
+        if (closest_inter)
+            return (free(stack), closest_inter);
 
+        /* pop from the stack */
+        entry_pt = exit_pt; /* the signed distance intervals are adjacent */
         
+        /* retrieve the pointer to the next node, it is possible that ray traversal terminates */
+        curr_node = stack[exit_pt].node;
         
+        exit_pt = stack[entry_pt].prev;
     }
-    
+    /* currNode = ”nowhere”, ray leaves the scene */
+    return (free(stack), NULL);
 }
 
 
@@ -179,30 +206,7 @@ bool    orient_ray_plan(t_bbox_description voxel, t_ray ray)
     */
 }
 
-
-t_bsp_node	*place_ray_origin_in_tree(t_app app, t_ray ray)
-{
-	t_bsp_node *curr;
-
-    curr = &app.root;
-    
-    if (intersect_ray_bbox(app.root.bbox, ray))
-        ;// set t_min and t_max
-    else
-        return (NULL);
-    
-    // Pile.push(racine, tmin, tmax)
-    while (curr->type == node)
-    {
-        /* trouver l'orientation du rayon par rapport au plan */
-        
-        
-    }
-
-	return (curr);
-}
-
-
+/* ok ou a réecrire ? */
 t_bsp_node    *position_camera_in_tree(t_bsp_node *root, t_camera cam)
 {
     t_bsp_node *curr;

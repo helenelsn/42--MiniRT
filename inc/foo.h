@@ -6,7 +6,7 @@
 /*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/21 18:33:32 by Helene           ###   ########.fr       */
+/*   Updated: 2023/11/22 00:27:10 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,15 @@ t_vec_3d vec_x_vec_vectoriel(t_vec_3d v, t_vec_3d w);
 
 double get_v_norm(t_vec_3d v);
 
-
-void    get_inter_for_sphere(t_sphere *elem, t_droite d);
-void    get_inter_for_plan(t_plan *p, t_droite d);
+t_vlist    	*get_inter(t_vlist *elem, t_droite d);
+void    	get_inter_for_sphere(t_sphere *elem, t_droite d);
+void    	get_inter_for_plan(t_plan *p, t_droite d);
 
 /* -------------------- TRACE_RAY ------------------- */
 
-double  	pt_get_coord(t_point_3d p, int i);
 double 		vect_get_coord(t_vec_3d v, int i);
+double  	pt_get_coord(t_point_3d p, int i);
+void    	pt_modify_coord(t_point_3d p, int i, double new_c);
 
 t_point_3d	point_double_multiply(double n, t_point_3d a);
 t_point_3d	point_addition(t_point_3d a, t_point_3d b);

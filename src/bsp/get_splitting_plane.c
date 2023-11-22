@@ -6,7 +6,7 @@
 /*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:51:57 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/21 18:33:37 by Helene           ###   ########.fr       */
+/*   Updated: 2023/11/22 00:01:49 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,18 @@ double  pt_get_coord(t_point_3d p, int i)
         return (p.y);
     else 
         return (p.z);
+}
+
+void    pt_modify_coord(t_point_3d p, int i, double new_c)
+{
+    if (i < 0 || i > 2)
+        return (-1); // idk
+    if (i == 0)
+        p.x = new_c;
+    else if (i == 1)
+        p.y = new_c;
+    else 
+        p.z = new_c;
 }
 
 /* compute the traversing cost for the splitting planes generated 
