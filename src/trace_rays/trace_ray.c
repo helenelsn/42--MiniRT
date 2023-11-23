@@ -6,7 +6,7 @@
 /*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
-/*   Updated: 2023/11/21 18:02:09 by Helene           ###   ########.fr       */
+/*   Updated: 2023/11/22 16:46:41 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,17 @@ t_point_3d	point_substract(t_point_3d a, t_point_3d b)
 }
 
 /* ------- VECTORS -------- */
+
+/* utile pour le ray traversal algorithm, dans lequel somme points et vecteurs */
+t_point_3d	get_vec_coord(t_vec_3d v)
+{
+	t_point_3d p;
+
+	p.x = v.x;
+	p.y = v.y;
+	p.z = v.z;
+	return (p);
+}
 
 t_vec_3d	vect_double_multiply(double n, t_vec_3d a)
 {

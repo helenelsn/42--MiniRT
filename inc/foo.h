@@ -6,7 +6,7 @@
 /*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/22 15:57:25 by Helene           ###   ########.fr       */
+/*   Updated: 2023/11/22 16:45:23 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,12 @@ double 		vect_get_coord(t_vec_3d v, int i);
 double  	pt_get_coord(t_point_3d p, int i);
 void    	pt_modify_coord(t_point_3d p, int i, double new_c);
 
+t_point_3d	get_vec_coord(t_vec_3d v);
+
 t_point_3d	point_double_multiply(double n, t_point_3d a);
 t_point_3d	point_addition(t_point_3d a, t_point_3d b);
 t_point_3d	point_substract(t_point_3d a, t_point_3d b);
+
 t_vec_3d	vect_double_multiply(double n, t_vec_3d a);
 t_vec_3d	vect_addition(t_vec_3d a, t_vec_3d b);
 t_vec_3d	vect_substract(t_vec_3d a, t_vec_3d b);

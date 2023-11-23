@@ -6,7 +6,7 @@
 /*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:44:25 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/22 15:34:25 by Helene           ###   ########.fr       */
+/*   Updated: 2023/11/22 16:53:44 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,27 @@ typedef struct s_stack
     */
     double          t; /* the entry/exit signed distance */
     t_point_3d      pb; /* the coordinates of entry/exit point */
-    struct s_stack  *prev;
+    int             prev;
     // struct s_stack  *next;
 }               t_stack;
 
-bool    intersect_ray_bbox(t_bbox_description bbox, t_ray ray, float *a, float *b)
+bool    intersect_scene(t_bbox_description scene, t_ray ray, float *a, float *b)
 {
-    
+    (void)scene;
+    (void)ray;
+    (void)a;
+    (void)b;
+
+    return (true); // todel c juste pour que ça compile
 }
 
-bool    intersect(t_vlist *obj, t_ray ray)
+bool    intersect(t_vlist *obj, t_ray ray, double *dist)
 {
-    
+    (void)obj;
+    (void)ray;
+    (void)dist;
+
+    return (true); // todel c juste pour que ça compile
 }
 
 /* intersect ray with each object in the object list, discarding
@@ -48,23 +57,36 @@ bool    intersect(t_vlist *obj, t_ray ray)
 t_vlist *test_intersections(t_bsp_node *leaf, t_ray ray, double min, double max)
 {
     t_vlist *obj;
-      
+    t_vlist *closest_obj;
+    double  dist;
+    double  min_dist;
 
     obj = leaf->items;
+    min_dist = INFINITY;
+    dist = INFINITY;
     while (obj)
     {
-        if (intersect(obj, ray) && )
+        if (intersect(obj, ray, &dist) && dist >= min && dist <= max 
+            && dist < min_dist)
+            {
+                min_dist = dist;
+                closest_obj = obj;
+            }
+        obj = obj->next;
     }
-    
+    if (min_dist < INFINITY)
+        return (closest_obj);
+    return (NULL);
 }
 
+/* root est dans notre cas le node ou se trouve la camera, et pas la racine du kd-tree (si ?) */
 t_vlist *ray_traversal_algo(t_bsp_node *root, t_ray ray)
 {
     float   a; /* entry signed distance */
     float   b; /* exit signed distance */
     float   t; /* signed distance to the splitting plane */
 
-    bool    intersect = intersect_ray_bbox(root->bbox, ray, &a, &b);
+    bool    intersect = intersect_scene(root->bbox, ray, &a, &b);
    
     if (!intersect) // ray does not intersect sceneBox
         return (NULL);
@@ -84,15 +106,15 @@ t_vlist *ray_traversal_algo(t_bsp_node *root, t_ray ray)
 
     /* distinguish between internal and external origin */
     if (a >= 0.0) /* a ray with external origin */
-        stack[entry_pt].pb = point_addition(ray.origin, point_double_multiply(a, ray.direction));  // ray.origin + ray.dir * a;
+        stack[entry_pt].pb = point_addition(ray.origin, point_double_multiply(a, get_vec_coord(ray.direction)));  // ray.origin + ray.dir * a;
     else /* a ray with internal origin */
         stack[entry_pt].pb = ray.origin;
 
     /* setup initial exit point in the stack */
     int exit_pt = 1; /* pointer to the stack */
     stack[exit_pt].t = b;
-    stack[exit_pt].pb = point_addition(ray.origin, point_double_multiply(b, ray.direction)); // ray.origin + ray.dir * b;
-    stack[exit_pt].node = "nowhere"; /* set termination flag */
+    stack[exit_pt].pb = point_addition(ray.origin, point_double_multiply(b, get_vec_coord(ray.direction))); // ray.origin + ray.dir * b;
+    stack[exit_pt].node = NULL; // ?  //"nowhere"; /* set termination flag */
 
 
     /* loop, traverse through the whole kd-tree, until an object is intersected or ray leaves the scene */
@@ -185,26 +207,6 @@ t_vlist *ray_traversal_algo(t_bsp_node *root, t_ray ray)
 }
 
 
-
-
-
-
-
-
-bool    intersect_ray_plane(t_point_3d min, t_point_3d max, t_dim dim, double coord)
-{
-    
-}
-
-/* returns true if the ray traverses the volume
-from left to right, and false otherwise */
-bool    orient_ray_plan(t_bbox_description voxel, t_ray ray)
-{
-    /*
-    teste si le rayon traverse le sous voxel gauche ou le sous
-    voxel droit en premier
-    */
-}
 
 /* ok ou a réecrire ? */
 t_bsp_node    *position_camera_in_tree(t_bsp_node *root, t_camera cam)
