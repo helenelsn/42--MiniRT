@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trace_ray.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
-/*   Updated: 2023/11/22 16:46:41 by Helene           ###   ########.fr       */
+/*   Updated: 2023/11/24 17:22:09 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,36 +117,50 @@ t_vec_3d	get_unitary_dir_vect(t_point_3d a, t_point_3d b)
 /* ---------------------- NORMALS COMPUTATIONS ----------------------- */
 
 /* need center coordinates */
+//tocheck
 t_vec_3d	normal_to_sphere(void *obj, t_point_3d p)
 {
-	t_sphere *sp;
+	t_sphere 	*sp;
+	t_vec_3d	normal;
 
 	sp = obj;
+	normal = get_directional_vect(sp->p, p);
 	
+	return (normal);
 }
 
 /* produit vectoriel de deux vecteurs generateurs du plan */
+//tocheck
 t_vec_3d	normal_to_plan(void *obj, t_point_3d p)
 {
-	t_plan *pl;
-
+	t_plan 		*pl;
+	
 	pl = obj;
+	return (pl->vec);
 }
 
 /* traduit en coord cylindriques, calcule la normale, puis reconvertit en 
 coord cartesiennes (?) */
+//todo
 t_vec_3d 	normal_to_cylinder(void *obj, t_point_3d p)
 {
 	t_cylindre	*cyl;
+	t_vec_3d	normal;
 
 	cyl = obj;
+
+	return (normal);
 }
 
+//todo
 t_vec_3d	normal_to_cone(void *obj, t_point_3d p)
 {
 	t_cone *cn;
+	t_vec_3d	normal;
 
 	cn = obj;	
+
+	return (normal);
 }
 
 /* computes the normal of a point p on a given object */
@@ -182,6 +196,7 @@ t_vec_3d get_unit_normal(t_hit_info hi, t_point_3d p)
 
 /* Computes the height and width of the viewpoint, 
 according to the field of view (FOV) parameter and the distance (arbitrary) */
+//tomodif : creer les singletons
 void 	get_viewpoint_dimensions(float fov)
 {
 	double 	viewpoint_width;
@@ -195,6 +210,7 @@ void 	get_viewpoint_dimensions(float fov)
 
 /* Computes the position of the current pixel on the 
 camera's projection plane (ie viewpoint) */
+//tomodif : enlever les macros
 t_point_3d pixel_to_viewpoint_coord(int x, int y)
 {
     t_point_3d v;
@@ -219,44 +235,59 @@ t_point_2d  pixel_to_screen(t_point_2d c)
 
 /* ------ RAY - OBJECTS INTERSECTIONS ----- */
 
-/* get the corresponding bsp_node.
-check for intersections ray - objects in the current and children nodes */
-t_hit_info closest_intersection(t_ray ray)
+// todel
+/* t_hit_info closest_intersection(t_bsp_node *root, t_ray ray)
 {
-	t_bsp_node *start;
-	t_hit_info h_inf;
-	
-	start = get_corresponding_node(ray);
+	t_vlist *intersect;
+
+	intersect = ray_traversal_algo(root, ray);
+	return (intersect.)
+} */
+
+/* void	get_hit_info(t_hit_info *hinf, t_bsp_node *root, t_ray ray)
+{
+	t_vlist *intersect;
+
+	ft_bzero(hinf, sizeof(t_hit_info));
+	intersect = ray_traversal_algo(root, ray); // determine l intersection rayon-objects
+
+	intersect = ray_traversal_algo(root, ray);
+	if (!intersect)
+	{
+		hinf->distance = -1;
+		return ;
+	}
+} */
 
 
-	/* ray.p_normal = get_unit_normal(ray.hit_info, ray.intersect_point);
-	normalise(&ray.p_normal); */
-	return (h_inf);
-}
+
+
 
 /* ------------- LIGHT -------------- */
 
 /* matte objects */
-double	diffuse_reflection(t_light *lights, t_ray ray)
+double	diffuse_reflection(t_bsp_node *root, t_light *lights, t_ray ray)
 {
 	double 		intensity;
 	double		n_dot_l;
-	t_vec_3d	light_direction;
-	t_hit_info	closest_hit;
+	t_ray		obj_to_light; 
 	t_light 	*curr;
 
 	curr = lights;
 	intensity = 0;
+	obj_to_light.origin = ray.hit_info.hit_point;
 	while (curr)
 	{
+		obj_to_light.direction = get_directional_vect(ray.hit_info.hit_point, curr->p);  // light_direction, aka L
+		
 		// détermine si l'objet est éclairé par la source lumineuse
-		closest_hit = closest_intersection(ray);
-		if (closest_hit.distance != -1) // set a -1 si le rayon n'intersecte pas d'objets
+		ray_traversal_algo(root, &obj_to_light); // mettre &obj_to_light je penseeee
+		
+		if (obj_to_light.hit_info.distance != -1) // set a -1 si le rayon n'intersecte pas d'objets
 		{
-			light_direction = get_directional_vect(ray.hit_info.hit_point, curr->p);
-			n_dot_l = vec_x_vec_scal(ray.hit_info.hit_p_normal, light_direction);
+			n_dot_l = vec_x_vec_scal(ray.hit_info.hit_p_normal, obj_to_light.direction);
 			if (n_dot_l > 0)
-				intensity += curr->infos.ratio * n_dot_l/(ray.hit_info.hit_p_normal.norm * light_direction.norm);
+				intensity += curr->infos.ratio * n_dot_l/(ray.hit_info.hit_p_normal.norm * obj_to_light.direction.norm);
 		}
 		curr = curr->next;
 	}
@@ -280,24 +311,27 @@ We’ll note this in the scene by setting their specular exponent to −1
 and handling them accordingly.
 
 */
-double 	specular_reflection(t_light *lights, double s_term, t_ray ray)
+double 	specular_reflection(t_bsp_node *root, t_light *lights, double s_term, t_ray ray)
 {
 	double 		intensity;
-	t_vec_3d	light_direction;
 	t_vec_3d	r;
-	t_hit_info	closest_hit;
+	//t_hit_info	closest_hit; // savoir si le rayon de direction objet->lumiere intersecte un autre objet 
 	t_light 	*curr;
+	t_ray 		obj_to_light;
 
 	curr = lights;
 	intensity = 0;
+	obj_to_light.origin = ray.hit_info.hit_point;
 	while (curr)
 	{
+		obj_to_light.direction = get_directional_vect(ray.hit_info.hit_point, curr->p); // light_direction, aka L
+		
 		// détermine si l'objet est éclairé par la source lumineuse
-		closest_hit = closest_intersection(ray);
-		if (closest_hit.distance != -1)
+		ray_traversal_algo(root, &obj_to_light); // mettre &obj_to_light je penseeee
+		
+		if (obj_to_light.hit_info.distance != -1)
 		{
-			light_direction = get_directional_vect(ray.hit_info.hit_point, curr->p);
-			r = get_incident_ray_of_light(light_direction, ray.hit_info.hit_p_normal);
+			r = get_incident_ray_of_light(obj_to_light.direction, ray.hit_info.hit_p_normal);
 			if (vec_x_vec_scal(r, ray.hit_info.reflected_ray) > 0)
 			{
 				intensity += curr->infos.ratio * pow((vec_x_vec_scal(r, ray.hit_info.reflected_ray) 
@@ -324,19 +358,26 @@ don’t add the illumination coming from this light
 */
 /* compute the received light (diffuse + specular + mood light) 
 	-> use the total light intensity's computing formula */
-double 	compute_lighting(t_parsing_data pdata, t_vlist *object, t_ray ray) 
+
+// ray est le rayon incident a l objet dont on veut calculer l'illumination
+double 	compute_lighting(t_app app, float specular, t_ray ray) 
 {
 	double		intensity;
 
-	intensity = pdata.mooooo->infos.ratio;
-	intensity += diffuse_reflection(pdata.lights, ray);
-	if (object->material.specular != -1)
-		intensity += specular_reflection(pdata.lights, object->material.specular, ray);
+	intensity = app.p_data.mooooo->infos.ratio;
+	intensity += diffuse_reflection(&app.root, app.p_data.lights, ray);
+	if (specular != -1)
+		intensity += specular_reflection(&app.root, app.p_data.lights, specular, ray);
 	return (intensity);
 }
 
+
+
+
+
 /* ---------------------------*/
 
+//todo
 t_ray	set_ray_infos(t_vec_3d direction, t_point_3d ray_origin)
 {
 	t_ray ray;
@@ -346,6 +387,7 @@ t_ray	set_ray_infos(t_vec_3d direction, t_point_3d ray_origin)
 	ray.direction = direction;	
 }
 
+
 int    trace_ray(t_app app, t_point_3d ray_origin, t_vec_3d dir, int rebound_nb)
 {
     t_ray		ray;
@@ -353,28 +395,29 @@ int    trace_ray(t_app app, t_point_3d ray_origin, t_vec_3d dir, int rebound_nb)
 	double 		local_color;
 	double 		reflected_color;
 	
-	/* ray.origin = ray_origin;
-	ray.direction = get_unitary_dir_vect(ray.origin, intersect_point); */
 	set_ray_infos(dir, ray_origin);
 	
-	/* determine the closest intersection point's reflective ray's  direction */
-	ray.hit_info = closest_intersection(ray);
-	if (ray.hit_info.distance == -1)
+	ray_traversal_algo(&app.root, &ray);
+	if (ray.hit_info.distance == -1) // le rayon n'intersecte aucun objet
 		return (BACKGROUND_COLOR); 
 	
-	// a mettre directement dans closest_intersection()
+	// a mettre directement dans test_intersections() ?
 	ray.hit_info.hit_p_normal = get_unit_normal(ray.hit_info, ray.hit_info.hit_point);
-	ray.hit_info.reflected_ray = get_directional_vect(ray.hit_info.hit_point, ray.origin); // essayer avec -ray.direction et voir si donne les memes resultats
+
+	//???? c'est pas plutot "get_incident_ray_of_light(ray.direction, ray.hit_info.hit_p_normal)"" ?
+	//ray.hit_info.reflected_ray = get_directional_vect(ray.hit_info.hit_point, ray.origin); // essayer avec -ray.direction et voir si donne les memes resultats
 	
-	local_color = ray.hit_info.obj_mat.color * compute_lighting(app.p_data, app.p_data.objects, ray);
+	ray.hit_info.reflected_ray = get_incident_ray_of_light(vect_double_multiply(-1, ray.direction), ray.hit_info.hit_p_normal); // ou juste ray.direction en premier argument ?
+	
+	local_color = ray.hit_info.obj_mat.color * compute_lighting(app, ray.hit_info.obj_mat.specular, ray);
 	
 	/* get the final pixel's color */
 	if (ray.hit_info.obj_mat.reflective <= 0 || rebound_nb == RECURS_LIMIT)
 		return (local_color);
 
 	/* compute reflected color */
-	reflected_ray = get_incident_ray_of_light(ray.direction, ray.hit_info.hit_p_normal); // ?
-	reflected_color = trace_ray(app, ray.hit_info.hit_point, reflected_ray, rebound_nb + 1);
+	//reflected_ray = get_incident_ray_of_light(vect_double_multiply(-1, ray.direction), ray.hit_info.hit_p_normal); // ou juste ray.direction en premier argument ?
+	reflected_color = trace_ray(app, ray.hit_info.hit_point, ray.hit_info.reflected_ray, rebound_nb + 1);
 	
 	return (local_color * (1 - ray.hit_info.obj_mat.reflective) + reflected_color * ray.hit_info.obj_mat.reflective);
 }
@@ -385,6 +428,29 @@ int		get_final_pixel_color(t_app app, int x, int y)
 	
 	t_point_3d	viewp = pixel_to_viewpoint_coord(x, y);
     pixel_color = trace_ray(app, app.p_data.cam->p, get_directional_vect(app.p_data.cam->p, viewp), 0);
+	return (pixel_color);
+}
+
+void	img_pixel_put(t_image image, int x, int y, int color)
+{
+	char	*pixel;
+	int		i;
+
+    
+	if (x < 0 || y < 0 || y > WINDOWS_HEIGHT || x > WINDOWS_WIDHT)
+		return ;
+	i = image.bpp - 8;
+	pixel = image.addr + (y * image.line_length) + (x
+			* (image.bpp / 8));
+	*(int *)pixel = color;
+	while (i >= 0)
+	{
+		if (image.endian)
+			*(int *)pixel++ = (color >> i) & 0xFF;
+		else
+			*(int *)pixel++ = (color >> (image.bpp - 8 - i));
+		i -= 8;
+	}
 }
 
 void    draw_scene(t_app app)

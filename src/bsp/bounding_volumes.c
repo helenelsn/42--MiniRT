@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bounding_volumes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 15:35:11 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/10 13:39:33 by Helene           ###   ########.fr       */
+/*   Updated: 2023/11/24 16:17:13 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,6 +269,8 @@ void    split_objects(t_bsp_node *parent)
         if (parent->left && is_in_subvoxel(parent->left->bbox, curr_obj))
         {
             /* add item to the left subvoxel */
+
+            // !!!!!!!!!!!! il faut malloc
             ft_vlstadd_back(&parent->left->items, ft_vlstnew_with_mat(curr_obj->content,
                 curr_obj->free_foo, curr_obj->type, curr_obj->material));
             parent->left->items_count++;
@@ -276,6 +278,8 @@ void    split_objects(t_bsp_node *parent)
         if (parent->right && is_in_subvoxel(parent->right->bbox, curr_obj))
         {
             /* add item to the right subvoxel */
+
+             // !!!!!!!!!!!! il faut malloc
             ft_vlstadd_back(&parent->right->items, ft_vlstnew_with_mat(curr_obj->content,
                 curr_obj->free_foo, curr_obj->type, curr_obj->material));
             parent->right->items_count++;

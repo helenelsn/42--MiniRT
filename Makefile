@@ -2,7 +2,7 @@
 NAME = mimirt
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3 -I/opt/X11/include -I/opt/Xext/include 
+CFLAGS = -g3 -I/opt/X11/include -I/opt/Xext/include #-Wall -Wextra -Werror 
 
 FILES = \
 		bsp/bounding_volumes \

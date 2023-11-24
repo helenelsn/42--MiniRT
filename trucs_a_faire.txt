@@ -1,0 +1,8 @@
+checker dans le code (ctrl f)
+
+//todo 
+//tomodif
+//tocheck
+
+
+todo : intersect (intersection rayon - objects), intersect_scene (intersection rayon - scene) 

@@ -1,6 +1,0 @@
--equation quad 
-
--intersection vecteur obj;
-
--constructing frame;
-

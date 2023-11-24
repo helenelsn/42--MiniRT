@@ -3,21 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/21 18:10:02 by Helene           ###   ########.fr       */
+/*   Updated: 2023/11/24 18:02:01 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 #define STRUCT_H
 // #include "mini_rt.h"
-
-
-# define T_INF      0.00001 //new
-
-// typedef struct s_vlist;
 
 
 /* -------------------- PARSING AND GEOMETRICAL BASICS ------------------ */
@@ -121,7 +116,7 @@ typedef struct	s_hit_info
 	t_point_3d				hit_point;
 	t_vec_3d				hit_p_normal;
 	t_vec_3d				reflected_ray; // V : vector from P (hit point) to camera
-	double					distance; // ray_origin - object distance
+	double					distance; // ray_origin - object distance. set a -1 si le rayon n intersecte pas d objects
 }				t_hit_info;
 
 typedef struct	s_ray
@@ -158,6 +153,7 @@ typedef struct s_light
     t_point_3d p;
     t_light_info            infos;
     // t_raytracing_material   material; // ?
+    struct s_light          *next;
 }   t_light;
 
 
@@ -176,10 +172,12 @@ typedef struct s_plan
 {
     t_point_3d  p; // pas défini par 2 vecteurs plutot ? -> 
     t_vec_3d    vec;
+    
     double      a;
     double      b;
     double      c;
     double      d;
+    
     int         color;
 }   t_plan;
 

@@ -3,22 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   browse.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:44:25 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/22 16:53:44 by Helene           ###   ########.fr       */
+/*   Updated: 2023/11/24 18:44:10 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/struct.h"
 #include "../../inc/mini_rt.h"
 #include "../../inc/bsp.h"
-
-
-/* t_bsp_node    *position_object_in_tree(t_bsp_node *root, t_vlist *object)
-{
-    
-} */
 
 typedef struct s_stack
 {
@@ -30,72 +24,138 @@ typedef struct s_stack
     double          t; /* the entry/exit signed distance */
     t_point_3d      pb; /* the coordinates of entry/exit point */
     int             prev;
-    // struct s_stack  *next;
 }               t_stack;
 
+
+//tocheck
 bool    intersect_scene(t_bbox_description scene, t_ray ray, float *a, float *b)
 {
-    (void)scene;
-    (void)ray;
-    (void)a;
-    (void)b;
+    float tmin = 0.0;
+    float tmax = INFINITY;
+    float t1;
+    float t2;
 
-    return (true); // todel c juste pour que ça compile
+    for (int d = 0; d < 3; ++d)
+    {
+        t1 = (pt_get_coord(scene.min, d) - pt_get_coord(ray.origin, d))
+            * (1.0 / vect_get_coord(ray.direction, d));
+        t2 = (pt_get_coord(scene.max, d) - pt_get_coord(ray.origin, d))
+            * (1.0 / vect_get_coord(ray.direction, d));
+
+        tmin = ft_min(ft_max(t1, tmin), ft_max(t2, tmin));
+        tmax = ft_max(ft_min(t1, tmax), ft_min(t2, tmax));
+    }
+
+    //tocheck
+    *a = tmin;
+    *b = tmax;
+    
+    return tmin <= tmax;
 }
 
-bool    intersect(t_vlist *obj, t_ray ray, double *dist)
-{
-    (void)obj;
-    (void)ray;
-    (void)dist;
 
-    return (true); // todel c juste pour que ça compile
+//todo
+bool    intersect(t_vlist *obj, t_ray ray)
+{
+
+    // mettre a jour le point d intersection, ie ray.hit_inf.hit_point, ainsi 
+    // que la distance origine du rayon-object, ie ray.hit_info.distance
+
+    
+    
+}
+
+
+
+void    copy_obj_properties(t_vlist *obj, t_hit_info *hinf, t_point_3d hp)
+{
+    hinf->obj_content = obj->content;  // est-ce que couille si supprime l objet originel ?
+    hinf->obj_type = obj->type;
+    hinf->obj_mat = obj->material;
+    hinf->hit_point = hp;
 }
 
 /* intersect ray with each object in the object list, discarding
     those lying before stack[enPt].t (ici min) or farther than stack[exPt].t (ici max) */
-t_vlist *test_intersections(t_bsp_node *leaf, t_ray ray, double min, double max)
+    
+    // est-ce qu'a besoin de malloc le t_hit_info que renvoie ?
+//tocheck
+t_hit_info  *test_intersections(t_bsp_node *leaf, t_ray *ray, double min, double max)
 {
-    t_vlist *obj;
-    t_vlist *closest_obj;
-    double  dist;
+    t_vlist     *obj;
+    t_hit_info  *closest_obj;
     double  min_dist;
 
+    closest_obj = ft_calloc(sizeof(t_hit_info), 1);
+    if (!closest_obj)
+        return (NULL);
     obj = leaf->items;
     min_dist = INFINITY;
-    dist = INFINITY;
     while (obj)
     {
-        if (intersect(obj, ray, &dist) && dist >= min && dist <= max 
-            && dist < min_dist)
+        if (intersect(obj, *ray) && ray->hit_info.distance >= min && ray->hit_info.distance <= max 
+            && ray->hit_info.distance < min_dist)
             {
-                min_dist = dist;
-                closest_obj = obj;
+                min_dist = ray->hit_info.distance;
+                copy_obj_properties(obj, closest_obj, ray->hit_info.hit_point);
             }
         obj = obj->next;
     }
     if (min_dist < INFINITY)
+    {
+        // a verifier
+        ray->hit_info = *closest_obj;
+        ray->hit_info.distance = min_dist;
         return (closest_obj);
+    }
+    ray->hit_info.distance = -1;
+    
     return (NULL);
 }
 
+
+
+
+
+
+
+
+
+
+/*  ----------------------------------- TA_B_rec ray traversing algorithm ----------------------------------- */
+
+/* pour un rayon r, traverse l'arbre afin de determiner l'intersection du rayon avec les objets
+    de la scene.
+    si le rayon en intersecte au moins un, on garde le plus proche en memoire.
+    on met ainsi la structure t_ray du rayon a jour :
+        la distance a l'objet intersecte : ray.hit_info.distance
+        le point (x, y, z) de la plus proche intersection du rayon avec l'objet
+        les specificites de l'object intersecte : ray.hit_info.obj_type - obj_content - obj_mat
+    
+    */
+
 /* root est dans notre cas le node ou se trouve la camera, et pas la racine du kd-tree (si ?) */
-t_vlist *ray_traversal_algo(t_bsp_node *root, t_ray ray)
+void    ray_traversal_algo(t_bsp_node *root, t_ray *ray) // *ray traversal pour avoir les modifs ?
 {
     float   a; /* entry signed distance */
     float   b; /* exit signed distance */
     float   t; /* signed distance to the splitting plane */
 
-    bool    intersect = intersect_scene(root->bbox, ray, &a, &b);
+
+    /* intersect ray with sceneBox, find the entry and exit signed distance */
+    bool    intersect = intersect_scene(root->bbox, *ray, &a, &b); 
    
     if (!intersect) // ray does not intersect sceneBox
-        return (NULL);
+    {
+        ray->hit_info.distance = -1;
+        return ;
+    }
     
     /* stack required for traversal to store far children */
     t_stack *stack;
     stack = ft_calloc(sizeof(t_stack), MAX_DEPTH);
     if (!stack) // not enough free memory
-        return (NULL);
+        return ;
     
     /* pointers to the far child node and current node */
     t_bsp_node *far_child, *curr_node;
@@ -106,16 +166,18 @@ t_vlist *ray_traversal_algo(t_bsp_node *root, t_ray ray)
 
     /* distinguish between internal and external origin */
     if (a >= 0.0) /* a ray with external origin */
-        stack[entry_pt].pb = point_addition(ray.origin, point_double_multiply(a, get_vec_coord(ray.direction)));  // ray.origin + ray.dir * a;
+        stack[entry_pt].pb = point_addition(ray->origin, point_double_multiply(a, get_vec_coord(ray->direction)));  // ray->origin + ray->dir * a;
     else /* a ray with internal origin */
-        stack[entry_pt].pb = ray.origin;
+        stack[entry_pt].pb = ray->origin;
 
     /* setup initial exit point in the stack */
     int exit_pt = 1; /* pointer to the stack */
     stack[exit_pt].t = b;
-    stack[exit_pt].pb = point_addition(ray.origin, point_double_multiply(b, get_vec_coord(ray.direction))); // ray.origin + ray.dir * b;
+    stack[exit_pt].pb = point_addition(ray->origin, point_double_multiply(b, get_vec_coord(ray->direction))); // ray->origin + ray->dir * b;
     stack[exit_pt].node = NULL; // ?  //"nowhere"; /* set termination flag */
 
+    int prev_axis;
+    int next_axis;
 
     /* loop, traverse through the whole kd-tree, until an object is intersected or ray leaves the scene */
     while (curr_node)
@@ -130,8 +192,19 @@ t_vlist *ray_traversal_algo(t_bsp_node *root, t_ray ray)
             /* similar code for all axes */
             /* nextAxis is x -> y, y -> z, z -> x */
             /* prevAxis is z -> x, y -> x, y -> z */
-            int  prev_axis;
-            int  next_axis;
+            if (curr_node->parent)
+                prev_axis = curr_node->parent->split_inf.dim;
+            else
+                prev_axis = x; // ? 
+            if (curr_node->right || curr_node->left)
+            {
+                if (curr_node->right)
+                    next_axis = curr_node->right->split_inf.dim;
+                else
+                    next_axis = curr_node->left->split_inf.dim;
+            }
+            else
+                next_axis = x; // ?
             
             if (pt_get_coord(stack[entry_pt].pb, curr_node->split_inf.dim) <= split_val)
             {
@@ -165,7 +238,7 @@ t_vlist *ray_traversal_algo(t_bsp_node *root, t_ray ray)
             /* case P4 or N4 . . . traverse both children */
             
             /* signed distance to the splitting plane */
-            t = (split_val - pt_get_coord(ray.origin, curr_node->split_inf.dim)) / vect_get_coord(ray.direction, curr_node->split_inf.dim);
+            t = (split_val - pt_get_coord(ray->origin, curr_node->split_inf.dim)) / vect_get_coord(ray->direction, curr_node->split_inf.dim);
             
             /* setup the new exit point */
             int tmp = exit_pt;
@@ -180,19 +253,20 @@ t_vlist *ray_traversal_algo(t_bsp_node *root, t_ray ray)
             stack[exit_pt].t = t;
             stack[exit_pt].node = far_child;
 
-            double tmp_next = pt_get_coord(ray.origin, next_axis) + t * vect_get_coord(ray.direction, next_axis);
-            double tmp_prev = pt_get_coord(ray.origin, prev_axis) + t * vect_get_coord(ray.direction, prev_axis);
+            double tmp_next = pt_get_coord(ray->origin, next_axis) + t * vect_get_coord(ray->direction, next_axis);
+            double tmp_prev = pt_get_coord(ray->origin, prev_axis) + t * vect_get_coord(ray->direction, prev_axis);
             pt_modify_coord(stack[exit_pt].pb, curr_node->split_inf.dim, split_val);
             pt_modify_coord(stack[exit_pt].pb, next_axis, tmp_next);
             pt_modify_coord(stack[exit_pt].pb, prev_axis, tmp_prev);
         }
 
         /* current node is the leaf . . . empty or full */
-        t_vlist *closest_inter = test_intersections(curr_node, ray, stack[entry_pt].t, stack[exit_pt].t);
-        /*if ( any intersection exists )
-            return ["object with closest intersection point"];*/
-        if (closest_inter)
-            return (free(stack), closest_inter);
+        test_intersections(curr_node, ray, stack[entry_pt].t, stack[exit_pt].t);
+        if (ray->hit_info.distance != -1)
+        {
+            free(stack);
+            return ;
+        }
 
         /* pop from the stack */
         entry_pt = exit_pt; /* the signed distance intervals are adjacent */
@@ -203,8 +277,98 @@ t_vlist *ray_traversal_algo(t_bsp_node *root, t_ray ray)
         exit_pt = stack[entry_pt].prev;
     }
     /* currNode = ”nowhere”, ray leaves the scene */
-    return (free(stack), NULL);
+    free(stack);
+    //return (free(stack), NULL);
 }
+
+
+
+
+
+
+/* ---------------------------- TA_A_rec ray traversing algorithm ----------------------------- */
+
+typedef struct  s_stack_elem_a
+{
+    t_bsp_node  *node;
+    float       a; /* entry signed distance (a) for the node */
+    float       b; /* exit signed distance (b) for the node */
+}               t_stack_elem_a;
+
+
+/*  Recursive ray traversal algorithm */
+
+//t_vlist ray_trav_alg_rec_a(t_bsp_node *root, t_ray ray)
+//{
+//    float   a; /* entry signed distance */
+//    float   b; /* exit signed distance */
+//    float   t; /* signed distance to the splitting plane */
+//
+//    bool    intersect = intersect_scene(root->bbox, ray, &a, &b);
+//   
+//    if (!intersect) // ray does not intersect sceneBox
+//        return (NULL);
+//    
+//    /* stack required for traversal to store far children */
+//    t_stack *stack;
+//    stack = ft_calloc(sizeof(t_stack), MAX_DEPTH);
+//    if (!stack) // not enough free memory
+//        return (NULL);
+//    
+//    int stack_ptr = 0; /* pointer to the stack */
+//    /* pointers to the children node and current node */
+//    /* pointers to the far child node and current node */
+//    t_bsp_node *far_child, *curr_node;
+//    curr_node = root;
+//
+//    // ------------- todo---------------
+//    /* push the initial values onto the stack 
+//        -> "store rootNode, a, b onto the stack and increment stackPtr" */
+//    
+//    while (stack_ptr > 0)
+//    {
+//        // ---------todo----------------
+//        /* pop values from the stack 
+//            -> "decrement stackPtr and retrieve currNode, a, and b from the stack" */
+//
+//        while (curr_node->type == node) // while not a leaf
+//        {
+//            /* for X axis, Y axis, Z axis compute difference between position of splitting plane and ray origin */
+//            // -> le faire pour les 3 axes ? fait aucun sens
+//            float diff = pt_get_coord(curr_node->right.bbox.min, curr_node->split_inf.dim) 
+//                - pt_get_coord(ray.origin, curr_node->split_inf.dim);
+//            /* the signed distance to splitting plane */
+//            t = diff / vect_get_coord(ray.direction, curr_node.split_inf.dim);
+//
+//            * NEGATIVE or POSITIVE cases? */
+//            /* the case ZERO is not recognized! */
+//            if (diff > 0.0) /* NEGATIVE */
+//            {
+//                near_child = curr_node->left;
+//                far_child = curr_node->right;
+//            }
+//            else /* POSITIVE */
+//            {   
+//                near_child = curr_node->right;
+//                far_child = curr_node->left;
+//            }
+//            
+//        }
+//    }
+//}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   foo.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/22 16:45:23 by Helene           ###   ########.fr       */
+/*   Updated: 2023/11/24 16:39:13 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,12 +88,18 @@ t_vec_3d	get_unitary_dir_vect(t_point_3d a, t_point_3d b);
 t_vec_3d 	get_unit_normal(t_hit_info hi, t_point_3d p);
 
 
+/* -------------------- TRACE RAYS ---------------- */
+
+void    	draw_scene(t_app app);
+t_ray		set_ray_infos(t_vec_3d direction, t_point_3d ray_origin);
+int    		trace_ray(t_app app, t_point_3d ray_origin, t_vec_3d dir, int rebound_nb); // pas forcement utile de la mettre
+
 /*  -------------------- MLX ------------------------ */
 
-void 	init_app(t_app *app);
-int 	close_mlx(void *app);
+void 		init_app(t_app *app);
+int 		close_mlx(void *app);
 
-void	img_pixel_put(t_image image, int x, int y, int color);
-void launch_app(t_app *arg);
+void		img_pixel_put(t_image image, int x, int y, int color);
+void 		launch_app(t_app *arg);
 
 #endif

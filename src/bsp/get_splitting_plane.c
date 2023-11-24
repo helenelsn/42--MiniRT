@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_splitting_plane.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:51:57 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/22 00:01:49 by Helene           ###   ########.fr       */
+/*   Updated: 2023/11/24 14:26:39 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ double  pt_get_coord(t_point_3d p, int i)
 void    pt_modify_coord(t_point_3d p, int i, double new_c)
 {
     if (i < 0 || i > 2)
-        return (-1); // idk
+        return ;
     if (i == 0)
         p.x = new_c;
     else if (i == 1)
