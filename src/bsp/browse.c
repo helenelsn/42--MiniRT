@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   browse.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:44:25 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/24 18:44:10 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/25 01:11:02 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,91 @@ bool    intersect_scene(t_bbox_description scene, t_ray ray, float *a, float *b)
     return tmin <= tmax;
 }
 
+/* --------------- intersections ----------------- */
+
+double  get_closest_point(double a, double b)
+{
+    if (a >= 0.0 && b <= 0.0)
+        return (0.0);
+    if (a <= 0.0)
+        return (b);
+    if (b <= 0.0)
+        return (a);
+    if (a < b)
+        return (a);
+    return (b);
+}
+
+bool    solve_quadratic_eq(t_quadratic *eq)
+{
+    double delta;
+    double denom; // denominateur
+
+    delta = eq->b * eq->b - 4 * eq->a * eq->c;
+    if (delta < 0.0)
+        return (false);
+    denom = (2 * eq->a); // que faire si 2 * a = 0 ?
+    if (delta == 0.0)
+    {
+        eq->t_1 = - (eq->b / denom);
+        eq->t_2 = eq->t_1;
+    }
+    else
+    {
+        eq->t_1 = (- eq->b + sqrt(delta)) / denom;
+        eq->t_2 = (- eq->b - sqrt(delta)) / denom;
+    }
+    return (true);
+}
+
+
+bool    intersect_sphere(t_ray *ray, void *object)
+{
+    t_sphere    *sp;
+    t_quadratic eq;
+    t_vec_3d    center_to_origin;
+
+    sp = object;
+    center_to_origin = get_directional_vect(sp->p, ray->origin);
+    eq.a = vec_x_vec_scal(ray->direction, ray->direction);
+    eq.b = 2 * vec_x_vec_scal(center_to_origin, ray->direction);
+    eq.c = vec_x_vec_scal(center_to_origin, center_to_origin) - sp->radius * sp->radius;
+    if (!solve_quadratic_eq(&eq))
+        return (false);
+    ray->hit_info.distance = get_closest_point(eq.t_1, eq.t_2);
+    return (ray->hit_info.distance > 0.0);
+}
+
+bool    intersect_plan(t_ray *ray, void *object)
+{
+    
+}
+
+// bool intersect_cylinder(t_ray ray, void *object)
+// {
+    
+// }
+
+// bool    intersect_cone(t_ray ray, void *object)
+// {
+    
+// }
 
 //todo
-bool    intersect(t_vlist *obj, t_ray ray)
+bool    intersect(t_vlist *obj, t_ray *ray)
 {
 
     // mettre a jour le point d intersection, ie ray.hit_inf.hit_point, ainsi 
     // que la distance origine du rayon-object, ie ray.hit_info.distance
 
-    
+    if (obj->type == sphere)
+        return (intersect_sphere(ray, obj->content));
+    if (obj->type == plan)
+        return (intersect_plan(ray, obj->content));
+    // if (obj->type == cylindre)
+    //     return (intersect_cylinder(ray, obj->content));
+    // if (obj->type == cone)
+    //     return (intersect_cone(ray, obj->content));
     
 }
 
@@ -93,7 +169,7 @@ t_hit_info  *test_intersections(t_bsp_node *leaf, t_ray *ray, double min, double
     min_dist = INFINITY;
     while (obj)
     {
-        if (intersect(obj, *ray) && ray->hit_info.distance >= min && ray->hit_info.distance <= max 
+        if (intersect(obj, ray) && ray->hit_info.distance >= min && ray->hit_info.distance <= max 
             && ray->hit_info.distance < min_dist)
             {
                 min_dist = ray->hit_info.distance;

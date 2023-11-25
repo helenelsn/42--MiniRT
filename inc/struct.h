@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/24 18:02:01 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/24 22:50:13 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 #define STRUCT_H
 // #include "mini_rt.h"
+
+
 
 
 /* -------------------- PARSING AND GEOMETRICAL BASICS ------------------ */
@@ -68,6 +70,17 @@ typedef enum e_parse_error
     
 } t_parse_error;
 
+
+/* ------------------ INTERSECTIONS -------------------- */
+
+typedef struct s_quadratic
+{
+	double	a;
+	double	b;
+	double	c;
+	double	t_1;
+	double	t_2;
+}				t_quadratic;
 
 
 /* ------------ MATERIALS SHARED PROPERTIES, OBJECTS STRUCTURE ------------- */
