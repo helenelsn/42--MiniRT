@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/24 22:50:13 by Helene           ###   ########.fr       */
+/*   Updated: 2023/11/28 14:16:27 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 #define STRUCT_H
 // #include "mini_rt.h"
-
 
 
 
@@ -99,7 +98,7 @@ typedef struct  s_bbox_description
 
 typedef struct  s_raytracing_material
 {
-    int                 color;
+    unsigned long                 color;
     int                 specular; /* -1 si matte */
     double              reflective; /* in [0, 1] */                 
     t_bbox_description  bbox; /* tout à 0 ou -1 si s'agit d'une source lumineuse ? */
@@ -151,7 +150,7 @@ typedef struct	s_ray
 typedef struct  s_light_infos
 {   
     double  ratio;
-    int     color;
+    unsigned long     color;
 }               t_light_info;
 
 typedef struct s_mood_light
@@ -178,7 +177,7 @@ typedef struct s_sphere
 {
     t_point_3d  p;
     double      radius;
-    int         color;
+    unsigned long   color;
 }   t_sphere;
 
 typedef struct s_plan
@@ -191,7 +190,7 @@ typedef struct s_plan
     double      c;
     double      d;
     
-    int         color;
+    unsigned long   color;
 }   t_plan;
 
 typedef struct s_cylindre
@@ -200,7 +199,7 @@ typedef struct s_cylindre
     t_vec_3d    vec;
     double      radius;
     double      height;
-    int         color;
+    unsigned long   color;
     
 }   t_cylindre;
 
@@ -337,7 +336,7 @@ typedef struct s_app
 
 typedef union u_color
 {
-        int                                     hex;
+        unsigned long                           hex;
         struct
         {
                 unsigned char   b;

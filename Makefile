@@ -2,7 +2,7 @@
 NAME = mimirt
 
 CC = cc
-CFLAGS = -g3 -I/opt/X11/include -I/opt/Xext/include #-Wall -Wextra -Werror 
+CFLAGS = -MMD -g3 -I/opt/X11/include -I/opt/Xext/include #-Wall -Wextra -Werror -I
 
 FILES = \
 		bsp/bounding_volumes \
@@ -26,9 +26,10 @@ FILES = \
 		garbage_collector/ft_vlst_del_in_list\
 		intersection/i_sphere \
 		intersection/i_plan \
-		mlx_gestion/init \
-		mlx_gestion/launch \
 		mlx_gestion/close \
+		mlx_gestion/init \
+		mlx_gestion/key_press \
+		mlx_gestion/launch \
 		utils/atof \
 		utils/fov \
 		utils/ft_strcheck \
@@ -51,7 +52,9 @@ SRCS = $(addprefix $(SRCS_DIR)/, $(addsuffix .c, $(FILES)))
 
 OBJS_DIR = obj
 OBJS = ${patsubst ${SRCS_DIR}/%.c, ${OBJS_DIR}/%.o, ${SRCS}}
-# OBJS = ${patsubst ${SRCS_DIR}/%.c, %.o, ${SRCS}}
+
+#DEP_OBJS = ${patsubst ${SRCS_DIR}/%.c, ${OBJS_DIR}/%.d, ${SRCS}}
+DEP_OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.d))
 
 LIBS_FOLDER = libs
 
@@ -68,16 +71,16 @@ LIBMATRICE = $(LIBS_FOLDER)/$(LIBMATRICE_DIR)/libmatrice.a
 
 LIBS = $(MLX) $(LIBSR) $(LIBMATRICE)
 
-INCLUDES_DIR = includes
-INCLUDES_FILES = fractol.h
-INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(INCLUDES_FILES))
+INCLUDES_DIR = ./inc/
+# INCLUDES_FILES = fractol.h # ???????????????????
+# INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(INCLUDES_FILES))
 
 all: $(NAME)
 
+bonus: $(NAME)
+
 $(NAME): $(LIBS) $(OBJS)
 	$(CC) $(OBJS) $(LIBS) $(MLXFLAGS) -g -o $@
-
-bonus: $(NAME)
 
 ${OBJS_DIR}/%.o: ${SRCS_DIR}/%.c 
 	@mkdir -p $(OBJS_DIR)
@@ -89,15 +92,18 @@ ${OBJS_DIR}/%.o: ${SRCS_DIR}/%.c
 	@mkdir -p $(OBJS_DIR)/mlx_gestion
 	@mkdir -p $(OBJS_DIR)/utils
 	@mkdir -p $(OBJS_DIR)/utils_vec_et_droite
-	$(CC) $(CFLAGS) -o $@ -c $<
+	$(CC) $(CFLAGS) -o $@ -c $< 
+#$(INCLUDES_DIR) 
+
+-include $(DEP_OBJS)
 
 clean: cleanlibs
-	rm -rf $(OBJS_DIR)
+	rm -r $(OBJS_DIR)
 
 fclean: clean fcleanlibs 
-	rm -f $(NAME)
+	rm $(NAME)
 
-re: clean all
+re: fclean all
 
 $(LIBS):
 	make -C $(LIBS_FOLDER)/$(MLX_DIR)

@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/24 16:39:13 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/28 14:17:10 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ double get_dist_between_points(t_point_3d p, t_point_3d q);
 double get_dist_droite_point(t_droite d, t_point_3d p);
 double get_dist_between_droite(t_droite d, t_droite e);
 int get_fov(char *str);
-int	create_rgb(unsigned char r, unsigned char g, unsigned char b);
-bool	get_rgb(char *str, int *c);
+unsigned long	create_rgb(unsigned char r, unsigned char g, unsigned char b);
+bool	get_rgb(char *str, unsigned long *c);
 t_parse_error parse(int ac, char **av, t_vlist **garbage, t_parsing_data *data);
 void free_tab(void *arg);
 int null_term_tab_len(void **tab);
@@ -90,9 +90,9 @@ t_vec_3d 	get_unit_normal(t_hit_info hi, t_point_3d p);
 
 /* -------------------- TRACE RAYS ---------------- */
 
-void    	draw_scene(t_app app);
-t_ray		set_ray_infos(t_vec_3d direction, t_point_3d ray_origin);
-int    		trace_ray(t_app app, t_point_3d ray_origin, t_vec_3d dir, int rebound_nb); // pas forcement utile de la mettre
+void    	draw_scene(t_app *app);
+//t_ray		set_ray_infos(t_vec_3d direction, t_point_3d ray_origin);
+//int    		trace_ray(t_app *app, t_point_3d ray_origin, t_vec_3d dir, int rebound_nb); // pas forcement utile de la mettre
 
 /*  -------------------- MLX ------------------------ */
 

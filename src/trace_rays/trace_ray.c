@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
-/*   Updated: 2023/11/24 17:22:09 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/28 14:36:55 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,20 +190,26 @@ t_vec_3d get_unit_normal(t_hit_info hi, t_point_3d p)
 /* ------------------ SCREEN - SCENE CONVERTIONS UTILS --------------- */
 
 // tej les 3 une fois qu'a les singletons, juste pr que ca compile
-# define DIST 1
+//# define DIST 1
 # define VWP_H 1
 # define VWP_W 1
+
+# define FOCUS_DIST 	    1
+
+int	viewp_height;
+int viewp_width;
+
 
 /* Computes the height and width of the viewpoint, 
 according to the field of view (FOV) parameter and the distance (arbitrary) */
 //tomodif : creer les singletons
 void 	get_viewpoint_dimensions(float fov)
 {
-	double 	viewpoint_width;
-	double	viewpoint_height;
+	//double 	viewpoint_width;
+	//double	viewpoint_height;
 
-    viewpoint_width = FOCUS_DIST * tan(fov * 0.5f * DEG_TO_RAD) * 2; /* Width */
-    viewpoint_height = viewpoint_width * SCREEN_RATIO; /* Height */
+    viewp_width = FOCUS_DIST * tan(fov * 0.5f * DEG_TO_RAD) * 2; /* Width */
+    viewp_height = viewp_width * SCREEN_RATIO; /* Height */
 
     // set the viewpoint's height and width singletons 
 }
@@ -217,7 +223,7 @@ t_point_3d pixel_to_viewpoint_coord(int x, int y)
 
     v.x = VWP_W * (x / SCREEN_WIDTH);
     v.y = VWP_H * (y / SCREEN_HEIGHT);
-    v.z = DIST;
+    v.z = FOCUS_DIST;
     return (v);
 }
 
@@ -360,14 +366,14 @@ don’t add the illumination coming from this light
 	-> use the total light intensity's computing formula */
 
 // ray est le rayon incident a l objet dont on veut calculer l'illumination
-double 	compute_lighting(t_app app, float specular, t_ray ray) 
+double 	compute_lighting(t_app *app, float specular, t_ray ray) 
 {
 	double		intensity;
 
-	intensity = app.p_data.mooooo->infos.ratio;
-	intensity += diffuse_reflection(&app.root, app.p_data.lights, ray);
+	intensity = app->p_data.mooooo->infos.ratio;
+	intensity += diffuse_reflection(&app->root, app->p_data.lights, ray);
 	if (specular != -1)
-		intensity += specular_reflection(&app.root, app.p_data.lights, specular, ray);
+		intensity += specular_reflection(&app->root, app->p_data.lights, specular, ray);
 	return (intensity);
 }
 
@@ -378,26 +384,24 @@ double 	compute_lighting(t_app app, float specular, t_ray ray)
 /* ---------------------------*/
 
 //todo
-t_ray	set_ray_infos(t_vec_3d direction, t_point_3d ray_origin)
+void	set_ray_infos(t_ray *ray, t_vec_3d direction, t_point_3d ray_origin)
 {
-	t_ray ray;
-	ft_memset(&ray, 0, sizeof(t_ray));
-
-	ray.origin = ray_origin;
-	ray.direction = direction;	
+	ray->origin = ray_origin;
+	ray->direction = direction;	
 }
 
 
-int    trace_ray(t_app app, t_point_3d ray_origin, t_vec_3d dir, int rebound_nb)
+int    trace_ray(t_app *app, t_point_3d ray_origin, t_vec_3d dir, int rebound_nb)
 {
     t_ray		ray;
 	t_vec_3d	reflected_ray;
 	double 		local_color;
 	double 		reflected_color;
 	
-	set_ray_infos(dir, ray_origin);
+	ft_memset(&ray, 0, sizeof(t_ray)); // verifier que ca ecrase pas de la data que veut garder (jpense pas)
+	set_ray_infos(&ray, dir, ray_origin);
 	
-	ray_traversal_algo(&app.root, &ray);
+	ray_traversal_algo(&app->root, &ray);
 	if (ray.hit_info.distance == -1) // le rayon n'intersecte aucun objet
 		return (BACKGROUND_COLOR); 
 	
@@ -422,12 +426,12 @@ int    trace_ray(t_app app, t_point_3d ray_origin, t_vec_3d dir, int rebound_nb)
 	return (local_color * (1 - ray.hit_info.obj_mat.reflective) + reflected_color * ray.hit_info.obj_mat.reflective);
 }
 
-int		get_final_pixel_color(t_app app, int x, int y)
+int		get_final_pixel_color(t_app *app, int x, int y)
 {
 	int	pixel_color;
 	
 	t_point_3d	viewp = pixel_to_viewpoint_coord(x, y);
-    pixel_color = trace_ray(app, app.p_data.cam->p, get_directional_vect(app.p_data.cam->p, viewp), 0);
+    pixel_color = trace_ray(app, app->p_data.cam->p, get_directional_vect(app->p_data.cam->p, viewp), 0);
 	return (pixel_color);
 }
 
@@ -453,7 +457,7 @@ void	img_pixel_put(t_image image, int x, int y, int color)
 	}
 }
 
-void    draw_scene(t_app app)
+void    draw_scene(t_app *app)
 {
 	int	x;
 	int	y;
@@ -465,7 +469,7 @@ void    draw_scene(t_app app)
 	{
 		while (x < WINDOWS_WIDHT)
 		{
-			img_pixel_put(app.mlx_data.image, x, y, get_final_pixel_color(app, x, y));
+			img_pixel_put(app->mlx_data.image, x, y, get_final_pixel_color(app, x, y));
 			x++;
 		}
 		y++;

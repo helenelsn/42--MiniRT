@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_bsp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:44:16 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/21 17:21:01 by Helene           ###   ########.fr       */
+/*   Updated: 2023/11/28 13:15:40 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,15 @@ bool terminate(t_bsp_node *current, double cost)
             ie si c'est rentable de subdiviser a nouveau le voxel 
         2) si on est arrivé à depth_max (reduce memory usage)
         */
-    printf("get_object_list_intersection_cost : %lf\n", get_object_list_intersection_cost(current));
+    
+    //printf("get_object_list_intersection_cost : %lf\n", get_object_list_intersection_cost(current));
     
     if (get_object_list_intersection_cost(current) < cost)
         return (true);
     return (false);
 }
 
+//tocheck
 void rec_build(t_bsp_node *voxel)
 {
     t_split_infos si;

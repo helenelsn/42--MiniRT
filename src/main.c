@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:20 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/13 16:16:49 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/28 14:21:13 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,32 +53,67 @@ void test_mat()
     // del_mat(r);
 }
 
+
+
+
+
+
+static int  initialise_mlx_datad(t_app *app)
+{
+    app->mlx_data.mlx_ptr = mlx_init();
+    if (!app->mlx_data.mlx_ptr)
+        return (EXIT_MLX_FAILURE);
+    app->mlx_data.win_ptr = mlx_new_window(app->mlx_data.mlx_ptr, WINDOWS_WIDHT, WINDOWS_HEIGHT, "miniRT");
+    if (!app->mlx_data.win_ptr)
+    {
+        mlx_destroy_display(app->mlx_data.mlx_ptr);
+        free(app->mlx_data.mlx_ptr);
+        return (EXIT_MLX_FAILURE);
+    }
+    app->mlx_data.image.img = mlx_new_image(app->mlx_data.mlx_ptr, WINDOWS_WIDHT, WINDOWS_HEIGHT);
+    app->mlx_data.image.addr = mlx_get_data_addr(app->mlx_data.image.img, &(app->mlx_data.image.bpp), 
+                        &(app->mlx_data.image.line_length), &(app->mlx_data.image.endian));
+    return (1);
+}
+
+
+static int  minirt_get_started(t_app *app)
+{
+    if (!initialise_mlx_datad(app))
+    {
+        write(STDERR_FILENO, "Error : mlx initialisation.\n", 28);
+        return (EXIT_MLX_FAILURE);
+    }
+    
+    build_kd_tree(&app->root, app->p_data.objects);
+    draw_scene(app);
+    
+    mlx_put_image_to_window(app->mlx_data.mlx_ptr, app->mlx_data.win_ptr,
+        app->mlx_data.image.img, 0, 0); // 2 derniers a verif
+        
+    mlx_hook(app->mlx_data.win_ptr, 2, 1L << 0, key_press, app);
+	mlx_hook(app->mlx_data.win_ptr, 33, 1L << 17, close_mlx, app);
+	mlx_loop(app->mlx_data.mlx_ptr);
+    
+    // destroy and free data
+    return (0);
+}
+
+
+
 int main(int argc, char **argv)
 {
-    // t_vlist *garbage;
     t_app   app;
-    // test_mat();
     
     ft_bzero(&app, sizeof(t_app));
     parse(argc, argv, &app.garbage, &app.p_data);
     // init_app(&app); ->attention planew ft_memset(&app->root, 0, sizeof(t_bsp_node));
     // ft_memset(planes, 0, sizeof(t_vlist));
 
-    app.mlx_data.mlx_ptr = mlx_init();
-    if (!app.mlx_data.mlx_ptr)
+    if (minirt_get_started(&app))
         return (EXIT_MLX_FAILURE);
-    app.mlx_data.win_ptr = mlx_new_window(app.mlx_data.mlx_ptr, WINDOWS_WIDHT, WINDOWS_HEIGHT, "miniRT");
-    if (!app.mlx_data.win_ptr)
-    {
-        mlx_destroy_display(app.mlx_data.mlx_ptr);
-        free(app.mlx_data.mlx_ptr);
-        return (EXIT_MLX_FAILURE);
-    }
-    app.mlx_data.image.img = mlx_new_image(app.mlx_data.mlx_ptr, WINDOWS_WIDHT, WINDOWS_HEIGHT);
-    app.mlx_data.image.addr = mlx_get_data_addr(app.mlx_data.image.img, &(app.mlx_data.image.bpp), 
-                        &(app.mlx_data.image.line_length), &(app.mlx_data.image.endian));
     
-    build_kd_tree(&app.root, app.p_data.objects);
+    /* draw_scene(&app); */
     
     /* print_kd_tree(&app.root);
     printf("cuties but ecoanxious lol <3\n"); */
