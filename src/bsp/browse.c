@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   browse.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:44:25 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/25 01:11:02 by Helene           ###   ########.fr       */
+/*   Updated: 2023/11/28 02:54:48 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ bool    intersect_scene(t_bbox_description scene, t_ray ray, float *a, float *b)
 
 /* --------------- intersections ----------------- */
 
-double  get_closest_point(double a, double b)
+double  get_closest_point(double a, double b) 
 {
     if (a >= 0.0 && b <= 0.0)
         return (0.0);
@@ -110,7 +110,19 @@ bool    intersect_sphere(t_ray *ray, void *object)
 
 bool    intersect_plan(t_ray *ray, void *object)
 {
+    t_plan *p;
+    t_droite d;
+    t_point_3d    res;
     
+    
+    p = object;
+    d.p = ray->origin;
+    d.v = ray->direction;
+    if (!get_inter_for_plan(p, d, &res))
+        return false;
+
+    ray->hit_info.hit_point = res;
+        
 }
 
 // bool intersect_cylinder(t_ray ray, void *object)

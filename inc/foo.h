@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   foo.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/24 16:39:13 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/28 02:49:22 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ double get_v_norm(t_vec_3d v);
 
 t_vlist    	*get_inter(t_vlist *elem, t_droite d);
 void    	get_inter_for_sphere(t_sphere *elem, t_droite d);
-void    	get_inter_for_plan(t_plan *p, t_droite d);
+bool    	get_inter_for_plan(t_plan *p, t_droite d, t_point_3d *res);
 
 /* -------------------- TRACE_RAY ------------------- */
 
