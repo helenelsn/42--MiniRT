@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/28 14:16:27 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/28 16:36:07 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,9 @@ typedef struct  s_bbox_description
 
 typedef struct  s_raytracing_material
 {
-    unsigned long                 color;
-    int                 specular; /* -1 si matte */
-    double              reflective; /* in [0, 1] */                 
+    unsigned long       color;
+    int                 specular; /* todo + tard init a -1.  -1 si matte */
+    double              reflective; /* todo + tard : init a 0. in [0, 1] */                 
     t_bbox_description  bbox; /* tout à 0 ou -1 si s'agit d'une source lumineuse ? */
 }               t_raytracing_material;
 
