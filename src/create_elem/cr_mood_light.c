@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 23:34:39 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/28 14:19:56 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/28 16:05:48 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_mood_light *create_mood_light(char **tab, t_vlist **garbage, t_parsing_data *d
     elem->infos.ratio = get_ratio(tab[1]);
     if (elem->infos.ratio < 0 || !get_rgb(tab[2], &elem->infos.color))
     {
-        //todo
+        //todo what?
         free(elem);
         return NULL;
     }
