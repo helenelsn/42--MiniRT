@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:13 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/28 14:36:00 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/28 18:31:10 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,10 @@
 
 # define SCREEN_WIDTH       1400.0
 # define SCREEN_HEIGHT      800.0
-# define SCREEN_RATIO  	    16/9
+# define ASPECT_RATIO  	    16/9
+
+# define SAMPLES_PER_PIXEL  10 // Count of random samples for each pixel
+# define FOCUS_DIST		    1 //  // Distance camera - plan de projection
 
 # define DEG_TO_RAD 	    180/M_PI 
 

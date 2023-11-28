@@ -9,13 +9,13 @@ FILES = \
 		bsp/browse \
 		bsp/create_bsp \
 		bsp/get_splitting_plane \
-		create_elem/cr_camera\
-		create_elem/cr_cylindre\
-		create_elem/cr_light\
-		create_elem/cr_mood_light\
-		create_elem/cr_plan\
-		create_elem/cr_sphere\
-		garbage_collector/ft_lstnew\
+		create_elem/cr_camera \
+		create_elem/cr_cylindre \
+		create_elem/cr_light \
+		create_elem/cr_mood_light \
+		create_elem/cr_plan \
+		create_elem/cr_sphere \
+		garbage_collector/ft_lstnew \
 		garbage_collector/ft_lstadd_front \
 		garbage_collector/ft_lstsize \
 		garbage_collector/ft_lstlast \
@@ -23,7 +23,7 @@ FILES = \
 		garbage_collector/ft_lstdelone \
 		garbage_collector/ft_lstclear \
 		garbage_collector/ft_lstiter \
-		garbage_collector/ft_vlst_del_in_list\
+		garbage_collector/ft_vlst_del_in_list \
 		intersection/i_sphere \
 		intersection/i_plan \
 		mlx_gestion/close \
@@ -40,10 +40,13 @@ FILES = \
 		utils_vec_et_droite/norm \
 		utils_vec_et_droite/prod_scalaire \
 		utils_vec_et_droite/prod_vec \
-		main\
-		parse\
+		utils_vec_et_droite/vec_operations \
+		main \
+		parse \
 		trace_rays/trace_ray \
-		# trace_rays/convert \ 
+		trace_rays/light \
+		trace_rays/normals \
+		trace_rays/screen_scene_utils
 # Resolving
 		
 	

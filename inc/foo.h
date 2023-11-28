@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/28 16:06:02 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/28 18:19:20 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,10 @@ t_vec_3d 	get_unit_normal(t_hit_info hi, t_point_3d p);
 
 /* -------------------- TRACE RAYS ---------------- */
 
+t_point_3d 	pixel_to_viewpoint_coord(int x, int y);
+double 		compute_lighting(t_app *app, float specular, t_ray ray);
+t_vec_3d	get_incident_ray_of_light(t_vec_3d l, t_vec_3d n);
 void    	draw_scene(t_app *app);
-//t_ray		set_ray_infos(t_vec_3d direction, t_point_3d ray_origin);
-//int    		trace_ray(t_app *app, t_point_3d ray_origin, t_vec_3d dir, int rebound_nb); // pas forcement utile de la mettre
 
 /*  -------------------- MLX ------------------------ */
 
