@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 02:23:05 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/29 19:53:51 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/29 21:17:47 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	my_mlx_pixel_put(t_image *img, int x, int y, int color)
 	char	*dst;
 
 	dst = img->addr + (y * img->line_length + x * (img->bpp / 8));
-	*(unsigned int *)dst = color;
+	*( int *)dst = color;
 }
 
 void	set_img(t_app *app)

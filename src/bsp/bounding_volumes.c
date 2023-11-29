@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bounding_volumes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 15:35:11 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/29 00:34:33 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/29 20:55:43 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,6 +217,8 @@ t_vlist *ft_vlstnew_with_mat(void * content, void foo(void *), t_type t,
 
     new = ft_vlstnew(content, foo, t);
     new->material = mat;
+    // set_color_in_mat(content, &mat, t);
+    // printf("%d", mat.color);
     return (new);
 }
 

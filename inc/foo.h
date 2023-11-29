@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   foo.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/29 20:00:29 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/29 21:18:13 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "struct.h"
 
 //parse
+void set_color_in_mat(void * content, t_raytracing_material *mat, t_type t);
 double get_ratio(char *str);
 bool	get_point(char *str, t_point_3d *p);
 bool	get_vec_from_str(char *str, t_vec_3d *p);
@@ -23,8 +24,8 @@ double get_dist_between_points(t_point_3d p, t_point_3d q);
 double get_dist_droite_point(t_droite d, t_point_3d p);
 double get_dist_between_droite(t_droite d, t_droite e);
 int get_fov(char *str);
-unsigned int	create_rgb(unsigned char r, unsigned char g, unsigned char b);
-bool	get_rgb(char *str, unsigned int *c);
+int	create_rgb(unsigned char r, unsigned char g, unsigned char b);
+bool	get_rgb(char *str,  int *c);
 t_parse_error parse(int ac, char **av, t_vlist **garbage, t_parsing_data *data);
 void free_tab(void *arg);
 int null_term_tab_len(void **tab);

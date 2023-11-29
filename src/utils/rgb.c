@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   rgb.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 00:08:53 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/29 20:06:46 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/29 21:18:00 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/mini_rt.h"
 
-unsigned int	create_rgb(unsigned char r, unsigned char g, unsigned char b)
+ int	create_rgb(unsigned char r, unsigned char g, unsigned char b)
 {
 	t_color	c;
 
@@ -23,7 +23,7 @@ unsigned int	create_rgb(unsigned char r, unsigned char g, unsigned char b)
 	return (c.hex);
 }
 
-bool	get_rgb(char *str, unsigned int *c)
+bool	get_rgb(char *str,  int *c)
 {
 	int i = 0;
 	bool flag;

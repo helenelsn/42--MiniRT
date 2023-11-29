@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:15:45 by hlesny            #+#    #+#             */
-/*   Updated: 2023/11/29 19:59:43 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/29 21:19:19 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ double 	specular_reflection(t_app *app, double s_term, t_ray ray)
 		//ray_traversal_algo(&app->root, &obj_to_light); // mettre &obj_to_light je penseeee
 		no_tree_intersections(app->p_data.objects, &obj_to_light);
 
-		if (obj_to_light.hit_info.distance != -1)
+		// if (obj_to_light.hit_info.distance * obj_to_light.hit_info.coef > 0)
+		if (obj_to_light.hit_info.distance  != -1)
 		{
 			r = get_incident_ray_of_light(obj_to_light.direction, ray.hit_info.hit_p_normal);
 			if (vec_x_vec_scal(r, ray.hit_info.reflected_ray) > 0)
@@ -120,6 +121,7 @@ double 	compute_lighting(t_app *app, float specular, t_ray ray)
 	intensity += diffuse_reflection(app, ray);
 	if (specular != -1)
 		intensity += specular_reflection(app, specular, ray);
+	// printf("{%s}, intensity = %");
 	return (intensity);
 }
 

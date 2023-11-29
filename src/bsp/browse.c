@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   browse.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:44:25 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/29 19:48:10 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/29 21:02:45 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,8 @@ bool    intersect_sphere(t_ray *ray, void *object)
     ray->hit_info.hit_point.y = ray->origin.y + ray->direction.y * mult;
     ray->hit_info.hit_point.z = ray->origin.z + ray->direction.z * mult;
     ray->hit_info.coef = mult;
-    ray->hit_info.distance = get_dist_between_points(ray->origin, ray->hit_info.hit_point) * (2 * (mult > 0.0) - 1);
+    if (ray->hit_info.coef > 0.0)
+        ray->hit_info.distance = get_dist_between_points(ray->origin, ray->hit_info.hit_point) * (2 * (mult > 0.0) - 1);
     // ray->hit_info.distance = mult;
 
     //printf("------------- {%s}, ray{O(%f, %f, %f), D(%f, %f, %f)} intersected sphere{C(%f, %f, %f)}\n",
@@ -156,6 +157,7 @@ bool    intersect(t_vlist *obj, t_ray *ray)
 
     // mettre a jour le point d intersection, ie ray.hit_inf.hit_point, ainsi 
     // que la distance origine du rayon-object, ie ray.hit_info.distance
+    
     ray->hit_info.distance = -1;
     if (obj->type == sphere)
         return (intersect_sphere(ray, obj->content));
@@ -168,7 +170,20 @@ bool    intersect(t_vlist *obj, t_ray *ray)
     
 }
 
-
+void set_color_in_mat(void * content, t_raytracing_material *mat, t_type t)
+{
+    if (t == cylindre)
+        mat->color = ((t_cylindre *)content)->color;
+    if (t == plan)
+        mat->color = ((t_plan *)content)->color;
+    if (t == sphere)
+        mat->color = ((t_sphere *)content)->color;
+    if (t == light)
+        mat->color = ((t_light *)content)->infos.color;
+    if (t == mood_light)
+        mat->color = ((t_mood_light *)content)->infos.color;
+    // mat->color = 500;
+}
 
 void    copy_obj_properties(t_vlist *obj, t_hit_info *hinf, t_point_3d hp)
 {
@@ -195,6 +210,7 @@ void    test_intersections(t_bsp_node *leaf, t_ray *ray, double min, double max)
     min_dist = INFINITY;
     while (obj)
     {
+        // set_color_in_mat(obj->content, &obj->material, obj->type);
         if (intersect(obj, ray) && ray->hit_info.distance >= min && ray->hit_info.distance <= max 
             && ray->hit_info.distance < min_dist)
             {

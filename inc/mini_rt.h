@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_rt.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:13 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/29 20:03:59 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/29 20:09:09 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@
 #define EXIT_SUCCES 	    0
 #define EXIT_FAILURE 	    1
 #define EXIT_MLX_FAILURE    2
-#define WINDOWS_HEIGHT 	    900
-#define WINDOWS_WIDHT 	    1500
+// #define WINDOWS_HEIGHT 	    900
+// #define WINDOWS_WIDHT 	    1500
 
 # define IMAGE_WIDTH       1400.0
 # define IMAGE_HEIGHT      800.0

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trace_ray.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
-/*   Updated: 2023/11/29 19:53:51 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/29 21:20:33 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	no_tree_intersections(t_vlist *objects, t_ray *ray)
     min_dist = INFINITY;
     while (obj)
     {
+		set_color_in_mat(obj->content, &obj->material, obj->type);
         if (intersect(obj, ray) && ray->hit_info.distance < min_dist)
         {
             min_dist = ray->hit_info.distance;
@@ -63,7 +64,7 @@ int    trace_ray(t_app *app, t_point_3d ray_origin, t_vec_3d dir, int rebound_nb
 {
     t_ray		ray;
 	t_vec_3d	reflected_ray;
-	double 		local_color;
+	int 		local_color;
 	double 		reflected_color;
 	
 	ft_memset(&ray, 0, sizeof(t_ray)); // verifier que ca ecrase pas de la data que veut garder (jpense pas)
@@ -71,6 +72,7 @@ int    trace_ray(t_app *app, t_point_3d ray_origin, t_vec_3d dir, int rebound_nb
 	
 	//ray_traversal_algo(&app->root, &ray);
 	no_tree_intersections(app->p_data.objects, &ray);
+	
 	if (ray.hit_info.distance == -1) // le rayon n'intersecte aucun objet
 		return (BACKGROUND_COLOR); 
 	// printf("{%s} : intersected an object\n", __func__);
@@ -84,6 +86,7 @@ int    trace_ray(t_app *app, t_point_3d ray_origin, t_vec_3d dir, int rebound_nb
 	ray.hit_info.reflected_ray = get_incident_ray_of_light(vect_double_multiply(-1, ray.direction), ray.hit_info.hit_p_normal); // ou juste ray.direction en premier argument ?
 	
 	local_color = ray.hit_info.obj_mat.color * compute_lighting(app, ray.hit_info.obj_mat.specular, ray);
+	// local_color = ray.hit_info.obj_mat.color;
 	
 	/* get the final pixel's color */
 	if (ray.hit_info.obj_mat.reflective <= 0 || rebound_nb == RECURS_LIMIT)
@@ -91,15 +94,17 @@ int    trace_ray(t_app *app, t_point_3d ray_origin, t_vec_3d dir, int rebound_nb
 
 	/* compute reflected color */
 	//reflected_ray = get_incident_ray_of_light(vect_double_multiply(-1, ray.direction), ray.hit_info.hit_p_normal); // ou juste ray.direction en premier argument ?
-	reflected_color = trace_ray(app, ray.hit_info.hit_point, ray.hit_info.reflected_ray, rebound_nb + 1);
-	
-	return (local_color * (1 - ray.hit_info.obj_mat.reflective) + reflected_color * ray.hit_info.obj_mat.reflective);
+	// reflected_color = trace_ray(app, ray.hit_info.hit_point, ray.hit_info.reflected_ray, rebound_nb + 1);
+	// if (local_color * (1 - ray.hit_info.obj_mat.reflective) + reflected_color * ray.hit_info.obj_mat.reflective)
+
+	// return (local_color * (1 - ray.hit_info.obj_mat.reflective) + reflected_color * ray.hit_info.obj_mat.reflective);
+	return (local_color);
 }
 
 int		get_final_pixel_color(t_app *app, int x, int y)
 {
 	int 			sampling_count;
-	unsigned int	pixel_color;
+	 int	pixel_color;
 	t_point_3d		pixel_center;
 	t_point_3d		viewp_pixel;
 
@@ -114,6 +119,7 @@ int		get_final_pixel_color(t_app *app, int x, int y)
 		viewp_pixel = translate_point(pixel_center, pixel_sample(app, x, y)) ;
 		//printf("in %s, pixel = (%d, %d), sampled_coord = (%f, %f, %f)\n", __func__, x, y, viewp_pixel.x, viewp_pixel.y, viewp_pixel.z);
     	pixel_color += trace_ray(app, app->p_data.cam->p, get_directional_vect(app->p_data.cam->p, viewp_pixel), 0);
+		
 		sampling_count++;
 	}
     //pixel_color = trace_ray(app, app->p_data.cam->p, get_directional_vect(app->p_data.cam->p, viewp), 0);
