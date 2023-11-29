@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
-/*   Updated: 2023/11/29 03:12:12 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/29 18:04:29 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	set_ray_infos(t_ray *ray, t_vec_3d direction, t_point_3d ray_origin)
 {
 	ray->origin = ray_origin;
 	ray->direction = direction;	
+	normalise(&ray->direction); //tocheck
 }
 
 
@@ -28,7 +29,7 @@ void	no_tree_intersections(t_vlist *objects, t_ray *ray)
 {
     t_vlist     *obj;
     t_hit_info  *closest_obj;
-    double  min_dist;
+    double 		min_dist;
 
     closest_obj = ft_calloc(sizeof(t_hit_info), 1);
     if (!closest_obj)
@@ -68,8 +69,8 @@ int    trace_ray(t_app *app, t_point_3d ray_origin, t_vec_3d dir, int rebound_nb
 	ft_memset(&ray, 0, sizeof(t_ray)); // verifier que ca ecrase pas de la data que veut garder (jpense pas)
 	set_ray_infos(&ray, dir, ray_origin);
 	
-	//ray_traversal_algo(&app->root, &ray);
-	no_tree_intersections(app->p_data.objects, &ray);
+	ray_traversal_algo(&app->root, &ray);
+	//no_tree_intersections(app->p_data.objects, &ray);
 	if (ray.hit_info.distance == -1) // le rayon n'intersecte aucun objet
 		return (BACKGROUND_COLOR); 
 	printf("{%s} : intersected an object\n", __func__);
@@ -97,17 +98,20 @@ int    trace_ray(t_app *app, t_point_3d ray_origin, t_vec_3d dir, int rebound_nb
 
 int		get_final_pixel_color(t_app *app, int x, int y)
 {
-	int 		sampling_count;
-	int			pixel_color;
-	t_point_3d	viewp_pixel;
+	int 			sampling_count;
+	unsigned int	pixel_color;
+	t_point_3d		pixel_center;
+	t_point_3d		viewp_pixel;
 
 	sampling_count = 0;
 	double defocus_angle = 0; // pour sample SAMPLES_PER_PIXEL pixels et avoir une impression plus homogene
 	// implementer les fonctions pour generer des samples de pixels dans [pixel - epsilon, pixel + epsilon]
 
+	pixel_color = 0;
+	set_pixel_center(app, &pixel_center, x, y); // get coordinates of the pixel's center
 	while (sampling_count < SAMPLES_PER_PIXEL)
 	{
-		viewp_pixel = pixel_sample(app, x, y);
+		viewp_pixel = translate_point(pixel_center, pixel_sample(app, x, y)) ;
 		//printf("in %s, pixel = (%d, %d), sampled_coord = (%f, %f, %f)\n", __func__, x, y, viewp_pixel.x, viewp_pixel.y, viewp_pixel.z);
     	pixel_color += trace_ray(app, app->p_data.cam->p, get_directional_vect(app->p_data.cam->p, viewp_pixel), 0);
 		sampling_count++;

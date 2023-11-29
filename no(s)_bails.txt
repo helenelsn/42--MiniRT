@@ -1,0 +1,9 @@
+- ca affiche un truc, mais forme non proportionnelle, couleur noire et non pas bleue,
+axes sont inverses j ai l impression (une diminution selon x du centre de la sphere fait 
+que la sphere s'affiche plus vers la droite (devrait etre la gauche))
+    -> checker rendu couleurs
+    -> checker que lq fonction intersection rayon-spher renvoie bien vrai pour tous les 
+        points d'intersection (jpense pas que ca soit le cas mtn sinon aurait pas une 
+        forme non spherique qui s'affiche, si ?)
+
+- ln : faut encore que jmocuppe de mettre les plans dans une liste chainee

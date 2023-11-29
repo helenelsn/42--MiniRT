@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   operations.c                                       :+:      :+:    :+:   */
+/*   vec_operations.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:13:52 by hlesny            #+#    #+#             */
-/*   Updated: 2023/11/28 18:14:17 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/29 17:22:15 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,18 @@ t_vec_3d	vect_double_multiply(double n, t_vec_3d a)
 {
 	t_vec_3d b;
 
-	b.x = n * a.x;
-	b.y = n * a.y;
-	b.z = n * a.z;
+	if (a.x)
+		b.x = n * a.x;
+	else
+		b.x = 0.0;
+	if (a.y)
+		b.y = n * a.y;
+	else
+		b.y = 0.0;
+	if (a.z)
+		b.z = n * a.z;
+	else
+		b.z = 0.0;
 	b.norm = get_v_norm(b);
 	return (b);
 }

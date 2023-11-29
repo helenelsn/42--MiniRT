@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:44:25 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/29 03:02:30 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/29 16:19:50 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ bool    intersect_scene(t_bbox_description scene, t_ray ray, float *a, float *b)
 
 double  get_closest_point(double a, double b) 
 {
-    if (a >= 0.0 && b <= 0.0)
+    if (a <= 0.0 && b <= 0.0)
         return (0.0);
     if (a <= 0.0)
         return (b);

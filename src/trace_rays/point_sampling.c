@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 19:03:40 by hlesny            #+#    #+#             */
-/*   Updated: 2023/11/29 00:27:34 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/29 17:49:29 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,13 @@ int random_int(int min, int max) {
 
 /*  ------------------------------------------- */
 
-t_point_3d  pixel_sample(t_app *app, int x, int y)
+void    set_pixel_center(t_app *app, t_point_3d *pc, int x, int y)
+{
+    *pc = translate_point(app->frame.pixel_00, vect_addition(vect_double_multiply(x, app->frame.pixel_delta_u),
+            vect_double_multiply(y, app->frame.pixel_delta_v)));
+}
+
+t_vec_3d  pixel_sample(t_app *app, int x, int y)
 {
    /*  t_point_3d  pixel_center =  point_addition(point_addition(pixel_00, point_double_multiply(x, pixel_delta_u)),
                                 point_double_multiply(y, pixel_delta_v));
@@ -45,12 +51,12 @@ t_point_3d  pixel_sample(t_app *app, int x, int y)
 
     double      random_x;
     double      random_y;
-    t_point_3d  sampled_p;
+    t_vec_3d    sampled_p;
     
-    random_x = -0.5 + random_double();
-    random_y = -0.5 + random_double();
-    sampled_p = translate_point(app->frame.pixel_00 ,vect_addition(vect_double_multiply(random_x, app->frame.pixel_delta_u),
-        vect_double_multiply(random_y, app->frame.pixel_delta_v)));
+    random_x = - 0.5 + random_double();
+    random_y = - 0.5 + random_double();
+    sampled_p = vect_addition(vect_double_multiply(random_x, app->frame.pixel_delta_u),
+        vect_double_multiply(random_y, app->frame.pixel_delta_v));
     return (sampled_p);
 }
 

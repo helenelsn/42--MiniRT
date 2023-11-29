@@ -6,18 +6,23 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 20:04:36 by hlesny            #+#    #+#             */
-/*   Updated: 2023/11/29 02:36:09 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/29 17:38:51 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/struct.h"
 #include "../../inc/mini_rt.h"
 
+double  deg_to_rad(double angle)
+{
+    return (angle * M_PI / 180.0);
+}
+
 //tocheck
 //tomodif : creer les singletons a la place des globales
 void 	set_viewpoint_dimensions(t_app *app)
 {
-    app->frame.width = FOCUS_DIST * tan(app->p_data.cam->fov * 0.5f * DEG_TO_RAD) * 2; /* Width */
+    app->frame.width = FOCUS_DIST * tan(deg_to_rad(app->p_data.cam->fov) * 0.5f) * 2; /* Width */
     app->frame.height = app->frame.width * ASPECT_RATIO; /* Height */
 
     // set the viewpoint's height and width singletons 
@@ -37,34 +42,30 @@ void    init_viewpoint(t_app *app)
 
     set_viewpoint_dimensions(app);
     
+    // Calculate the u,v,w unit basis vectors for the camera coordinate frame.
     app->p_data.cam->ref.w = vect_double_multiply(-1, app->p_data.cam->direction);
     normalise(&app->p_data.cam->ref.w);
+
     app->p_data.cam->ref.u = vec_x_vec_vectoriel((t_vec_3d){0, 1, 0}, app->p_data.cam->ref.w);
     normalise(&app->p_data.cam->ref.u);
+    
     app->p_data.cam->ref.v = vec_x_vec_vectoriel(app->p_data.cam->ref.w, app->p_data.cam->ref.u);
     normalise(&app->p_data.cam->ref.v);
 
+    // Calculate the vectors across the horizontal and down the vertical viewport edges.
     viewport_u = vect_double_multiply(app->frame.width, app->p_data.cam->ref.u);
     viewport_v = vect_double_multiply(- app->frame.height, app->p_data.cam->ref.v);
    
+    // Calculate the horizontal and vertical delta vectors to the next pixel.
     app->frame.pixel_delta_u = vect_double_multiply(1.0/IMAGE_WIDTH, viewport_u);
     app->frame.pixel_delta_v = vect_double_multiply(1.0/IMAGE_HEIGHT, viewport_v);
 
+    // Calculate the location of the upper left pixel.
     //  app->p_data.cam->p - (FOCUS_DIST * w) - viewport_u / 2 - viewport_v - 2;
     viewp_upper_left = translate_point(translate_point(translate_point(app->p_data.cam->p, 
         vect_double_multiply(- FOCUS_DIST, app->p_data.cam->ref.w)),
         vect_double_multiply(-1.0/2, viewport_u)), vect_double_multiply(-1.0/2, viewport_v)); 
     
-    /* t_vec_3d a = vect_double_multiply(FOCUS_DIST, app->p_data.cam->ref.w);
-    t_vec_3d b = vect_double_multiply(1.0/2, viewport_u);
-    t_vec_3d c = vect_double_multiply(1.0/2, viewport_v);
-    t_vec_3d d = vect_substract(a, b);
-    t_vec_3d e = vect_substract(d, c);
-    t_point_3d p = translate_point(app->p_data.cam->p, e);
-
-    t_point_3d p2 = translate_point(app->p_data.cam->p, a);
-    t_point_3d p3 = translate_point(app->p_data.cam->p, b);
-    t_point_3d p4 = translate_point(app->p_data.cam->p, c); */
     
     // pixel00_loc = viewport_upper_left + 0.5 * (pixel_delta_u + pixel_delta_v);
     app->frame.pixel_00 = translate_point(viewp_upper_left,

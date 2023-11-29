@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/29 03:05:38 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/29 17:54:20 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ double get_dist_between_points(t_point_3d p, t_point_3d q);
 double get_dist_droite_point(t_droite d, t_point_3d p);
 double get_dist_between_droite(t_droite d, t_droite e);
 int get_fov(char *str);
-unsigned long	create_rgb(unsigned char r, unsigned char g, unsigned char b);
-bool	get_rgb(char *str, unsigned long *c);
+unsigned int	create_rgb(unsigned char r, unsigned char g, unsigned char b);
+bool	get_rgb(char *str, unsigned int *c);
 t_parse_error parse(int ac, char **av, t_vlist **garbage, t_parsing_data *data);
 void free_tab(void *arg);
 int null_term_tab_len(void **tab);
@@ -95,14 +95,25 @@ t_vec_3d 	get_unit_normal(t_hit_info hi, t_point_3d p);
 /* -------------------- TRACE RAYS ---------------- */
 
 void    	draw_scene(t_app *app);
-t_point_3d  pixel_sample(t_app *app, int x, int y);
 double 		compute_lighting(t_app *app, float specular, t_ray ray);
 t_vec_3d	get_incident_ray_of_light(t_vec_3d l, t_vec_3d n);
-void    	copy_obj_properties(t_vlist *obj, t_hit_info *hinf, t_point_3d hp);
 
-/*  ------------------- CAMERA ------------------- */
+/*  ------- CHGT COORD, ANTI ALIASING ---------- */
+t_vec_3d	pixel_sample(t_app *app, int x, int y);
+void    	set_pixel_center(t_app *app, t_point_3d *pc, int x, int y);
+
+/*  --------------- */
+
+void    	copy_obj_properties(t_vlist *obj, t_hit_info *hinf, t_point_3d hp);
+bool    	intersect(t_vlist *obj, t_ray *ray);
+
+/*  --------- CAMERA ---------- */
 
 void    	init_viewpoint(t_app *app);
+
+
+
+
 
 /*  -------------------- MLX ------------------------ */
 

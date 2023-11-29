@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/28 23:50:04 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/29 17:57:04 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ typedef struct  s_bbox_description
 
 typedef struct  s_raytracing_material
 {
-    unsigned long       color;
+    unsigned int       color;
     int                 specular; /* todo + tard init a -1.  -1 si matte */
     double              reflective; /* todo + tard : init a 0. in [0, 1] */                 
     t_bbox_description  bbox; /* tout à 0 ou -1 si s'agit d'une source lumineuse ? */
@@ -150,7 +150,7 @@ typedef struct	s_ray
 typedef struct  s_light_infos
 {   
     double  ratio;
-    unsigned long     color;
+    unsigned int     color;
 }               t_light_info;
 
 typedef struct s_mood_light
@@ -177,7 +177,7 @@ typedef struct s_sphere
 {
     t_point_3d  p;
     double      radius;
-    unsigned long   color;
+    unsigned int   color;
 }   t_sphere;
 
 typedef struct s_plan
@@ -190,7 +190,7 @@ typedef struct s_plan
     double      c;
     double      d;
     
-    unsigned long   color;
+    unsigned int   color;
 }   t_plan;
 
 typedef struct s_cylindre
@@ -199,7 +199,7 @@ typedef struct s_cylindre
     t_vec_3d    vec;
     double      radius;
     double      height;
-    unsigned long   color;
+    unsigned int   color;
     
 }   t_cylindre;
 
@@ -361,7 +361,7 @@ typedef struct s_app
 
 typedef union u_color
 {
-        unsigned long                           hex;
+        unsigned int                           hex;
         struct
         {
                 unsigned char   b;
