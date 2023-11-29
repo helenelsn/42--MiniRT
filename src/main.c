@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:20 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/28 21:50:27 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/29 18:49:44 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static int  minirt_get_started(t_app *app)
     }
     
     build_kd_tree(&app->root, app->p_data.objects);
+    init_viewpoint(app);
     draw_scene(app);
     
     printf("lol0\n");
@@ -54,8 +55,8 @@ static int  minirt_get_started(t_app *app)
     add_hooks(app);
     // printf("HEY\n");
 	mlx_loop(app->mlx_data.mlx_ptr);
-    printf("HEY\n");
-    // destroy and free data
+    
+    // destroy and free data 
     return (0);
 }
 

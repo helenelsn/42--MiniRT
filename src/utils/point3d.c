@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 00:36:39 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/28 18:13:26 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/29 00:35:38 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,49 @@ t_point_3d	point_addition(t_point_3d a, t_point_3d b)
 t_point_3d	point_substract(t_point_3d a, t_point_3d b)
 {
 	return (point_addition(a, point_double_multiply(-1, b)));
+}
+
+t_point_3d double_to_point(double a)
+{
+    t_point_3d p;
+    
+    p.x = a;
+    p.y = a;
+    p.z = a;
+    return (p);
+}
+
+/* t_vec_3d vectors_addition(t_vec_3d u, t_vec_3d v)
+{
+    t_vec_3d w;
+
+    w.x = u.x + v.x;
+    w.y = u.y + v.y;
+    w.z = u.z + v.z;
+    
+    return (w);
+} */
+
+void 	reset_point(t_point_3d *p, double a)
+{
+	p->x = a;
+	p->y = a;
+	p->z = a;
+}
+
+void 	set_point(t_point_3d *p, double x, double y, double z)
+{
+	p->x = x;
+	p->y = y;
+	p->z = z;
+}
+
+t_point_3d  translate_point(t_point_3d p, t_vec_3d u)
+{
+    t_point_3d  newp;
+
+    newp.x = p.x + u.x;
+    newp.y = p.y + u.y;
+    newp.z = p.z + u.z;
+    return (newp);
 }

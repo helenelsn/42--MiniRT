@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
-/*   Updated: 2023/11/28 21:57:04 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/29 18:49:27 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,45 @@ void	set_ray_infos(t_ray *ray, t_vec_3d direction, t_point_3d ray_origin)
 {
 	ray->origin = ray_origin;
 	ray->direction = direction;	
+	normalise(&ray->direction); //tocheck
 }
 
+
+/*  ---------------------- todel, test sans arbre ---------------------- */
+
+void	no_tree_intersections(t_vlist *objects, t_ray *ray)
+{
+    t_vlist     *obj;
+    t_hit_info  *closest_obj;
+    double 		min_dist;
+
+    closest_obj = ft_calloc(sizeof(t_hit_info), 1);
+    if (!closest_obj)
+        return ;
+    obj = objects;
+    min_dist = INFINITY;
+    while (obj)
+    {
+        if (intersect(obj, ray) && ray->hit_info.distance < min_dist)
+        {
+            min_dist = ray->hit_info.distance;
+            copy_obj_properties(obj, closest_obj, ray->hit_info.hit_point);
+        }
+        obj = obj->next;
+    }
+    if (min_dist < INFINITY)
+    {
+        // a verifier
+        ray->hit_info = *closest_obj;
+        ray->hit_info.distance = min_dist;
+        return ;
+    }
+    ray->hit_info.distance = -1;
+    
+    return ;
+}
+
+/*  --------------------------------------------------------------------- */
 
 int    trace_ray(t_app *app, t_point_3d ray_origin, t_vec_3d dir, int rebound_nb)
 {
@@ -33,8 +70,10 @@ int    trace_ray(t_app *app, t_point_3d ray_origin, t_vec_3d dir, int rebound_nb
 	set_ray_infos(&ray, dir, ray_origin);
 	
 	ray_traversal_algo(&app->root, &ray);
+	//no_tree_intersections(app->p_data.objects, &ray);
 	if (ray.hit_info.distance == -1) // le rayon n'intersecte aucun objet
 		return (BACKGROUND_COLOR); 
+	// printf("{%s} : intersected an object\n", __func__);
 	
 	// a mettre directement dans test_intersections() ?
 	ray.hit_info.hit_p_normal = get_unit_normal(ray.hit_info, ray.hit_info.hit_point);
@@ -59,24 +98,22 @@ int    trace_ray(t_app *app, t_point_3d ray_origin, t_vec_3d dir, int rebound_nb
 
 int		get_final_pixel_color(t_app *app, int x, int y)
 {
-	// return (x+y);
-	int sampling_count;
-	int	pixel_color = 0;
+	int 			sampling_count;
+	unsigned int	pixel_color;
+	t_point_3d		pixel_center;
+	t_point_3d		viewp_pixel;
 
 	sampling_count = 0;
 	double defocus_angle = 0; // pour sample SAMPLES_PER_PIXEL pixels et avoir une impression plus homogene
 	// implementer les fonctions pour generer des samples de pixels dans [pixel - epsilon, pixel + epsilon]
 
-	t_point_3d	viewp = pixel_to_viewpoint_coord(x, y);
-	// t_point_3d test = {0, 0, 0};
-	// while (sampling_count < SAMPLES_PER_PIXEL)
-	// pixel_color += trace_ray(app, app->p_data.cam->p, get_directional_vect(app->p_data.cam->p, viewp), 0);
-	// return pixel_color;
+	pixel_color = 0;
+	set_pixel_center(app, &pixel_center, x, y); // get coordinates of the pixel's center
 	while (sampling_count < SAMPLES_PER_PIXEL)
 	{
-		
-		//get sampled pixel
-    	pixel_color += trace_ray(app, app->p_data.cam->p, get_directional_vect(app->p_data.cam->p, viewp), 0);
+		viewp_pixel = translate_point(pixel_center, pixel_sample(app, x, y)) ;
+		//printf("in %s, pixel = (%d, %d), sampled_coord = (%f, %f, %f)\n", __func__, x, y, viewp_pixel.x, viewp_pixel.y, viewp_pixel.z);
+    	pixel_color += trace_ray(app, app->p_data.cam->p, get_directional_vect(app->p_data.cam->p, viewp_pixel), 0);
 		sampling_count++;
 	}
     //pixel_color = trace_ray(app, app->p_data.cam->p, get_directional_vect(app->p_data.cam->p, viewp), 0);
@@ -126,5 +163,6 @@ void    draw_scene(t_app *app)
 		y++;
 	}
 	
-	printf("end\n");
+//	mlx_put_image_to_window(app->mlx_data.mlx_ptr, app->mlx_data.image.img, 0, 0);
+
 }

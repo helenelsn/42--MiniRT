@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/28 22:19:00 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/29 18:47:25 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ double get_dist_between_points(t_point_3d p, t_point_3d q);
 double get_dist_droite_point(t_droite d, t_point_3d p);
 double get_dist_between_droite(t_droite d, t_droite e);
 int get_fov(char *str);
-unsigned long	create_rgb(unsigned char r, unsigned char g, unsigned char b);
-bool	get_rgb(char *str, unsigned long *c);
+unsigned int	create_rgb(unsigned char r, unsigned char g, unsigned char b);
+bool	get_rgb(char *str, unsigned int *c);
 t_parse_error parse(int ac, char **av, t_vlist **garbage, t_parsing_data *data);
 void free_tab(void *arg);
 int null_term_tab_len(void **tab);
@@ -67,7 +67,7 @@ t_vlist    	*get_inter(t_vlist *elem, t_droite d);
 void    	get_inter_for_sphere(t_sphere *elem, t_droite d);
 int    	get_inter_for_plan(t_plan *p, t_droite d, t_point_3d *res);
 
-/* -------------------- TRACE_RAY ------------------- */
+/* -------------------- VEC POINT UTILS ------------------- */
 
 double 		vect_get_coord(t_vec_3d v, int i);
 double  	pt_get_coord(t_point_3d p, int i);
@@ -78,6 +78,10 @@ t_point_3d	get_vec_coord(t_vec_3d v);
 t_point_3d	point_double_multiply(double n, t_point_3d a);
 t_point_3d	point_addition(t_point_3d a, t_point_3d b);
 t_point_3d	point_substract(t_point_3d a, t_point_3d b);
+void 		reset_point(t_point_3d *p, double a);
+void 		set_point(t_point_3d *p, double x, double y, double z);
+t_point_3d double_to_point(double a);
+t_point_3d  translate_point(t_point_3d p, t_vec_3d u);
 
 t_vec_3d	vect_double_multiply(double n, t_vec_3d a);
 t_vec_3d	vect_addition(t_vec_3d a, t_vec_3d b);
@@ -90,10 +94,26 @@ t_vec_3d 	get_unit_normal(t_hit_info hi, t_point_3d p);
 
 /* -------------------- TRACE RAYS ---------------- */
 
-t_point_3d 	pixel_to_viewpoint_coord(int x, int y);
+void    	draw_scene(t_app *app);
 double 		compute_lighting(t_app *app, float specular, t_ray ray);
 t_vec_3d	get_incident_ray_of_light(t_vec_3d l, t_vec_3d n);
-void    	draw_scene(t_app *app);
+
+/*  ------- CHGT COORD, ANTI ALIASING ---------- */
+t_vec_3d	pixel_sample(t_app *app, int x, int y);
+void    	set_pixel_center(t_app *app, t_point_3d *pc, int x, int y);
+
+/*  --------------- */
+
+void    	copy_obj_properties(t_vlist *obj, t_hit_info *hinf, t_point_3d hp);
+bool    	intersect(t_vlist *obj, t_ray *ray);
+
+/*  --------- CAMERA ---------- */
+
+void    	init_viewpoint(t_app *app);
+
+
+
+
 
 /*  -------------------- MLX ------------------------ */
 

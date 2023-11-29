@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:44:25 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/28 23:02:49 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/29 18:46:58 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ bool    intersect_scene(t_bbox_description scene, t_ray ray, float *a, float *b)
 
 double  get_closest_point(double a, double b) 
 {
-    if (a >= 0.0 && b <= 0.0)
+    if (a <= 0.0 && b <= 0.0)
         return (0.0);
     if (a <= 0.0)
         return (b);
@@ -173,9 +173,8 @@ void    copy_obj_properties(t_vlist *obj, t_hit_info *hinf, t_point_3d hp)
 /* intersect ray with each object in the object list, discarding
     those lying before stack[enPt].t (ici min) or farther than stack[exPt].t (ici max) */
     
-    // est-ce qu'a besoin de malloc le t_hit_info que renvoie ?
 //tocheck
-t_hit_info  *test_intersections(t_bsp_node *leaf, t_ray *ray, double min, double max)
+void    test_intersections(t_bsp_node *leaf, t_ray *ray, double min, double max)
 {
     t_vlist     *obj;
     t_hit_info  *closest_obj;
@@ -183,7 +182,7 @@ t_hit_info  *test_intersections(t_bsp_node *leaf, t_ray *ray, double min, double
 
     closest_obj = ft_calloc(sizeof(t_hit_info), 1);
     if (!closest_obj)
-        return (NULL);
+        return ;
     obj = leaf->items;
     min_dist = INFINITY;
     while (obj)
@@ -201,11 +200,9 @@ t_hit_info  *test_intersections(t_bsp_node *leaf, t_ray *ray, double min, double
         // a verifier
         ray->hit_info = *closest_obj;
         ray->hit_info.distance = min_dist;
-        return (closest_obj);
+        return ;
     }
     ray->hit_info.distance = -1;
-    
-    return (NULL);
 }
 
 
@@ -469,6 +466,10 @@ typedef struct  s_stack_elem_a
 
 /* ok ou a réecrire ? */
 t_bsp_node    *position_camera_in_tree(t_bsp_node *root, t_camera cam)
+todel/lol.c
+➜  42-MiniRT git:(main) ✗ code .
+➜  42-MiniRT git:(main) ✗ 
+
 {
     t_bsp_node *curr;
 

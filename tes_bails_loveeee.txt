@@ -1,0 +1,1 @@
+parsing : quand cree les elements, aussi initialiser le raytracing_material pour les objets (renseigner la couleur de l'objet, ses coefficients speculaire et reflectifs)

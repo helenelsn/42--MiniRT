@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/28 22:16:06 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/29 18:48:28 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ typedef struct  s_bbox_description
 
 typedef struct  s_raytracing_material
 {
-    unsigned long       color;
+    unsigned int       color;
     int                 specular; /* todo + tard init a -1.  -1 si matte */
     double              reflective; /* todo + tard : init a 0. in [0, 1] */                 
     t_bbox_description  bbox; /* tout à 0 ou -1 si s'agit d'une source lumineuse ? */
@@ -151,7 +151,7 @@ typedef struct	s_ray
 typedef struct  s_light_infos
 {   
     double  ratio;
-    unsigned long     color;
+    unsigned int     color;
 }               t_light_info;
 
 typedef struct s_mood_light
@@ -178,7 +178,7 @@ typedef struct s_sphere
 {
     t_point_3d  p;
     double      radius;
-    unsigned long   color;
+    unsigned int   color;
 }   t_sphere;
 
 typedef struct s_plan
@@ -191,7 +191,7 @@ typedef struct s_plan
     double      c;
     double      d;
     
-    unsigned long   color;
+    unsigned int   color;
 }   t_plan;
 
 typedef struct s_cylindre
@@ -200,7 +200,7 @@ typedef struct s_cylindre
     t_vec_3d    vec;
     double      radius;
     double      height;
-    unsigned long   color;
+    unsigned int   color;
     
 }   t_cylindre;
 
@@ -223,31 +223,6 @@ typedef struct  s_moebius
     double                  twists_count;
     /* quoi d'autre pour le définir ? */
 }               t_moebius;
-
-
-
-
-/* ---------------------------- CAMERA, FRAME ---------------------------- */
-
-typedef struct s_frame
-{
-     // pas sur que c'est le meilleur moyen de rpz
-    t_plan plan;
-    t_point_3d c0;
-    t_point_3d c1;
-    t_point_3d c2;
-    t_point_3d c3;
-
-}   t_frame;
-
-typedef struct s_camera
-{
-    t_point_3d p;
-    t_vec_3d    direction;
-    int         fov;
-}   t_camera;
-
-
 
 
 /* ---------------------------- BSP TREE ----------------------------   */
@@ -311,8 +286,57 @@ typedef struct  s_mlx_data
 	void		    *win_ptr;
 }               t_mlx_data;
 
+/* ---------------------------- CAMERA, FRAME ---------------------------- */
 
+typedef struct s_frame
+{
+     // pas sur que c'est le meilleur moyen de rpz
+    t_plan plan;
+    t_point_3d c0;
+    t_point_3d c1;
+    t_point_3d c2;
+    t_point_3d c3;
 
+}   t_frame;
+
+typedef struct  s_referentiel
+{
+    t_point_3d  origin;
+    t_vec_3d    u;
+    t_vec_3d    v;
+    t_vec_3d    w;
+}               t_referentiel;
+
+typedef struct s_camera
+{
+    t_point_3d      p;
+    t_vec_3d        direction;
+    int             fov;
+    t_referentiel   ref;
+    
+    // camera frame basis vectors 
+    //t_vec_3d    u;
+    //t_vec_3d    v;
+    //t_vec_3d    w;
+}   t_camera;
+
+typedef struct  s_viewport
+{
+    int         height;
+    int         width;
+
+   /*  t_vec_3d    u;
+    t_vec_3d    v;
+    t_vec_3d    w; */
+    
+    t_point_3d  pixel_00; // up-left pixel coordinates
+    t_vec_3d    pixel_delta_u;  // Offset to pixel to the right
+    t_vec_3d    pixel_delta_v;  // Offset to pixel below
+
+    // pas encore sure d'ou ca s'applique exactement
+    t_vec_3d    defocus_disk_u; // Defocus disk horizontal radius
+    t_vec_3d    defocus_disk_v; // Defocus disk vertical radius
+}               t_viewport;
 
 /* ----------------------- MAIN DATA STRUCTURES ---------------------- */
 
@@ -328,7 +352,8 @@ typedef struct s_parsing_data
 typedef struct s_app
 {
     t_parsing_data  p_data;
-    t_frame         frame;
+    //t_frame         frame;
+    t_viewport      frame;
     t_vlist         *garbage;
     t_vlist         *planes;
     t_bsp_node      root;
@@ -337,7 +362,7 @@ typedef struct s_app
 
 typedef union u_color
 {
-        unsigned long                           hex;
+        unsigned int                           hex;
         struct
         {
                 unsigned char   b;

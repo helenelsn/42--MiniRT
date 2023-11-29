@@ -6,13 +6,13 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 00:08:53 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/28 14:17:35 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/29 17:54:26 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/mini_rt.h"
 
-unsigned long	create_rgb(unsigned char r, unsigned char g, unsigned char b)
+unsigned int	create_rgb(unsigned char r, unsigned char g, unsigned char b)
 {
 	t_color	c;
 
@@ -20,10 +20,10 @@ unsigned long	create_rgb(unsigned char r, unsigned char g, unsigned char b)
 
 	c = (t_color){
 		.r = r, .b = b, .g = g};
-	return (c.hex); // c est pas initialise la si ??
+	return (c.hex);
 }
 
-bool	get_rgb(char *str, unsigned long *c)
+bool	get_rgb(char *str, unsigned int *c)
 {
 	int i = 0;
 	bool flag;
@@ -37,17 +37,16 @@ bool	get_rgb(char *str, unsigned long *c)
 		flag=false;
 	else 
 	{
-		printf("in %s, {else} \n", __func__);
 		while(i < 3)
 		{
 			if (!ft_strisint(sp[i]) || 0 > ft_atoi(str) || 255 < ft_atoi(str))
-				(printf("-----flag mis a false\n"), flag = false);
+				flag = false;
 			i++;
 		}
-		if (flag) // !flag
+		if (flag)
 			*c = create_rgb(ft_atoi(sp[0]), ft_atoi(sp[1]), ft_atoi(sp[2]));
 	}
-	printf("%s, {color.hex = %lu}\n", __func__, *c);
+	//printf("%s, {color.hex = %lu}\n", __func__, *c);
 	free_tab(sp);
 	return flag;
 }

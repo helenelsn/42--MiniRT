@@ -46,7 +46,10 @@ FILES = \
 		trace_rays/trace_ray \
 		trace_rays/light \
 		trace_rays/normals \
-		trace_rays/screen_scene_utils
+		trace_rays/point_sampling \
+		trace_rays/screen_scene_utils \
+		camera/init_viewpoint \
+		trace_rays/intervals_utils 
 # Resolving
 		
 	
@@ -88,6 +91,7 @@ $(NAME): $(LIBS) $(OBJS)
 ${OBJS_DIR}/%.o: ${SRCS_DIR}/%.c 
 	@mkdir -p $(OBJS_DIR)
 	@mkdir -p $(OBJS_DIR)/bsp
+	@mkdir -p $(OBJS_DIR)/camera
 	@mkdir -p $(OBJS_DIR)/create_elem
 	@mkdir -p $(OBJS_DIR)/trace_rays
 	@mkdir -p $(OBJS_DIR)/garbage_collector
