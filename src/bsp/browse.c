@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   browse.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:44:25 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/28 02:54:48 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/29 03:02:30 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,16 +125,6 @@ bool    intersect_plan(t_ray *ray, void *object)
         
 }
 
-// bool intersect_cylinder(t_ray ray, void *object)
-// {
-    
-// }
-
-// bool    intersect_cone(t_ray ray, void *object)
-// {
-    
-// }
-
 //todo
 bool    intersect(t_vlist *obj, t_ray *ray)
 {
@@ -166,9 +156,8 @@ void    copy_obj_properties(t_vlist *obj, t_hit_info *hinf, t_point_3d hp)
 /* intersect ray with each object in the object list, discarding
     those lying before stack[enPt].t (ici min) or farther than stack[exPt].t (ici max) */
     
-    // est-ce qu'a besoin de malloc le t_hit_info que renvoie ?
 //tocheck
-t_hit_info  *test_intersections(t_bsp_node *leaf, t_ray *ray, double min, double max)
+void    test_intersections(t_bsp_node *leaf, t_ray *ray, double min, double max)
 {
     t_vlist     *obj;
     t_hit_info  *closest_obj;
@@ -176,7 +165,7 @@ t_hit_info  *test_intersections(t_bsp_node *leaf, t_ray *ray, double min, double
 
     closest_obj = ft_calloc(sizeof(t_hit_info), 1);
     if (!closest_obj)
-        return (NULL);
+        return ;
     obj = leaf->items;
     min_dist = INFINITY;
     while (obj)
@@ -194,11 +183,9 @@ t_hit_info  *test_intersections(t_bsp_node *leaf, t_ray *ray, double min, double
         // a verifier
         ray->hit_info = *closest_obj;
         ray->hit_info.distance = min_dist;
-        return (closest_obj);
+        return ;
     }
     ray->hit_info.distance = -1;
-    
-    return (NULL);
 }
 
 

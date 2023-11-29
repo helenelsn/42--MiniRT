@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/28 16:36:07 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/28 23:50:04 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,31 +224,6 @@ typedef struct  s_moebius
 }               t_moebius;
 
 
-
-
-/* ---------------------------- CAMERA, FRAME ---------------------------- */
-
-typedef struct s_frame
-{
-     // pas sur que c'est le meilleur moyen de rpz
-    t_plan plan;
-    t_point_3d c0;
-    t_point_3d c1;
-    t_point_3d c2;
-    t_point_3d c3;
-
-}   t_frame;
-
-typedef struct s_camera
-{
-    t_point_3d p;
-    t_vec_3d    direction;
-    int         fov;
-}   t_camera;
-
-
-
-
 /* ---------------------------- BSP TREE ----------------------------   */
 
 typedef enum    e_node_type
@@ -310,8 +285,57 @@ typedef struct  s_mlx_data
 	void		    *win_ptr;
 }               t_mlx_data;
 
+/* ---------------------------- CAMERA, FRAME ---------------------------- */
 
+typedef struct s_frame
+{
+     // pas sur que c'est le meilleur moyen de rpz
+    t_plan plan;
+    t_point_3d c0;
+    t_point_3d c1;
+    t_point_3d c2;
+    t_point_3d c3;
 
+}   t_frame;
+
+typedef struct  s_referentiel
+{
+    t_point_3d  origin;
+    t_vec_3d    u;
+    t_vec_3d    v;
+    t_vec_3d    w;
+}               t_referentiel;
+
+typedef struct s_camera
+{
+    t_point_3d      p;
+    t_vec_3d        direction;
+    int             fov;
+    t_referentiel   ref;
+    
+    // camera frame basis vectors 
+    //t_vec_3d    u;
+    //t_vec_3d    v;
+    //t_vec_3d    w;
+}   t_camera;
+
+typedef struct  s_viewport
+{
+    int         height;
+    int         width;
+
+   /*  t_vec_3d    u;
+    t_vec_3d    v;
+    t_vec_3d    w; */
+    
+    t_point_3d  pixel_00; // up-left pixel coordinates
+    t_vec_3d    pixel_delta_u;  // Offset to pixel to the right
+    t_vec_3d    pixel_delta_v;  // Offset to pixel below
+
+    // pas encore sure d'ou ca s'applique exactement
+    t_vec_3d    defocus_disk_u; // Defocus disk horizontal radius
+    t_vec_3d    defocus_disk_v; // Defocus disk vertical radius
+}               t_viewport;
 
 /* ----------------------- MAIN DATA STRUCTURES ---------------------- */
 
@@ -327,7 +351,8 @@ typedef struct s_parsing_data
 typedef struct s_app
 {
     t_parsing_data  p_data;
-    t_frame         frame;
+    //t_frame         frame;
+    t_viewport      frame;
     t_vlist         *garbage;
     t_vlist         *planes;
     t_bsp_node      root;

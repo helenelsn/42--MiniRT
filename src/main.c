@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:20 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/28 14:21:13 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/29 02:09:55 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ static int  minirt_get_started(t_app *app)
     }
     
     build_kd_tree(&app->root, app->p_data.objects);
+    init_viewpoint(app);
     draw_scene(app);
     
     mlx_put_image_to_window(app->mlx_data.mlx_ptr, app->mlx_data.win_ptr,
@@ -95,7 +96,7 @@ static int  minirt_get_started(t_app *app)
 	mlx_hook(app->mlx_data.win_ptr, 33, 1L << 17, close_mlx, app);
 	mlx_loop(app->mlx_data.mlx_ptr);
     
-    // destroy and free data
+    // destroy and free data 
     return (0);
 }
 
