@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
-/*   Updated: 2023/11/29 18:04:29 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/29 18:36:57 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int    trace_ray(t_app *app, t_point_3d ray_origin, t_vec_3d dir, int rebound_nb
 	//no_tree_intersections(app->p_data.objects, &ray);
 	if (ray.hit_info.distance == -1) // le rayon n'intersecte aucun objet
 		return (BACKGROUND_COLOR); 
-	printf("{%s} : intersected an object\n", __func__);
+	// printf("{%s} : intersected an object\n", __func__);
 	
 	// a mettre directement dans test_intersections() ?
 	ray.hit_info.hit_p_normal = get_unit_normal(ray.hit_info, ray.hit_info.hit_point);

@@ -6,16 +6,16 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 20:04:36 by hlesny            #+#    #+#             */
-/*   Updated: 2023/11/29 17:38:51 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/29 18:27:09 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/struct.h"
 #include "../../inc/mini_rt.h"
 
-double  deg_to_rad(double angle)
+double  deg_to_rad(double degrees)
 {
-    return (angle * M_PI / 180.0);
+    return (degrees * M_PI / 180.0);
 }
 
 //tocheck

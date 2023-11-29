@@ -7,3 +7,5 @@ que la sphere s'affiche plus vers la droite (devrait etre la gauche))
         forme non spherique qui s'affiche, si ?)
 
 - ln : faut encore que jmocuppe de mettre les plans dans une liste chainee
+
+- erreur de parsing quand a des lignes vides qui se baladent dans le .rt -> normal ?
