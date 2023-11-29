@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   i_plan.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 00:10:31 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/28 22:18:53 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/29 21:39:31 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int    get_inter_for_plan(t_plan *p, t_droite d, t_point_3d *res)
 
     if (!(p->a * d.v.x +  p->b * d.v.y + p->c * d.v.z))
         return -1;
-    if (p->a * d.p.x + p->b *d.p.y + p->c *d.p.z + p->d) //tocheck droite dans plan?
-        return -1;
+    // if (p->a * d.p.x + p->b *d.p.y + p->c *d.p.z + p->d) //tocheck droite dans plan?
+    //     return -1;
     t = (p->a * d.p.x + p->b * d.p.y + p->c * d.p.z + p->d) / -(p->a * d.v.x +  p->b * d.v.y + p->c * d.v.z);
     res->x =d.p.x + t*d.v.x;
     res->y =d.p.y + t*d.v.y;

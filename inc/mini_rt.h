@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_rt.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:13 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/29 20:09:09 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/29 22:01:50 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,16 @@
 
 # define IMAGE_WIDTH       1400.0
 # define IMAGE_HEIGHT      800.0
-//# define ASPECT_RATIO  	    16.0/9.0
 
 # define SAMPLES_PER_PIXEL  1 // Count of random samples for each pixel
 # define FOCUS_DIST		    10 // arbitraire : tester les rendus avec differentes valeurs // Distance camera - plan de projection
 
 # define DEG_TO_RAD 	    M_PI/180.0
 
-# define BACKGROUND_COLOR   0xffffff // idk
+# define BACKGROUND_COLOR   0xffffff
 
 # define T_INF      0.00001 //new
+
+# define T_EPSILON  0.001
 
 #endif

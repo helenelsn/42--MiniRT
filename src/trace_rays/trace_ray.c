@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trace_ray.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
-/*   Updated: 2023/11/29 21:20:33 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/29 21:52:55 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,39 @@
 void	set_ray_infos(t_ray *ray, t_vec_3d direction, t_point_3d ray_origin)
 {
 	ray->origin = ray_origin;
-	ray->direction = direction;	
+	ray->direction = direction;
+	
 	normalise(&ray->direction); //tocheck
 }
 
 
 /*  ---------------------- todel, test sans arbre ---------------------- */
 
-void	no_tree_intersections(t_vlist *objects, t_ray *ray)
+void	no_tree_intersections(t_parsing_data pdata, t_ray *ray)
 {
     t_vlist     *obj;
     t_hit_info  *closest_obj;
     double 		min_dist;
+	static int print;
 
     closest_obj = ft_calloc(sizeof(t_hit_info), 1);
     if (!closest_obj)
         return ;
-    obj = objects;
     min_dist = INFINITY;
+    
+	obj = pdata.planes;
+	while (obj)
+    {
+		set_color_in_mat(obj->content, &obj->material, obj->type);
+        if (intersect(obj, ray) && ray->hit_info.distance < min_dist)
+        {
+            min_dist = ray->hit_info.distance;
+            copy_obj_properties(obj, closest_obj, ray->hit_info.hit_point);
+			
+        }
+        obj = obj->next;
+    }
+	obj = pdata.objects;
     while (obj)
     {
 		set_color_in_mat(obj->content, &obj->material, obj->type);
@@ -43,9 +58,13 @@ void	no_tree_intersections(t_vlist *objects, t_ray *ray)
         {
             min_dist = ray->hit_info.distance;
             copy_obj_properties(obj, closest_obj, ray->hit_info.hit_point);
-        }
+		}
         obj = obj->next;
     }
+
+	// a modif : repetitif, moche
+	
+	
     if (min_dist < INFINITY)
     {
         // a verifier
@@ -71,7 +90,7 @@ int    trace_ray(t_app *app, t_point_3d ray_origin, t_vec_3d dir, int rebound_nb
 	set_ray_infos(&ray, dir, ray_origin);
 	
 	//ray_traversal_algo(&app->root, &ray);
-	no_tree_intersections(app->p_data.objects, &ray);
+	no_tree_intersections(app->p_data, &ray);
 	
 	if (ray.hit_info.distance == -1) // le rayon n'intersecte aucun objet
 		return (BACKGROUND_COLOR); 

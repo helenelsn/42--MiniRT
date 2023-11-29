@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:15:45 by hlesny            #+#    #+#             */
-/*   Updated: 2023/11/29 21:19:19 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/29 21:25:38 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ double	diffuse_reflection(t_app *app, t_ray ray)
 		
 		// détermine si l'objet est éclairé par la source lumineuse
 		//ray_traversal_algo(&app->root, &obj_to_light); // mettre &obj_to_light je penseeee
-		no_tree_intersections(app->p_data.objects, &obj_to_light);
+		no_tree_intersections(app->p_data, &obj_to_light);
 		
 		if (obj_to_light.hit_info.distance != -1) // set a -1 si le rayon n'intersecte pas d'objets
 		{
@@ -79,7 +79,7 @@ double 	specular_reflection(t_app *app, double s_term, t_ray ray)
 		
 		// détermine si l'objet est éclairé par la source lumineuse
 		//ray_traversal_algo(&app->root, &obj_to_light); // mettre &obj_to_light je penseeee
-		no_tree_intersections(app->p_data.objects, &obj_to_light);
+		no_tree_intersections(app->p_data, &obj_to_light);
 
 		// if (obj_to_light.hit_info.distance * obj_to_light.hit_info.coef > 0)
 		if (obj_to_light.hit_info.distance  != -1)

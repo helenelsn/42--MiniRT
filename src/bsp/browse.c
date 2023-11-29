@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   browse.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:44:25 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/29 21:02:45 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/29 22:05:08 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,32 +114,38 @@ bool    intersect_sphere(t_ray *ray, void *object)
     ray->hit_info.hit_point.y = ray->origin.y + ray->direction.y * mult;
     ray->hit_info.hit_point.z = ray->origin.z + ray->direction.z * mult;
     ray->hit_info.coef = mult;
-    if (ray->hit_info.coef > 0.0)
-        ray->hit_info.distance = get_dist_between_points(ray->origin, ray->hit_info.hit_point) * (2 * (mult > 0.0) - 1);
+    if (ray->hit_info.coef > T_EPSILON)
+        ray->hit_info.distance = get_dist_between_points(ray->origin, ray->hit_info.hit_point);
     // ray->hit_info.distance = mult;
 
     //printf("------------- {%s}, ray{O(%f, %f, %f), D(%f, %f, %f)} intersected sphere{C(%f, %f, %f)}\n",
     //    __func__, ray->origin.x, ray->origin,y, ray->origin.z, ray->direction.x, ray->direction.y, ray->direction.z, sp->p.x, sp->p.y, sp->p.z);
-    return (ray->hit_info.coef > 0.0);
+    return (ray->hit_info.coef > T_EPSILON);
 }
 
 bool    intersect_plan(t_ray *ray, void *object)
 {
-    t_plan *p;
-    t_droite d;
-    t_point_3d    res;
+    t_plan      *p;
+    t_droite    d;
+    t_point_3d  res;
     
     
     p = object;
     d.p = ray->origin;
     d.v = ray->direction;
     ray->hit_info.coef = get_inter_for_plan(p, d, &res);
-    if (ray->hit_info.coef <= 0)
-        return false;
-
+    if (ray->hit_info.coef < 0.0)
+    {
+        return (false);
+    }
+        
+    
     ray->hit_info.hit_point = res;
     ray->hit_info.distance = get_dist_between_points(ray->origin, ray->hit_info.hit_point);
-    return (ray->hit_info.coef > 0.0);
+
+    // printf("---------------------- intersected plan\n");
+
+    return (true);
 }
 // bool intersect_cylinder(t_ray ray, void *object)
 // {

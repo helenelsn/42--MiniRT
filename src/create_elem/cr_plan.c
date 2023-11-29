@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cr_plan.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 01:26:34 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/29 20:22:23 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/29 22:07:50 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void set_eq(t_plan *p)
     p->a = p->vec.x;
     p->b = p->vec.y;
     p->c = p->vec.z;
-    p->d = - p->a * p->p.x - p->b * p->p.y - p->c *p->p.y;
+    p->d = - p->a * p->p.x - p->b * p->p.y - p->c *p->p.z;
     // printf("a = %f, b= %f, c= %f, d= %f\n", p->a, p->b, p->c, p->d);
 }
 

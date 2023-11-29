@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   foo.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/29 21:18:13 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/29 21:25:19 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void    	set_pixel_center(t_app *app, t_point_3d *pc, int x, int y);
 void    	copy_obj_properties(t_vlist *obj, t_hit_info *hinf, t_point_3d hp);
 bool    	intersect(t_vlist *obj, t_ray *ray);
 
-void	no_tree_intersections(t_vlist *objects, t_ray *ray);
+void		no_tree_intersections(t_parsing_data pdata, t_ray *ray);
 
 /*  --------- CAMERA ---------- */
 
