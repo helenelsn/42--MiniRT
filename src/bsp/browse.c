@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:44:25 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/29 18:46:58 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/29 19:04:55 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ bool    intersect_sphere(t_ray *ray, void *object)
     ray->hit_info.hit_point.z = ray->origin.z + ray->direction.z * mult;
     ray->hit_info.coef = mult;
     ray->hit_info.distance = get_dist_between_points(ray->origin, ray->hit_info.hit_point);
+    // ray->hit_info.distance = mult;
     return (ray->hit_info.coef > 0.0);
 }
 
@@ -148,7 +149,7 @@ bool    intersect(t_vlist *obj, t_ray *ray)
 
     // mettre a jour le point d intersection, ie ray.hit_inf.hit_point, ainsi 
     // que la distance origine du rayon-object, ie ray.hit_info.distance
-
+    ray->hit_info.distance = -1;
     if (obj->type == sphere)
         return (intersect_sphere(ray, obj->content));
     if (obj->type == plan)
@@ -466,10 +467,6 @@ typedef struct  s_stack_elem_a
 
 /* ok ou a réecrire ? */
 t_bsp_node    *position_camera_in_tree(t_bsp_node *root, t_camera cam)
-todel/lol.c
-➜  42-MiniRT git:(main) ✗ code .
-➜  42-MiniRT git:(main) ✗ 
-
 {
     t_bsp_node *curr;
 
