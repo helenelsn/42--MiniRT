@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bounding_volumes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 15:35:11 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/29 20:55:43 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/29 22:35:44 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void    set_sphere_bbox(t_vlist *object)
     bbox_reset(&object->material.bbox, point_addition(sphere->p, double_to_point(-(sphere->radius + T_INF))));
     bbox_add_point(&object->material.bbox, point_addition(sphere->p, double_to_point(sphere->radius + T_INF)));
 }
+
 
 void    set_cylinder_bbox(t_vlist *object)
 {

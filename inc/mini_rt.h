@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:13 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/29 22:01:50 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/29 23:34:23 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,6 @@
 
 # define T_INF      0.00001 //new
 
-# define T_EPSILON  0.001
+# define T_EPSILON  0.0
 
 #endif

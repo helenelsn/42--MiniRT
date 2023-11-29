@@ -9,3 +9,9 @@ que la sphere s'affiche plus vers la droite (devrait etre la gauche))
 - ln : faut encore que jmocuppe de mettre les plans dans une liste chainee
 
 - erreur de parsing quand a des lignes vides qui se baladent dans le .rt -> normal ?
+
+- une seul grande sphere fais la reflection quand y a le plan pourquewa?
+
+- est ce que la pitite couleur sphere a une influence sur la GRAAAAAAAnde?
+
+    -> probablement un parcour de la liste des objet

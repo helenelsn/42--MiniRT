@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
-/*   Updated: 2023/11/29 21:52:55 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/29 23:30:30 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,21 @@ void	no_tree_intersections(t_parsing_data pdata, t_ray *ray)
         return ;
     min_dist = INFINITY;
     
+	obj = pdata.objects;
+	while (obj)
+    {
+		set_color_in_mat(obj->content, &obj->material, obj->type);
+        if (intersect(obj, ray) && ray->hit_info.distance < min_dist)
+        {
+            min_dist = ray->hit_info.distance;
+            copy_obj_properties(obj, closest_obj, ray->hit_info.hit_point);
+		}
+        obj = obj->next;
+    }
+	
 	obj = pdata.planes;
+	
+	
 	while (obj)
     {
 		set_color_in_mat(obj->content, &obj->material, obj->type);
@@ -50,17 +64,7 @@ void	no_tree_intersections(t_parsing_data pdata, t_ray *ray)
         }
         obj = obj->next;
     }
-	obj = pdata.objects;
-    while (obj)
-    {
-		set_color_in_mat(obj->content, &obj->material, obj->type);
-        if (intersect(obj, ray) && ray->hit_info.distance < min_dist)
-        {
-            min_dist = ray->hit_info.distance;
-            copy_obj_properties(obj, closest_obj, ray->hit_info.hit_point);
-		}
-        obj = obj->next;
-    }
+    
 
 	// a modif : repetitif, moche
 	
@@ -93,16 +97,19 @@ int    trace_ray(t_app *app, t_point_3d ray_origin, t_vec_3d dir, int rebound_nb
 	no_tree_intersections(app->p_data, &ray);
 	
 	if (ray.hit_info.distance == -1) // le rayon n'intersecte aucun objet
-		return (BACKGROUND_COLOR); 
+	{
+		// printf("love\n");
+		return (BACKGROUND_COLOR); 	
+	}
 	// printf("{%s} : intersected an object\n", __func__);
 	
 	// a mettre directement dans test_intersections() ?
 	ray.hit_info.hit_p_normal = get_unit_normal(ray.hit_info, ray.hit_info.hit_point);
 
 	//???? c'est pas plutot "get_incident_ray_of_light(ray.direction, ray.hit_info.hit_p_normal)"" ?
-	//ray.hit_info.reflected_ray = get_directional_vect(ray.hit_info.hit_point, ray.origin); // essayer avec -ray.direction et voir si donne les memes resultats
+	ray.hit_info.reflected_ray = get_directional_vect(ray.hit_info.hit_point, ray.origin); // essayer avec -ray.direction et voir si donne les memes resultats
 	
-	ray.hit_info.reflected_ray = get_incident_ray_of_light(vect_double_multiply(-1, ray.direction), ray.hit_info.hit_p_normal); // ou juste ray.direction en premier argument ?
+	// ray.hit_info.reflected_ray = get_incident_ray_of_light(vect_double_multiply(-1, ray.direction), ray.hit_info.hit_p_normal); // ou juste ray.direction en premier argument ?
 	
 	local_color = ray.hit_info.obj_mat.color * compute_lighting(app, ray.hit_info.obj_mat.specular, ray);
 	// local_color = ray.hit_info.obj_mat.color;
@@ -145,6 +152,7 @@ int		get_final_pixel_color(t_app *app, int x, int y)
 	return (pixel_color / SAMPLES_PER_PIXEL); // ok ou va trop arrondir ?
 }
 
+
 void	img_pixel_put(t_image image, int x, int y, int color)
 {
 	char	*pixel;
@@ -175,17 +183,21 @@ void    draw_scene(t_app *app)
 	x = 0;
 	y = 0;
 	// definir l'image
-	while (y < IMAGE_HEIGHT)
+	while (y < IMAGE_HEIGHT -1)
 	{
 		x = 0;
-		while (x < IMAGE_WIDTH)
+		while (x < IMAGE_WIDTH -1)
 		{
-			img_pixel_put(app->mlx_data.image, x, y, get_final_pixel_color(app, x, y));
-			x++;
+			int color =  get_final_pixel_color(app, x, y);
+			img_pixel_put(app->mlx_data.image, x, y, color);
+			img_pixel_put(app->mlx_data.image, x+1, y, color);
+			img_pixel_put(app->mlx_data.image, x, y+1, color);
+			img_pixel_put(app->mlx_data.image, x+1, y+1, color);
+			x+=2;
 		}
 		// if (!(y % 100))
 		// 	printf("endoffirstx, %d\n", y);
-		y++;
+		y +=2;
 	}
 	
 //	mlx_put_image_to_window(app->mlx_data.mlx_ptr, app->mlx_data.image.img, 0, 0);

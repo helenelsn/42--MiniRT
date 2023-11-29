@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:15:45 by hlesny            #+#    #+#             */
-/*   Updated: 2023/11/29 21:25:38 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/29 23:34:29 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "../../inc/mini_rt.h"
 
 /* ------------- LIGHT -------------- */
+
 
 /* matte objects */
 double	diffuse_reflection(t_app *app, t_ray ray)
@@ -119,8 +120,8 @@ double 	compute_lighting(t_app *app, float specular, t_ray ray)
 
 	intensity = app->p_data.mooooo->infos.ratio;
 	intensity += diffuse_reflection(app, ray);
-	if (specular != -1)
-		intensity += specular_reflection(app, specular, ray);
+	// if (specular != -1)
+	// 	intensity += specular_reflection(app, specular, ray);
 	// printf("{%s}, intensity = %");
 	return (intensity);
 }
