@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:23 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/08 22:55:48 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/28 20:56:50 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,8 @@ void parse_and_create(int fd, t_vlist **garbage, t_parsing_data *data)
         line = get_next_line(fd);
         // printf("%s", line);
     }
+    if (!data->cam || !data->lights)
+        parse_error_occured(file, garbage, fd);
     close(fd);
     // ft_vlstclear(garbage);
 }

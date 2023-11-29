@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trace_ray.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
-/*   Updated: 2023/11/29 18:36:57 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/29 19:05:46 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ int    trace_ray(t_app *app, t_point_3d ray_origin, t_vec_3d dir, int rebound_nb
 	ft_memset(&ray, 0, sizeof(t_ray)); // verifier que ca ecrase pas de la data que veut garder (jpense pas)
 	set_ray_infos(&ray, dir, ray_origin);
 	
-	ray_traversal_algo(&app->root, &ray);
-	//no_tree_intersections(app->p_data.objects, &ray);
+	//ray_traversal_algo(&app->root, &ray);
+	no_tree_intersections(app->p_data.objects, &ray);
 	if (ray.hit_info.distance == -1) // le rayon n'intersecte aucun objet
 		return (BACKGROUND_COLOR); 
 	// printf("{%s} : intersected an object\n", __func__);
@@ -158,6 +158,8 @@ void    draw_scene(t_app *app)
 			img_pixel_put(app->mlx_data.image, x, y, get_final_pixel_color(app, x, y));
 			x++;
 		}
+		// if (!(y % 100))
+		// 	printf("endoffirstx, %d\n", y);
 		y++;
 	}
 	

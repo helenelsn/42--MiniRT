@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_press.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 13:40:29 by hlesny            #+#    #+#             */
-/*   Updated: 2023/11/28 13:41:58 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/28 20:04:49 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,15 @@ int	key_press(int keycode, t_app *app)
 {
 	if (keycode == KEY_ESC)
 	{
-		if (!mlx_loop_end(app->mlx_data.mlx_ptr))
-		{
-			write(2, "Error when closing window\n", 26);
+		if (close_mlx(app))
 			return (EXIT_MLX_FAILURE);
-		}
-		return (0);
+			
+		// if (!mlx_loop_end(app->mlx_data.mlx_ptr))
+		// {
+		// 	write(2, "Error when closing window\n", 26);
+		// 	return (EXIT_MLX_FAILURE);
+		// }
+		return (EXIT_SUCCESS);
 	}
     
     (void)app;

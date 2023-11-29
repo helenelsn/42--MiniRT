@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_bsp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:44:16 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/28 13:15:40 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/28 19:47:14 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,13 +120,13 @@ void    set_root_voxel(t_bsp_node *root, t_vlist *objects)
     /* root->items = malloc(sizeof(t_vlist));
     if (!root->items)
         return  */;
-    curr = objects;
-    root->items = objects; /* set la liste d'objets */
-    while (curr)
-    {
-        root->items_count++;
-        curr = curr->next;
-    }
+    // curr = objects;
+    // root->items = objects; /* set la liste d'objets */
+    // while (curr)
+    // {
+    //     root->items_count++;
+    //     curr = curr->next;
+    // }
     root->type = node;
     root->depth = 0;
     root->left = NULL;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   foo.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/29 17:54:20 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/29 18:47:25 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ bool					ft_strisequal(char *s1, char *s2);
 double					ft_atof(char *nptr);
 
 
-
+void	add_hooks(t_app *app);
 t_camera *create_camera(char **tab, t_vlist **garbage, t_parsing_data *data);
 t_cylindre *create_cylindre(char **tab, t_vlist **garbage, t_parsing_data *data);
 t_light *create_light(char **tab, t_vlist **garbage, t_parsing_data *data);
@@ -65,7 +65,7 @@ double get_v_norm(t_vec_3d v);
 
 t_vlist    	*get_inter(t_vlist *elem, t_droite d);
 void    	get_inter_for_sphere(t_sphere *elem, t_droite d);
-bool    	get_inter_for_plan(t_plan *p, t_droite d, t_point_3d *res);
+int    	get_inter_for_plan(t_plan *p, t_droite d, t_point_3d *res);
 
 /* -------------------- VEC POINT UTILS ------------------- */
 

@@ -15,6 +15,9 @@ FILES = \
 		create_elem/cr_mood_light \
 		create_elem/cr_plan \
 		create_elem/cr_sphere \
+		dist/dist_droite \
+		dist/dist_points \
+		dist/dist_point_droite \
 		garbage_collector/ft_lstnew \
 		garbage_collector/ft_lstadd_front \
 		garbage_collector/ft_lstsize \
@@ -93,6 +96,7 @@ ${OBJS_DIR}/%.o: ${SRCS_DIR}/%.c
 	@mkdir -p $(OBJS_DIR)/bsp
 	@mkdir -p $(OBJS_DIR)/camera
 	@mkdir -p $(OBJS_DIR)/create_elem
+	@mkdir -p $(OBJS_DIR)/dist
 	@mkdir -p $(OBJS_DIR)/trace_rays
 	@mkdir -p $(OBJS_DIR)/garbage_collector
 	@mkdir -p $(OBJS_DIR)/intersection
