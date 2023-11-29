@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/29 19:05:28 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/29 19:48:50 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -352,8 +352,8 @@ typedef struct s_parsing_data
 typedef struct s_app
 {
     t_parsing_data  p_data;
-    //t_frame         frame;
     t_viewport      frame;
+    double          aspect_ratio;
     t_vlist         *garbage;
     t_vlist         *planes;
     t_bsp_node      root;

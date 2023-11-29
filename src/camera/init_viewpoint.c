@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 20:04:36 by hlesny            #+#    #+#             */
-/*   Updated: 2023/11/29 18:27:09 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/29 19:51:35 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,16 @@ double  deg_to_rad(double degrees)
 }
 
 //tocheck
-//tomodif : creer les singletons a la place des globales
 void 	set_viewpoint_dimensions(t_app *app)
 {
-    app->frame.width = FOCUS_DIST * tan(deg_to_rad(app->p_data.cam->fov) * 0.5f) * 2; /* Width */
-    app->frame.height = app->frame.width * ASPECT_RATIO; /* Height */
+    // TODOOOOOO
+    // Calculate the image height, and ensure that it's at least 1.
+    //int image_height = static_cast<int>(image_width / aspect_ratio);
+    //image_height = (image_height < 1) ? 1 : image_height;
 
-    // set the viewpoint's height and width singletons 
+    
+    app->frame.width = FOCUS_DIST * tan(deg_to_rad(app->p_data.cam->fov) * 0.5f) * 2; /* Width */
+    app->frame.height = app->frame.width * app->aspect_ratio; /* Height */
 }
 
 /*  Definit le referentiel de la camera (origine et base vectorielle)

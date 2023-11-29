@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 02:23:05 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/28 19:41:21 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/29 19:53:51 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ void	set_img(t_app *app)
 	// t_img	*save_img;
 
 	y = 0;
-	while (y < WINDOWS_HEIGHT)
+	while (y < IMAGE_HEIGHT)
 	{
 		x = 0;
-		while (x < WINDOWS_WIDHT)
+		while (x < IMAGE_WIDTH)
 		{
 			my_mlx_pixel_put(&(app->mlx_data.image), x, y, x + y);
 			x++;
@@ -51,7 +51,7 @@ void	set_img(t_app *app)
 // 	if (!app->mlx_data.mlx_ptr)
 // 		return;
 // 		// return (EXIT_MLX_FAILURE);
-// 	app->mlx_data.win_ptr = mlx_new_window(app->mlx_data.mlx_ptr, WINDOWS_WIDHT, WINDOWS_HEIGHT,
+// 	app->mlx_data.win_ptr = mlx_new_window(app->mlx_data.mlx_ptr, IMAGE_WIDTH, IMAGE_HEIGHT,
 // 			"mimi-rt");
 // 	if (!app->mlx_data.win_ptr)
 // 	{

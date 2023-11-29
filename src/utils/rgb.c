@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 00:08:53 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/29 17:54:26 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/29 20:06:46 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ unsigned int	create_rgb(unsigned char r, unsigned char g, unsigned char b)
 {
 	t_color	c;
 
-	printf("in %s, r = %d, g = %d, b = %d\n", __func__, r, g, b);
+	// printf("in %s, r = %d, g = %d, b = %d\n", __func__, r, g, b);
 
 	c = (t_color){
 		.r = r, .b = b, .g = g};

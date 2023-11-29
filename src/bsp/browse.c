@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   browse.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:44:25 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/29 19:04:55 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/29 19:48:10 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,11 @@ bool    intersect_scene(t_bbox_description scene, t_ray ray, float *a, float *b)
     *a = tmin;
     *b = tmax;
     
-    return tmin <= tmax;
+    //if (tmin <= tmax)
+    //    printf("------------- {%s}, ray{O(%f, %f, %f), D(%f, %f, %f)} intersects scene\n",
+    //    __func__, ray.origin.x, ray.origin,y, ray.origin.z, ray.direction.x, ray.direction.y, ray.direction.z);
+
+    return (tmin <= tmax);
 }
 
 /* --------------- intersections ----------------- */
@@ -110,8 +114,11 @@ bool    intersect_sphere(t_ray *ray, void *object)
     ray->hit_info.hit_point.y = ray->origin.y + ray->direction.y * mult;
     ray->hit_info.hit_point.z = ray->origin.z + ray->direction.z * mult;
     ray->hit_info.coef = mult;
-    ray->hit_info.distance = get_dist_between_points(ray->origin, ray->hit_info.hit_point);
+    ray->hit_info.distance = get_dist_between_points(ray->origin, ray->hit_info.hit_point) * (2 * (mult > 0.0) - 1);
     // ray->hit_info.distance = mult;
+
+    //printf("------------- {%s}, ray{O(%f, %f, %f), D(%f, %f, %f)} intersected sphere{C(%f, %f, %f)}\n",
+    //    __func__, ray->origin.x, ray->origin,y, ray->origin.z, ray->direction.x, ray->direction.y, ray->direction.z, sp->p.x, sp->p.y, sp->p.z);
     return (ray->hit_info.coef > 0.0);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   foo.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/29 18:47:25 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/29 20:00:29 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,9 @@ void    	draw_scene(t_app *app);
 double 		compute_lighting(t_app *app, float specular, t_ray ray);
 t_vec_3d	get_incident_ray_of_light(t_vec_3d l, t_vec_3d n);
 
+
 /*  ------- CHGT COORD, ANTI ALIASING ---------- */
+
 t_vec_3d	pixel_sample(t_app *app, int x, int y);
 void    	set_pixel_center(t_app *app, t_point_3d *pc, int x, int y);
 
@@ -106,6 +108,8 @@ void    	set_pixel_center(t_app *app, t_point_3d *pc, int x, int y);
 
 void    	copy_obj_properties(t_vlist *obj, t_hit_info *hinf, t_point_3d hp);
 bool    	intersect(t_vlist *obj, t_ray *ray);
+
+void	no_tree_intersections(t_vlist *objects, t_ray *ray);
 
 /*  --------- CAMERA ---------- */
 

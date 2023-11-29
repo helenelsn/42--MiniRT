@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:15:45 by hlesny            #+#    #+#             */
-/*   Updated: 2023/11/28 18:16:07 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/29 19:59:43 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@
 /* ------------- LIGHT -------------- */
 
 /* matte objects */
-double	diffuse_reflection(t_bsp_node *root, t_light *lights, t_ray ray)
+double	diffuse_reflection(t_app *app, t_ray ray)
 {
 	double 		intensity;
 	double		n_dot_l;
 	t_ray		obj_to_light; 
 	t_light 	*curr;
 
-	curr = lights;
+	curr = app->p_data.lights;
 	intensity = 0;
 	obj_to_light.origin = ray.hit_info.hit_point;
 	while (curr)
@@ -31,7 +31,8 @@ double	diffuse_reflection(t_bsp_node *root, t_light *lights, t_ray ray)
 		obj_to_light.direction = get_directional_vect(ray.hit_info.hit_point, curr->p);  // light_direction, aka L
 		
 		// détermine si l'objet est éclairé par la source lumineuse
-		ray_traversal_algo(root, &obj_to_light); // mettre &obj_to_light je penseeee
+		//ray_traversal_algo(&app->root, &obj_to_light); // mettre &obj_to_light je penseeee
+		no_tree_intersections(app->p_data.objects, &obj_to_light);
 		
 		if (obj_to_light.hit_info.distance != -1) // set a -1 si le rayon n'intersecte pas d'objets
 		{
@@ -61,7 +62,7 @@ We’ll note this in the scene by setting their specular exponent to −1
 and handling them accordingly.
 
 */
-double 	specular_reflection(t_bsp_node *root, t_light *lights, double s_term, t_ray ray)
+double 	specular_reflection(t_app *app, double s_term, t_ray ray)
 {
 	double 		intensity;
 	t_vec_3d	r;
@@ -69,7 +70,7 @@ double 	specular_reflection(t_bsp_node *root, t_light *lights, double s_term, t_
 	t_light 	*curr;
 	t_ray 		obj_to_light;
 
-	curr = lights;
+	curr = app->p_data.lights;
 	intensity = 0;
 	obj_to_light.origin = ray.hit_info.hit_point;
 	while (curr)
@@ -77,8 +78,9 @@ double 	specular_reflection(t_bsp_node *root, t_light *lights, double s_term, t_
 		obj_to_light.direction = get_directional_vect(ray.hit_info.hit_point, curr->p); // light_direction, aka L
 		
 		// détermine si l'objet est éclairé par la source lumineuse
-		ray_traversal_algo(root, &obj_to_light); // mettre &obj_to_light je penseeee
-		
+		//ray_traversal_algo(&app->root, &obj_to_light); // mettre &obj_to_light je penseeee
+		no_tree_intersections(app->p_data.objects, &obj_to_light);
+
 		if (obj_to_light.hit_info.distance != -1)
 		{
 			r = get_incident_ray_of_light(obj_to_light.direction, ray.hit_info.hit_p_normal);
@@ -115,9 +117,9 @@ double 	compute_lighting(t_app *app, float specular, t_ray ray)
 	double		intensity;
 
 	intensity = app->p_data.mooooo->infos.ratio;
-	intensity += diffuse_reflection(&app->root, app->p_data.lights, ray);
+	intensity += diffuse_reflection(app, ray);
 	if (specular != -1)
-		intensity += specular_reflection(&app->root, app->p_data.lights, specular, ray);
+		intensity += specular_reflection(app, specular, ray);
 	return (intensity);
 }
 

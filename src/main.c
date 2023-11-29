@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:20 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/29 18:49:44 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/29 20:04:36 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ static int  initialise_mlx_data(t_app *app)
     app->mlx_data.mlx_ptr = mlx_init();
     if (!app->mlx_data.mlx_ptr)
         return (EXIT_MLX_FAILURE);
-    app->mlx_data.win_ptr = mlx_new_window(app->mlx_data.mlx_ptr, WINDOWS_WIDHT, WINDOWS_HEIGHT, "miniRT");
+    app->mlx_data.win_ptr = mlx_new_window(app->mlx_data.mlx_ptr, IMAGE_WIDTH, IMAGE_HEIGHT, "miniRT");
     // if (!app->mlx_data.win_ptr)
     // {
     //     mlx_destroy_display(app->mlx_data.mlx_ptr);
     //     free(app->mlx_data.mlx_ptr);
     //     return (EXIT_MLX_FAILURE);
     // }
-    app->mlx_data.image.img = mlx_new_image(app->mlx_data.mlx_ptr, WINDOWS_WIDHT, WINDOWS_HEIGHT);
+    app->mlx_data.image.img = mlx_new_image(app->mlx_data.mlx_ptr, IMAGE_WIDTH, IMAGE_HEIGHT);
     app->mlx_data.image.addr = mlx_get_data_addr(app->mlx_data.image.img, &(app->mlx_data.image.bpp), 
                         &(app->mlx_data.image.line_length), &(app->mlx_data.image.endian));
     return (0);
@@ -41,14 +41,13 @@ static int  minirt_get_started(t_app *app)
         return (EXIT_MLX_FAILURE);
     }
     
-    build_kd_tree(&app->root, app->p_data.objects);
+    build_kd_tree(&app->root, app->p_data.objects); // prendre la valeur de retour (si un malloc foire et que doit return ici)
+    app->aspect_ratio =IMAGE_HEIGHT / IMAGE_WIDTH ;
     init_viewpoint(app);
     draw_scene(app);
     
-    printf("lol0\n");
     mlx_put_image_to_window(app->mlx_data.mlx_ptr, app->mlx_data.win_ptr,
         app->mlx_data.image.img, 0, 0); // 2 derniers a verif
-    printf("lol");
     // set_img(app);
 
         

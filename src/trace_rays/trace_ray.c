@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trace_ray.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
-/*   Updated: 2023/11/29 19:05:46 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/29 19:53:51 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ void	img_pixel_put(t_image image, int x, int y, int color)
 	int		i;
 
     
-	if (x < 0 || y < 0 || y > WINDOWS_HEIGHT || x > WINDOWS_WIDHT)
+	if (x < 0 || y < 0 || y > IMAGE_HEIGHT || x > IMAGE_WIDTH)
 		return ;
 	i = image.bpp - 8;
 	pixel = image.addr + (y * image.line_length) + (x
@@ -150,10 +150,10 @@ void    draw_scene(t_app *app)
 	x = 0;
 	y = 0;
 	// definir l'image
-	while (y < WINDOWS_HEIGHT)
+	while (y < IMAGE_HEIGHT)
 	{
 		x = 0;
-		while (x < WINDOWS_WIDHT)
+		while (x < IMAGE_WIDTH)
 		{
 			img_pixel_put(app->mlx_data.image, x, y, get_final_pixel_color(app, x, y));
 			x++;
