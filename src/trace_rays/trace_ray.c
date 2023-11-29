@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trace_ray.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
-/*   Updated: 2023/11/28 19:16:13 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/28 21:57:04 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,19 @@ int    trace_ray(t_app *app, t_point_3d ray_origin, t_vec_3d dir, int rebound_nb
 
 int		get_final_pixel_color(t_app *app, int x, int y)
 {
+	// return (x+y);
 	int sampling_count;
-	int	pixel_color;
+	int	pixel_color = 0;
 
 	sampling_count = 0;
 	double defocus_angle = 0; // pour sample SAMPLES_PER_PIXEL pixels et avoir une impression plus homogene
 	// implementer les fonctions pour generer des samples de pixels dans [pixel - epsilon, pixel + epsilon]
 
 	t_point_3d	viewp = pixel_to_viewpoint_coord(x, y);
+	// t_point_3d test = {0, 0, 0};
+	// while (sampling_count < SAMPLES_PER_PIXEL)
+	// pixel_color += trace_ray(app, app->p_data.cam->p, get_directional_vect(app->p_data.cam->p, viewp), 0);
+	// return pixel_color;
 	while (sampling_count < SAMPLES_PER_PIXEL)
 	{
 		
@@ -116,6 +121,10 @@ void    draw_scene(t_app *app)
 			img_pixel_put(app->mlx_data.image, x, y, get_final_pixel_color(app, x, y));
 			x++;
 		}
+		// if (!(y % 100))
+		// 	printf("endoffirstx, %d\n", y);
 		y++;
 	}
+	
+	printf("end\n");
 }

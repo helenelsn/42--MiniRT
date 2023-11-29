@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   close.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 02:23:51 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/24 14:28:37 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/28 20:21:05 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,14 @@ int close_mlx(void *arg)
 	{
 		write(2, "Error when closing window\n", 26);
 		mlx_destroy_window(app->mlx_data.mlx_ptr, app->mlx_data.win_ptr);
-		return 0;
+		return EXIT_FAILURE;
 		// return (0);
 	}
-	// mlx_destroy_image(app->mlx_data.mlx_ptr, app->mlx_data.img->img);
-	// mlx_destroy_image(app->mlx_data.mlx_ptr, app->mlx_data.back_img->img);
+	mlx_destroy_image(app->mlx_data.mlx_ptr, app->mlx_data.image.img);
 	mlx_destroy_window(app->mlx_data.mlx_ptr, app->mlx_data.win_ptr);
-	mlx_destroy_display(app->mlx_data.mlx_ptr);
+	// mlx_destroy_display(app->mlx_data.mlx_ptr); ->todo
+	// exit(0);
+	// printf("end of close mlx\n");
 	return 0;
 	// free(app->mlx_ptr);
 	// exit(0);

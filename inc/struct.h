@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/28 16:36:07 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/28 22:16:06 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ typedef struct	s_hit_info
 	t_vec_3d				hit_p_normal;
 	t_vec_3d				reflected_ray; // V : vector from P (hit point) to camera
 	double					distance; // ray_origin - object distance. set a -1 si le rayon n intersecte pas d objects
+    double                  coef
 }				t_hit_info;
 
 typedef struct	s_ray

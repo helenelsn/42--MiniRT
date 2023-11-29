@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:44:25 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/28 02:54:48 by srapin           ###   ########.fr       */
+/*   Updated: 2023/11/28 23:02:49 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ bool    intersect_sphere(t_ray *ray, void *object)
     t_sphere    *sp;
     t_quadratic eq;
     t_vec_3d    center_to_origin;
+    double      mult;
 
     sp = object;
     center_to_origin = get_directional_vect(sp->p, ray->origin);
@@ -104,8 +105,13 @@ bool    intersect_sphere(t_ray *ray, void *object)
     eq.c = vec_x_vec_scal(center_to_origin, center_to_origin) - sp->radius * sp->radius;
     if (!solve_quadratic_eq(&eq))
         return (false);
-    ray->hit_info.distance = get_closest_point(eq.t_1, eq.t_2);
-    return (ray->hit_info.distance > 0.0);
+    mult = get_closest_point(eq.t_1, eq.t_2);
+    ray->hit_info.hit_point.x = ray->origin.x + ray->direction.x * mult;
+    ray->hit_info.hit_point.y = ray->origin.y + ray->direction.y * mult;
+    ray->hit_info.hit_point.z = ray->origin.z + ray->direction.z * mult;
+    ray->hit_info.coef = mult;
+    ray->hit_info.distance = get_dist_between_points(ray->origin, ray->hit_info.hit_point);
+    return (ray->hit_info.coef > 0.0);
 }
 
 bool    intersect_plan(t_ray *ray, void *object)
@@ -118,13 +124,14 @@ bool    intersect_plan(t_ray *ray, void *object)
     p = object;
     d.p = ray->origin;
     d.v = ray->direction;
-    if (!get_inter_for_plan(p, d, &res))
+    ray->hit_info.coef = get_inter_for_plan(p, d, &res);
+    if (ray->hit_info.coef <= 0)
         return false;
 
     ray->hit_info.hit_point = res;
-        
+    ray->hit_info.distance = get_dist_between_points(ray->origin, ray->hit_info.hit_point);
+    return (ray->hit_info.coef > 0.0);
 }
-
 // bool intersect_cylinder(t_ray ray, void *object)
 // {
     

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_rt.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:13 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/28 18:31:10 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/28 21:53:34 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@
 # define SCREEN_HEIGHT      800.0
 # define ASPECT_RATIO  	    16/9
 
-# define SAMPLES_PER_PIXEL  10 // Count of random samples for each pixel
+# define SAMPLES_PER_PIXEL  5 // Count of random samples for each pixel
 # define FOCUS_DIST		    1 //  // Distance camera - plan de projection
 
 # define DEG_TO_RAD 	    180/M_PI 
