@@ -46,11 +46,12 @@ FILES = \
 		utils_vec_et_droite/vec_operations \
 		main \
 		parse \
-		trace_rays/trace_ray \
+		trace_rays/color \
 		trace_rays/light \
 		trace_rays/normals \
 		trace_rays/point_sampling \
 		trace_rays/screen_scene_utils \
+		trace_rays/trace_ray \
 		camera/init_viewpoint \
 		trace_rays/intervals_utils 
 # Resolving

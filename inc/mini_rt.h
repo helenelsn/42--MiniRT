@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:13 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/29 23:34:23 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/01 01:16:41 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,11 @@
 # define IMAGE_HEIGHT      800.0
 
 # define SAMPLES_PER_PIXEL  1 // Count of random samples for each pixel
-# define FOCUS_DIST		    10 // arbitraire : tester les rendus avec differentes valeurs // Distance camera - plan de projection
+# define FOCUS_DIST		    1 // arbitraire : tester les rendus avec differentes valeurs // Distance camera - plan de projection
+# define HITPOINT_OFFSET    1e-3 // tester diff valeurs
 
 # define DEG_TO_RAD 	    M_PI/180.0
 
-# define BACKGROUND_COLOR   0xffffff
-
 # define T_INF      0.00001 //new
-
-# define T_EPSILON  0.0
 
 #endif

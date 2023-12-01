@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/29 21:17:10 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/01 01:13:16 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,18 @@ typedef struct s_quadratic
 
 /* ------------ MATERIALS SHARED PROPERTIES, OBJECTS STRUCTURE ------------- */
 
+typedef union           u_color
+{
+    int                 hex;
+    struct
+    {
+        unsigned char   b;
+        unsigned char   g;
+        unsigned char   r;
+        unsigned char   t;
+    };
+}                       t_color;
+
 /* bounding volume */
 typedef struct  s_bbox_description
 {
@@ -98,10 +110,10 @@ typedef struct  s_bbox_description
 
 typedef struct  s_raytracing_material
 {
-     int       color;
-    int                 specular; /* todo + tard init a -1.  -1 si matte */
+    t_color             color;
+    int                 specular; /* todo + tard init a -1.  -1 si matte */ // coefficient speculaire, dans le cas d'objects reflechissants
     double              reflective; /* todo + tard : init a 0. in [0, 1] */                 
-    t_bbox_description  bbox; /* tout à 0 ou -1 si s'agit d'une source lumineuse ? */
+    t_bbox_description  bbox;
 }               t_raytracing_material;
 
 typedef struct s_vlist
@@ -119,6 +131,12 @@ typedef struct s_vlist
 
 # define RECURS_LIMIT	3
 
+typedef struct  s_interval
+{
+    double  min;
+    double  max;
+}               t_interval;
+
 typedef struct	s_hit_info
 {
 	// autre chose ?
@@ -126,7 +144,7 @@ typedef struct	s_hit_info
 	t_raytracing_material	obj_mat;
     void                    *obj_content;
 	t_point_3d				hit_point;
-	t_vec_3d				hit_p_normal;
+	t_vec_3d				outward_normal;
 	t_vec_3d				reflected_ray; // V : vector from P (hit point) to camera
 	double					distance; // ray_origin - object distance. set a -1 si le rayon n intersecte pas d objects
     double                  coef;
@@ -150,8 +168,8 @@ typedef struct	s_ray
     This means we won’t have any “overexposed” spots. */
 typedef struct  s_light_infos
 {   
-    double  ratio;
-     int     color;
+    double      ratio;
+    t_color     color;
 }               t_light_info;
 
 typedef struct s_mood_light
@@ -178,7 +196,7 @@ typedef struct s_sphere
 {
     t_point_3d  p;
     double      radius;
-     int   color;
+    t_color   color;
 }   t_sphere;
 
 typedef struct s_plan
@@ -191,7 +209,7 @@ typedef struct s_plan
     double      c;
     double      d;
     
-     int   color;
+    t_color   color;
 }   t_plan;
 
 typedef struct s_cylindre
@@ -200,7 +218,7 @@ typedef struct s_cylindre
     t_vec_3d    vec;
     double      radius;
     double      height;
-     int   color;
+    t_color   color;
     
 }   t_cylindre;
 
@@ -354,22 +372,12 @@ typedef struct s_app
     t_parsing_data  p_data;
     t_viewport      frame;
     double          aspect_ratio;
+    t_color         background;
     t_vlist         *garbage;
     t_vlist         *planes;
     t_bsp_node      root;
     t_mlx_data      mlx_data;
 } t_app;
 
-typedef union u_color
-{
-        int                           hex;
-        struct
-        {
-                unsigned char   b;
-                unsigned char   g;
-                unsigned char   r;
-                unsigned char   t;
-        };
-}                                               t_color;
 
 #endif

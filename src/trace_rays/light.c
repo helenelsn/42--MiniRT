@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:15:45 by hlesny            #+#    #+#             */
-/*   Updated: 2023/11/29 23:34:29 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/30 23:01:02 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,40 +15,17 @@
 
 /* ------------- LIGHT -------------- */
 
-
-/* matte objects */
-double	diffuse_reflection(t_app *app, t_ray ray)
+t_vec_3d	reflect_ray(t_vec_3d v, t_vec_3d n)
 {
-	double 		intensity;
-	double		n_dot_l;
-	t_ray		obj_to_light; 
-	t_light 	*curr;
-
-	curr = app->p_data.lights;
-	intensity = 0;
-	obj_to_light.origin = ray.hit_info.hit_point;
-	while (curr)
-	{
-		obj_to_light.direction = get_directional_vect(ray.hit_info.hit_point, curr->p);  // light_direction, aka L
-		
-		// détermine si l'objet est éclairé par la source lumineuse
-		//ray_traversal_algo(&app->root, &obj_to_light); // mettre &obj_to_light je penseeee
-		no_tree_intersections(app->p_data, &obj_to_light);
-		
-		if (obj_to_light.hit_info.distance != -1) // set a -1 si le rayon n'intersecte pas d'objets
-		{
-			n_dot_l = vec_x_vec_scal(ray.hit_info.hit_p_normal, obj_to_light.direction);
-			if (n_dot_l > 0)
-				intensity += curr->infos.ratio * n_dot_l/(ray.hit_info.hit_p_normal.norm * obj_to_light.direction.norm);
-		}
-		curr = curr->next;
-	}
-	return (intensity);
+	return (vect_substract(v, vect_double_multiply(2 * vec_x_vec_scal(v, n), n)));
 }
 
 t_vec_3d get_incident_ray_of_light(t_vec_3d l, t_vec_3d n)
 {
-	return (vect_substract(vect_double_multiply(2, vect_double_multiply(vec_x_vec_scal(n, l), n)), l));
+	// R⃗ =2N⃗ ⟨N⃗ ,L⃗ ⟩−L⃗
+	
+	return (vect_substract(vect_double_multiply(2 * vec_x_vec_scal(n, l), n), l));
+	// return (vect_substract(vect_double_multiply(2, vect_double_multiply(vec_x_vec_scal(n, l), n)), l));
 }
 
 /* shiny objects 
@@ -67,6 +44,7 @@ double 	specular_reflection(t_app *app, double s_term, t_ray ray)
 {
 	double 		intensity;
 	t_vec_3d	r;
+	double 		obj_to_light_dist;
 	//t_hit_info	closest_hit; // savoir si le rayon de direction objet->lumiere intersecte un autre objet 
 	t_light 	*curr;
 	t_ray 		obj_to_light;
@@ -77,15 +55,17 @@ double 	specular_reflection(t_app *app, double s_term, t_ray ray)
 	while (curr)
 	{
 		obj_to_light.direction = get_directional_vect(ray.hit_info.hit_point, curr->p); // light_direction, aka L
+		obj_to_light_dist = obj_to_light.direction.norm;
+		normalise(&obj_to_light.direction);
 		
-		// détermine si l'objet est éclairé par la source lumineuse
+		
 		//ray_traversal_algo(&app->root, &obj_to_light); // mettre &obj_to_light je penseeee
-		no_tree_intersections(app->p_data, &obj_to_light);
+		no_tree_intersections(app->p_data, &obj_to_light, get_interval(HITPOINT_OFFSET, obj_to_light_dist));
 
-		// if (obj_to_light.hit_info.distance * obj_to_light.hit_info.coef > 0)
-		if (obj_to_light.hit_info.distance  != -1)
+		// détermine si l'objet est éclairé par la source lumineuse
+		if (obj_to_light.hit_info.distance == -1)
 		{
-			r = get_incident_ray_of_light(obj_to_light.direction, ray.hit_info.hit_p_normal);
+			r = get_incident_ray_of_light(obj_to_light.direction, ray.hit_info.outward_normal);
 			if (vec_x_vec_scal(r, ray.hit_info.reflected_ray) > 0)
 			{
 				intensity += curr->infos.ratio * pow((vec_x_vec_scal(r, ray.hit_info.reflected_ray) 
@@ -97,23 +77,40 @@ double 	specular_reflection(t_app *app, double s_term, t_ray ray)
 	return (intensity);
 }
 
-/* 
-N  is the normal of the surface at P, V is the vector from P to the camera,
-s is the specular exponent of the surface, Ii is the intensity of light i,
-Li is the vector from P to light i,
-and Ri is the reflection vector at P for light i.
 
-p = point d'intersection rayon lumineux - object
-origin = point de départ du rayon (avant les rebonds, la premiere origine est la camera)
+/* matte objects */
+double	diffuse_reflection(t_app *app, t_ray ray)
+{
+	double 		intensity;
+	double		n_dot_l;
+	double 		obj_to_light_dist;
+	t_ray		obj_to_light; 
+	t_light 	*curr;
 
-Shadows : If there’s an object between the point and the light,
-don’t add the illumination coming from this light
+	curr = app->p_data.lights;
+	intensity = 0;
+	obj_to_light.origin = ray.hit_info.hit_point;
+	while (curr)
+	{
+		obj_to_light.direction = get_directional_vect(ray.hit_info.hit_point, curr->p);  // light_direction, aka L
+		obj_to_light_dist = obj_to_light.direction.norm;
+		normalise(&obj_to_light.direction);
+		
+		// détermine si l'objet est éclairé par la source lumineuse
+		//ray_traversal_algo(&app->root, &obj_to_light);
+		no_tree_intersections(app->p_data, &obj_to_light, get_interval(HITPOINT_OFFSET, obj_to_light_dist));
+		
+		if (obj_to_light.hit_info.distance == -1) // set a -1 si le rayon n'intersecte pas d'objets
+		{
+			n_dot_l = vec_x_vec_scal(ray.hit_info.outward_normal, obj_to_light.direction);
+			if (n_dot_l > 0.0)
+				intensity += curr->infos.ratio * n_dot_l/(ray.hit_info.outward_normal.norm * obj_to_light.direction.norm);
+		}
+		curr = curr->next;
+	}
+	return (intensity);
+}
 
-*/
-/* compute the received light (diffuse + specular + mood light) 
-	-> use the total light intensity's computing formula */
-
-// ray est le rayon incident a l objet dont on veut calculer l'illumination
 double 	compute_lighting(t_app *app, float specular, t_ray ray) 
 {
 	double		intensity;

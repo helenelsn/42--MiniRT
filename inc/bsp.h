@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:46:51 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/24 18:43:33 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/30 23:28:03 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ double              ft_max_double(double a, double b);
 
 /* ----------------- ray traversing algorithm ------------------ */
 
-void                ray_traversal_algo(t_bsp_node *root, t_ray *ray);
+void                ray_traversal_algo(t_app *app, t_ray *ray);
 t_bsp_node	        *place_ray_origin_in_tree(t_app app, t_ray ray); // utile ?
 t_bsp_node          *position_camera_in_tree(t_bsp_node *root, t_camera cam); // utile ?
 

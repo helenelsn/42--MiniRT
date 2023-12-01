@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:44:25 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/29 23:06:43 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/01 00:06:17 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,11 +202,13 @@ void    copy_obj_properties(t_vlist *obj, t_hit_info *hinf, t_point_3d hp)
     hinf->hit_point = hp;
 }
 
+
+
 /* intersect ray with each object in the object list, discarding
     those lying before stack[enPt].t (ici min) or farther than stack[exPt].t (ici max) */
     
 //tocheck
-void    test_intersections(t_bsp_node *leaf, t_ray *ray, double min, double max)
+void    test_intersections(t_bsp_node *leaf,t_parsing_data pdata, t_ray *ray, t_interval t)
 {
     t_vlist     *obj;
     t_hit_info  *closest_obj;
@@ -215,20 +217,36 @@ void    test_intersections(t_bsp_node *leaf, t_ray *ray, double min, double max)
     closest_obj = ft_calloc(sizeof(t_hit_info), 1);
     if (!closest_obj)
         return ;
+    min_dist = t.max;
+    
     obj = leaf->items;
-    min_dist = INFINITY;
     while (obj)
     {
         // set_color_in_mat(obj->content, &obj->material, obj->type);
-        if (intersect(obj, ray) && ray->hit_info.distance >= min && ray->hit_info.distance <= max 
-            && ray->hit_info.distance < min_dist)
+        if (intersect(obj, ray) && ray->hit_info.distance < min_dist
+            && ray->hit_info.distance >= t.min && ray->hit_info.distance <= t.max)
             {
                 min_dist = ray->hit_info.distance;
                 copy_obj_properties(obj, closest_obj, ray->hit_info.hit_point);
             }
         obj = obj->next;
     }
-    if (min_dist < INFINITY)
+    
+    obj = pdata.planes;
+	while (obj)
+    {
+		set_color_in_mat(obj->content, &obj->material, obj->type);
+        if (intersect(obj, ray) && ray->hit_info.distance >= t.min
+			&& ray->hit_info.distance < min_dist)
+        	{
+        	    min_dist = ray->hit_info.distance;
+        	    copy_obj_properties(obj, closest_obj, ray->hit_info.hit_point);
+				
+        	}
+        obj = obj->next;
+    }
+    
+    if (min_dist < t.max)
     {
         // a verifier
         ray->hit_info = *closest_obj;
@@ -237,12 +255,6 @@ void    test_intersections(t_bsp_node *leaf, t_ray *ray, double min, double max)
     }
     ray->hit_info.distance = -1;
 }
-
-
-
-
-
-
 
 
 
@@ -260,7 +272,7 @@ void    test_intersections(t_bsp_node *leaf, t_ray *ray, double min, double max)
     */
 
 /* root est dans notre cas le node ou se trouve la camera, et pas la racine du kd-tree (si ?) */
-void    ray_traversal_algo(t_bsp_node *root, t_ray *ray) // *ray traversal pour avoir les modifs ?
+void    ray_traversal_algo(t_app *app, t_ray *ray) // *ray traversal pour avoir les modifs ?
 {
     float   a; /* entry signed distance */
     float   b; /* exit signed distance */
@@ -268,9 +280,7 @@ void    ray_traversal_algo(t_bsp_node *root, t_ray *ray) // *ray traversal pour 
 
 
     /* intersect ray with sceneBox, find the entry and exit signed distance */
-    bool    intersect = intersect_scene(root->bbox, *ray, &a, &b); 
-   
-    if (!intersect) // ray does not intersect sceneBox
+    if (!intersect_scene(app->root.bbox, *ray, &a, &b))
     {
         ray->hit_info.distance = -1;
         return ;
@@ -284,7 +294,7 @@ void    ray_traversal_algo(t_bsp_node *root, t_ray *ray) // *ray traversal pour 
     
     /* pointers to the far child node and current node */
     t_bsp_node *far_child, *curr_node;
-    curr_node = root; /* start from the kd-tree root node */
+    curr_node = &app->root; /* start from the kd-tree root node */
 
     int entry_pt = 0; /* setup initial entry point... entry_pt corresponds to pointer */
     stack[entry_pt].t = a; /* set the signed distance */
@@ -330,6 +340,8 @@ void    ray_traversal_algo(t_bsp_node *root, t_ray *ray) // *ray traversal pour 
             }
             else
                 next_axis = x; // ?
+
+            
             
             if (pt_get_coord(stack[entry_pt].pb, curr_node->split_inf.dim) <= split_val)
             {
@@ -386,7 +398,7 @@ void    ray_traversal_algo(t_bsp_node *root, t_ray *ray) // *ray traversal pour 
         }
 
         /* current node is the leaf . . . empty or full */
-        test_intersections(curr_node, ray, stack[entry_pt].t, stack[exit_pt].t);
+        test_intersections(curr_node, app->p_data, ray, get_interval(stack[entry_pt].t, stack[exit_pt].t));
         if (ray->hit_info.distance != -1)
         {
             free(stack);
@@ -423,7 +435,7 @@ typedef struct  s_stack_elem_a
 
 /*  Recursive ray traversal algorithm */
 
-//t_vlist ray_trav_alg_rec_a(t_bsp_node *root, t_ray ray)
+//t_vlist ray_trav_alg_rec_a(t_bsp_node *app->root, t_ray ray)
 //{
 //    float   a; /* entry signed distance */
 //    float   b; /* exit signed distance */

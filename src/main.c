@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:20 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/29 20:04:36 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/30 20:56:39 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,14 @@ static int  minirt_get_started(t_app *app)
         return (EXIT_MLX_FAILURE);
     }
     
+    app->aspect_ratio =IMAGE_HEIGHT / IMAGE_WIDTH;
+    
+    ft_bzero(&app->background, sizeof(t_color)); 
+    //app->background.r = 0xff;
+    //app->background.g = 0xff;
+    //app->background.b = 0xff;
+    
     build_kd_tree(&app->root, app->p_data.objects); // prendre la valeur de retour (si un malloc foire et que doit return ici)
-    app->aspect_ratio =IMAGE_HEIGHT / IMAGE_WIDTH ;
     init_viewpoint(app);
     draw_scene(app);
     

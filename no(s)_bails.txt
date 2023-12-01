@@ -1,13 +1,3 @@
-- ca affiche un truc, mais forme non proportionnelle, couleur noire et non pas bleue,
-axes sont inverses j ai l impression (une diminution selon x du centre de la sphere fait 
-que la sphere s'affiche plus vers la droite (devrait etre la gauche))
-    -> checker rendu couleurs
-    -> checker que lq fonction intersection rayon-spher renvoie bien vrai pour tous les 
-        points d'intersection (jpense pas que ca soit le cas mtn sinon aurait pas une 
-        forme non spherique qui s'affiche, si ?)
-
-- ln : faut encore que jmocuppe de mettre les plans dans une liste chainee
-
 - erreur de parsing quand a des lignes vides qui se baladent dans le .rt -> normal ?
 
 - une seul grande sphere fais la reflection quand y a le plan pourquewa?
@@ -15,3 +5,13 @@ que la sphere s'affiche plus vers la droite (devrait etre la gauche))
 - est ce que la pitite couleur sphere a une influence sur la GRAAAAAAAnde?
 
     -> probablement un parcour de la liste des objet
+
+-   A 0.2 255,255,255
+    C 0,0,0 0,0,1 90
+    L 2,1,0 0.6 255,255,255
+    sp 0,-1,3 1 255,0,0
+    sp 2,0,4 1 0,0,255
+    sp -2,0,4 1 0,255,0
+    sp 0,-5001,0 5000 255,255,0
+-> cette config fait de la d (qd fov en dessous de 100, change drastiquement de perspective. normal ?)
+-> ET voit pas la giga grosse sphere jaune ??

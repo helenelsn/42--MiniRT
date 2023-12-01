@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/29 21:25:19 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/11/30 20:45:17 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ t_vec_3d 	get_unit_normal(t_hit_info hi, t_point_3d p);
 void    	draw_scene(t_app *app);
 double 		compute_lighting(t_app *app, float specular, t_ray ray);
 t_vec_3d	get_incident_ray_of_light(t_vec_3d l, t_vec_3d n);
+t_vec_3d	reflect_ray(t_vec_3d v, t_vec_3d n); // ?
 
 
 /*  ------- CHGT COORD, ANTI ALIASING ---------- */
@@ -110,7 +111,15 @@ void    	set_pixel_center(t_app *app, t_point_3d *pc, int x, int y);
 void    	copy_obj_properties(t_vlist *obj, t_hit_info *hinf, t_point_3d hp);
 bool    	intersect(t_vlist *obj, t_ray *ray);
 
-void		no_tree_intersections(t_parsing_data pdata, t_ray *ray);
+void		no_tree_intersections(t_parsing_data pdata, t_ray *ray, t_interval t);
+
+
+/*  ---------------------- utils --------------- */
+
+t_interval  get_interval(double min, double max);
+
+t_color    	color_scale(t_color color, double scale);
+t_color    	color_add(t_color c1, t_color c2);
 
 /*  --------- CAMERA ---------- */
 
