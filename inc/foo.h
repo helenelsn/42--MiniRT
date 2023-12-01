@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/01 17:03:04 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/01 20:36:01 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ t_interval  get_interval(double min, double max);
 
 t_color    	color_scale(t_color color, double scale);
 t_color    	color_add(t_color c1, t_color c2);
+t_color 	color_mult(t_color c1, t_color c2);
 
 /*  --------- CAMERA ---------- */
 
