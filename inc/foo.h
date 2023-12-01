@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   foo.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/01 15:15:29 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/01 17:03:04 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 
 //parse
 bool set_specular(char *str, double *to_mod);
+
+void set_specular_in_mat(void * content, t_raytracing_material *mat, t_type t);
 void set_color_in_mat(void * content, t_raytracing_material *mat, t_type t);
 double get_ratio(char *str);
 bool	get_point(char *str, t_point_3d *p);
