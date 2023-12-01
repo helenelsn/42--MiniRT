@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cr_plan.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 01:26:34 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/29 22:07:50 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/01 15:19:10 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ t_plan *create_plan(char **tab, t_vlist **garbage,t_parsing_data *data)
 {
     t_plan *elem;
 
-    if (null_term_tab_len((void **) tab) != 4)
+    if (null_term_tab_len((void **) tab) != 4 && null_term_tab_len((void **) tab) != 5)
         return NULL;
     elem = ft_calloc(1, sizeof(t_plan));
     if (!elem)
         return NULL;
     // printf("lool");
-    if (!get_rgb(tab[3], &elem->color)|| !get_point(tab[1], &elem->p) || !get_vec_from_str(tab[2], &elem->vec))
+    if (!get_rgb(tab[3], &elem->color)|| !get_point(tab[1], &elem->p) || !get_vec_from_str(tab[2], &elem->vec) || !set_specular(tab[4], &elem->specular))
     {
         free(elem);
         return NULL;

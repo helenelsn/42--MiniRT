@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trace_ray.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
-/*   Updated: 2023/11/30 23:22:54 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/01 15:36:21 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	no_tree_intersections(t_parsing_data pdata, t_ray *ray, t_interval t)
         	{
         	    min_dist = ray->hit_info.distance;
 				set_color_in_mat(obj->content, &obj->material, obj->type);
+				set_specular_in_mat(obj->content, &obj->material, obj->type);
         	    copy_obj_properties(obj, closest_obj, ray->hit_info.hit_point);
 			}
         obj = obj->next;
@@ -56,6 +57,7 @@ void	no_tree_intersections(t_parsing_data pdata, t_ray *ray, t_interval t)
 	
 	while (obj)
     {
+		set_specular_in_mat(obj->content, &obj->material, obj->type);
 		set_color_in_mat(obj->content, &obj->material, obj->type);
         if (intersect(obj, ray) && ray->hit_info.distance >= t.min
 			&& ray->hit_info.distance < min_dist)

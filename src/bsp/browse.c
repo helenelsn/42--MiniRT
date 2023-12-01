@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   browse.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:44:25 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/01 00:06:17 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/01 15:38:41 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,6 +181,8 @@ bool    intersect(t_vlist *obj, t_ray *ray)
 
 void set_color_in_mat(void * content, t_raytracing_material *mat, t_type t)
 {
+    if (mat->color.hex)
+        return;
     if (t == cylindre)
         mat->color = ((t_cylindre *)content)->color;
     if (t == plan)
@@ -191,6 +193,22 @@ void set_color_in_mat(void * content, t_raytracing_material *mat, t_type t)
         mat->color = ((t_light *)content)->infos.color;
     if (t == mood_light)
         mat->color = ((t_mood_light *)content)->infos.color;
+    // mat->color = 500;
+}
+
+void set_specular_in_mat(void * content, t_raytracing_material *mat, t_type t)
+{
+    if (mat->specular)
+        return;
+    if (t == cylindre)
+        mat->specular = ((t_cylindre *)content)->specular;
+    if (t == plan)
+        mat->specular = ((t_plan *)content)->specular;
+    if (t == sphere)
+    {
+        mat->specular = ((t_sphere *)content)->specular;
+        // printf("%f\n", mat->specular);
+    }
     // mat->color = 500;
 }
 
@@ -236,6 +254,7 @@ void    test_intersections(t_bsp_node *leaf,t_parsing_data pdata, t_ray *ray, t_
 	while (obj)
     {
 		set_color_in_mat(obj->content, &obj->material, obj->type);
+		set_specular_in_mat(obj->content, &obj->material, obj->type);
         if (intersect(obj, ray) && ray->hit_info.distance >= t.min
 			&& ray->hit_info.distance < min_dist)
         	{
