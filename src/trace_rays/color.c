@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 20:16:50 by hlesny            #+#    #+#             */
-/*   Updated: 2023/11/30 23:00:19 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/03 16:30:42 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,27 @@ t_color    color_scale(t_color color, double scale)
 {
     if (scale < 0.0)
         return (color); // ?
+    int inter;
+    inter = color.r * scale;
+    if (inter > 255)
+        inter = 255;
+    color.r = inter;
+    inter = color.g * scale;
+    if (inter > 255)
+        inter = 255;
+    color.g = inter;
+
+    inter = color.b * scale;
+    if (inter > 255)
+        inter = 255;
+    color.b = inter;
     
-    color.r *= scale;
-    color.g *= scale;
-    color.b *= scale;
+    // color.b = inter;
+    // int inter;
+    // inter = color.r *= scal
+    // color.r *= scale;
+    // color.g *= scale;
+    // color.b *= scale;
     return (color);
 }
 
