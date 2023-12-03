@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/01 01:13:16 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/03 19:09:21 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -305,17 +305,6 @@ typedef struct  s_mlx_data
 }               t_mlx_data;
 
 /* ---------------------------- CAMERA, FRAME ---------------------------- */
-
-typedef struct s_frame
-{
-     // pas sur que c'est le meilleur moyen de rpz
-    t_plan plan;
-    t_point_3d c0;
-    t_point_3d c1;
-    t_point_3d c2;
-    t_point_3d c3;
-
-}   t_frame;
 
 typedef struct  s_referentiel
 {
