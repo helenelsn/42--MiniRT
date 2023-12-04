@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:44:25 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/01 22:19:27 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/04 19:11:05 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "../../inc/mini_rt.h"
 #include "../../inc/bsp.h"
 
+#include <math.h>
+#include <stdio.h>
 typedef struct s_stack
 {
     t_bsp_node      *node; // pointer to far child
@@ -150,6 +152,42 @@ bool    intersect_plan(t_ray *ray, void *object)
 
     return (true);
 }
+
+
+bool    intersect_cylindre(t_ray *ray, void *object)
+{
+    t_cylindre      *cy;
+    t_droite    d;
+    t_point_3d  res;
+    double t0;
+    double t1;
+    
+    
+    cy = object;
+    d.p = ray->origin;
+    d.v = ray->direction;
+    // ray->hit_info.coef = get_inter_for_plan(p, d, &res);
+    if (!get_inter_for_cylindre(cy, d, &t0, &t1))
+    {
+        return (false);
+    }
+        
+    if (t0 < t1)
+        ray->hit_info.coef =t0;
+    else 
+        ray->hit_info.coef =t1;
+    // else
+    //     return false;
+    res.x = ray->origin.x + ray->hit_info.coef * ray->direction.x;
+    res.y = ray->origin.y + ray->hit_info.coef * ray->direction.y;
+    res.z = ray->origin.z + ray->hit_info.coef * ray->direction.z;
+    ray->hit_info.hit_point = res;
+    ray->hit_info.distance = get_dist_between_points(ray->origin, ray->hit_info.hit_point);
+
+    // printf("---------------------- intersected plan\n");
+
+    return (true);
+}
 // bool intersect_cylinder(t_ray ray, void *object)
 // {
     
@@ -174,11 +212,13 @@ bool    intersect(t_vlist *obj, t_ray *ray)
         return (intersect_sphere(ray, obj->content));
     if (obj->type == plan)
         return (intersect_plan(ray, obj->content));
+    if (obj->type == cylindre)
+        return (intersect_cylindre(ray, obj->content));
     // if (obj->type == cylindre)
     //     return (intersect_cylinder(ray, obj->content));
     // if (obj->type == cone)
     //     return (intersect_cone(ray, obj->content));
-    
+    return false;
 }
 
 void set_color_in_mat(void * content, t_raytracing_material *mat, t_type t)

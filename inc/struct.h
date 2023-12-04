@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/03 19:09:21 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/04 19:35:13 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,6 +216,8 @@ typedef struct s_cylindre
 {
     t_point_3d  p;
     t_vec_3d    vec;
+    t_vec_3d    n0;
+    t_vec_3d    n1;
     double      radius;
     double      height;
     t_color   color;
