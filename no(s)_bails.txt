@@ -14,4 +14,3 @@
     sp -2,0,4 1 0,255,0
     sp 0,-5001,0 5000 255,255,0
 -> cette config fait de la d (qd fov en dessous de 100, change drastiquement de perspective. normal ?)
--> ET voit pas la giga grosse sphere jaune ??

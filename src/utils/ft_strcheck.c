@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcheck.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 00:01:45 by srapin            #+#    #+#             */
-/*   Updated: 2023/10/19 02:15:55 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/04 20:58:24 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ bool	ft_strisfloat(char *str)
 		i++;
 	while (str[++i])
 	{
-		if (!ft_isdigit(str[i]))
+		if (!ft_isdigit(str[i]) && str[i] != '\n' && str[i] != ' ') // if (!ft_isdigit(str[i]))
 		{
 			if (str[i] == '.')
 			{

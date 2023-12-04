@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cr_sphere.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 01:20:17 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/01 15:17:07 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/04 20:31:12 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,12 @@ t_sphere *create_sphere(char **tab, t_vlist **garbage, t_parsing_data *data)
     if (!elem)
         return NULL;
     elem->radius = atof(tab[2]) / 2;
-    if (!get_rgb(tab[3], &elem->color.hex) || !ft_strisfloat(tab[2]) ||elem->radius < 0 || !get_point(tab[1], &elem->p) || !set_specular(tab[4], &elem->specular))
-    {
-        free(elem);
-        return NULL;
-    }
+    if (!get_rgb(tab[3], &elem->color.hex) || !ft_strisfloat(tab[2]) ||elem->radius < 0
+        || !get_point(tab[1], &elem->p) || !set_specular(tab[4], &elem->specular))
+        {
+            free(elem);
+            return NULL;
+        }
     ft_vlstadd_back(garbage, ft_vlstnew(elem, free, sphere));
     ft_vlstadd_back(&data->objects, ft_vlstnew(elem, free, sphere));
     // printf("------------------------------------ rgb_to_hex = %u    %f %f %f\n", elem->color, elem->p.x, elem->p.y, elem->p.z);
