@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/04 19:35:13 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/04 22:07:41 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,8 @@ typedef struct  s_bbox_description
 typedef struct  s_raytracing_material
 {
     t_color             color;
-    int                 specular; /* todo + tard init a -1.  -1 si matte */ // coefficient speculaire, dans le cas d'objects reflechissants
+    double     specular;
+    // int                 specular; /* todo + tard init a -1.  -1 si matte */ // coefficient speculaire, dans le cas d'objects reflechissants
     double              reflective; /* todo + tard : init a 0. in [0, 1] */                 
     t_bbox_description  bbox;
 }               t_raytracing_material;
@@ -128,8 +129,6 @@ typedef struct s_vlist
 
 
 /* ------------------------------- RAYS --------------------------------- */
-
-# define RECURS_LIMIT	3
 
 typedef struct  s_interval
 {
@@ -197,6 +196,7 @@ typedef struct s_sphere
     t_point_3d  p;
     double      radius;
     t_color   color;
+    double     specular;
 }   t_sphere;
 
 typedef struct s_plan
@@ -209,7 +209,9 @@ typedef struct s_plan
     double      c;
     double      d;
     
+    
     t_color   color;
+    double     specular;
 }   t_plan;
 
 typedef struct s_cylindre
@@ -221,6 +223,7 @@ typedef struct s_cylindre
     double      radius;
     double      height;
     t_color   color;
+    double     specular;
     
 }   t_cylindre;
 

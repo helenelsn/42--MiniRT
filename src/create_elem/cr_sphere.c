@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cr_sphere.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 01:20:17 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/30 22:54:33 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/01 15:17:07 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ t_sphere *create_sphere(char **tab, t_vlist **garbage, t_parsing_data *data)
 {
     t_sphere *elem;
 
-    if (null_term_tab_len((void **) tab) != 4)
+    if (null_term_tab_len((void **) tab) != 4 && null_term_tab_len((void **) tab) != 5)
         return NULL;
     elem = ft_calloc(1, sizeof(t_sphere));
     if (!elem)
         return NULL;
     elem->radius = atof(tab[2]) / 2;
-    if (!get_rgb(tab[3], &elem->color.hex) || !ft_strisfloat(tab[2]) ||elem->radius < 0 || !get_point(tab[1], &elem->p))
+    if (!get_rgb(tab[3], &elem->color.hex) || !ft_strisfloat(tab[2]) ||elem->radius < 0 || !get_point(tab[1], &elem->p) || !set_specular(tab[4], &elem->specular))
     {
         free(elem);
         return NULL;

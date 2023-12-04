@@ -40,6 +40,7 @@ FILES = \
 		utils/point3d \
 		utils/ratio \
 		utils/rgb \
+		utils/set_specular \
 		utils/vec3d \
 		utils_vec_et_droite/norm \
 		utils_vec_et_droite/prod_scalaire \

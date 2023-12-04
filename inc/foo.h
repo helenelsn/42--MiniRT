@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/04 19:35:41 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/04 22:07:33 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 #include "struct.h"
 
 //parse
+bool set_specular(char *str, double *to_mod);
+
+void set_specular_in_mat(void * content, t_raytracing_material *mat, t_type t);
 void set_color_in_mat(void * content, t_raytracing_material *mat, t_type t);
 double get_ratio(char *str);
 bool	get_point(char *str, t_point_3d *p);
@@ -121,6 +124,7 @@ t_interval  get_interval(double min, double max);
 
 t_color    	color_scale(t_color color, double scale);
 t_color    	color_add(t_color c1, t_color c2);
+t_color 	color_mult(t_color c1, t_color c2);
 
 /*  --------- CAMERA ---------- */
 

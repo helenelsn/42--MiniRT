@@ -1,6 +1,9 @@
 
 
-
+Pas dans les bonus mais styles :
+soft shadows
+depth of field
+motion blur 
 
 
 

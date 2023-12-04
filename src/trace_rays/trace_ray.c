@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trace_ray.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/03 16:34:15 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/04 20:15:26 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	no_tree_intersections(t_parsing_data pdata, t_ray *ray, t_interval t)
         	{
         	    min_dist = ray->hit_info.distance;
 				set_color_in_mat(obj->content, &obj->material, obj->type);
+				set_specular_in_mat(obj->content, &obj->material, obj->type);
         	    copy_obj_properties(obj, closest_obj, ray->hit_info.hit_point);
 			}
         obj = obj->next;
@@ -56,6 +57,7 @@ void	no_tree_intersections(t_parsing_data pdata, t_ray *ray, t_interval t)
 	
 	while (obj)
     {
+		set_specular_in_mat(obj->content, &obj->material, obj->type);
 		set_color_in_mat(obj->content, &obj->material, obj->type);
         if (intersect(obj, ray) && ray->hit_info.distance >= t.min
 			&& ray->hit_info.distance < min_dist)
@@ -81,6 +83,12 @@ void	no_tree_intersections(t_parsing_data pdata, t_ray *ray, t_interval t)
     ray->hit_info.distance = -1;
 }
 
+void 	update_ray_hit_infos(t_ray *ray)
+{
+	ray->hit_info.outward_normal = get_unit_normal(ray->hit_info, ray->hit_info.hit_point);
+	ray->hit_info.reflected_ray = reflect_ray(ray->direction, ray->hit_info.outward_normal);
+}
+
 /*  --------------------------------------------------------------------- */
 
 t_color    trace_ray(t_app *app, t_point_3d ray_origin, t_vec_3d dir, int rebound_nb)
@@ -101,26 +109,28 @@ t_color    trace_ray(t_app *app, t_point_3d ray_origin, t_vec_3d dir, int reboun
 		// printf("love\n");
 		return (app->background);
 	}
-	// printf("{%s} : intersected an object\n", __func__);
+
+	update_ray_hit_infos(&ray);
+
 	
-	// determines the outward normal at intersection point p on the surface of the intersected object
-	ray.hit_info.outward_normal = get_unit_normal(ray.hit_info, ray.hit_info.hit_point);
-
-
-	//???? c'est pas plutot "get_incident_ray_of_light(ray.direction, ray.hit_info.outward_normal)"" ?
-	//ray.hit_info.reflected_ray = get_directional_vect(ray.hit_info.hit_point, ray.origin); // essayer avec -ray.direction et voir si donne les memes resultats
-	ray.hit_info.reflected_ray = get_incident_ray_of_light(vect_double_multiply(-1, ray.direction), ray.hit_info.outward_normal); // ou juste ray.direction en premier argument ?
 	
 	local_color = color_scale(ray.hit_info.obj_mat.color, compute_lighting(app, ray.hit_info.obj_mat.specular, ray));
+	//printf("local_color = %u\n", local_color.hex);
+	
+
+
+	
+	//local_color = color_scale(ray.hit_info.obj_mat.color, compute_lighting(app, ray.hit_info.obj_mat.specular, ray));
 	//local_color.hex =  ray.hit_info.obj_mat.color.hex * compute_lighting(app, ray.hit_info.obj_mat.specular, ray);
 	
 	/* get the final pixel's color */
-	if (ray.hit_info.obj_mat.reflective <= 0 || rebound_nb == RECURS_LIMIT)
+	if (ray.hit_info.obj_mat.reflective <= 0 || rebound_nb == REBOUNDS_LIMIT)
 		return (local_color);
 
 	/* compute reflected color */
 	//reflected_ray = get_incident_ray_of_light(vect_double_multiply(-1, ray.direction), ray.hit_info.outward_normal); // ou juste ray.direction en premier argument ?
 	// reflected_color = trace_ray(app, ray.hit_info.hit_point, ray.hit_info.reflected_ray, rebound_nb + 1);
+	
 	// if (local_color * (1 - ray.hit_info.obj_mat.reflective) + reflected_color * ray.hit_info.obj_mat.reflective)
 
 	// return (local_color * (1 - ray.hit_info.obj_mat.reflective) + reflected_color * ray.hit_info.obj_mat.reflective);
@@ -142,7 +152,6 @@ int		get_final_pixel_color(t_app *app, int x, int y)
 	sampling_count = 0;
 	double defocus_angle = 0;
 
-	// pixel_color = 0;
 	ft_bzero(&pixel_color, sizeof(t_color)); 
 	
 	set_pixel_center(app, &pixel_center, x, y); // get coordinates of the pixel's center
@@ -198,7 +207,6 @@ void    draw_scene(t_app *app)
 
 	x = 0;
 	y = 0;
-	// definir l'image
 	while (y < IMAGE_HEIGHT) //while (y < IMAGE_HEIGHT -1)
 	{
 		x = 0;
@@ -219,5 +227,4 @@ void    draw_scene(t_app *app)
 	}
 	
 //	mlx_put_image_to_window(app->mlx_data.mlx_ptr, app->mlx_data.image.img, 0, 0);
-
 }

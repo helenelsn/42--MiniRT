@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_rt.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:13 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/01 21:32:48 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/04 20:16:24 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 #include <fcntl.h>
 #include <stdbool.h>
 #include <float.h>
+#include <limits.h>
 
 # include "struct.h"
 # include "foo.h"
@@ -45,6 +46,8 @@
 # define SAMPLES_PER_PIXEL  1 // Count of random samples for each pixel
 # define FOCUS_DIST		    1 // arbitraire : tester les rendus avec differentes valeurs // Distance camera - plan de projection
 # define HITPOINT_OFFSET    1e-3 // tester diff valeurs
+
+# define REBOUNDS_LIMIT	3
 
 # define DEG_TO_RAD 	    M_PI/180.0
 

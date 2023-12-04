@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:15:45 by hlesny            #+#    #+#             */
-/*   Updated: 2023/11/30 23:01:02 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/01 21:57:31 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,15 @@
 
 /* ------------- LIGHT -------------- */
 
+/*  pour un point d'intersection P, n la normale a la surface de l'objet en ce point.
+et v le vecteur directeur de P a l'origine du rayon */
 t_vec_3d	reflect_ray(t_vec_3d v, t_vec_3d n)
 {
 	return (vect_substract(v, vect_double_multiply(2 * vec_x_vec_scal(v, n), n)));
 }
 
+/*  pour un point d'intersection P, n la normale a la surface de l'objet en ce point.
+et l le vecteur directeur de l'origine du rayon a P */
 t_vec_3d get_incident_ray_of_light(t_vec_3d l, t_vec_3d n)
 {
 	// R⃗ =2N⃗ ⟨N⃗ ,L⃗ ⟩−L⃗
@@ -65,11 +69,16 @@ double 	specular_reflection(t_app *app, double s_term, t_ray ray)
 		// détermine si l'objet est éclairé par la source lumineuse
 		if (obj_to_light.hit_info.distance == -1)
 		{
-			r = get_incident_ray_of_light(obj_to_light.direction, ray.hit_info.outward_normal);
-			if (vec_x_vec_scal(r, ray.hit_info.reflected_ray) > 0)
+			// Catch degenerate scatter direction
+        	// if (scatter_direction.near_zero())
+            // scatter_direction = rec.normal;
+			
+			t_vec_3d r = get_incident_ray_of_light(obj_to_light.direction, ray.hit_info.outward_normal);
+			normalise(&r);
+			double r_dot_v = vec_x_vec_scal(r, ray.hit_info.reflected_ray);
+			if (r_dot_v > 0.0)
 			{
-				intensity += curr->infos.ratio * pow((vec_x_vec_scal(r, ray.hit_info.reflected_ray) 
-					/ (r.norm * ray.hit_info.reflected_ray.norm)), s_term);	
+				intensity += curr->infos.ratio * pow(r_dot_v, s_term);	
 			}
 		}
 		curr = curr->next;
@@ -104,7 +113,7 @@ double	diffuse_reflection(t_app *app, t_ray ray)
 		{
 			n_dot_l = vec_x_vec_scal(ray.hit_info.outward_normal, obj_to_light.direction);
 			if (n_dot_l > 0.0)
-				intensity += curr->infos.ratio * n_dot_l/(ray.hit_info.outward_normal.norm * obj_to_light.direction.norm);
+				intensity += curr->infos.ratio * n_dot_l; // /(ray.hit_info.outward_normal.norm * obj_to_light.direction.norm); // peut simplifier, normalemet les deux sont unitaires et ont donc une norme de 1
 		}
 		curr = curr->next;
 	}
@@ -117,9 +126,15 @@ double 	compute_lighting(t_app *app, float specular, t_ray ray)
 
 	intensity = app->p_data.mooooo->infos.ratio;
 	intensity += diffuse_reflection(app, ray);
-	// if (specular != -1)
-	// 	intensity += specular_reflection(app, specular, ray);
-	// printf("{%s}, intensity = %");
+	if (specular != -1)
+	{
+		//printf("specular intensity calculated\n");
+		intensity += specular_reflection(app, specular, ray);
+	}
 	return (intensity);
 }
 
+t_color illumination(t_app *app, float specular, t_ray ray)
+{
+		
+}
