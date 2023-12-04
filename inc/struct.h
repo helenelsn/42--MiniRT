@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/04 20:16:18 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/04 22:07:41 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,6 +218,8 @@ typedef struct s_cylindre
 {
     t_point_3d  p;
     t_vec_3d    vec;
+    t_vec_3d    n0;
+    t_vec_3d    n1;
     double      radius;
     double      height;
     t_color   color;

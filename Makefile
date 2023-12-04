@@ -29,6 +29,7 @@ FILES = \
 		garbage_collector/ft_vlst_del_in_list \
 		intersection/i_sphere \
 		intersection/i_plan \
+		intersection/i_cylindre \
 		mlx_gestion/close \
 		mlx_gestion/init \
 		mlx_gestion/key_press \
