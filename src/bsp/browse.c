@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   browse.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:44:25 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/01 15:38:41 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/04 20:16:13 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,8 @@ bool    intersect(t_vlist *obj, t_ray *ray)
     // que la distance origine du rayon-object, ie ray.hit_info.distance
     
     ray->hit_info.distance = -1;
+    if (!obj)
+        return false;
     if (obj->type == sphere)
         return (intersect_sphere(ray, obj->content));
     if (obj->type == plan)

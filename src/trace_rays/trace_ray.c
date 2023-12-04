@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/01 21:23:02 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/04 20:15:26 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,10 @@ int		get_final_pixel_color(t_app *app, int x, int y)
 	t_color			pixel_color;
 	t_point_3d		pixel_center;
 	t_point_3d		viewp_pixel;
+	t_color tmp;
+	int r = 0;
+	int g = 0;
+	int b = 0;
 
 	// pour sample SAMPLES_PER_PIXEL pixels et avoir une impression plus homogene
 	sampling_count = 0;
@@ -150,17 +154,26 @@ int		get_final_pixel_color(t_app *app, int x, int y)
 
 	ft_bzero(&pixel_color, sizeof(t_color)); 
 	
-	set_pixel_center(app, &pixel_center, x, y);
+	set_pixel_center(app, &pixel_center, x, y); // get coordinates of the pixel's center
+	// pixel_color = trace_ray(app, app->p_data.cam->p, get_directional_vect(app->p_data.cam->p, viewp_pixel), 0);
 	while (sampling_count < SAMPLES_PER_PIXEL)
 	{
 		viewp_pixel = translate_point(pixel_center, pixel_sample(app, x, y)) ;
 		//printf("in %s, pixel = (%d, %d), sampled_coord = (%f, %f, %f)\n", __func__, x, y, viewp_pixel.x, viewp_pixel.y, viewp_pixel.z);
-		pixel_color = color_add(pixel_color, trace_ray(app, app->p_data.cam->p, get_directional_vect(app->p_data.cam->p, viewp_pixel), 0));
+		tmp = trace_ray(app, app->p_data.cam->p, get_directional_vect(app->p_data.cam->p, viewp_pixel), 0);
+		r += tmp.r;
+		g += tmp.g;
+		b += tmp.b;
+		// pixel_color = color_add(pixel_color, trace_ray(app, app->p_data.cam->p, get_directional_vect(app->p_data.cam->p, viewp_pixel), 0));
 		sampling_count++;
 	}
-
-	double inv = 1.0 / SAMPLES_PER_PIXEL;	
-	pixel_color = color_scale(pixel_color, inv); // ok ou va trop arrondir ?
+	
+	double inv =  SAMPLES_PER_PIXEL;	
+	pixel_color.r = r / inv;
+	pixel_color.g = g / inv;
+	pixel_color.b = b / inv;
+	
+	// pixel_color = color_scale(pixel_color, inv); // ok ou va trop arrondir ?
 	return (pixel_color.hex); 
 }
 
