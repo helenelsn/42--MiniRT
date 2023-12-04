@@ -6,14 +6,14 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 20:16:50 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/04 20:19:15 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/04 22:37:29 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/struct.h"
 #include "../../inc/mini_rt.h"
 
-char     color_clamp(long color)
+int     color_clamp(long color)
 {
     if (color < 0)
         return (0); // ?
@@ -24,6 +24,9 @@ char     color_clamp(long color)
 
 t_color    color_scale(t_color color, double scale)
 {
+
+    t_color todel = color;
+
     if (scale < 0.0)
         return (color); // ?
     int inter;
@@ -47,6 +50,9 @@ t_color    color_scale(t_color color, double scale)
     // color.r *= scale;
     // color.g *= scale;
     // color.b *= scale;
+
+    if (color.hex == 32512)
+        printf("--------------- {%s}, initial color = %u, scale = %f\n", __func__, todel.hex, scale);
     return (color);
 }
 

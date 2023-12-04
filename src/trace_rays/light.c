@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:15:45 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/01 21:57:31 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/04 22:50:41 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,12 +125,16 @@ double 	compute_lighting(t_app *app, float specular, t_ray ray)
 	double		intensity;
 
 	intensity = app->p_data.mooooo->infos.ratio;
+	//printf("{%s}, ambient_intensity = %f\n", __func__, intensity);
 	intensity += diffuse_reflection(app, ray);
+	if (intensity == app->p_data.mooooo->infos.ratio)
+		printf("{%s}, ambient + diffuse intensity = %f\n", __func__, intensity);
 	if (specular != -1)
 	{
 		//printf("specular intensity calculated\n");
 		intensity += specular_reflection(app, specular, ray);
 	}
+	// printf("{%s}, final intensity = %f\n", __func__, intensity);
 	return (intensity);
 }
 

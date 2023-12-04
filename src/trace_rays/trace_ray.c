@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/04 22:11:33 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/04 22:28:51 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,11 +111,9 @@ t_color    trace_ray(t_app *app, t_point_3d ray_origin, t_vec_3d dir, int reboun
 	}
 
 	update_ray_hit_infos(&ray);
-
-	
 	
 	local_color = color_scale(ray.hit_info.obj_mat.color, compute_lighting(app, ray.hit_info.obj_mat.specular, ray));
-	if (local_color.hex != 65280 && local_color.hex != 32)
+	if (local_color.hex != 65280 && local_color.hex != 32512 && local_color.hex != 65024)
 	{
 		printf("local_color = %u\n", local_color.hex);
 	}
