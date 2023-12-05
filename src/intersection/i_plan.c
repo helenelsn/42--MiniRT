@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   i_plan.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 00:10:31 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/29 21:39:31 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/05 22:38:38 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/mini_rt.h"
 
-int    get_inter_for_plan(t_plan *p, t_droite d, t_point_3d *res)
+int    get_inter_for_plan(t_plan *p, t_droite d, t_point *res)
 {
     double t;
 

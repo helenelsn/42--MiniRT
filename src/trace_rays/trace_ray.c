@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trace_ray.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/04 22:57:23 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/05 22:38:56 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 
 //todo
-void	set_ray_infos(t_ray *ray, t_vec_3d direction, t_point_3d ray_origin)
+void	set_ray_infos(t_ray *ray, t_vec direction, t_point ray_origin)
 {
 	ray->origin = ray_origin;
 	ray->direction = direction;
@@ -91,10 +91,10 @@ void 	update_ray_hit_infos(t_ray *ray)
 
 /*  --------------------------------------------------------------------- */
 
-t_color    trace_ray(t_app *app, t_point_3d ray_origin, t_vec_3d dir, int rebound_nb)
+t_color    trace_ray(t_app *app, t_point ray_origin, t_vec dir, int rebound_nb)
 {
     t_ray		ray;
-	t_vec_3d	reflected_ray;
+	t_vec	reflected_ray;
 	t_color 	local_color;
 	double 		reflected_color;
 	
@@ -142,8 +142,8 @@ int		get_final_pixel_color(t_app *app, int x, int y)
 {
 	int 			sampling_count;
 	t_color			pixel_color;
-	t_point_3d		pixel_center;
-	t_point_3d		viewp_pixel;
+	t_point		pixel_center;
+	t_point		viewp_pixel;
 	t_color tmp;
 	int r = 0;
 	int g = 0;

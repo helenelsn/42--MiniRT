@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bounding_volumes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 15:35:11 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/29 22:35:44 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/05 22:38:38 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ double  ft_max_double(double a, double b)
     return (b);
 }
 
-void    bbox_reset(t_bbox_description *bv, t_point_3d p)
+void    bbox_reset(t_bbox_description *bv, t_point p)
 {
     bv->min = p;
     bv->max = p;
@@ -38,7 +38,7 @@ void    bbox_reset(t_bbox_description *bv, t_point_3d p)
     bv->width = 0;
 }
 
-void    bbox_add_point(t_bbox_description *bv, t_point_3d p)
+void    bbox_add_point(t_bbox_description *bv, t_point p)
 {
     bv->min.x = ft_min(bv->min.x, p.x);
     bv->max.x = ft_max_double(bv->max.x, p.x);
@@ -61,7 +61,7 @@ void    set_infos(t_bbox_description *bbox)
         bbox->height * bbox->width + bbox->width * bbox->length);
 }
 
-void    set_bbox(t_bbox_description *bv, t_point_3d min, t_point_3d max)
+void    set_bbox(t_bbox_description *bv, t_point min, t_point max)
 {
     bv->min = min;
     bv->max = max;
@@ -127,7 +127,7 @@ void    set_bounding_boxes(t_vlist *objects)
     }
 }
 
-bool    point_is_in(t_bbox_description bv, t_point_3d p)
+bool    point_is_in(t_bbox_description bv, t_point p)
 {
     if (p.x < bv.min.x || p.x > bv.max.x)
         return (false);
@@ -260,7 +260,7 @@ void    split_objects(t_bsp_node *parent)
     parent->items_count = 0;
 }
 
-void    set_subvoxels(t_bsp_node *parent, t_point_3d l_max, t_point_3d r_min)
+void    set_subvoxels(t_bsp_node *parent, t_point l_max, t_point r_min)
 {
     parent->left = NULL;
     parent->right = NULL;
@@ -302,8 +302,8 @@ void    set_subvoxels(t_bsp_node *parent, t_point_3d l_max, t_point_3d r_min)
 
 void    split_voxel(t_bsp_node *parent, t_split_infos si)
 {
-    t_point_3d l_max;
-    t_point_3d r_min;
+    t_point l_max;
+    t_point r_min;
     
     parent->split_inf = si;
     if (si.dim == x)
@@ -327,8 +327,8 @@ void    split_voxel(t_bsp_node *parent, t_split_infos si)
 
 t_bbox_description  get_temp_subvoxel(t_bsp_node *parent, t_split_infos si, bool left_subvoxel)
 {
-    t_point_3d          l_max;
-    t_point_3d          r_min;
+    t_point          l_max;
+    t_point          r_min;
     t_bbox_description  temp_bbox;
     
     if (si.dim == x)

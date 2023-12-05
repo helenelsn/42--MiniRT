@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   normals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:15:06 by hlesny            #+#    #+#             */
-/*   Updated: 2023/11/30 19:22:14 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/05 22:38:56 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 
 /* need center coordinates */
 //tocheck
-t_vec_3d	normal_to_sphere(void *obj, t_point_3d p)
+t_vec	normal_to_sphere(void *obj, t_point p)
 {
 	t_sphere 	*sp;
-	t_vec_3d	normal;
+	t_vec	normal;
 
 	sp = obj;
 	normal = get_directional_vect(sp->p, p);
@@ -30,7 +30,7 @@ t_vec_3d	normal_to_sphere(void *obj, t_point_3d p)
 
 /* produit vectoriel de deux vecteurs generateurs du plan */
 //tocheck
-t_vec_3d	normal_to_plan(void *obj, t_point_3d p)
+t_vec	normal_to_plan(void *obj, t_point p)
 {
 	t_plan 		*pl;
 	
@@ -41,10 +41,10 @@ t_vec_3d	normal_to_plan(void *obj, t_point_3d p)
 /* traduit en coord cylindriques, calcule la normale, puis reconvertit en 
 coord cartesiennes (?) */
 //todo
-t_vec_3d 	normal_to_cylinder(void *obj, t_point_3d p)
+t_vec 	normal_to_cylinder(void *obj, t_point p)
 {
 	t_cylindre	*cyl;
-	t_vec_3d	normal;
+	t_vec	normal;
 
 	cyl = obj;
 
@@ -52,10 +52,10 @@ t_vec_3d 	normal_to_cylinder(void *obj, t_point_3d p)
 }
 
 //todo
-t_vec_3d	normal_to_cone(void *obj, t_point_3d p)
+t_vec	normal_to_cone(void *obj, t_point p)
 {
 	t_cone *cn;
-	t_vec_3d	normal;
+	t_vec	normal;
 
 	cn = obj;	
 
@@ -63,9 +63,9 @@ t_vec_3d	normal_to_cone(void *obj, t_point_3d p)
 }
 
 /* computes the normal of a point p on a given object */
-t_vec_3d get_unit_normal(t_hit_info hi, t_point_3d p)
+t_vec get_unit_normal(t_hit_info hi, t_point p)
 {
-	t_vec_3d normal;
+	t_vec normal;
 
 	if (hi.obj_type == sphere)
 		normal = normal_to_sphere(hi.obj_content, p);

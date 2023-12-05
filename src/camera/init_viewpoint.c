@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_viewpoint.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 20:04:36 by hlesny            #+#    #+#             */
-/*   Updated: 2023/11/29 19:51:35 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/05 22:38:56 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ void 	set_viewpoint_dimensions(t_app *app)
      */
 void    init_viewpoint(t_app *app)
 {    
-    t_vec_3d    viewport_u;
-    t_vec_3d    viewport_v;
-    t_vec_3d    translate;
-    t_point_3d  viewp_upper_left;
+    t_vec    viewport_u;
+    t_vec    viewport_v;
+    t_vec    translate;
+    t_point  viewp_upper_left;
 
     set_viewpoint_dimensions(app);
     
@@ -49,10 +49,10 @@ void    init_viewpoint(t_app *app)
     app->p_data.cam->ref.w = vect_double_multiply(-1, app->p_data.cam->direction);
     normalise(&app->p_data.cam->ref.w);
 
-    app->p_data.cam->ref.u = vec_x_vec_vectoriel((t_vec_3d){0, 1, 0}, app->p_data.cam->ref.w);
+    app->p_data.cam->ref.u = cross_product((t_vec){0, 1, 0}, app->p_data.cam->ref.w);
     normalise(&app->p_data.cam->ref.u);
     
-    app->p_data.cam->ref.v = vec_x_vec_vectoriel(app->p_data.cam->ref.w, app->p_data.cam->ref.u);
+    app->p_data.cam->ref.v = cross_product(app->p_data.cam->ref.w, app->p_data.cam->ref.u);
     normalise(&app->p_data.cam->ref.v);
 
     // Calculate the vectors across the horizontal and down the vertical viewport edges.

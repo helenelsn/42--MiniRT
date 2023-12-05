@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/04 22:07:41 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/05 22:38:56 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct s_point_3d
     double x;
     double y;
     double z;
-} t_point_3d;
+} t_point;
 
 
 typedef struct s_vec_3d
@@ -38,12 +38,12 @@ typedef struct s_vec_3d
     double y;
     double z;
     double norm;
-} t_vec_3d;
+} t_vec;
 
 typedef struct  s_droite
 {
-    t_point_3d  p;
-    t_vec_3d    v;
+    t_point  p;
+    t_vec    v;
 }               t_droite;
 
 typedef enum e_type
@@ -100,8 +100,8 @@ typedef union           u_color
 typedef struct  s_bbox_description
 {
     /* Points ou vecteurs ? */ 
-    t_point_3d  min;
-    t_point_3d  max;
+    t_point  min;
+    t_point  max;
     double      width;
     double      height;
     double      length;
@@ -142,17 +142,17 @@ typedef struct	s_hit_info
 	t_type 					obj_type;
 	t_raytracing_material	obj_mat;
     void                    *obj_content;
-	t_point_3d				hit_point;
-	t_vec_3d				outward_normal;
-	t_vec_3d				reflected_ray; // V : vector from P (hit point) to camera
+	t_point				hit_point;
+	t_vec				outward_normal;
+	t_vec				reflected_ray; // V : vector from P (hit point) to camera
 	double					distance; // ray_origin - object distance. set a -1 si le rayon n intersecte pas d objects
     double                  coef;
 }				t_hit_info;
 
 typedef struct	s_ray
 {
-	t_point_3d	origin;
-	t_vec_3d	direction; // vecteur unitaire ou s'en blc ?
+	t_point	origin;
+	t_vec	direction; // vecteur unitaire ou s'en blc ?
 	t_hit_info	hit_info;
 }				t_ray;
 
@@ -180,7 +180,7 @@ typedef struct s_mood_light
 
 typedef struct s_light
 {
-    t_point_3d p;
+    t_point p;
     t_light_info            infos;
     // t_raytracing_material   material; // ?
     struct s_light          *next;
@@ -193,7 +193,7 @@ typedef struct s_light
 
 typedef struct s_sphere
 {
-    t_point_3d  p;
+    t_point  p;
     double      radius;
     t_color   color;
     double     specular;
@@ -201,8 +201,8 @@ typedef struct s_sphere
 
 typedef struct s_plan
 {
-    t_point_3d  p; // pas défini par 2 vecteurs plutot ? -> 
-    t_vec_3d    vec;
+    t_point  p; // pas défini par 2 vecteurs plutot ? -> 
+    t_vec    vec;
     
     double      a;
     double      b;
@@ -216,10 +216,10 @@ typedef struct s_plan
 
 typedef struct s_cylindre
 {
-    t_point_3d  p;
-    t_vec_3d    vec;
-    t_vec_3d    n0;
-    t_vec_3d    n1;
+    t_point  p;
+    t_vec    vec;
+    t_vec    n0;
+    t_vec    n1;
     double      radius;
     double      height;
     t_color   color;
@@ -229,7 +229,7 @@ typedef struct s_cylindre
 
 typedef struct  s_circle
 {
-    t_point_3d  center;
+    t_point  center;
     double      radius;
 }              t_circle;
 
@@ -238,7 +238,7 @@ typedef struct  s_cone
     t_circle    base;
     double      height;
     double      slant_height; /* hauteur oblique, calculée avec pythagore */
-    t_vec_3d    orientation; // ou direction
+    t_vec    orientation; // ou direction
 }               t_cone;
 
 typedef struct  s_moebius
@@ -313,23 +313,23 @@ typedef struct  s_mlx_data
 
 typedef struct  s_referentiel
 {
-    t_point_3d  origin;
-    t_vec_3d    u;
-    t_vec_3d    v;
-    t_vec_3d    w;
+    t_point  origin;
+    t_vec    u;
+    t_vec    v;
+    t_vec    w;
 }               t_referentiel;
 
 typedef struct s_camera
 {
-    t_point_3d      p;
-    t_vec_3d        direction;
+    t_point      p;
+    t_vec        direction;
     int             fov;
     t_referentiel   ref;
     
     // camera frame basis vectors 
-    //t_vec_3d    u;
-    //t_vec_3d    v;
-    //t_vec_3d    w;
+    //t_vec    u;
+    //t_vec    v;
+    //t_vec    w;
 }   t_camera;
 
 typedef struct  s_viewport
@@ -337,17 +337,17 @@ typedef struct  s_viewport
     int         height;
     int         width;
 
-   /*  t_vec_3d    u;
-    t_vec_3d    v;
-    t_vec_3d    w; */
+   /*  t_vec    u;
+    t_vec    v;
+    t_vec    w; */
     
-    t_point_3d  pixel_00; // up-left pixel coordinates
-    t_vec_3d    pixel_delta_u;  // Offset to pixel to the right
-    t_vec_3d    pixel_delta_v;  // Offset to pixel below
+    t_point  pixel_00; // up-left pixel coordinates
+    t_vec    pixel_delta_u;  // Offset to pixel to the right
+    t_vec    pixel_delta_v;  // Offset to pixel below
 
     // pas encore sure d'ou ca s'applique exactement
-    t_vec_3d    defocus_disk_u; // Defocus disk horizontal radius
-    t_vec_3d    defocus_disk_v; // Defocus disk vertical radius
+    t_vec    defocus_disk_u; // Defocus disk horizontal radius
+    t_vec    defocus_disk_v; // Defocus disk vertical radius
 }               t_viewport;
 
 /* ----------------------- MAIN DATA STRUCTURES ---------------------- */

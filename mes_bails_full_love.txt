@@ -60,7 +60,7 @@ Marche a suivre (naive) du raytracer :
 
 pour chaque pixel :
 
-t_point_3d pixel = canvas_to_viewpoint();
+t_point pixel = canvas_to_viewpoint();
 // calculer le vecteur camera-pixel
 // resoudre l equation de l intersection avec les plans de l arbre
 // resoudre l intersection avec les objets 

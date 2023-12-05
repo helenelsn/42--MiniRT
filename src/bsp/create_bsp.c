@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:44:16 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/28 19:47:14 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/05 22:38:38 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,7 @@ void build_kd_tree(t_bsp_node *root_voxel, t_vlist *objects)
 /* --------------------- printing functions -------------------------- */
 
 
-void    print_point(t_point_3d p)
+void    print_point(t_point p)
 {
     printf("(%lf, %lf, %lf)\n", p.x, p.y, p.z);
 }

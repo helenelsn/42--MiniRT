@@ -6,13 +6,13 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 00:48:26 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/06 17:35:30 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/05 22:38:56 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/mini_rt.h"
 
-bool	get_vec_from_str(char *str, t_vec_3d *p) //todo add args to raise error
+bool	get_vec_from_str(char *str, t_vec *p) //todo add args to raise error
 {
 	bool flag = true;
 	char **sp;
@@ -37,9 +37,9 @@ bool	get_vec_from_str(char *str, t_vec_3d *p) //todo add args to raise error
 	return flag;
 }
 
-t_vec_3d get_vec_from_point(t_point_3d p, t_point_3d q)
+t_vec get_vec_from_point(t_point p, t_point q)
 {
-	t_vec_3d v;
+	t_vec v;
 
 	v.x = p.x- q.x;
 	v.y = p.y- q.y;

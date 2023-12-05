@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_splitting_plane.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:51:57 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/24 14:26:39 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/05 22:38:56 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ double  compute_cost(t_bsp_node *voxel, t_split_infos si)
         return (cost);
 }
 
-double vect_get_coord(t_vec_3d v, int i)
+double vect_get_coord(t_vec v, int i)
 {
     if (i < 0 || i > 2)
         return (-1); // idk
@@ -118,7 +118,7 @@ double vect_get_coord(t_vec_3d v, int i)
         return (v.z);
 }
 
-double  pt_get_coord(t_point_3d p, int i)
+double  pt_get_coord(t_point p, int i)
 {
     if (i < 0 || i > 2)
         return (-1); // idk
@@ -130,7 +130,7 @@ double  pt_get_coord(t_point_3d p, int i)
         return (p.z);
 }
 
-void    pt_modify_coord(t_point_3d p, int i, double new_c)
+void    pt_modify_coord(t_point p, int i, double new_c)
 {
     if (i < 0 || i > 2)
         return ;

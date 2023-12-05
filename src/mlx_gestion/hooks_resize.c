@@ -1,18 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   norm.c                                             :+:      :+:    :+:   */
+/*   hooks_resize.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/24 19:07:56 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/05 22:38:56 by srapin           ###   ########.fr       */
+/*   Created: 2023/12/05 22:46:58 by srapin            #+#    #+#             */
+/*   Updated: 2023/12/05 22:49:38 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/mini_rt.h"
 
-double get_v_norm(t_vec v)
+void resize_sphere(t_app *app, t_hit_info info)
 {
-    return dot(v, v);
+	// return true;
+}
+
+
+void resize_cylindre(t_app *app, t_hit_info info)
+{
 }

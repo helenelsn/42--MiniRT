@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 01:29:43 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/04 22:07:56 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/05 22:38:56 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ t_cylindre *create_cylindre(char **tab, t_vlist **garbage, t_parsing_data *data)
     }
     normalise(&elem->vec);
     if (elem->vec.x)
-        elem->n0 = vec_x_vec_vectoriel(elem->vec, (t_vec_3d) {0,1,0,1});
+        elem->n0 = cross_product(elem->vec, (t_vec) {0,1,0,1});
     else
-        elem->n0 = vec_x_vec_vectoriel(elem->vec, (t_vec_3d) {1,0,0,1});
-    elem->n1 = vec_x_vec_vectoriel(elem->vec, elem->n0);
+        elem->n0 = cross_product(elem->vec, (t_vec) {1,0,0,1});
+    elem->n1 = cross_product(elem->vec, elem->n0);
     normalise(&elem->n0);
     normalise(&elem->n1);
     

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   screen_scene_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:12:10 by hlesny            #+#    #+#             */
-/*   Updated: 2023/11/29 02:11:02 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/05 22:38:38 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@
 
 /* Computes the position of the current pixel on the 
 camera's projection plane (ie viewpoint) */
-/* t_point_3d  pixel_to_viewpoint_coord(int x, int y)
+/* t_point  pixel_to_viewpoint_coord(int x, int y)
 {
-    t_point_3d v;
+    t_point v;
 
     v.x = viewp_width * (x / IMAGE_WIDTH);
     v.y = viewp_height * (y / IMAGE_HEIGHT);

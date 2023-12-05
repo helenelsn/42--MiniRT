@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vec_operations.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:13:52 by hlesny            #+#    #+#             */
-/*   Updated: 2023/11/29 17:22:15 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/05 22:38:56 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 /* ------- VECTORS -------- */
 
 /* utile pour le ray traversal algorithm, dans lequel somme points et vecteurs */
-t_point_3d	get_vec_coord(t_vec_3d v)
+t_point	get_vec_coord(t_vec v)
 {
-	t_point_3d p;
+	t_point p;
 
 	p.x = v.x;
 	p.y = v.y;
@@ -26,9 +26,9 @@ t_point_3d	get_vec_coord(t_vec_3d v)
 	return (p);
 }
 
-t_vec_3d	vect_double_multiply(double n, t_vec_3d a)
+t_vec	vect_double_multiply(double n, t_vec a)
 {
-	t_vec_3d b;
+	t_vec b;
 
 	if (a.x)
 		b.x = n * a.x;
@@ -46,9 +46,9 @@ t_vec_3d	vect_double_multiply(double n, t_vec_3d a)
 	return (b);
 }
 
-t_vec_3d	vect_addition(t_vec_3d a, t_vec_3d b)
+t_vec	vect_addition(t_vec a, t_vec b)
 {
-	t_vec_3d c;
+	t_vec c;
 
 	c.x = a.x + b.x;
 	c.y = a.y + b.y;
@@ -57,12 +57,12 @@ t_vec_3d	vect_addition(t_vec_3d a, t_vec_3d b)
 	return (c);
 }
 
-t_vec_3d	vect_substract(t_vec_3d a, t_vec_3d b)
+t_vec	vect_substract(t_vec a, t_vec b)
 {
 	return (vect_addition(a, vect_double_multiply(-1, b)));
 }
 
-void    normalise(t_vec_3d *v)
+void    normalise(t_vec *v)
 {
     v->x /= v->norm;
     v->y /= v->norm;
@@ -70,9 +70,9 @@ void    normalise(t_vec_3d *v)
     v->norm = 1;
 }
 
-t_vec_3d	get_directional_vect(t_point_3d a, t_point_3d b)
+t_vec	get_directional_vect(t_point a, t_point b)
 {
-    t_vec_3d u;
+    t_vec u;
 
     u.x = b.x - a.x;
     u.y = b.y - a.y;
@@ -81,9 +81,9 @@ t_vec_3d	get_directional_vect(t_point_3d a, t_point_3d b)
     return (u);
 }
 
-t_vec_3d	get_unitary_dir_vect(t_point_3d a, t_point_3d b)
+t_vec	get_unitary_dir_vect(t_point a, t_point b)
 {
-	t_vec_3d u;
+	t_vec u;
 
 	u = get_directional_vect(a, b);
 	normalise(&u);

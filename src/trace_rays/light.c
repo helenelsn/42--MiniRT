@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:15:45 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/04 22:50:41 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/05 22:38:56 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,19 @@
 
 /*  pour un point d'intersection P, n la normale a la surface de l'objet en ce point.
 et v le vecteur directeur de P a l'origine du rayon */
-t_vec_3d	reflect_ray(t_vec_3d v, t_vec_3d n)
+t_vec	reflect_ray(t_vec v, t_vec n)
 {
-	return (vect_substract(v, vect_double_multiply(2 * vec_x_vec_scal(v, n), n)));
+	return (vect_substract(v, vect_double_multiply(2 * dot(v, n), n)));
 }
 
 /*  pour un point d'intersection P, n la normale a la surface de l'objet en ce point.
 et l le vecteur directeur de l'origine du rayon a P */
-t_vec_3d get_incident_ray_of_light(t_vec_3d l, t_vec_3d n)
+t_vec get_incident_ray_of_light(t_vec l, t_vec n)
 {
 	// R⃗ =2N⃗ ⟨N⃗ ,L⃗ ⟩−L⃗
 	
-	return (vect_substract(vect_double_multiply(2 * vec_x_vec_scal(n, l), n), l));
-	// return (vect_substract(vect_double_multiply(2, vect_double_multiply(vec_x_vec_scal(n, l), n)), l));
+	return (vect_substract(vect_double_multiply(2 * dot(n, l), n), l));
+	// return (vect_substract(vect_double_multiply(2, vect_double_multiply(dot(n, l), n)), l));
 }
 
 /* shiny objects 
@@ -47,7 +47,7 @@ and handling them accordingly.
 double 	specular_reflection(t_app *app, double s_term, t_ray ray)
 {
 	double 		intensity;
-	t_vec_3d	r;
+	t_vec	r;
 	double 		obj_to_light_dist;
 	//t_hit_info	closest_hit; // savoir si le rayon de direction objet->lumiere intersecte un autre objet 
 	t_light 	*curr;
@@ -73,9 +73,9 @@ double 	specular_reflection(t_app *app, double s_term, t_ray ray)
         	// if (scatter_direction.near_zero())
             // scatter_direction = rec.normal;
 			
-			t_vec_3d r = get_incident_ray_of_light(obj_to_light.direction, ray.hit_info.outward_normal);
+			t_vec r = get_incident_ray_of_light(obj_to_light.direction, ray.hit_info.outward_normal);
 			normalise(&r);
-			double r_dot_v = vec_x_vec_scal(r, ray.hit_info.reflected_ray);
+			double r_dot_v = dot(r, ray.hit_info.reflected_ray);
 			if (r_dot_v > 0.0)
 			{
 				intensity += curr->infos.ratio * pow(r_dot_v, s_term);	
@@ -111,7 +111,7 @@ double	diffuse_reflection(t_app *app, t_ray ray)
 		
 		if (obj_to_light.hit_info.distance == -1) // set a -1 si le rayon n'intersecte pas d'objets
 		{
-			n_dot_l = vec_x_vec_scal(ray.hit_info.outward_normal, obj_to_light.direction);
+			n_dot_l = dot(ray.hit_info.outward_normal, obj_to_light.direction);
 			if (n_dot_l > 0.0)
 				intensity += curr->infos.ratio * n_dot_l; // /(ray.hit_info.outward_normal.norm * obj_to_light.direction.norm); // peut simplifier, normalemet les deux sont unitaires et ont donc une norme de 1
 		}

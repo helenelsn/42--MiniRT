@@ -31,9 +31,12 @@ FILES = \
 		intersection/i_plan \
 		intersection/i_cylindre \
 		mlx_gestion/close \
+		mlx_gestion/hooks_resize \
+		mlx_gestion/hooks \
 		mlx_gestion/init \
 		mlx_gestion/key_press \
 		mlx_gestion/launch \
+		mlx_gestion/utils \
 		utils/atof \
 		utils/fov \
 		utils/ft_strcheck \

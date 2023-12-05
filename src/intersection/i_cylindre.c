@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 00:52:41 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/04 22:38:35 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/05 22:38:56 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ int    get_inter_for_cylindre(t_cylindre *cy, t_ray r, double *t0, double *t1)
     //compute distance entre droites
     t_droite c_dir;
     double dist;
-    t_vec_3d dir = r.direction;
-    t_point_3d pos = r.origin;
-    t_point_3d center = cy->p;
+    t_vec dir = r.direction;
+    t_point pos = r.origin;
+    t_point center = cy->p;
     double radius = cy->radius;
     
 
@@ -92,15 +92,15 @@ int    get_inter_for_cylindre(t_cylindre *cy, t_ray r, double *t0, double *t1)
     // n1ector n1 = crossProduct(cy->vec, n0);
 
     // Paramètres de l'équation quadratique
-    // t_vec_3d lol = get_directional_vect(r.origin , cy->p);
-    // double a = vec_x_vec_scal(cy->n0, cy->n0) + vec_x_vec_scal(cy->n1, cy->n1);
-    // double b = 2 * (vec_x_vec_scal(cy->n0, vec_minus_vec( lol,vect_double_multiply(  vec_x_vec_scal(lol, cy->vec), cy->vec ))) + vec_x_vec_scal(cy->n1, vec_minus_vec(lol , vect_double_multiply(vec_x_vec_scal(lol, cy->vec), cy->vec)    )));
-    // double c = vec_x_vec_scal(     vec_minus_vec(   lol ,  vect_double_multiply(vec_x_vec_scal(lol, cy->vec), cy->vec ) ),  vec_minus_vec(lol , vect_double_multiply(vec_x_vec_scal(lol, cy->vec), cy->vec)) )- cy->radius * cy->radius * (vec_x_vec_scal(cy->n0, cy->n0) + vec_x_vec_scal(cy->n1, cy->n1));
+    // t_vec lol = get_directional_vect(r.origin , cy->p);
+    // double a = dot(cy->n0, cy->n0) + dot(cy->n1, cy->n1);
+    // double b = 2 * (dot(cy->n0, vec_minus_vec( lol,vect_double_multiply(  dot(lol, cy->vec), cy->vec ))) + dot(cy->n1, vec_minus_vec(lol , vect_double_multiply(dot(lol, cy->vec), cy->vec)    )));
+    // double c = dot(     vec_minus_vec(   lol ,  vect_double_multiply(dot(lol, cy->vec), cy->vec ) ),  vec_minus_vec(lol , vect_double_multiply(dot(lol, cy->vec), cy->vec)) )- cy->radius * cy->radius * (dot(cy->n0, cy->n0) + dot(cy->n1, cy->n1));
 
 
-    // double a = vec_x_vec_scal(cy->n0, cy->n0) + vec_x_vec_scal(cy->n1, cy->n1);
-    // double b = 2 * (vec_x_vec_scal(cy->n0, vec_minus_vec( r.direction,vect_double_multiply(  vec_x_vec_scal(r.direction, cy->vec), cy->vec ))) + vec_x_vec_scal(cy->n1, vec_minus_vec(r.direction , vect_double_multiply(vec_x_vec_scal(r.direction, cy->vec), cy->vec)    )));
-    // double c = vec_x_vec_scal(     vec_minus_vec(   r.direction ,  vect_double_multiply(vec_x_vec_scal(r.direction, cy->vec), cy->vec ) ),  vec_minus_vec(r.direction , vect_double_multiply(vec_x_vec_scal(r.direction, cy->vec), cy->vec)) )- cy->radius * cy->radius * (vec_x_vec_scal(cy->n0, cy->n0) + vec_x_vec_scal(cy->n1, cy->n1));
+    // double a = dot(cy->n0, cy->n0) + dot(cy->n1, cy->n1);
+    // double b = 2 * (dot(cy->n0, vec_minus_vec( r.direction,vect_double_multiply(  dot(r.direction, cy->vec), cy->vec ))) + dot(cy->n1, vec_minus_vec(r.direction , vect_double_multiply(dot(r.direction, cy->vec), cy->vec)    )));
+    // double c = dot(     vec_minus_vec(   r.direction ,  vect_double_multiply(dot(r.direction, cy->vec), cy->vec ) ),  vec_minus_vec(r.direction , vect_double_multiply(dot(r.direction, cy->vec), cy->vec)) )- cy->radius * cy->radius * (dot(cy->n0, cy->n0) + dot(cy->n1, cy->n1));
 
     // Discriminant de l'équation quadratique
     // double discriminant = b * b - 4 * a * c;
@@ -122,14 +122,14 @@ int    get_inter_for_cylindre(t_cylindre *cy, t_ray r, double *t0, double *t1)
     //     }
     // }
 
-    // t_vec_3d n0;
-    // t_vec_3d n1;
+    // t_vec n0;
+    // t_vec n1;
     
 
-    // double a =vec_x_vec_scal(n0, n0) + vec_x_vec_scal(n1, n1);
-    // double b = 2 * (n0.x * (r.direction.x - cy->vec.x * vec_x_vec_scal(r.direction, cy->vec)) + n1.x * (r.direction.y - cy->vec.y * vec_x_vec_scal(r.direction, cy->vec)));
-    // double c = (r.direction.x - cy->vec.x * vec_x_vec_scal(r.direction, cy->vec)) * (r.direction.x - cy->vec.x * vec_x_vec_scal(r.direction, cy->vec)) +
-    //           (r.direction.y - cy->vec.y * vec_x_vec_scal(r.direction, cy->vec)) * (r.direction.y - cy->vec.y * vec_x_vec_scal(r.direction, cy->vec)) -
+    // double a =dot(n0, n0) + dot(n1, n1);
+    // double b = 2 * (n0.x * (r.direction.x - cy->vec.x * dot(r.direction, cy->vec)) + n1.x * (r.direction.y - cy->vec.y * dot(r.direction, cy->vec)));
+    // double c = (r.direction.x - cy->vec.x * dot(r.direction, cy->vec)) * (r.direction.x - cy->vec.x * dot(r.direction, cy->vec)) +
+    //           (r.direction.y - cy->vec.y * dot(r.direction, cy->vec)) * (r.direction.y - cy->vec.y * dot(r.direction, cy->vec)) -
     //           cy->radiusadius * cy->radiusadius * (n0.x * n0.x + n1.x * n1.x);
     // // if  ->droite parrallele -> checker les disk
 

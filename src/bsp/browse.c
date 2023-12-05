@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:44:25 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/04 22:39:22 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/05 22:38:56 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct s_stack
     double          t_max; // distance a laquelle le rayon sort du noeud 
     */
     double          t; /* the entry/exit signed distance */
-    t_point_3d      pb; /* the coordinates of entry/exit point */
+    t_point      pb; /* the coordinates of entry/exit point */
     int             prev;
 }               t_stack;
 
@@ -101,14 +101,14 @@ bool    intersect_sphere(t_ray *ray, void *object)
 {
     t_sphere    *sp;
     t_quadratic eq;
-    t_vec_3d    center_to_origin;
+    t_vec    center_to_origin;
     double      mult;
 
     sp = object;
     center_to_origin = get_directional_vect(sp->p, ray->origin);
-    eq.a = vec_x_vec_scal(ray->direction, ray->direction);
-    eq.b = 2 * vec_x_vec_scal(center_to_origin, ray->direction);
-    eq.c = vec_x_vec_scal(center_to_origin, center_to_origin) - sp->radius * sp->radius;
+    eq.a = dot(ray->direction, ray->direction);
+    eq.b = 2 * dot(center_to_origin, ray->direction);
+    eq.c = dot(center_to_origin, center_to_origin) - sp->radius * sp->radius;
     if (!solve_quadratic_eq(&eq))
         return (false);
     mult = get_closest_point(eq.t_1, eq.t_2);
@@ -132,7 +132,7 @@ bool    intersect_plan(t_ray *ray, void *object)
 {
     t_plan      *p;
     t_droite    d;
-    t_point_3d  res;
+    t_point  res;
     
     
     p = object;
@@ -148,6 +148,7 @@ bool    intersect_plan(t_ray *ray, void *object)
     ray->hit_info.hit_point = res;
     ray->hit_info.distance = get_dist_between_points(ray->origin, ray->hit_info.hit_point);
 
+    
     // printf("---------------------- intersected plan\n");
 
     return (true);
@@ -158,7 +159,7 @@ bool    intersect_cylindre(t_ray *ray, void *object)
 {
     t_cylindre      *cy;
     t_droite    d;
-    t_point_3d  res;
+    t_point  res;
     double t0;
     double t1;
     
@@ -256,7 +257,7 @@ void set_specular_in_mat(void * content, t_raytracing_material *mat, t_type t)
     // mat->color = 500;
 }
 
-void    copy_obj_properties(t_vlist *obj, t_hit_info *hinf, t_point_3d hp)
+void    copy_obj_properties(t_vlist *obj, t_hit_info *hinf, t_point hp)
 {
     hinf->obj_content = obj->content;  // est-ce que couille si supprime l objet originel ?
     hinf->obj_type = obj->type;
