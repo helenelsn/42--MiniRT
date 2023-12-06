@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:13 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/04 21:51:15 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/06 16:52:29 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include "../libs/libft/ft_printf.h"
 # include "../libs/libmatrices/inc/matrices.h"
 # include "../libs/minilibx-linux/mlx.h"
-# include "bsp.h"
 # include <X11/X.h>
 # include <X11/keysym.h>
 # include <math.h>
@@ -31,6 +30,7 @@
 
 # include "struct.h"
 # include "foo.h"
+# include "bsp.h"
 # include "mlx_hooks.h"
 
 

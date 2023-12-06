@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 20:16:50 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/04 22:37:29 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/06 16:00:03 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ t_color    color_scale(t_color color, double scale)
     // color.g *= scale;
     // color.b *= scale;
 
-    if (color.hex == 32512)
-        printf("--------------- {%s}, initial color = %u, scale = %f\n", __func__, todel.hex, scale);
+    // if (color.hex == 32512)
+    //     printf("--------------- {%s}, initial color = %u, scale = %f\n", __func__, todel.hex, scale);
     return (color);
 }
 

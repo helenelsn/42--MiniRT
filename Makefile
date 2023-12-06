@@ -6,9 +6,9 @@ CFLAGS = -MMD -g3 -I/opt/X11/include -I/opt/Xext/include #-Wall -Wextra -Werror 
 
 FILES = \
 		bsp/bounding_volumes \
-		bsp/browse \
 		bsp/create_bsp \
 		bsp/get_splitting_plane \
+		bsp/recursive_ray_traversal \
 		create_elem/cr_camera \
 		create_elem/cr_cylindre \
 		create_elem/cr_light \
