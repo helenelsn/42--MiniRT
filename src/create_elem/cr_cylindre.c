@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 01:29:43 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/05 22:38:56 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/07 00:27:01 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,12 @@ t_cylindre *create_cylindre(char **tab, t_vlist **garbage, t_parsing_data *data)
     elem->n1 = cross_product(elem->vec, elem->n0);
     normalise(&elem->n0);
     normalise(&elem->n1);
+    elem->base_to_cyl = new_3x3_matrix_from_vec(elem->n0, elem->vec, elem->n1, false);
+    elem->p_to_origin = get_directional_vect(elem->p, (t_point) {0,0,0});
+    
+    elem->cyl_to_base = get_inverse(elem->base_to_cyl);
+    
+    elem->origin_to_p = get_directional_vect((t_point) {0,0,0}, elem->p);
     
     ft_vlstadd_back(garbage, ft_vlstnew(elem, free, cylindre));
     ft_vlstadd_back(&data->objects, ft_vlstnew(elem, free, cylindre));

@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/05 22:38:56 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/07 00:12:34 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,6 +214,14 @@ typedef struct s_plan
     double     specular;
 }   t_plan;
 
+typedef struct  s_matrix
+{
+    int     rows;
+    int     columns;
+    double  **matrix;
+}               t_matrix;
+
+
 typedef struct s_cylindre
 {
     t_point  p;
@@ -225,6 +233,11 @@ typedef struct s_cylindre
     t_color   color;
     double     specular;
     
+    struct  s_matrix *base_to_cyl;
+    struct  s_matrix *cyl_to_base;
+    t_vec       p_to_origin;
+    t_vec       origin_to_p;
+
 }   t_cylindre;
 
 typedef struct  s_circle

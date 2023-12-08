@@ -38,6 +38,7 @@ FILES = \
 		mlx_gestion/launch \
 		mlx_gestion/utils \
 		utils/atof \
+		utils/change_base \
 		utils/fov \
 		utils/ft_strcheck \
 		utils/point3d \
