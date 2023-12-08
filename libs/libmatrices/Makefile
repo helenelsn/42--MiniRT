@@ -6,7 +6,7 @@
 #    By: srapin <srapin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/03 12:01:36 by Helene            #+#    #+#              #
-#    Updated: 2023/11/09 23:43:14 by srapin           ###   ########.fr        #
+#    Updated: 2023/12/06 23:56:11 by srapin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,9 +21,12 @@ FILES=	 \
 	del \
 	det \
 	equality \
+	inverse \
 	print_mat \
 	prod_mat \
 	scan \
+	transpose \
+	cofactore_matrix\
 	# basic_operations \
 
 SRCS_DIR = src

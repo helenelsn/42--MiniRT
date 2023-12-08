@@ -6,10 +6,11 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 21:01:11 by Helene            #+#    #+#             */
-/*   Updated: 2023/11/09 17:33:34 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/06 20:38:34 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../inc/matrices.h"
 
 
 t_cofactor_info get_efficient_index(t_matrix a) 

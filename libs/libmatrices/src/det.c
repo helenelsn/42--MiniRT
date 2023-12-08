@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cofactor.c                                         :+:      :+:    :+:   */
+/*   det.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 00:40:26 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/09 19:29:01 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/06 23:57:42 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ double get_mat_det(t_matrix *m)
 	int res = 0;
 	// printf("mat info : row = %d, index = %d\n", info.row, info.index);
 	t_matrix *tmp;
-	print_mat(m);
+	// print_mat(m);
 	info.row = 0;
 	info.index = 0;
 	while(++i < m->columns)
