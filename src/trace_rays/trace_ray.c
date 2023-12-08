@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trace_ray.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/05 22:38:56 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/06 16:54:36 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	no_tree_intersections(t_parsing_data pdata, t_ray *ray, t_interval t)
         ray->hit_info.distance = min_dist;
         return ;
     }
-    ray->hit_info.distance = -1;
+    // ray->hit_info.distance = -1;
 }
 
 void 	update_ray_hit_infos(t_ray *ray)
@@ -94,15 +94,15 @@ void 	update_ray_hit_infos(t_ray *ray)
 t_color    trace_ray(t_app *app, t_point ray_origin, t_vec dir, int rebound_nb)
 {
     t_ray		ray;
-	t_vec	reflected_ray;
+	t_vec		reflected_ray;
 	t_color 	local_color;
-	double 		reflected_color;
+	t_color 	reflected_color;
 	
 	ft_memset(&ray, 0, sizeof(t_ray)); // verifier que ca ecrase pas de la data que veut garder (jpense pas)
 	set_ray_infos(&ray, dir, ray_origin);
 	
-	//ray_traversal_algo(&app->root, &ray);
-	no_tree_intersections(app->p_data, &ray, get_interval(HITPOINT_OFFSET, INFINITY));
+	rec_ray_traverse(app, &app->root, &ray, get_interval(HITPOINT_OFFSET, INFINITY));
+	// no_tree_intersections(app->p_data, &ray, get_interval(HITPOINT_OFFSET, INFINITY));
 	
 	if (ray.hit_info.distance == -1) // le rayon n'intersecte aucun objet
 	{
@@ -113,12 +113,12 @@ t_color    trace_ray(t_app *app, t_point ray_origin, t_vec dir, int rebound_nb)
 	update_ray_hit_infos(&ray);
 	
 	local_color = color_scale(ray.hit_info.obj_mat.color, compute_lighting(app, ray.hit_info.obj_mat.specular, ray));
-	if (local_color.hex != 65280 && local_color.hex != 32512 && local_color.hex != 65024)
-	{
-		printf("local_color = %u\n", local_color.hex);
-	}
+	// if (local_color.hex != 65280 && local_color.hex != 32512 && local_color.hex != 65024)
+	// {
+	// 	printf("local_color = %u\n", local_color.hex);
+	// }
 	
-
+ 
 
 	
 	//local_color = color_scale(ray.hit_info.obj_mat.color, compute_lighting(app, ray.hit_info.obj_mat.specular, ray));
@@ -129,13 +129,11 @@ t_color    trace_ray(t_app *app, t_point ray_origin, t_vec dir, int rebound_nb)
 		return (local_color);
 
 	/* compute reflected color */
-	//reflected_ray = get_incident_ray_of_light(vect_double_multiply(-1, ray.direction), ray.hit_info.outward_normal); // ou juste ray.direction en premier argument ?
-	// reflected_color = trace_ray(app, ray.hit_info.hit_point, ray.hit_info.reflected_ray, rebound_nb + 1);
+	reflected_ray = get_incident_ray_of_light(vect_double_multiply(-1, ray.direction), ray.hit_info.outward_normal); // ou juste ray.direction en premier argument ?
+	reflected_color = trace_ray(app, ray.hit_info.hit_point, ray.hit_info.reflected_ray, rebound_nb + 1);
+	return (color_add(color_scale(local_color, 1 - ray.hit_info.obj_mat.reflective), color_scale(reflected_color, ray.hit_info.obj_mat.reflective)));
 	
-	// if (local_color * (1 - ray.hit_info.obj_mat.reflective) + reflected_color * ray.hit_info.obj_mat.reflective)
-
-	// return (local_color * (1 - ray.hit_info.obj_mat.reflective) + reflected_color * ray.hit_info.obj_mat.reflective);
-	return (local_color);
+	// return (local_color);
 }
 
 int		get_final_pixel_color(t_app *app, int x, int y)

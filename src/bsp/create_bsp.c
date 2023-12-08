@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_bsp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:44:16 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/05 22:38:38 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/06 19:13:15 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void rec_build(t_bsp_node *voxel)
     if (!voxel)
         return ;   
 
-    if (!voxel->items_count || voxel->depth == MAX_DEPTH) // pas sure du premier...  voxel->items_count < 2 || 
+    if (voxel->depth == MAX_DEPTH) // pas sure du premier...  voxel->items_count < 2 || 
     {
         voxel->type = leaf;
         voxel->left = NULL;
@@ -117,16 +117,20 @@ void    set_root_voxel(t_bsp_node *root, t_vlist *objects)
 {
     t_vlist *curr;
 
-    /* root->items = malloc(sizeof(t_vlist));
+    root->items = malloc(sizeof(t_vlist));
     if (!root->items)
-        return  */;
-    // curr = objects;
-    // root->items = objects; /* set la liste d'objets */
-    // while (curr)
-    // {
-    //     root->items_count++;
-    //     curr = curr->next;
-    // }
+        return ;
+    curr = objects;
+    root->items = objects; /* set la liste d'objets */
+    // !!!!!! plutot tout malloc nn ? et ensuite passe les pointeurs aux leafs, pas la peine de re-malloc, aura
+    // malloc qu'une liste d'objets pour l'arbre 
+    while (curr)
+    {
+        root->items_count++;
+        curr = curr->next;
+    }
+
+    
     root->type = node;
     root->depth = 0;
     root->left = NULL;

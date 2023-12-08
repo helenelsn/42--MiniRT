@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:15:45 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/05 22:38:56 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/06 15:55:01 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +127,8 @@ double 	compute_lighting(t_app *app, float specular, t_ray ray)
 	intensity = app->p_data.mooooo->infos.ratio;
 	//printf("{%s}, ambient_intensity = %f\n", __func__, intensity);
 	intensity += diffuse_reflection(app, ray);
-	if (intensity == app->p_data.mooooo->infos.ratio)
-		printf("{%s}, ambient + diffuse intensity = %f\n", __func__, intensity);
+	// if (intensity == app->p_data.mooooo->infos.ratio)
+		// printf("{%s}, ambient + diffuse intensity = %f\n", __func__, intensity);
 	if (specular != -1)
 	{
 		//printf("specular intensity calculated\n");

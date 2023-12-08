@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/07 00:12:34 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/08 19:26:24 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,8 +195,8 @@ typedef struct s_sphere
 {
     t_point  p;
     double      radius;
-    t_color   color;
-    double     specular;
+    t_color     color;
+    double      specular;
 }   t_sphere;
 
 typedef struct s_plan
