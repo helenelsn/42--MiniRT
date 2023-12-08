@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 16:44:06 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/08 23:44:23 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/06 23:57:37 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,32 @@ t_matrix  *copy_matrix(t_matrix *m)
             j++;
         }
         i++;
+    }
+    return new;
+}
+
+t_matrix  *new_3x3_matrix_from_vec(t_vec v0, t_vec v1, t_vec v2, bool lign)
+{
+    t_matrix *new;
+    t_matrix *new2;
+
+    new = new_void_matrix(3, 3);
+    
+    new->matrix[0][0] = v0.x;
+    new->matrix[1][0] = v0.y;
+    new->matrix[2][0] = v0.z;
+    new->matrix[0][1] = v1.x;
+    new->matrix[1][1] = v1.y;
+    new->matrix[2][1] = v1.z;
+    new->matrix[0][2] = v2.x;
+    new->matrix[1][2] = v2.y;
+    new->matrix[2][2] = v2.z;
+    // print_mat(new);
+    if (lign)
+    {
+        new2 = transpose(new);
+        del_mat(new);
+        return new2;
     }
     return new;
 }

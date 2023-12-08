@@ -6,7 +6,7 @@
 #    By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/03 12:01:36 by Helene            #+#    #+#              #
-#    Updated: 2023/12/08 19:29:08 by hlesny           ###   ########.fr        #
+#    Updated: 2023/12/08 19:45:38 by hlesny           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,9 +21,12 @@ FILES=	 \
 	del \
 	det \
 	equality \
+	inverse \
 	print_mat \
 	prod_mat \
 	scan \
+	transpose \
+	cofactore_matrix\
 	# basic_operations \
 
 SRCS_DIR = src

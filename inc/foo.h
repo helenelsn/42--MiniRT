@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/08 19:43:57 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/08 19:45:30 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ t_vec	vect_double_multiply(double n, t_vec a);
 t_vec	vect_addition(t_vec a, t_vec b);
 t_vec	vect_substract(t_vec a, t_vec b);
 void    	normalise(t_vec *v);
-t_vec	get_directional_vect(t_point a, t_point b);
+t_vec	get_directional_vect(t_point origin, t_point dest);
 t_vec	get_unitary_dir_vect(t_point a, t_point b);
 t_vec 	get_unit_normal(t_hit_info hi, t_point p);
 
@@ -175,7 +175,8 @@ double dot(t_vec v, t_vec w);
 t_vec cross_product(t_vec v, t_vec w);
 
 double get_v_norm(t_vec v);
-
+t_point change_base_of_point(t_point v, t_vec trans, t_matrix *rot);
+t_vec change_base_of_vec(t_vec v, t_vec trans, t_matrix *rot);
 t_vlist    	*get_inter(t_vlist *elem, t_droite d);
 void    	get_inter_for_sphere(t_sphere *elem, t_droite d);
 int    	get_inter_for_plan(t_plan *p, t_droite d, t_point *res);
