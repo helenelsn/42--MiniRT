@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 00:05:43 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/06 19:18:20 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/08 19:34:57 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -353,7 +353,7 @@ void    set_near_far_nodes(double ray_origin_coord, t_bsp_node *curr, t_bsp_node
 }
 
 /*  a tester : le cas ou le rayon est identique au plan de coupe -> verifier que crash pas */
-void    rec_ray_traverse(t_app *app, t_bsp_node *node, t_ray *ray, t_interval t)
+void    rec_ray_traverse(t_app *app, t_ray *ray, t_interval t) // t_bsp_node *node, 
 {
     t_stack     curr;
     double      entry;

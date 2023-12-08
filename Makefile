@@ -2,7 +2,7 @@
 NAME = mimirt
 
 CC = cc
-CFLAGS = -MMD -g3 -I/opt/X11/include -I/opt/Xext/include #-Wall -Wextra -Werror -I
+CFLAGS = -MMD -g3 -I/opt/X11/include -I/opt/Xext/include -I$(INCLUDES_DIR) #-Wall -Wextra -Werror -I
 
 FILES = \
 		bsp/bounding_volumes \
@@ -69,7 +69,7 @@ OBJS_DIR = obj
 OBJS = ${patsubst ${SRCS_DIR}/%.c, ${OBJS_DIR}/%.o, ${SRCS}}
 
 #DEP_OBJS = ${patsubst ${SRCS_DIR}/%.c, ${OBJS_DIR}/%.d, ${SRCS}}
-DEP_OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.d))
+DEP_OBJS = $(OBJS:.o=.d)
 
 LIBS_FOLDER = libs
 
@@ -96,8 +96,9 @@ bonus: $(NAME)
 
 $(NAME): $(LIBS) $(OBJS)
 	$(CC) $(OBJS) $(LIBS) $(MLXFLAGS) -g -o $@
+#@echo "mimirt compiled"
 
-${OBJS_DIR}/%.o: ${SRCS_DIR}/%.c 
+${OBJS_DIR}/%.o : ${SRCS_DIR}/%.c
 	@mkdir -p $(OBJS_DIR)
 	@mkdir -p $(OBJS_DIR)/bsp
 	@mkdir -p $(OBJS_DIR)/camera
@@ -113,6 +114,16 @@ ${OBJS_DIR}/%.o: ${SRCS_DIR}/%.c
 #$(INCLUDES_DIR) 
 
 -include $(DEP_OBJS)
+#-include $(DEP_OBJS)/bsp
+#-include $(DEP_OBJS)/create_elem
+#-include $(DEP_OBJS)/dist
+#-include $(DEP_OBJS)/trace_rays
+#-include $(DEP_OBJS)/garbage_collector
+#-include $(DEP_OBJS)/intersection
+#-include $(DEP_OBJS)/mlx_gestion
+#-include $(DEP_OBJS)/utils
+#-include $(DEP_OBJS)/utils_vec_et_droite
+@echo "=================================Dependencies: $(DEP_OBJS)"
 
 clean: cleanlibs
 	rm -r $(OBJS_DIR)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vec_operations.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:13:52 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/05 22:38:56 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/08 17:20:04 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,13 @@ void    normalise(t_vec *v)
     v->norm = 1;
 }
 
-t_vec	get_directional_vect(t_point a, t_point b)
+t_vec	get_directional_vect(t_point origin, t_point target)
 {
     t_vec u;
 
-    u.x = b.x - a.x;
-    u.y = b.y - a.y;
-    u.z = b.z - a.z;
+    u.x = target.x - origin.x;
+    u.y = target.y - origin.y;
+    u.z = target.z - origin.z;
     u.norm = sqrt(pow(u.x, 2) + pow(u.y, 2) + pow(u.z, 2));
     return (u);
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: srapin <srapin@student.42.fr>              +#+  +:+       +#+         #
+#    By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/05 01:15:01 by srapin            #+#    #+#              #
-#    Updated: 2023/02/12 13:13:14 by srapin           ###   ########.fr        #
+#    Updated: 2023/12/08 19:40:42 by hlesny           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,6 +68,7 @@ all:	$(NAME)
 
 $(NAME):	$(OBJS)
 	$(AR) $(NAME) $(OBJS)
+#@echo "libft compiled"
 
 clean:	
 	$(RM) $(OBJS) $(BONUS_OBJS)

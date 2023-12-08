@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/06 16:54:36 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/08 19:35:14 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,8 @@ t_color    trace_ray(t_app *app, t_point ray_origin, t_vec dir, int rebound_nb)
 	ft_memset(&ray, 0, sizeof(t_ray)); // verifier que ca ecrase pas de la data que veut garder (jpense pas)
 	set_ray_infos(&ray, dir, ray_origin);
 	
-	rec_ray_traverse(app, &app->root, &ray, get_interval(HITPOINT_OFFSET, INFINITY));
-	// no_tree_intersections(app->p_data, &ray, get_interval(HITPOINT_OFFSET, INFINITY));
+	//rec_ray_traverse(app, &ray, get_interval(HITPOINT_OFFSET, INFINITY));
+	no_tree_intersections(app->p_data, &ray, get_interval(HITPOINT_OFFSET, INFINITY));
 	
 	if (ray.hit_info.distance == -1) // le rayon n'intersecte aucun objet
 	{
@@ -112,28 +112,20 @@ t_color    trace_ray(t_app *app, t_point ray_origin, t_vec dir, int rebound_nb)
 
 	update_ray_hit_infos(&ray);
 	
-	local_color = color_scale(ray.hit_info.obj_mat.color, compute_lighting(app, ray.hit_info.obj_mat.specular, ray));
-	// if (local_color.hex != 65280 && local_color.hex != 32512 && local_color.hex != 65024)
-	// {
-	// 	printf("local_color = %u\n", local_color.hex);
-	// }
-	
- 
-
+	local_color = color_scale(ray.hit_info.obj_mat.color, compute_lighting(app, ray));
 	
 	//local_color = color_scale(ray.hit_info.obj_mat.color, compute_lighting(app, ray.hit_info.obj_mat.specular, ray));
-	//local_color.hex =  ray.hit_info.obj_mat.color.hex * compute_lighting(app, ray.hit_info.obj_mat.specular, ray);
 	
 	/* get the final pixel's color */
-	if (ray.hit_info.obj_mat.reflective <= 0 || rebound_nb == REBOUNDS_LIMIT)
+	// if (ray.hit_info.obj_mat.reflective <= 0 || rebound_nb == REBOUNDS_LIMIT)
 		return (local_color);
 
 	/* compute reflected color */
-	reflected_ray = get_incident_ray_of_light(vect_double_multiply(-1, ray.direction), ray.hit_info.outward_normal); // ou juste ray.direction en premier argument ?
-	reflected_color = trace_ray(app, ray.hit_info.hit_point, ray.hit_info.reflected_ray, rebound_nb + 1);
-	return (color_add(color_scale(local_color, 1 - ray.hit_info.obj_mat.reflective), color_scale(reflected_color, ray.hit_info.obj_mat.reflective)));
-	
-	// return (local_color);
+	// A VERIFIER !!!!!!!!!!!
+	// reflected_ray = get_incident_ray_of_light(vect_double_multiply(-1, ray.direction), ray.hit_info.outward_normal); // ou juste ray.direction en premier argument ?
+	// reflected_color = trace_ray(app, ray.hit_info.hit_point, ray.hit_info.reflected_ray, rebound_nb + 1);
+	// return (color_add(color_scale(local_color, 1 - ray.hit_info.obj_mat.reflective), color_scale(reflected_color, ray.hit_info.obj_mat.reflective)));
+
 }
 
 int		get_final_pixel_color(t_app *app, int x, int y)
@@ -158,8 +150,9 @@ int		get_final_pixel_color(t_app *app, int x, int y)
 	while (sampling_count < SAMPLES_PER_PIXEL)
 	{
 		viewp_pixel = translate_point(pixel_center, pixel_sample(app, x, y)) ;
-		//printf("in %s, pixel = (%d, %d), sampled_coord = (%f, %f, %f)\n", __func__, x, y, viewp_pixel.x, viewp_pixel.y, viewp_pixel.z);
+
 		tmp = trace_ray(app, app->p_data.cam->p, get_directional_vect(app->p_data.cam->p, viewp_pixel), 0);
+
 		r += tmp.r;
 		g += tmp.g;
 		b += tmp.b;
@@ -173,6 +166,7 @@ int		get_final_pixel_color(t_app *app, int x, int y)
 	pixel_color.b = b / inv;
 	
 	// pixel_color = color_scale(pixel_color, inv); // ok ou va trop arrondir ?
+	// printf("{%s}, final_color = %u\n", __func__, pixel_color.hex);
 	return (pixel_color.hex); 
 }
 

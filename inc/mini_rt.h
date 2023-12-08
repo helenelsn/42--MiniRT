@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:13 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/06 16:52:29 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/08 18:49:00 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include "../libs/minilibx-linux/mlx.h"
 # include <X11/X.h>
 # include <X11/keysym.h>
-# include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
 #include <sys/types.h>
@@ -27,6 +26,9 @@
 #include <stdbool.h>
 #include <float.h>
 #include <limits.h>
+
+# include <math.h>
+#define _USE_MATH_DEFINES // pour M_PI askip
 
 # include "struct.h"
 # include "foo.h"

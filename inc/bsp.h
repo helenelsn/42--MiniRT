@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:46:51 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/06 16:49:04 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/08 19:35:21 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_bsp_node	        *place_ray_origin_in_tree(t_app app, t_ray ray); // utile ?
 t_bsp_node          *position_camera_in_tree(t_bsp_node *root, t_camera cam); // utile ?
 
 
-void                rec_ray_traverse(t_app *app, t_bsp_node *node, t_ray *ray, t_interval t);
+void                rec_ray_traverse(t_app *app, t_ray *ray, t_interval t);
 bool                test_intersections(t_bsp_node *leaf, t_parsing_data pdata,
                     t_ray *ray, t_interval t);
 bool                intersect_scene(t_bbox_description scene, t_ray ray, double *a, double *b);

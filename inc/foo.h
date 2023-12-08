@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   foo.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/05 22:54:12 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/08 19:43:57 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 #define FOO_H
 #include "struct.h"
 
-
-
+  
 //-------------------------- CAMERA --------------------------------//
 double  deg_to_rad(double degrees);
 void 	set_viewpoint_dimensions(t_app *app);
@@ -95,7 +94,7 @@ t_vec 	get_unit_normal(t_hit_info hi, t_point p);
 /* -------------------- TRACE RAYS ---------------- */
 
 void    	draw_scene(t_app *app);
-double 		compute_lighting(t_app *app, float specular, t_ray ray);
+double 		compute_lighting(t_app *app, t_ray ray);
 t_vec	get_incident_ray_of_light(t_vec l, t_vec n);
 t_vec	reflect_ray(t_vec v, t_vec n); // ?
 

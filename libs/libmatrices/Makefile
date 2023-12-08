@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: srapin <srapin@student.42.fr>              +#+  +:+       +#+         #
+#    By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/03 12:01:36 by Helene            #+#    #+#              #
-#    Updated: 2023/11/09 23:43:14 by srapin           ###   ########.fr        #
+#    Updated: 2023/12/08 19:29:08 by hlesny           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,14 +35,15 @@ OBJS = ${patsubst ${SRCS_DIR}/%.c, ${OBJS_DIR}/%.o, ${SRCS}}
 
 ${OBJS_DIR}/%.o: ${SRCS_DIR}/%.c 
 	@mkdir -p $(OBJS_DIR)
-	$(CC) $(CFLAGS) -o $@ -c $<
+	@$(CC) $(CFLAGS) -o $@ -c $<
 
 # LIBFT_DIR = mylibft/
 # LIBFT_NAME = lib.a
 # LIBFT = $(LIBFT_DIR)$(LIBFT_NAME)
 
 $(NAME): $(OBJS) $(LIBFT)
-	${AR} $@ $(OBJS)
+	@${AR} $@ $(OBJS)
+	@echo "libmatrices compiled"
 # cp ${LIBFT} $@
 
 
