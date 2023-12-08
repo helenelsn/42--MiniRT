@@ -45,6 +45,7 @@ FILES = \
 		utils/ratio \
 		utils/rgb \
 		utils/set_specular \
+		utils/set_reflective \
 		utils/vec3d \
 		utils_vec_et_droite/norm \
 		utils_vec_et_droite/prod_scalaire \

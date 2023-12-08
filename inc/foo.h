@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/08 19:45:30 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/08 21:31:03 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,21 +143,22 @@ void 		launch_app(t_app *arg);
 
 //parse
 
-bool set_specular(char *str, double *to_mod);
+bool 			set_specular(char *str, double *to_mod);
+bool 			set_reflective(char *str, double *to_mod);
 
-void	set_ray_infos(t_ray *ray, t_vec direction, t_point ray_origin);
-void set_specular_in_mat(void * content, t_raytracing_material *mat, t_type t);
-void set_color_in_mat(void * content, t_raytracing_material *mat, t_type t);
-double get_ratio(char *str);
-bool	get_point(char *str, t_point *p);
-bool	get_vec_from_str(char *str, t_vec *p);
-t_vec get_vec_from_point(t_point p, t_point q);
-int get_fov(char *str);
-int	create_rgb(unsigned char r, unsigned char g, unsigned char b);
-bool	get_rgb(char *str,  int *c);
-t_parse_error parse(int ac, char **av, t_vlist **garbage, t_parsing_data *data);
-void free_tab(void *arg);
-int null_term_tab_len(void **tab);
+void			set_ray_infos(t_ray *ray, t_vec direction, t_point ray_origin);
+void 			set_specular_in_mat(void * content, t_raytracing_material *mat, t_type t);
+void 			set_color_in_mat(void * content, t_raytracing_material *mat, t_type t);
+double 			get_ratio(char *str);
+bool			get_point(char *str, t_point *p);
+bool			get_vec_from_str(char *str, t_vec *p);
+t_vec 			get_vec_from_point(t_point p, t_point q);
+int 			get_fov(char *str);
+int				create_rgb(unsigned char r, unsigned char g, unsigned char b);
+bool			get_rgb(char *str,  int *c);
+t_parse_error 	parse(int ac, char **av, t_vlist **garbage, t_parsing_data *data);
+void 			free_tab(void *arg);
+int 			null_term_tab_len(void **tab);
 						
 
 bool					ft_strisint(char *str);

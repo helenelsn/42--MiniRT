@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/08 19:35:14 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/08 21:44:42 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,14 +117,16 @@ t_color    trace_ray(t_app *app, t_point ray_origin, t_vec dir, int rebound_nb)
 	//local_color = color_scale(ray.hit_info.obj_mat.color, compute_lighting(app, ray.hit_info.obj_mat.specular, ray));
 	
 	/* get the final pixel's color */
-	// if (ray.hit_info.obj_mat.reflective <= 0 || rebound_nb == REBOUNDS_LIMIT)
+	if (ray.hit_info.obj_mat.reflective <= 0 || rebound_nb == REBOUNDS_LIMIT)
 		return (local_color);
 
 	/* compute reflected color */
 	// A VERIFIER !!!!!!!!!!!
+	
+	reflected_ray = reflect_ray(ray.direction, ray.hit_info.outward_normal); // ou juste ray.direction en premier argument ?
 	// reflected_ray = get_incident_ray_of_light(vect_double_multiply(-1, ray.direction), ray.hit_info.outward_normal); // ou juste ray.direction en premier argument ?
-	// reflected_color = trace_ray(app, ray.hit_info.hit_point, ray.hit_info.reflected_ray, rebound_nb + 1);
-	// return (color_add(color_scale(local_color, 1 - ray.hit_info.obj_mat.reflective), color_scale(reflected_color, ray.hit_info.obj_mat.reflective)));
+	reflected_color = trace_ray(app, ray.hit_info.hit_point, reflected_ray, rebound_nb + 1);
+	return (color_add(color_scale(local_color, 1 - ray.hit_info.obj_mat.reflective), color_scale(reflected_color, ray.hit_info.obj_mat.reflective)));
 
 }
 

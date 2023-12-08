@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/08 19:26:24 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/08 21:23:27 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,6 +197,7 @@ typedef struct s_sphere
     double      radius;
     t_color     color;
     double      specular;
+    double      reflective;
 }   t_sphere;
 
 typedef struct s_plan
@@ -212,6 +213,7 @@ typedef struct s_plan
     
     t_color   color;
     double     specular;
+    double      reflective;
 }   t_plan;
 
 typedef struct  s_matrix
@@ -230,8 +232,9 @@ typedef struct s_cylindre
     t_vec    n1;
     double      radius;
     double      height;
-    t_color   color;
-    double     specular;
+    t_color     color;
+    double      specular;
+    double      reflective;
     
     struct  s_matrix *base_to_cyl;
     struct  s_matrix *cyl_to_base;
