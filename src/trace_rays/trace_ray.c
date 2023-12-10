@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trace_ray.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eva <eva@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/10 01:18:25 by eva              ###   ########.fr       */
+/*   Updated: 2023/12/10 21:42:37 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,10 @@ void 	update_ray_hit_infos(t_ray *ray)
 t_color    trace_ray(t_app *app, t_point ray_origin, t_vec dir, int rebound_nb)
 {
     t_ray		ray;
-	t_vec		reflected_ray;
 	t_color 	local_color;
+	t_vec		reflected_ray;
 	t_color 	reflected_color;
+	
 	
 	ft_memset(&ray, 0, sizeof(t_ray)); // verifier que ca ecrase pas de la data que veut garder (jpense pas)
 	set_ray_infos(&ray, dir, ray_origin);
@@ -112,7 +113,13 @@ t_color    trace_ray(t_app *app, t_point ray_origin, t_vec dir, int rebound_nb)
 
 	update_ray_hit_infos(&ray);
 	
-	local_color = color_scale(ray.hit_info.obj_mat.color, compute_lighting(app, ray));
+	local_color = ray.hit_info.obj_mat.color;
+	if (ray.hit_info.obj_mat.checkers)
+	{
+		local_color = pattern_at(checkers_map_white(local_color), ray.hit_info.hit_point, ray.hit_info.obj_type, ray.hit_info.obj_content);
+	}
+	
+	local_color = color_scale(local_color, compute_lighting(app, ray));
 	// local_color = color_mult(ray.hit_info.obj_mat.color, compute_lighting(app, ray));
 	
 	//local_color = color_scale(ray.hit_info.obj_mat.color, compute_lighting(app, ray.hit_info.obj_mat.specular, ray));

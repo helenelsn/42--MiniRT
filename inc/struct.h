@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/10 19:16:43 by Helene           ###   ########.fr       */
+/*   Updated: 2023/12/10 21:32:30 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 #define STRUCT_H
 // #include "mini_rt.h"
+
+#include <stdbool.h>
 
 
 
@@ -110,34 +112,35 @@ typedef struct  s_bbox_description
 
 /* width and height describe how many squares the pattern creates in u and v (the 2D coordinates)
 a and b are the squares colors */
-typedef struct  s_checkers_func
+typedef struct  s_checkers_map
 {
     double  width;
     double  height;
     t_color a;
     t_color b;
-}               t_checkers_func;
+}               t_checkers_map;
 
-typedef enum    e_pattern_type;
-{
-    checkers
-    // quoi d'autre ? utile ?
-}               t_pattern_type;
+// typedef enum    e_pattern_type;
+// {
+//     checkers
+//     // quoi d'autre ? utile ?
+// }               t_pattern_type;
 
-typedef struct  s_pattern
-{
-
-}               t_pattern;
+// typedef struct  s_pattern
+// {
+	
+// }               t_pattern;
 
 typedef struct  s_material
 {
     t_color             color;
     
-    // double              ambient; 
-    // double              diffuse;
+    // double           ambient; 
+    // double           diffuse;
     double              specular;
     double              reflective;       
-    t_pattern           pattern;
+    bool 				checkers;
+    t_checkers_map		f;
     t_bbox_description  bbox;
 }               t_material;
 
@@ -222,6 +225,7 @@ typedef struct s_sphere
     t_color     color;
     double      specular;
     double      reflective;
+	bool 		checkers;
 }   t_sphere;
 
 typedef struct s_plan
@@ -238,6 +242,7 @@ typedef struct s_plan
     t_color   color;
     double     specular;
     double      reflective;
+	bool 		checkers;
 }   t_plan;
 
 typedef struct  s_matrix
@@ -259,6 +264,7 @@ typedef struct s_cylindre
     t_color     color;
     double      specular;
     double      reflective;
+	bool 		checkers;
     
     struct  s_matrix *base_to_cyl;
     struct  s_matrix *cyl_to_base;

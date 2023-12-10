@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:15:45 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/10 18:15:57 by Helene           ###   ########.fr       */
+/*   Updated: 2023/12/10 23:08:31 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ double 	specular_reflection(t_app *app, t_ray ray)
 			if (r_dot_v > 0.0)
 			{
 				// 0.4 == reflectance_coefficient
-				intensity += 0.4 * curr->infos.ratio * pow(r_dot_v, ray.hit_info.obj_mat.specular) * n_dot_l;	// / (r.norm * obj_to_light.direction.norm )
+				intensity += 0.3 * curr->infos.ratio * pow(r_dot_v, ray.hit_info.obj_mat.specular) * n_dot_l;	// / (r.norm * obj_to_light.direction.norm )
 				
 				// printf("{%s} : color = %u\n", __func__, color.hex);
 			}
@@ -124,7 +124,7 @@ double	diffuse_reflection(t_app *app, t_ray ray)
 			n_dot_l = dot(ray.hit_info.outward_normal, obj_to_light.direction);
 			if (n_dot_l > 0.0)
 			{
-				intensity += 0.6 * curr->infos.ratio / M_PI * (n_dot_l); // / dot(obj_to_light.direction.norm, obj_to_light.direction.norm); // /(ray.hit_info.outward_normal.norm * obj_to_light.direction.norm); // peut simplifier, normalemet les deux sont unitaires et ont donc une norme de 1
+				intensity += 0.7 * curr->infos.ratio / M_PI * (n_dot_l); // / dot(obj_to_light.direction.norm, obj_to_light.direction.norm); // /(ray.hit_info.outward_normal.norm * obj_to_light.direction.norm); // peut simplifier, normalemet les deux sont unitaires et ont donc une norme de 1
 				// printf("{%s} : color = %u\n", __func__, color.hex);
 			}
 		}

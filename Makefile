@@ -46,6 +46,7 @@ FILES = \
 		utils/rgb \
 		utils/set_specular \
 		utils/set_reflective \
+		utils/set_checkers \
 		utils/vec3d \
 		utils_vec_et_droite/norm \
 		utils_vec_et_droite/prod_scalaire \
@@ -60,7 +61,10 @@ FILES = \
 		trace_rays/screen_scene_utils \
 		trace_rays/trace_ray \
 		camera/init_viewpoint \
-		trace_rays/intervals_utils 
+		trace_rays/intervals_utils \
+		checkerboard/checkers_maps \
+		checkerboard/geometric_mappings \
+		checkerboard/get_color \
 # Resolving
 		
 	
@@ -112,6 +116,7 @@ ${OBJS_DIR}/%.o : ${SRCS_DIR}/%.c
 	@mkdir -p $(OBJS_DIR)/mlx_gestion
 	@mkdir -p $(OBJS_DIR)/utils
 	@mkdir -p $(OBJS_DIR)/utils_vec_et_droite
+	@mkdir -p $(OBJS_DIR)/checkerboard
 	$(CC) $(CFLAGS) -o $@ -c $< 
 #$(INCLUDES_DIR) 
 

@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:13 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/08 21:59:16 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/10 22:59:21 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#include <stdbool.h>
 #include <float.h>
 #include <limits.h>
 
@@ -48,11 +47,13 @@
 # define SAMPLES_PER_PIXEL  1 // Count of random samples for each pixel
 # define FOCUS_DIST		    1 // arbitraire : tester les rendus avec differentes valeurs // Distance camera - plan de projection
 # define HITPOINT_OFFSET    1e-7 // tester diff valeurs
-
 # define REBOUNDS_LIMIT	3
 
 # define DEG_TO_RAD 	    M_PI/180.0
-
 # define T_INF      0.00001 //new
+
+# define CHECKERS_WIDTH     20
+# define CHECKERS_HEIGHT    10
+
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 00:05:43 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/08 21:40:52 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/10 21:42:22 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,7 +207,7 @@ bool    intersect(t_vlist *obj, t_ray *ray)
     return false;
 }
 
-void set_obj_material(void * content, t_raytracing_material *mat, t_type t)
+void set_obj_material(void * content, t_material *mat, t_type t)
 {
     if (mat->specular || mat->reflective || mat->color.hex)
         return;
@@ -232,7 +232,7 @@ void set_obj_material(void * content, t_raytracing_material *mat, t_type t)
     // mat->color = 500;
 }
 
-void set_color_in_mat(void * content, t_raytracing_material *mat, t_type t)
+void set_color_in_mat(void * content, t_material *mat, t_type t)
 {
     if (mat->color.hex)
         return;
@@ -249,7 +249,7 @@ void set_color_in_mat(void * content, t_raytracing_material *mat, t_type t)
     // mat->color = 500;
 }
 
-void set_specular_in_mat(void * content, t_raytracing_material *mat, t_type t)
+void set_specular_in_mat(void * content, t_material *mat, t_type t)
 {
     if (mat->specular)
         return;
@@ -264,7 +264,8 @@ void set_specular_in_mat(void * content, t_raytracing_material *mat, t_type t)
     }
     // mat->color = 500;
 }
-void set_reflective_in_mat(void * content, t_raytracing_material *mat, t_type t)
+
+void set_reflective_in_mat(void * content, t_material *mat, t_type t)
 {
     if (mat->reflective)
         return;
@@ -280,11 +281,28 @@ void set_reflective_in_mat(void * content, t_raytracing_material *mat, t_type t)
     // mat->color = 500;
 }
 
+void set_checkers_in_mat(void * content, t_material *mat, t_type t)
+{
+    if (mat->checkers)
+        return;
+    if (t == cylindre)
+        mat->checkers = ((t_cylindre *)content)->checkers;
+    if (t == plan)
+        mat->checkers = ((t_plan *)content)->checkers;
+    if (t == sphere)
+    {
+        mat->checkers = ((t_sphere *)content)->checkers;
+        // printf("%f\n", mat->specular);
+    }
+    // mat->color = 500;
+}
+
 void    copy_obj_properties(t_vlist *obj, t_hit_info *hinf, t_point hp)
 {
     set_color_in_mat(obj->content, &obj->material, obj->type);
 	set_specular_in_mat(obj->content, &obj->material, obj->type);
     set_reflective_in_mat(obj->content, &obj->material, obj->type);
+    set_checkers_in_mat(obj->content, &obj->material, obj->type);
     // set_obj_material(obj->content, &obj->material, obj->type);
     
     hinf->obj_content = obj->content;  // est-ce que couille si supprime l objet originel ?

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bounding_volumes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 15:35:11 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/05 22:38:38 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/10 20:24:41 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,7 +212,7 @@ bool    is_in_subvoxel(t_bbox_description subvoxel, t_vlist *object)
 }
 
 t_vlist *ft_vlstnew_with_mat(void * content, void foo(void *), t_type t,
-    t_raytracing_material mat)
+    t_material mat)
 {
     t_vlist *new;
 
