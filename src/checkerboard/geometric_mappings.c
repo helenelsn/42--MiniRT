@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 20:25:29 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/10 22:57:05 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/10 23:26:20 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ t_point_2d spherical_map(t_point p, t_sphere *sp)
     
     theta = acos(- og_p.y);
     phi = atan2(- og_p.z, og_p.x) + M_PI;
-    uv.v = phi / (2 * M_PI);
-    uv.u = theta / M_PI;
+    uv.u = phi / (2 * M_PI);
+    uv.v = theta / M_PI;
     
     return (uv);
 }
