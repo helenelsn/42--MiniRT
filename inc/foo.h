@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   foo.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: eva <eva@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/08 21:31:03 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/10 01:17:09 by eva              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,10 @@ t_vec 	get_unit_normal(t_hit_info hi, t_point p);
 /* -------------------- TRACE RAYS ---------------- */
 
 void    	draw_scene(t_app *app);
+t_color   	trace_ray(t_app *app, t_point ray_origin, t_vec dir, int rebound_nb);
 double 		compute_lighting(t_app *app, t_ray ray);
-t_vec	get_incident_ray_of_light(t_vec l, t_vec n);
-t_vec	reflect_ray(t_vec v, t_vec n); // ?
+t_vec		get_incident_ray_of_light(t_vec l, t_vec n);
+t_vec		reflect_ray(t_vec v, t_vec n); // ?
 
 
 /*  ------- CHGT COORD, ANTI ALIASING ---------- */

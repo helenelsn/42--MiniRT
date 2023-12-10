@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:15:45 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/08 18:49:24 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/10 18:05:59 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ double 	specular_reflection(t_app *app, t_ray ray)
 	intensity = 0;
 	obj_to_light.origin = ray.hit_info.hit_point;
 	while (curr)
-	{
+	{		
 		obj_to_light.direction = get_directional_vect(ray.hit_info.hit_point, curr->p); // light_direction, aka L
 		obj_to_light_dist = obj_to_light.direction.norm;
 		normalise(&obj_to_light.direction);
@@ -85,13 +85,14 @@ double 	specular_reflection(t_app *app, t_ray ray)
 			double n_dot_l = dot(ray.hit_info.outward_normal, obj_to_light.direction);
 			if (r_dot_v > 0.0)
 			{
-				// printf("youhou\n");
-				// 0.3 == reflectance_coefficient
-				intensity += curr->infos.ratio * 0.6 * pow(r_dot_v, ray.hit_info.obj_mat.specular) * n_dot_l;	// / (r.norm * obj_to_light.direction.norm )
+				// 0.4 == reflectance_coefficient
+				intensity += 0.4 * curr->infos.ratio * pow(r_dot_v, ray.hit_info.obj_mat.specular) * n_dot_l;	// / (r.norm * obj_to_light.direction.norm )
+				
+				// printf("{%s} : color = %u\n", __func__, color.hex);
 			}
 		}
 		curr = curr->next;
-	}	
+	}
 	return (intensity);
 }
 
@@ -105,8 +106,8 @@ double	diffuse_reflection(t_app *app, t_ray ray)
 	t_ray		obj_to_light; 
 	t_light 	*curr;
 
-	curr = app->p_data.lights;
 	intensity = 0;
+	curr = app->p_data.lights;
 	obj_to_light.origin = ray.hit_info.hit_point;
 	while (curr)
 	{
@@ -122,7 +123,10 @@ double	diffuse_reflection(t_app *app, t_ray ray)
 		{
 			n_dot_l = dot(ray.hit_info.outward_normal, obj_to_light.direction);
 			if (n_dot_l > 0.0)
-				intensity += 0.4 * curr->infos.ratio / M_PI * (n_dot_l); /// obj_to_light.direction.norm); // /(ray.hit_info.outward_normal.norm * obj_to_light.direction.norm); // peut simplifier, normalemet les deux sont unitaires et ont donc une norme de 1
+			{
+				intensity += 0.6 * curr->infos.ratio / M_PI * (n_dot_l); // / dot(obj_to_light.direction.norm, obj_to_light.direction.norm); // /(ray.hit_info.outward_normal.norm * obj_to_light.direction.norm); // peut simplifier, normalemet les deux sont unitaires et ont donc une norme de 1
+				// printf("{%s} : color = %u\n", __func__, color.hex);
+			}
 		}
 		curr = curr->next;
 	}
@@ -132,15 +136,14 @@ double	diffuse_reflection(t_app *app, t_ray ray)
 double 	compute_lighting(t_app *app, t_ray ray) 
 {
 	double		intensity;
-
+	
 	intensity = app->p_data.mooooo->infos.ratio;
 	intensity += diffuse_reflection(app, ray);
-	double save = intensity;
+	
 	if (ray.hit_info.obj_mat.specular > 0)
 	{
 		intensity += specular_reflection(app, ray);
 	}
-	// if (intensity != save)
-	// 	printf("check\n");
+	
 	return (intensity);
 }
