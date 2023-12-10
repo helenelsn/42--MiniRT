@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 22:46:45 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/10 03:11:04 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/10 02:05:24 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,54 +17,8 @@ int	handle_no_event(void)
 	return (0);
 }
 
-
-int number_press(int keycode, t_app *app)
-{
-	if (!app->mlx_data.elem_selected)
-		return (0);
-	if (app->mlx_data.elem_hit.obj_type != sphere)
-		return (0);
-		
-	if (app->mlx_data.point_pushed)
-	{
-		if (keycode - XK_0)
-			app->mlx_data.n /= keycode - XK_0;
-	}
-	else
-		app->mlx_data.n *= keycode - XK_0;
-	printf("%s  new_radius = %f\n", __func__, app->mlx_data.n);
-	// if (keycode ==XK_0)
-}
-
-int no_redrawing_event(int keycode, t_app *app)
-{
-	if (keycode >=XK_0 && keycode <= XK_9)
-		return(keycode, app);
-	if (keycode== XK_p)
-		app->mlx_data.point_pushed == true;
-
-	printf("%s\n", __func__);
-	// if (keycode ==XK_0)
-}
-
-int	enter_press(int keycode, t_app *app)
-{
-	if (app->mlx_data.elem_selected && app->mlx_data.n)
-		((t_sphere *) app->mlx_data.elem_hit.obj_content)->radius = app->mlx_data.n;
-	printf("%s  new_radius = %f\n", __func__, ((t_sphere *) app->mlx_data.elem_hit.obj_content)->radius);
-}
 int	key_press(int keycode, t_app *app)
 {
-	if ((keycode >=XK_0 && keycode <= XK_9) || keycode == XK_p) //todo trouver le keysim de "."
-		return no_redrawing_event(keycode, app);
-	if (keycode == XK_e) //todo trouver le keysim du enter
-	{
-		enter_press(keycode, app);
-	}
-	app->mlx_data.point_pushed = false;
-	app->mlx_data.n = 0;
-	app->mlx_data.elem_selected = false;
-	ft_bzero(&app->mlx_data.elem_hit, sizeof(t_hit_info));
 	if (keycode == KEY_ESC)
 	{
 		if (close_mlx(app))
@@ -80,7 +34,7 @@ int	key_press(int keycode, t_app *app)
     
 	else if (keycode == XK_Up)
 	{
-		// printf("up push\n");
+		printf("up push\n");
 		// app->
 		//bouger plutot la camera
 		app->p_data.cam->direction.y += 0.1;
@@ -95,7 +49,6 @@ int	key_press(int keycode, t_app *app)
 		app->p_data.cam->direction.x -= 0.1;
 	// 	// app->keycode += 0.2 / app->zoom;
 		// app->frame.pixel_00.y -= 0.5;
-	normalise(&app->p_data.cam->direction);
 	init_viewpoint(app);
 	draw_scene(app);
 	mlx_put_image_to_window(app->mlx_data.mlx_ptr, app->mlx_data.win_ptr,
@@ -133,12 +86,11 @@ int	handle_mouse(int keysym, int x, int y, t_app *app)
 		hit_info = get_hit_info(app, app->p_data.cam->p, get_directional_vect(app->p_data.cam->p, viewp_pixel), 0);
 		if (hit_info.distance > 0)
 			printf("object hit\n");
-			app->mlx_data.elem_selected = true;
-			app->mlx_data.elem_hit = hit_info;
-			// if (hit_info.obj_type == sphere)
-			// 	resize_sphere(app, hit_info);
-			// if (hit_info.obj_type == cylindre)
-			// 	resize_cylindre(app, hit_info);
+			app->elem_hit = hit_info;
+			if (hit_info.obj_type == sphere)
+				resize_sphere(app, hit_info);
+			if (hit_info.obj_type == cylindre)
+				resize_cylindre(app, hit_info);
 	}
 	return (keysym);
 }
