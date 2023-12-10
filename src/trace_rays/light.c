@@ -6,7 +6,7 @@
 /*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:15:45 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/10 18:05:59 by Helene           ###   ########.fr       */
+/*   Updated: 2023/12/10 18:15:57 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ double	diffuse_reflection(t_app *app, t_ray ray)
 	}
 	return (intensity);
 }
-
+ 
 double 	compute_lighting(t_app *app, t_ray ray) 
 {
 	double		intensity;
