@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/08 21:23:27 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/10 2 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -323,6 +323,11 @@ typedef struct  s_mlx_data
     t_image			image;
     void		    *mlx_ptr;
 	void		    *win_ptr;
+     int            elem_selected;
+    int            point_pushed;
+    t_hit_info      elem_hit;
+    double          after_dot;
+    double          n;
 }               t_mlx_data;
 
 /* ---------------------------- CAMERA, FRAME ---------------------------- */
