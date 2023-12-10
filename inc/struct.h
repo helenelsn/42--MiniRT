@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/08 21:23:27 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/10 19:16:43 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 
 typedef struct s_point2d
 {
-    double x;
-    double y;
+    double u; // x
+    double v; // y
 } t_point_2d;
 
 typedef struct s_point_3d
@@ -108,19 +108,43 @@ typedef struct  s_bbox_description
     double      surface_area;
 }               t_bbox_description;
 
-typedef struct  s_raytracing_material
+/* width and height describe how many squares the pattern creates in u and v (the 2D coordinates)
+a and b are the squares colors */
+typedef struct  s_checkers_func
+{
+    double  width;
+    double  height;
+    t_color a;
+    t_color b;
+}               t_checkers_func;
+
+typedef enum    e_pattern_type;
+{
+    checkers
+    // quoi d'autre ? utile ?
+}               t_pattern_type;
+
+typedef struct  s_pattern
+{
+
+}               t_pattern;
+
+typedef struct  s_material
 {
     t_color             color;
-    double     specular;
-    // int                 specular; /* todo + tard init a -1.  -1 si matte */ // coefficient speculaire, dans le cas d'objects reflechissants
-    double              reflective; /* todo + tard : init a 0. in [0, 1] */                 
+    
+    // double              ambient; 
+    // double              diffuse;
+    double              specular;
+    double              reflective;       
+    t_pattern           pattern;
     t_bbox_description  bbox;
-}               t_raytracing_material;
+}               t_material;
 
 typedef struct s_vlist
 {
     void *			        content;
-    t_raytracing_material   material;
+    t_material   material;
     t_type                  type;
 	struct s_vlist	        *next;
     void                    (*free_foo)(void *);
@@ -140,7 +164,7 @@ typedef struct	s_hit_info
 {
 	// autre chose ?
 	t_type 					obj_type;
-	t_raytracing_material	obj_mat;
+	t_material	obj_mat;
     void                    *obj_content;
 	t_point				hit_point;
 	t_vec				outward_normal;
@@ -174,7 +198,7 @@ typedef struct  s_light_infos
 typedef struct s_mood_light
 {
     t_light_info            infos;
-    // t_raytracing_material   material; // ?
+    // t_material   material; // ?
 }   t_mood_light;
 
 
@@ -182,7 +206,7 @@ typedef struct s_light
 {
     t_point p;
     t_light_info            infos;
-    // t_raytracing_material   material; // ?
+    // t_material   material; // ?
     struct s_light          *next;
 }   t_light;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   screen_scene_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:12:10 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/05 22:38:38 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/10 18:51:38 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_point_2d  pixel_to_screen(t_point_2d c)
 {
     t_point_2d s;
 
-    s.x = IMAGE_WIDTH / 2 + c.x;
-    s.y = IMAGE_HEIGHT / 2 - c.y;
+    s.u = IMAGE_WIDTH / 2 + c.u;
+    s.v = IMAGE_HEIGHT / 2 - c.v;
     return (s);
 }
