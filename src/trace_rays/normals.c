@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:15:06 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/08 19:17:36 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/11 19:30:03 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,8 @@ t_vec get_unit_normal(t_hit_info hi, t_point p)
 		normal = normal_to_plan(hi.obj_content, p);
 	else if (hi.obj_type == cylindre)
 		normal = normal_to_cylinder(hi.obj_content, p);
-	else if (hi.obj_type == cone)
+	else //if (hi.obj_type == cone)
 		normal = normal_to_cone(hi.obj_content, p);
-	else
-		;// ?
 	
 	normalise(&normal);
 	return (normal);
