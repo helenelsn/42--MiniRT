@@ -112,6 +112,7 @@ typedef struct  s_raytracing_material
 {
     t_color             color;
     double              specular;
+    // int                 shininess;
     double              reflective;               
     t_bbox_description  bbox;
 }               t_raytracing_material;
@@ -194,6 +195,7 @@ typedef struct s_sphere
     double      radius;
     t_color     color;
     double      specular;
+    // int         shininess;
     double      reflective;
 }   t_sphere;
 
@@ -209,6 +211,7 @@ typedef struct s_plan
     
     t_color   color;
     double     specular;
+    // int         shininess;
     double      reflective;
 }   t_plan;
 
@@ -230,6 +233,7 @@ typedef struct s_cylindre
     double      height;
     t_color     color;
     double      specular;
+    // int         shininess;
     double      reflective;
     
     struct  s_matrix *base_to_cyl;

@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/11 17:23:55 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/11 19:57:55 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ t_vec 	get_unit_normal(t_hit_info hi, t_point p);
 
 void    	draw_scene(t_app *app);
 t_color   	trace_ray(t_app *app, t_point ray_origin, t_vec dir, int rebound_nb);
-double 		compute_lighting(t_app *app, t_ray ray);
+t_color 		compute_lighting(t_app *app, t_ray ray);
 t_vec		get_incident_ray_of_light(t_vec l, t_vec n);
 t_vec		reflect_ray(t_vec v, t_vec n); // ?
 
