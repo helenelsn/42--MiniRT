@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   foo.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eva <eva@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/10 01:17:09 by eva              ###   ########.fr       */
+/*   Updated: 2023/12/11 17:23:55 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,5 +183,5 @@ t_vlist    	*get_inter(t_vlist *elem, t_droite d);
 void    	get_inter_for_sphere(t_sphere *elem, t_droite d);
 int    	get_inter_for_plan(t_plan *p, t_droite d, t_point *res);
 int    get_inter_for_cylindre(t_cylindre *cy, t_ray d, double *t0, double *t1);
-
+bool    solve_quadratic_eq(t_quadratic *eq);
 #endif

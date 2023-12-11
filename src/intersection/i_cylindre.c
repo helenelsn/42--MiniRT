@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   i_cylindre.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 00:52:41 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/05 22:38:56 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/11 17:42:12 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,35 +34,68 @@
 //     //si dist <= radius ->résoudre l'eq des 2 droites + calc les limites du cylindre
     
 // }
-
+double	pow2(double n)
+{
+	return (n * n);
+}
 
 
 int    get_inter_for_cylindre(t_cylindre *cy, t_ray r, double *t0, double *t1)
 {
+    t_vec	w;
+	double	dot_ray_dir_cyl_dir;
+	double	dot_w_cylinder_dir;
+    // printf("\n from hier");
+	w = get_directional_vect( cy->p, r.origin);
+    
+	dot_ray_dir_cyl_dir = dot((r.direction), (cy->vec));// cos angle entre ray et la Adir
+	dot_w_cylinder_dir = dot(w, (cy->vec)); //angle entre centre-origine et adir
+    t_quadratic t;
+	t.a= 1 - pow2(dot_ray_dir_cyl_dir);
+	t.b = 2 * (dot((r.direction), w)
+			- dot_ray_dir_cyl_dir * dot_w_cylinder_dir);
+	t.c = dot(w, w) - pow2(dot_w_cylinder_dir) - pow2(cy->radius);
+    solve_quadratic_eq(&t);
+    if (t.t_1 < t.t_2 && t.t_1>0)
+        return t.t_1;
+    return t.t_2;
+	// return (solve_quadratic(f));
+
+
+
+    
     //compute distance entre droites
-    t_droite c_dir;
-    double dist;
-    t_vec dir = r.direction;
-    t_point pos = r.origin;
-    t_point center = cy->p;
-    double radius = cy->radius;
+    
+    // t_droite c_dir;
+    // double dist;
+    // t_vec dir = r.direction;
+    // t_point pos = r.origin;
+    // t_point center = cy->p;
+    // double radius = cy->radius;
+    
+    // translate ray point with vec(cylinder_center to origin)
+    // express ray point and ray directional vector in the cylinder base vectors
+    // check for ray - cylinder intersection(s)
+    // if any, express intersection point back to the initial base vectors
+    // returns intersection point 
+
     
 
-    double a = (dir.x * dir.x) + (dir.z * dir.z);
-    double b = 2*(dir.x*(pos.x-center.x) + dir.z*(pos.z-center.z));
-    double c = (pos.x - center.x) * (pos.x - center.x) + (pos.z - center.z) * (pos.z - center.z) - (radius*radius);
+    // double a = (dir.x * dir.x) + (dir.z * dir.z);
+    // double b = 2*(dir.x*(pos.x-center.x) + dir.z*(pos.z-center.z));
+    // double c = (pos.x - center.x) * (pos.x - center.x) + (pos.z - center.z) * (pos.z - center.z) - (radius*radius);
     
-    double delta = b*b - 4*(a*c);
-	if(fabs(delta) < 0.001) return -1.0; 
-    if(delta < 0.0) return -1.0;
+    // double delta = b*b - 4*(a*c);
+	// if(fabs(delta) < 0.001) return -1.0; 
+    // if(delta < 0.0) return -1.0;
     
-    double f = (-b - sqrt(delta))/(2*a);
-    double g = (-b + sqrt(delta))/(2*a);
-    double t;
+    // double f = (-b - sqrt(delta))/(2*a);
+    // double g = (-b + sqrt(delta))/(2*a);
+    // double t;
     
-    if (f>g) t = g;
-    else t = f;
-    return t;
+    // if (f>g) t = g;
+    // else t = f;
+    // return t;
     // double r = pos.y + t*dir.y;
     
     // if ((r >= center.y) && (r <= center.y + height))return t;

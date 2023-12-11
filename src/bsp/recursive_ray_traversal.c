@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 00:05:43 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/08 21:40:52 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/11 17:28:32 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ bool    intersect_cylindre(t_ray *ray, void *object)
     // {
     //     return (false);
     // }
-    ray->hit_info.coef =get_inter_for_cylindre(cy, *ray, &t0, &t1) ;
+    ray->hit_info.coef  =get_inter_for_cylindre(cy, *ray, NULL, NULL) ;
     if (ray->hit_info.coef < 0)
         return false;
     // if (t0 < t1)
