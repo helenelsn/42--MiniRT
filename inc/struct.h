@@ -142,6 +142,7 @@ typedef struct	s_hit_info
     void                    *obj_content;
 	t_point				    hit_point;
 	t_vec				    outward_normal;
+    t_vec                   texture_normal; // bump mapping
 	t_vec				    reflected_ray;
 	double					distance; // ray_origin - object distance. set a -1 si le rayon n intersecte pas d objects
     double                  coef;
