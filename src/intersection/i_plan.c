@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 00:10:31 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/05 22:38:38 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/11 19:05:43 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int    get_inter_for_plan(t_plan *p, t_droite d, t_point *res)
 {
     double t;
 
+    normalise(&d.v);
     if (!(p->a * d.v.x +  p->b * d.v.y + p->c * d.v.z))
         return -1;
     // if (p->a * d.p.x + p->b *d.p.y + p->c *d.p.z + p->d) //tocheck droite dans plan?

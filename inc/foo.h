@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   foo.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/11 17:23:55 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/11 19:46:49 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,6 +182,8 @@ t_vec change_base_of_vec(t_vec v, t_vec trans, t_matrix *rot);
 t_vlist    	*get_inter(t_vlist *elem, t_droite d);
 void    	get_inter_for_sphere(t_sphere *elem, t_droite d);
 int    	get_inter_for_plan(t_plan *p, t_droite d, t_point *res);
-int    get_inter_for_cylindre(t_cylindre *cy, t_ray d, double *t0, double *t1);
+bool    get_inter_for_cylindre(t_cylindre *cy, t_ray d, double *);
 bool    solve_quadratic_eq(t_quadratic *eq);
+t_point get_ray_point(t_ray ray, double t);
+void set_eq(t_plan *p);
 #endif

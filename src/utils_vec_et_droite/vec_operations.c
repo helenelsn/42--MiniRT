@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vec_operations.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:13:52 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/08 17:20:04 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/11 20:30:01 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ t_vec	vect_substract(t_vec a, t_vec b)
 
 void    normalise(t_vec *v)
 {
+	v->norm = get_v_norm(*v);
     v->x /= v->norm;
     v->y /= v->norm;
     v->z /= v->norm;

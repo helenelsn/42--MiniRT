@@ -240,7 +240,7 @@ typedef struct s_cylindre
     struct  s_matrix *cyl_to_base;
     t_vec       p_to_origin;
     t_vec       origin_to_p;
-
+    t_plan      cover_planes[2];
 }   t_cylindre;
 
 typedef struct  s_circle

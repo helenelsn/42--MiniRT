@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   recursive_ray_traversal.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 00:05:43 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/11 17:28:32 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/11 20:26:17 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ bool    solve_quadratic_eq(t_quadratic *eq)
     double denom; // denominateur
 
     delta = eq->b * eq->b - 4 * eq->a * eq->c;
+    eq->t_1 = 0;
+    eq->t_2 = 0;
     if (delta < 0.0)
         return (false);
     denom = (2 * eq->a); // que faire si 2 * a = 0 ?
@@ -87,6 +89,7 @@ bool    solve_quadratic_eq(t_quadratic *eq)
     }
     return (true);
 }
+
 
 
 bool    intersect_sphere(t_ray *ray, void *object)
@@ -152,8 +155,7 @@ bool    intersect_cylindre(t_ray *ray, void *object)
     t_cylindre      *cy;
     t_droite    d;
     t_point  res;
-    double t0;
-    double t1;
+    double t;
     
     
     cy = object;
@@ -164,8 +166,10 @@ bool    intersect_cylindre(t_ray *ray, void *object)
     // {
     //     return (false);
     // }
-    ray->hit_info.coef  =get_inter_for_cylindre(cy, *ray, NULL, NULL) ;
-    if (ray->hit_info.coef < 0)
+    if (!get_inter_for_cylindre(cy, *ray, &t))
+        return false;
+    ray->hit_info.coef  = t;
+    if (ray->hit_info.coef <= 0)
         return false;
     // if (t0 < t1)
     //     ray->hit_info.coef =t0;
