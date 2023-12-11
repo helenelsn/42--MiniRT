@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:13 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/10 23:31:59 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/11 15:42:21 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,11 @@
 # define DEG_TO_RAD 	    M_PI/180.0
 # define T_INF      0.00001 //new
 
-# define CHECKERS_WIDTH     40
-# define CHECKERS_HEIGHT    20
+// should be different whether it's a sphere or another object ! (include it in the t_material plutot ?)
+# define CHECKERS_WIDTH     80
+# define CHECKERS_HEIGHT    40
+
+
 
 
 #endif

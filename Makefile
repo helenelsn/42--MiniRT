@@ -41,6 +41,7 @@ FILES = \
 		utils/change_base \
 		utils/fov \
 		utils/ft_strcheck \
+		utils/modulo \
 		utils/point3d \
 		utils/ratio \
 		utils/rgb \

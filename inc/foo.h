@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/10 21:31:13 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/11 15:43:30 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,10 +115,12 @@ void    	set_pixel_center(t_app *app, t_point *pc, int x, int y);
 t_color 		pattern_at(t_checkers_map map, t_point p, t_type obj_type, void *content);
 t_point_2d		map_object(t_point p, t_type obj_type, void *content);
 t_checkers_map  checkers_map_white(t_color obj_color);
+t_checkers_map  checkers_map_complementary_colors(t_color obj_color);
 
 /*  ------------------------ utils ------------------------- */
 
 t_interval  get_interval(double min, double max);
+double  	a_mod_b(double a, int n);
 
 t_color    	color_scale(t_color color, double scale);
 t_color    	color_add(t_color c1, t_color c2);

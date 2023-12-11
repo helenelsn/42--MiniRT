@@ -6,32 +6,12 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 20:25:29 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/11 00:27:40 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/11 15:25:39 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/struct.h"
 #include "../../inc/mini_rt.h"
-
-int     ft_sign(double n)
-{
-    if (n < 0.0)
-        return (-1);
-    return (1);
-}
-
-double  a_mod_b(double a, int n)
-{
-    int     k;
-    
-    k = 0;
-    if (!n)
-        return (0); // idk
-    while (k * n < a)
-        k++;
-    return (a - (k - 1) * n);   
-   
-}
 
 /* convert the 3D point to spherical coordinates, 
 then convert those spherical coordinates to a 2D point */

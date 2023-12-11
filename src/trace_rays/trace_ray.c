@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/10 21:42:37 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/11 15:45:23 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ t_color    trace_ray(t_app *app, t_point ray_origin, t_vec dir, int rebound_nb)
 	local_color = ray.hit_info.obj_mat.color;
 	if (ray.hit_info.obj_mat.checkers)
 	{
+		// local_color = pattern_at(checkers_map_complementary_colors(local_color), ray.hit_info.hit_point, ray.hit_info.obj_type, ray.hit_info.obj_content);
 		local_color = pattern_at(checkers_map_white(local_color), ray.hit_info.hit_point, ray.hit_info.obj_type, ray.hit_info.obj_content);
 	}
 	
