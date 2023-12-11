@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/11 15:45:23 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/11 16:48:19 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,9 +132,9 @@ t_color    trace_ray(t_app *app, t_point ray_origin, t_vec dir, int rebound_nb)
 	/* compute reflected color */
 	// A VERIFIER !!!!!!!!!!!
 	
-	reflected_ray = reflect_ray(ray.direction, ray.hit_info.outward_normal); // ou juste ray.direction en premier argument ?
+	// reflected_ray = reflect_ray(ray.direction, ray.hit_info.outward_normal); // ou juste ray.direction en premier argument ?
 	// reflected_ray = get_incident_ray_of_light(vect_double_multiply(-1, ray.direction), ray.hit_info.outward_normal); // ou juste ray.direction en premier argument ?
-	reflected_color = trace_ray(app, ray.hit_info.hit_point, reflected_ray, rebound_nb + 1);
+	reflected_color = trace_ray(app, ray.hit_info.hit_point, ray.hit_info.reflected_ray, rebound_nb + 1);
 	return (color_add(color_scale(local_color, 1 - ray.hit_info.obj_mat.reflective), color_scale(reflected_color, ray.hit_info.obj_mat.reflective)));
 
 }
