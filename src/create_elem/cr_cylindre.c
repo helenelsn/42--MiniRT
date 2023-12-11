@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 01:29:43 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/07 00:27:01 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/11 19:04:58 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,15 @@ t_cylindre *create_cylindre(char **tab, t_vlist **garbage, t_parsing_data *data)
     elem->cyl_to_base = get_inverse(elem->base_to_cyl);
     
     elem->origin_to_p = get_directional_vect((t_point) {0,0,0}, elem->p);
+    
+    t_ray tmp;
+    tmp.origin = elem->p;
+    tmp.direction = elem->vec;
+    
+    elem->cover_planes[0] = (t_plan) {get_ray_point(tmp, elem->height/2), elem->vec, 0,0,0,0, 0xffffff, elem->specular, elem->reflective};
+    elem->cover_planes[1] = (t_plan) {get_ray_point(tmp, -elem->height/2), elem->vec, 0,0,0,0, 0xffffff, elem->specular, elem->reflective};
+    set_eq(&elem->cover_planes[0]);
+    set_eq(&elem->cover_planes[1]);
     
     ft_vlstadd_back(garbage, ft_vlstnew(elem, free, cylindre));
     ft_vlstadd_back(&data->objects, ft_vlstnew(elem, free, cylindre));

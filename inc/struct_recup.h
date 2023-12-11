@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/11 20:47:23 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/10 02:52:26 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,14 @@
 #define STRUCT_H
 // #include "mini_rt.h"
 
-#include <stdbool.h>
-
 
 
 /* -------------------- PARSING AND GEOMETRICAL BASICS ------------------ */
 
 typedef struct s_point2d
 {
-    double u; // x
-    double v; // y
+    double x;
+    double y;
 } t_point_2d;
 
 typedef struct s_point_3d
@@ -102,52 +100,27 @@ typedef union           u_color
 typedef struct  s_bbox_description
 {
     /* Points ou vecteurs ? */ 
-    t_point     min;
-    t_point     max;
+    t_point  min;
+    t_point  max;
     double      width;
     double      height;
     double      length;
     double      surface_area;
 }               t_bbox_description;
 
-/* width and height describe how many squares the pattern creates in u and v (the 2D coordinates)
-a and b are the squares colors */
-typedef struct  s_checkers_map
-{
-    double  width;
-    double  height;
-    t_color a;
-    t_color b;
-}               t_checkers_map;
-
-// typedef enum    e_pattern_type;
-// {
-//     checkers
-//     // quoi d'autre ? utile ?
-// }               t_pattern_type;
-
-// typedef struct  s_pattern
-// {
-	
-// }               t_pattern;
-
-typedef struct  s_material
+typedef struct  s_raytracing_material
 {
     t_color             color;
-    
-    // double           ambient; 
-    // double           diffuse;
-    double              specular;
-    double              reflective;       
-    bool 				checkers;
-    t_checkers_map		f;
+    double     specular;
+    // int                 specular; /* todo + tard init a -1.  -1 si matte */ // coefficient speculaire, dans le cas d'objects reflechissants
+    double              reflective; /* todo + tard : init a 0. in [0, 1] */                 
     t_bbox_description  bbox;
-}               t_material;
+}               t_raytracing_material;
 
 typedef struct s_vlist
 {
     void *			        content;
-    t_material   material;
+    t_raytracing_material   material;
     t_type                  type;
 	struct s_vlist	        *next;
     void                    (*free_foo)(void *);
@@ -165,21 +138,21 @@ typedef struct  s_interval
 
 typedef struct	s_hit_info
 {
+	// autre chose ?
 	t_type 					obj_type;
-	t_material	obj_mat;
+	t_raytracing_material	obj_mat;
     void                    *obj_content;
-	t_point				    hit_point;
-	t_vec				    outward_normal;
-    t_vec                   texture_normal; // bump mapping
-	t_vec				    reflected_ray;
+	t_point				hit_point;
+	t_vec				outward_normal;
+	t_vec				reflected_ray; // V : vector from P (hit point) to camera
 	double					distance; // ray_origin - object distance. set a -1 si le rayon n intersecte pas d objects
     double                  coef;
 }				t_hit_info;
 
 typedef struct	s_ray
 {
-	t_point	    origin;
-	t_vec	    direction;
+	t_point	origin;
+	t_vec	direction; // vecteur unitaire ou s'en blc ?
 	t_hit_info	hit_info;
 }				t_ray;
 
@@ -201,6 +174,7 @@ typedef struct  s_light_infos
 typedef struct s_mood_light
 {
     t_light_info            infos;
+    // t_raytracing_material   material; // ?
 }   t_mood_light;
 
 
@@ -208,6 +182,7 @@ typedef struct s_light
 {
     t_point p;
     t_light_info            infos;
+    // t_raytracing_material   material; // ?
     struct s_light          *next;
 }   t_light;
 
@@ -222,13 +197,11 @@ typedef struct s_sphere
     double      radius;
     t_color     color;
     double      specular;
-    double      reflective;
-	bool 		checkers;
 }   t_sphere;
 
 typedef struct s_plan
 {
-    t_point  p;
+    t_point  p; // pas défini par 2 vecteurs plutot ? -> 
     t_vec    vec;
     
     double      a;
@@ -236,10 +209,9 @@ typedef struct s_plan
     double      c;
     double      d;
     
+    
     t_color   color;
     double     specular;
-    double      reflective;
-	bool 		checkers;
 }   t_plan;
 
 typedef struct  s_matrix
@@ -258,16 +230,14 @@ typedef struct s_cylindre
     t_vec    n1;
     double      radius;
     double      height;
-    t_color     color;
-    double      specular;
-    double      reflective;
-	bool 		checkers;
+    t_color   color;
+    double     specular;
     
     struct  s_matrix *base_to_cyl;
     struct  s_matrix *cyl_to_base;
     t_vec       p_to_origin;
     t_vec       origin_to_p;
-    t_plan      cover_planes[2];
+
 }   t_cylindre;
 
 typedef struct  s_circle
@@ -289,7 +259,6 @@ typedef struct  s_moebius
     double                  twists_count;
     /* quoi d'autre pour le définir ? */
 }               t_moebius;
-
 
 
 /* ---------------------------- BSP TREE ----------------------------   */
@@ -351,10 +320,9 @@ typedef struct  s_mlx_data
     t_image			image;
     void		    *mlx_ptr;
 	void		    *win_ptr;
-     int            elem_selected;
+    int            elem_selected;
     int            point_pushed;
     t_hit_info      elem_hit;
-    double          after_dot;
     double          n;
 }               t_mlx_data;
 

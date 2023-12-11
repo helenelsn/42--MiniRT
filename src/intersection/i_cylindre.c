@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 00:52:41 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/05 22:38:56 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/11 20:20:17 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,35 +34,196 @@
 //     //si dist <= radius ->résoudre l'eq des 2 droites + calc les limites du cylindre
     
 // }
-
-
-
-int    get_inter_for_cylindre(t_cylindre *cy, t_ray r, double *t0, double *t1)
+double	pow2(double n)
 {
+	return (n * n);
+}
+
+t_point get_ray_point(t_ray ray, double t)
+{
+    t_point p;
+
+    p.x =ray.origin.x + t * ray.direction.x;
+    p.y =ray.origin.y + t * ray.direction.y;
+    p.z =ray.origin.z + t * ray.direction.z;
+    return p;
+}
+
+double ft_min_and_positiv(double a, double b)
+{
+    if (a < 0 && b < 0)
+        return 0;
+    if (a < 0)
+        return b;
+    if (b < 0)
+        return a;
+    return ft_min(a, b);
+}
+
+int	solve_quadratic(t_quadratic *f)
+{
+	double	discr;
+	double	res;
+
+	discr = (f->b * f->b) - 4 * f->a * f->c;
+	if (discr < 0.0)
+		return (0);
+	if (discr == 0.0)
+	{
+		f->t_1 = -0.5 * f->b / f->a;
+		f->t_2 = f->t_1;
+	}
+	else
+	{
+		if (f->b > 0.0)
+			res = -0.5 * (f->b + sqrt(discr));
+		else
+			res = -0.5 * (f->b - sqrt(discr));
+		f->t_1 = res / f->a;
+		f->t_2 = f->c / res;
+	}
+	return (1);
+}
+
+int	intersect_cylinder_tube(t_ray *ray, t_cylindre *cylinder, t_quadratic *f)
+{
+	t_vec	w;
+	double	dot_ray_dir_cyl_dir;
+	double	dot_w_cylinder_dir;
+
+	w = get_directional_vect( cylinder->p, ray->origin);
+	dot_ray_dir_cyl_dir = dot((ray->direction), (cylinder->vec));
+	dot_w_cylinder_dir = dot(w, (cylinder->vec));
+	f->a = 1 - pow2(dot_ray_dir_cyl_dir);
+	f->b = 2 * (dot((ray->direction), w)
+			- dot_ray_dir_cyl_dir * dot_w_cylinder_dir);
+	f->c = dot(w, w) - pow2(dot_w_cylinder_dir) - pow2(cylinder->radius);
+	return (solve_quadratic(f));
+}
+
+
+int	cut_cylinder(t_ray *ray, t_cylindre *cylinder, double *t)
+{
+	t_vec	hit_to_center;
+
+	hit_to_center = get_directional_vect(cylinder->p, get_ray_point(*ray, *t));
+	if (fabs(dot(hit_to_center, (cylinder->vec))) <= cylinder->height / 2)
+		return (1);
+	*t = 0.0;
+	return (0);
+}
+
+int	intersect_plane(t_ray *ray, void *shape, double *t)
+{
+	double	d;
+	double	n_ray_dot;
+	t_plan	*plane;
+    
+	plane = (t_plan *) shape;
+	n_ray_dot = dot((plane->vec), (ray->direction));
+	if (n_ray_dot == 0.0)
+	{
+		*t = 0;
+		return (0);
+	}
+	d = dot((plane->vec), (t_vec) {plane->p.x ,plane->p.y ,plane->p.z ,1  });
+	*t = (d - dot((plane->vec), (t_vec) {ray->origin.x ,ray->origin.y ,ray->origin.z ,1  })) / n_ray_dot;
+	return (*t > 0.0);
+}
+
+int	intersect_cylinder_covers(t_ray *ray, t_cylindre *cylinder, double *t,
+	t_quadratic *f)
+{
+	double	t_1;
+	double	t_2;
+    t_point tmp;
+
+	intersect_plane(ray, (void *)&(cylinder->cover_planes[0]), &t_1);
+	intersect_plane(ray, (void *)&(cylinder->cover_planes[1]), &t_2);
+    // t_1 = get_inter_for_plan(&cylinder->cover_planes[0], (t_droite) {ray->origin, ray->direction}, &tmp);
+    // t_2 = get_inter_for_plan(&cylinder->cover_planes[0], (t_droite) {ray->origin, ray->direction}, &tmp);
+	*t = ft_min_and_positiv(t_1, t_2);
+	return (*t > 0.0 && ((*t > f->t_1 && *t < f->t_2)
+			|| (*t < f->t_1 && *t > f->t_2)));
+}
+
+bool    get_inter_for_cylindre(t_cylindre *cy, t_ray r, double *d)
+{
+    t_quadratic q;
+    double t_cover;
+    double t;
+
+    
+    t_vec	w;
+	double	dot_ray_dir_cyl_dir;
+	double	dot_w_cylinder_dir;
+    t_point tmp;
+    // printf("\n from hier");
+    // normalise(&r.direction);
+    
+	if (!intersect_cylinder_tube(&r, cy, &q))
+		return (false);
+    t = ft_min_and_positiv(q.t_1,q.t_2 );
+    if (t <=0)
+        return false;
+    cut_cylinder(&r, cy, &t);
+    if (intersect_cylinder_covers(&r, cy, &t_cover, &q))
+		t = ft_min_and_positiv(t_cover, t);
+    *d = t;
+    // return t > 0;
+    return true;
+    // return (t != t_cover); 
+        
+    // t_cover = ft_min_and_positiv( get_inter_for_plan(&cy->cover_planes[0], (t_droite){r.origin, r.direction},&tmp), get_inter_for_plan(&cy->cover_planes[1], (t_droite){r.origin, r.direction},&tmp));
+    // // if (t_cover == t)
+    // //     printf("cover hit\n");
+    
+    // if (t_cover > 0.0 && ((t_cover > q.t_1 && t_cover < q.t_2) || (t_cover < q.t_1 && t_cover > q.t_2)))
+    //     t = ft_min_and_positiv(t, t_cover);
+    // // if (t != t_cover)
+    // //     return -1;
+    // return t;
+     
+	// intersect_plane(ray, (void *)&(cylinder->covers[1].plane), &t_2, NULL);
+	// *t = get_closest_intersection(t_1, t_2);
+	// *t = 0.0;
+	// return (solve_quadratic(f));
+
+
+
+    
     //compute distance entre droites
-    t_droite c_dir;
-    double dist;
-    t_vec dir = r.direction;
-    t_point pos = r.origin;
-    t_point center = cy->p;
-    double radius = cy->radius;
+    
+    // t_droite c_dir;
+    // double dist;
+    // t_vec dir = r.direction;
+    // t_point pos = r.origin;
+    // t_point center = cy->p;
+    // double radius = cy->radius;
+    
+    // translate ray point with vec(cylinder_center to origin)
+    // express ray point and ray directional vector in the cylinder base vectors
+    // check for ray - cylinder intersection(s)
+    // if any, express intersection point back to the initial base vectors
+    // returns intersection point 
+
     
 
-    double a = (dir.x * dir.x) + (dir.z * dir.z);
-    double b = 2*(dir.x*(pos.x-center.x) + dir.z*(pos.z-center.z));
-    double c = (pos.x - center.x) * (pos.x - center.x) + (pos.z - center.z) * (pos.z - center.z) - (radius*radius);
+    // double a = (dir.x * dir.x) + (dir.z * dir.z);
+    // double b = 2*(dir.x*(pos.x-center.x) + dir.z*(pos.z-center.z));
+    // double c = (pos.x - center.x) * (pos.x - center.x) + (pos.z - center.z) * (pos.z - center.z) - (radius*radius);
     
-    double delta = b*b - 4*(a*c);
-	if(fabs(delta) < 0.001) return -1.0; 
-    if(delta < 0.0) return -1.0;
+    // double delta = b*b - 4*(a*c);
+	// if(fabs(delta) < 0.001) return -1.0; 
+    // if(delta < 0.0) return -1.0;
     
-    double f = (-b - sqrt(delta))/(2*a);
-    double g = (-b + sqrt(delta))/(2*a);
-    double t;
+    // double f = (-b - sqrt(delta))/(2*a);
+    // double g = (-b + sqrt(delta))/(2*a);
+    // double t;
     
-    if (f>g) t = g;
-    else t = f;
-    return t;
+    // if (f>g) t = g;
+    // else t = f;
+    // return t;
     // double r = pos.y + t*dir.y;
     
     // if ((r >= center.y) && (r <= center.y + height))return t;
@@ -156,5 +317,4 @@ int    get_inter_for_cylindre(t_cylindre *cy, t_ray r, double *t0, double *t1)
     //         return 0;  // Pas d'intersection dans la hauteur du cylindre
     //     }
     // }
-    return false;
 }
