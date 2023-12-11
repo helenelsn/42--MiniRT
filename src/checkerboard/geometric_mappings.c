@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 20:25:29 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/10 23:26:20 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/11 00:27:40 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,17 @@ int     ft_sign(double n)
     return (1);
 }
 
-double  a_mod_b(double a, int b)
+double  a_mod_b(double a, int n)
 {
-    double n;
-    int c;
-
-    if (!b)
-        return (0); // idk
-
-    n = 0;
-    c = 0;
-    while (n < a)
-        (n += b * c++);
+    int     k;
     
-    return (ft_sign(b) * fabs(a - (double)(--c * b)));
+    k = 0;
+    if (!n)
+        return (0); // idk
+    while (k * n < a)
+        k++;
+    return (a - (k - 1) * n);   
+   
 }
 
 /* convert the 3D point to spherical coordinates, 
