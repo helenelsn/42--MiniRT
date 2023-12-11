@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 18:29:52 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/10 23:09:54 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/11 23:03:58 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_color uv_pattern_at(t_checkers_map pattern, double u, double v)
     
     if (u < 0.0 || u > 1.0 || v < 0.0 || v > 1.0)
     {
-        printf("ohno\n");
+        // printf("ohno\n");
         // return (t_color ){255,255,255};
     }
     
@@ -56,11 +56,22 @@ This is because of how the spherical map is implemented.
 While both u and v go from 0 to 1, v maps 1 to π, but u maps 1 to 2π. */
 
 // t_color pattern_at(t_texture_map map, t_point p, t_vlist *obj) dans le cas de plueurs patterns differents (checks, stripes, ...)
-t_color pattern_at(t_checkers_map map, t_point p, t_type oobj_type, void *content)
-{
-    t_point_2d  uv;
+// t_color pattern_at(t_checkers_map map, t_point p, t_type obj_type, void *content)
+// {
+//     t_point_2d  uv;
 
-    uv = map_object(p, oobj_type, content);
+//     uv = map_object(p, obj_type, content);
+//     return (uv_pattern_at(map, uv.u, uv.v));
+// }
+
+
+t_color checkers_color(t_hit_info hit)
+{
+    t_point_2d uv;
+    t_checkers_map  map;
+
+    map = checkers_map_white(hit.obj_mat.color);
+
+    uv = map_object(hit);
     return (uv_pattern_at(map, uv.u, uv.v));
 }
-

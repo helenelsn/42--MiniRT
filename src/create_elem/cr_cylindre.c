@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cr_cylindre.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 01:29:43 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/11 19:04:58 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/11 21:20:29 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,27 @@ t_cylindre *create_cylindre(char **tab, t_vlist **garbage, t_parsing_data *data)
 {
     t_cylindre *elem;
 
-    if (null_term_tab_len((void **) tab) != 7 && null_term_tab_len((void **) tab) != 6)
+    int size;
+    size = null_term_tab_len((void **) tab);
+    // if (null_term_tab_len((void **) tab) != 6 && null_term_tab_len((void **) tab) != 7
+        // && null_term_tab_len((void **) tab) != 8 && null_term_tab_len((void **) tab) != 9)
+    if (size < 6 || size > 9)
         return NULL;
     elem = ft_calloc(1, sizeof(t_cylindre));
     if (!elem)
         return NULL;
     elem->radius = atof(tab[3]) *(1 - 2 * !ft_strisfloat(tab[3])) / 2; //j'trouve c est stylé
     elem->height = atof(tab[4]) *(1 - 2 * !ft_strisfloat(tab[4])); //j'trouve c est stylé
-    if (!get_rgb(tab[5], &elem->color) || elem->radius < 0 || elem->height < 0 || !get_point(tab[1], &elem->p) || !get_vec_from_str(tab[2], &elem->vec) || !set_specular(tab[6], &elem->specular))
-    {
-        free(elem);
-        return NULL;
-    }
+    if (!get_rgb(tab[5], &elem->color.hex) || elem->radius < 0 || elem->height < 0
+        || !get_point(tab[1], &elem->p) 
+        || !get_vec_from_str(tab[2], &elem->vec)
+        || (size > 6 && !set_specular(tab[6], &elem->specular))
+        || (size > 7 && !set_reflective(tab[7], &elem->reflective))
+        || (size > 8 && !set_checkers(tab[8], &elem->checkers)))
+        {
+            free(elem);
+            return NULL;
+        }
     normalise(&elem->vec);
     if (elem->vec.x)
         elem->n0 = cross_product(elem->vec, (t_vec) {0,1,0,1});

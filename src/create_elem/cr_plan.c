@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 01:26:34 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/11 00:00:00 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/11 21:14:54 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,20 @@ t_plan *create_plan(char **tab, t_vlist **garbage,t_parsing_data *data)
 {
     t_plan *elem;
 
-    if (null_term_tab_len((void **) tab) != 4 && null_term_tab_len((void **) tab) != 5
-        && null_term_tab_len((void **) tab) != 6 && null_term_tab_len((void **) tab) != 7)
+    int size;
+    size = null_term_tab_len((void **) tab);
+    // if (null_term_tab_len((void **) tab) != 4 && null_term_tab_len((void **) tab) != 5
+        // && null_term_tab_len((void **) tab) != 6 && null_term_tab_len((void **) tab) != 7)
+    if (size < 4 || size > 7)
         return NULL;
     elem = ft_calloc(1, sizeof(t_plan));
     if (!elem)
         return NULL;
     // printf("lool");
-    if (!get_rgb(tab[3], &elem->color)|| !get_point(tab[1], &elem->p) || !get_vec_from_str(tab[2], &elem->vec)
-        || !set_specular(tab[4], &elem->specular)
-        || (tab[5] && !set_reflective(tab[5], &elem->reflective))
-        || (tab[6] && !set_checkers(tab[6], &elem->checkers)))
+    if (!get_rgb(tab[3], &elem->color.hex)|| !get_point(tab[1], &elem->p) || !get_vec_from_str(tab[2], &elem->vec)
+        || (size > 4 && !set_specular(tab[4], &elem->specular))
+        || (size > 5 && !set_reflective(tab[5], &elem->reflective))
+        || (size > 6 && !set_checkers(tab[6], &elem->checkers)))
         {
             free(elem);
             return NULL;

@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/11 20:46:43 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/11 22:55:20 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,9 @@ void    	set_pixel_center(t_app *app, t_point *pc, int x, int y);
 
 /* --------------------- checkerboard ---------------------- */
 
-t_color 		pattern_at(t_checkers_map map, t_point p, t_type obj_type, void *content);
-t_point_2d		map_object(t_point p, t_type obj_type, void *content);
+t_color 		checkers_color(t_hit_info hit);
+// t_color 		pattern_at(t_checkers_map map, t_point p, t_type obj_type, void *content);
+t_point_2d		map_object(t_hit_info hit);
 t_checkers_map  checkers_map_white(t_color obj_color);
 t_checkers_map  checkers_map_complementary_colors(t_color obj_color);
 

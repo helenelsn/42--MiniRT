@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 01:17:10 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/24 15:06:06 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/11 20:56:45 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_light *create_light(char **tab, t_vlist **garbage, t_parsing_data *data)
     if (!elem)
         return NULL;
     elem->infos.ratio = get_ratio(tab[2]);
-    if (!get_rgb(tab[3], &elem->infos.color) || elem->infos.ratio < 0 || !get_point(tab[1], &elem->p))
+    if (!get_rgb(tab[3], &elem->infos.color.hex) || elem->infos.ratio < 0 || !get_point(tab[1], &elem->p))
     {
         free(elem);
         return NULL;
