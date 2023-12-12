@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 22:46:45 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/11 18:49:01 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/13 00:32:16 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,16 @@ int	key_press(int keycode, t_app *app)
 	{
 		enter_press(keycode, app);
 	}
+	if (keycode== XK_t)
+	{
+		if (app->mlx_data.elem_selected)
+		{
+			if (app->mlx_data.elem_hit.obj_mat.textures.checkered)
+				app->mlx_data.elem_hit.obj_mat.textures.checkered = false;
+			else
+				app->mlx_data.elem_hit.obj_mat.textures.checkered = true;
+		}
+	}
 	app->mlx_data.point_pushed = false;
 	app->mlx_data.n = 0;
 	app->mlx_data.after_dot = 0;
@@ -110,13 +120,6 @@ int	key_press(int keycode, t_app *app)
 	draw_scene(app);
 	mlx_put_image_to_window(app->mlx_data.mlx_ptr, app->mlx_data.win_ptr,
         app->mlx_data.image.img, 0, 0);
-		// app->y_offset += 0.2 / app->zoom;
-	// else if (keycode == XK_Down)
-	// 	// app->y_offset -= 0.2 / app->zoom;
-	// else if (keycode == XK_Left)
-	// 	// app->keycode += 0.2 / app->zoom;
-	// else if (keysym == XK_Right)
-	// 	// app->keycode -= 0.2 / app->zoom;
     (void)app;
 	/* erase_and_new_img(data);
 	handle_keypress(data, keycode);
