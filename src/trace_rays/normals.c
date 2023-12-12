@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   normals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:15:06 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/11 19:30:03 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/12 23:23:59 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,17 @@ coord cartesiennes (?) */
 //todo
 t_vec 	normal_to_cylinder(void *obj, t_point p)
 {
-	t_cylindre	*cyl;
+	t_cylindre	*cy;
 	t_vec	normal;
+	t_vec		projected;
+	t_vec		center_to_hitpoint;
 
-	cyl = obj;
-
+	cy = (t_cylindre *)(obj);
+	center_to_hitpoint = get_directional_vect(cy->p, p);
+	projected = vect_double_multiply(dot(center_to_hitpoint, cy->vec), cy->vec);
+	
+	normal = get_directional_vect(get_vec_coord(projected), get_vec_coord(center_to_hitpoint));
+	normalise(&normal);
 	return (normal);
 }
 
