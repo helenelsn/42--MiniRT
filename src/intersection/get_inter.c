@@ -6,7 +6,7 @@
 /*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:20:33 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/12 21:10:37 by Helene           ###   ########.fr       */
+/*   Updated: 2023/12/12 21:19:41 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ bool    intersect(t_vlist *obj, t_ray *ray)
         return (intersect_plan(ray, obj->content));
     if (obj->type == cylindre)
         return (intersect_cylindre(ray, obj->content));
+    if (obj->type == cone)
+        return (intersect_cone(ray, obj->content));
     // if (obj->type == cone)
     //     return (intersect_cone(ray, obj->content));
     return false;
@@ -71,8 +73,8 @@ void	no_tree_intersections(t_parsing_data pdata, t_ray *ray, t_interval t)
 			&& ray->hit_info.distance <= min_dist)
         	{
         	    min_dist = ray->hit_info.distance;
-				set_color_in_mat(obj->content, &obj->material, obj->type);
-				set_specular_in_mat(obj->content, &obj->material, obj->type);
+				// set_color_in_mat(obj->content, &obj->material, obj->type);
+				// set_specular_in_mat(obj->content, &obj->material, obj->type);
         	    copy_obj_properties(obj, closest_obj, ray->hit_info.hit_point);
                 set_texture_material(ray, obj->content);
 			}
@@ -82,8 +84,8 @@ void	no_tree_intersections(t_parsing_data pdata, t_ray *ray, t_interval t)
 	obj = pdata.planes;
 	while (obj)
     {
-		set_specular_in_mat(obj->content, &obj->material, obj->type);
-		set_color_in_mat(obj->content, &obj->material, obj->type);
+		// set_specular_in_mat(obj->content, &obj->material, obj->type);
+		// set_color_in_mat(obj->content, &obj->material, obj->type);
         if (intersect(obj, ray) && ray->hit_info.distance >= t.min
 			&& ray->hit_info.distance < min_dist)
         	{

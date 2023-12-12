@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_rt.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:13 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/11 22:56:56 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/12 21:18:06 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@
 # define SAMPLES_PER_PIXEL  1 // Count of random samples for each pixel
 # define FOCUS_DIST		    5 // arbitraire : tester les rendus avec differentes valeurs // Distance camera - plan de projection
 # define HITPOINT_OFFSET    1e-7 // tester diff valeurs
-# define REBOUNDS_LIMIT	3
+
+# define REBOUNDS_LIMIT	1
 
 # define DEG_TO_RAD 	    M_PI/180.0
 # define T_INF      0.00001 //new
