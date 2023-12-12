@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   i_plan.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 00:10:31 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/11 19:05:43 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/12 16:13:58 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,30 @@ int    get_inter_for_plan(t_plan *p, t_droite d, t_point *res)
     //reconstruir point sous forme p.x = d.p.x + d.v.x * sol trv au dessus
     
     // printf("a = %f, b = %f, c = %f\n", a , b , c);
+}
+
+bool    intersect_plan(t_ray *ray, void *object)
+{
+    t_plan      *p;
+    t_droite    d;
+    t_point  res;
+    
+    
+    p = object;
+    d.p = ray->origin;
+    d.v = ray->direction;
+    ray->hit_info.coef = get_inter_for_plan(p, d, &res);
+    if (ray->hit_info.coef < 0.0)
+    {
+        return (false);
+    }
+        
+    
+    ray->hit_info.hit_point = res;
+    ray->hit_info.distance = get_dist_between_points(ray->origin, ray->hit_info.hit_point);
+
+    
+    // printf("---------------------- intersected plan\n");
+
+    return (true);
 }
