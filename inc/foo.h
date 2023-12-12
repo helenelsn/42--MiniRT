@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   foo.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/12 16:19:45 by Helene           ###   ########.fr       */
+/*   Updated: 2023/12/12 18:51:19 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ void				ft_vlst_del_in_list(t_vlist **lst, t_vlist *todel); // ln
 void				ft_vlstiter(t_vlist *lst, void (*f)(void *));
 t_vlist				*ft_vlstmap(t_vlist *lst, void *(*f)(void *),
 						void (*del)(void *));
-
+t_vlist *ft_vlstnew_with_mat(void * content, void foo(void *), t_type t,
+    t_raytracing_material mat);
 
 //------------------------ MLX GESTION ------------------------------//
 int close_mlx(void *arg);

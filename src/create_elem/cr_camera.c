@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 00:53:38 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/06 17:57:09 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/12 18:47:03 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 t_camera *create_camera(char **tab, t_vlist **garbage, t_parsing_data *data)
 {
     t_camera *elem;
-
+    
+    
     if (null_term_tab_len((void **) tab) != 4 || data->cam)
         return NULL;
     elem = ft_calloc(1, sizeof(t_camera));

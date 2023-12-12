@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_inter.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:20:33 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/12 15:51:59 by Helene           ###   ########.fr       */
+/*   Updated: 2023/12/12 18:57:41 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ void	no_tree_intersections(t_parsing_data pdata, t_ray *ray, t_interval t)
 			&& ray->hit_info.distance <= min_dist)
         	{
         	    min_dist = ray->hit_info.distance;
-				set_color_in_mat(obj->content, &obj->material, obj->type);
-				set_specular_in_mat(obj->content, &obj->material, obj->type);
+				// set_color_in_mat(obj->content, &obj->material, obj->type);
+				// set_specular_in_mat(obj->content, &obj->material, obj->type);
         	    copy_obj_properties(obj, closest_obj, ray->hit_info.hit_point);
 			}
         obj = obj->next;
@@ -69,8 +69,8 @@ void	no_tree_intersections(t_parsing_data pdata, t_ray *ray, t_interval t)
 	
 	while (obj)
     {
-		set_specular_in_mat(obj->content, &obj->material, obj->type);
-		set_color_in_mat(obj->content, &obj->material, obj->type);
+		// set_specular_in_mat(obj->content, &obj->material, obj->type);
+		// set_color_in_mat(obj->content, &obj->material, obj->type);
         if (intersect(obj, ray) && ray->hit_info.distance >= t.min
 			&& ray->hit_info.distance < min_dist)
         	{

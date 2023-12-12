@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 01:29:43 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/11 19:04:58 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/12 18:58:14 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ t_cylindre *create_cylindre(char **tab, t_vlist **garbage, t_parsing_data *data)
 {
     t_cylindre *elem;
 
-    if (null_term_tab_len((void **) tab) != 7 && null_term_tab_len((void **) tab) != 6)
-        return NULL;
+    t_raytracing_material mat;
+    ft_bzero(&mat, sizeof(t_raytracing_material));
     elem = ft_calloc(1, sizeof(t_cylindre));
     if (!elem)
         return NULL;
     elem->radius = atof(tab[3]) *(1 - 2 * !ft_strisfloat(tab[3])) / 2; //j'trouve c est stylé
     elem->height = atof(tab[4]) *(1 - 2 * !ft_strisfloat(tab[4])); //j'trouve c est stylé
-    if (!get_rgb(tab[5], &elem->color) || elem->radius < 0 || elem->height < 0 || !get_point(tab[1], &elem->p) || !get_vec_from_str(tab[2], &elem->vec) || !set_specular(tab[6], &elem->specular))
+    if (!get_rgb(tab[5], &mat.color) || elem->radius < 0 || elem->height < 0 || !get_point(tab[1], &elem->p) || !get_vec_from_str(tab[2], &elem->vec) || !set_specular(tab[6], &mat.specular))
     {
         free(elem);
         return NULL;
@@ -48,12 +48,12 @@ t_cylindre *create_cylindre(char **tab, t_vlist **garbage, t_parsing_data *data)
     tmp.origin = elem->p;
     tmp.direction = elem->vec;
     
-    elem->cover_planes[0] = (t_plan) {get_ray_point(tmp, elem->height/2), elem->vec, 0,0,0,0, 0xffffff, elem->specular, elem->reflective};
-    elem->cover_planes[1] = (t_plan) {get_ray_point(tmp, -elem->height/2), elem->vec, 0,0,0,0, 0xffffff, elem->specular, elem->reflective};
+    elem->cover_planes[0] = (t_plan) {get_ray_point(tmp, elem->height/2), elem->vec, 0,0,0,0, 0xffffff, mat.specular, mat.reflective};
+    elem->cover_planes[1] = (t_plan) {get_ray_point(tmp, -elem->height/2), elem->vec, 0,0,0,0, 0xffffff, mat.specular, mat.reflective};
     set_eq(&elem->cover_planes[0]);
     set_eq(&elem->cover_planes[1]);
     
+    ft_vlstadd_back(&data->objects, ft_vlstnew_with_mat(elem, free, cylindre, mat));
     ft_vlstadd_back(garbage, ft_vlstnew(elem, free, cylindre));
-    ft_vlstadd_back(&data->objects, ft_vlstnew(elem, free, cylindre));
     return elem;
 }

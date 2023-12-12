@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 01:26:34 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/01 15:19:10 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/12 18:55:04 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,15 @@ t_plan *create_plan(char **tab, t_vlist **garbage,t_parsing_data *data)
 {
     t_plan *elem;
 
+    t_raytracing_material mat;
+    ft_bzero(&mat, sizeof(t_raytracing_material));
     if (null_term_tab_len((void **) tab) != 4 && null_term_tab_len((void **) tab) != 5)
         return NULL;
     elem = ft_calloc(1, sizeof(t_plan));
     if (!elem)
         return NULL;
     // printf("lool");
-    if (!get_rgb(tab[3], &elem->color)|| !get_point(tab[1], &elem->p) || !get_vec_from_str(tab[2], &elem->vec) || !set_specular(tab[4], &elem->specular))
+    if (!get_rgb(tab[3], &mat.color)|| !get_point(tab[1], &elem->p) || !get_vec_from_str(tab[2], &elem->vec) || !set_specular(tab[4], &mat.specular))
     {
         free(elem);
         return NULL;
@@ -40,7 +42,7 @@ t_plan *create_plan(char **tab, t_vlist **garbage,t_parsing_data *data)
     // printf("lool");
     set_eq(elem);
     ft_vlstadd_back(garbage, ft_vlstnew(elem, free, plan));
-    ft_vlstadd_back(&data->planes, ft_vlstnew(elem, free, plan));
+    ft_vlstadd_back(&data->planes, ft_vlstnew_with_mat(elem, free, plan, mat));
     // t_droite d;
     
     // d.p.x = 1;
