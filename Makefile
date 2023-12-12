@@ -30,6 +30,8 @@ FILES = \
 		intersection/i_sphere \
 		intersection/i_plan \
 		intersection/i_cylindre \
+		intersection/get_inter \
+		intersection/solving_utils \
 		mlx_gestion/close \
 		mlx_gestion/hooks_resize \
 		mlx_gestion/hooks \

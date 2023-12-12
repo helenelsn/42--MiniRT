@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   i_cylindre.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 00:52:41 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/11 20:20:17 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/12 16:17:01 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 //     //si dist <= radius ->résoudre l'eq des 2 droites + calc les limites du cylindre
     
 // }
+
 double	pow2(double n)
 {
 	return (n * n);
@@ -317,4 +318,42 @@ bool    get_inter_for_cylindre(t_cylindre *cy, t_ray r, double *d)
     //         return 0;  // Pas d'intersection dans la hauteur du cylindre
     //     }
     // }
+}
+
+bool    intersect_cylindre(t_ray *ray, void *object)
+{
+    t_cylindre      *cy;
+    t_droite    d;
+    t_point  res;
+    double t;
+    
+    
+    cy = object;
+    d.p = ray->origin;
+    d.v = ray->direction;
+    // ray->hit_info.coef = get_inter_for_plan(p, d, &res);
+    // if (!get_inter_for_cylindre(cy, d, &t0, &t1))
+    // {
+    //     return (false);
+    // }
+    if (!get_inter_for_cylindre(cy, *ray, &t))
+        return false;
+    ray->hit_info.coef  = t;
+    if (ray->hit_info.coef <= 0)
+        return false;
+    // if (t0 < t1)
+    //     ray->hit_info.coef =t0;
+    // else 
+    //     ray->hit_info.coef =t1;
+    // else
+    //     return false;
+    res.x = ray->origin.x + ray->hit_info.coef * ray->direction.x;
+    res.y = ray->origin.y + ray->hit_info.coef * ray->direction.y;
+    res.z = ray->origin.z + ray->hit_info.coef * ray->direction.z;
+    ray->hit_info.hit_point = res;
+    ray->hit_info.distance = get_dist_between_points(ray->origin, ray->hit_info.hit_point);
+
+    // printf("---------------------- intersected plan\n");
+
+    return (true);
 }
