@@ -28,6 +28,7 @@ FILES = \
 		garbage_collector/ft_lstiter \
 		garbage_collector/ft_vlst_del_in_list \
 		intersection/i_sphere \
+		intersection/set_object_material \
 		intersection/i_plan \
 		intersection/i_cylindre \
 		intersection/get_inter \
