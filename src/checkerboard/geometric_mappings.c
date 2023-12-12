@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   geometric_mappings.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 20:25:29 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/11 23:47:43 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/12 02:14:13 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ t_point_2d spherical_map(t_point p, t_sphere *sp)
     // uv.u = phi / (2 * M_PI);
     // uv.v = theta / M_PI;
 
+    
     
     return (uv);
 }
@@ -200,6 +201,11 @@ t_point_2d  map_object(t_hit_info hit)
     {
         uv.u = atan2f(hit.outward_normal.z, hit.outward_normal.x) / M_PI + 1;
         uv.v = acosf(hit.outward_normal.y) / M_PI;
+        
+        // t_sphere *sp = hit.obj_content;
+        // t_point     og_p = translate_point(hit.hit_point, get_directional_vect(sp->p, (t_point){0,0,0}));
+        // uv.u = 0.5 + atan2(og_p.z, og_p.x) / (2 * M_PI);
+        // uv.v = 0.5 - asin(og_p.y) / M_PI;
     }
     else if (hit.obj_type == cylindre)
     {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/11 20:47:23 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/12 15:11:53 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,16 +120,27 @@ typedef struct  s_checkers_map
     t_color b;
 }               t_checkers_map;
 
-// typedef enum    e_pattern_type;
-// {
-//     checkers
-//     // quoi d'autre ? utile ?
-// }               t_pattern_type;
+typedef struct  s_normal_map
+{
 
-// typedef struct  s_pattern
-// {
-	
-// }               t_pattern;
+}               t_normal_map;
+
+typedef struct  s_surface
+{
+    bool            checkered;
+    bool            bump_mapping;
+    t_checkers_map  checkerboard;
+
+    // pas encore compris comment utiliser ça (github user tdameros)
+    // t_ppm_p6			normals_map;
+	// char				*normals_map_file;
+}               t_surface;
+
+typedef struct  s_textures
+{
+    t_surface   cap;
+    t_surface   body;
+}               t_textures;
 
 typedef struct  s_material
 {
@@ -137,10 +148,11 @@ typedef struct  s_material
     
     // double           ambient; 
     // double           diffuse;
+    
     double              specular;
     double              reflective;       
     bool 				checkers;
-    t_checkers_map		f;
+    t_textures		    textures;
     t_bbox_description  bbox;
 }               t_material;
 
