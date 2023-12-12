@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   prod_mat.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 22:46:09 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/08 23:40:05 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/12 18:33:26 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/matrices.h"
 
-
-t_matrix  *matrix_product(t_matrix *a, t_matrix *b)
+t_matrix    *matrix_product(t_matrix *a, t_matrix *b)
 {
     int i = 0;
     int j = 0;

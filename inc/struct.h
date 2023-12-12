@@ -6,7 +6,7 @@
 /*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/12 15:11:53 by Helene           ###   ########.fr       */
+/*   Updated: 2023/12/12 20:38:15 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,7 @@ typedef struct  s_checkers_map
 {
     double  width;
     double  height;
-    t_color a;
-    t_color b;
+    t_color color;
 }               t_checkers_map;
 
 typedef struct  s_normal_map
@@ -152,7 +151,8 @@ typedef struct  s_material
     double              specular;
     double              reflective;       
     bool 				checkers;
-    t_textures		    textures;
+    // t_textures		    textures;
+    t_surface           textures;
     t_bbox_description  bbox;
 }               t_material;
 
@@ -186,6 +186,8 @@ typedef struct	s_hit_info
 	t_vec				    reflected_ray;
 	double					distance; // ray_origin - object distance. set a -1 si le rayon n intersecte pas d objects
     double                  coef;
+    t_color                 color;
+    bool                    cap_hit;
 }				t_hit_info;
 
 typedef struct	s_ray

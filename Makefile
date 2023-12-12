@@ -65,9 +65,8 @@ FILES = \
 		trace_rays/trace_ray \
 		camera/init_viewpoint \
 		trace_rays/intervals_utils \
-		checkerboard/checkers_maps \
-		checkerboard/geometric_mappings \
-		checkerboard/get_color \
+		trace_rays/textures/mapping \
+		trace_rays/textures/checkers 
 # Resolving
 		
 	
@@ -120,6 +119,7 @@ ${OBJS_DIR}/%.o : ${SRCS_DIR}/%.c
 	@mkdir -p $(OBJS_DIR)/utils
 	@mkdir -p $(OBJS_DIR)/utils_vec_et_droite
 	@mkdir -p $(OBJS_DIR)/checkerboard
+	@mkdir -p $(OBJS_DIR)/trace_rays/textures
 	$(CC) $(CFLAGS) -o $@ -c $< 
 #$(INCLUDES_DIR) 
 

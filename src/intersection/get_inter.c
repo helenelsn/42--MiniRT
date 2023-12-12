@@ -6,7 +6,7 @@
 /*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:20:33 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/12 15:51:59 by Helene           ###   ########.fr       */
+/*   Updated: 2023/12/12 21:10:37 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,17 @@
     
 //     return (NULL); // pour que ça compile
 // }
+
+void    set_texture_material(t_ray *ray, void *object)
+{
+    ray->hit_info.color = checker_color_at(object, ray->hit_info);
+    
+    ray->hit_info.outward_normal = get_unit_normal(ray->hit_info, ray->hit_info.hit_point);
+    if (dot(ray->direction, ray->hit_info.outward_normal) > 0.0)
+        ray->hit_info.outward_normal = vect_double_multiply(-1, ray->hit_info.outward_normal);
+	if (ray->hit_info.obj_mat.textures.bump_mapping)
+		ray->hit_info.outward_normal = normal_perturbation(ray->hit_info, object);
+}
 
 bool    intersect(t_vlist *obj, t_ray *ray)
 {
@@ -50,6 +61,9 @@ void	no_tree_intersections(t_parsing_data pdata, t_ray *ray, t_interval t)
         return ;
     min_dist = t.max;
     
+
+    // a modif : repetitif, moche
+    
 	obj = pdata.objects;
 	while (obj)
     {
@@ -60,13 +74,12 @@ void	no_tree_intersections(t_parsing_data pdata, t_ray *ray, t_interval t)
 				set_color_in_mat(obj->content, &obj->material, obj->type);
 				set_specular_in_mat(obj->content, &obj->material, obj->type);
         	    copy_obj_properties(obj, closest_obj, ray->hit_info.hit_point);
+                set_texture_material(ray, obj->content);
 			}
         obj = obj->next;
     }
 	
 	obj = pdata.planes;
-	
-	
 	while (obj)
     {
 		set_specular_in_mat(obj->content, &obj->material, obj->type);
@@ -76,15 +89,11 @@ void	no_tree_intersections(t_parsing_data pdata, t_ray *ray, t_interval t)
         	{
         	    min_dist = ray->hit_info.distance;
         	    copy_obj_properties(obj, closest_obj, ray->hit_info.hit_point);
-				
+				set_texture_material(ray, obj->content);
         	}
         obj = obj->next;
     }
     
-
-	// a modif : repetitif, moche
-	
-	
     if (min_dist < t.max)
     {
         // a verifier

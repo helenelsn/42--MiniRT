@@ -1,0 +1,12 @@
+#   position    direction       cam_fov
+C   0,0,0       0,0,1           100
+
+#   intensity           color         
+A   0.4                 255,255,255
+
+#   position    intensity   color
+L   3,1,-1      0.7         255,255,255
+
+# objects
+#   center      diameter    color           shininess   specular_coef   reflectiveness  checkerboard (hooks)    normal_map filename     
+sp  0,0,2       2           50,250,100       500        0.3             0.2             0 or 1                  normal_maps/sand

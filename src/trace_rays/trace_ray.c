@@ -6,7 +6,7 @@
 /*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/12 16:23:49 by Helene           ###   ########.fr       */
+/*   Updated: 2023/12/12 21:01:39 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	set_ray_infos(t_ray *ray, t_vec direction, t_point ray_origin)
 
 void 	update_ray_hit_infos(t_ray *ray)
 {
-	ray->hit_info.outward_normal = get_unit_normal(ray->hit_info, ray->hit_info.hit_point);
 	ray->hit_info.reflected_ray = reflect_ray(ray->direction, ray->hit_info.outward_normal);
 }
 
@@ -59,13 +58,7 @@ t_color    trace_ray(t_app *app, t_point ray_origin, t_vec dir, int rebound_nb)
 	update_ray_hit_infos(&ray);
 	
 	local_color = ray.hit_info.obj_mat.color;
-	if (ray.hit_info.obj_mat.checkers)
-	{
-		// printf("coucouuu\n");
-		local_color = checkers_color(ray.hit_info);
-		// local_color = pattern_at(checkers_map_complementary_colors(local_color), ray.hit_info.hit_point, ray.hit_info.obj_type, ray.hit_info.obj_content);
-		// local_color = pattern_at(checkers_map_white(local_color), ray.hit_info.hit_point, ray.hit_info.obj_type, ray.hit_info.obj_content);
-	}
+	
 	
 	local_color = color_scale(local_color, compute_lighting(app, ray));
 	// local_color = color_mult(ray.hit_info.obj_mat.color, compute_lighting(app, ray));

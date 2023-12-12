@@ -1,5 +1,13 @@
 
 
+A faire pour le checkerboard :
+
+- calcul de la couleur lorsqu'a une intersection (ie checkerboard ou non)
+
+
+
+----------------------------------------------------------------------
+
 Pas dans les bonus mais styles :
 soft shadows
 depth of field
@@ -16,16 +24,11 @@ checker dans le code (ctrl f)
 //tomodif
 //tocheck
 
-
-todo : intersect (intersection rayon - objects), intersect_scene (intersection rayon - scene) 
-
-
 ------------------------------------------------------------------------
 
 
 trace ray :
 
-- creer singletons pour distance, viewpoint height et viewpoint length
 
 - calcul de la normale a un point selon l objet
 - trouver le node correspondant a un point et une direction (rayon) donnee // place origin in tree

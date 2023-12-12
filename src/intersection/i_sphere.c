@@ -6,7 +6,7 @@
 /*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:19:12 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/12 15:55:00 by Helene           ###   ########.fr       */
+/*   Updated: 2023/12/12 21:06:42 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ bool    intersect_sphere(t_ray *ray, void *object)
 {
     t_sphere    *sp;
     t_quadratic eq;
-    t_vec    center_to_origin;
+    t_vec       center_to_origin;
     double      mult;
 
     sp = object;
@@ -40,6 +40,7 @@ bool    intersect_sphere(t_ray *ray, void *object)
 
     //printf("------------- {%s}, ray{O(%f, %f, %f), D(%f, %f, %f)} intersected sphere{C(%f, %f, %f)}\n",
     //    __func__, ray->origin.x, ray->origin,y, ray->origin.z, ray->direction.x, ray->direction.y, ray->direction.z, sp->p.x, sp->p.y, sp->p.z);
+    
     return (ray->hit_info.distance != -1);
 }
 

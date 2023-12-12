@@ -6,7 +6,7 @@
 /*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/12 16:23:17 by Helene           ###   ########.fr       */
+/*   Updated: 2023/12/12 21:10:17 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,13 +122,18 @@ t_vec		pixel_sample(t_app *app, int x, int y);
 void    	set_pixel_center(t_app *app, t_point *pc, int x, int y);
 
 
+/* --------------- textures, color disruption -------------- */
+
+t_point_2d  object_mapping(void *object, t_hit_info hit);
+t_color     checker_color_at(void *object, t_hit_info hit);
+t_vec   	normal_perturbation(t_hit_info hit, void *object);
+
 /* --------------------- checkerboard ---------------------- */
 
-t_color 		checkers_color(t_hit_info hit);
-// t_color 		pattern_at(t_checkers_map map, t_point p, t_type obj_type, void *content);
-t_point_2d		map_object(t_hit_info hit);
-t_checkers_map  checkers_map_white(t_color obj_color);
-t_checkers_map  checkers_map_complementary_colors(t_color obj_color);
+// t_color 		checkers_color(t_hit_info hit);
+// t_point_2d		map_object(t_hit_info hit);
+// t_checkers_map  checkers_map_white(t_color obj_color);
+// t_checkers_map  checkers_map_complementary_colors(t_color obj_color);
 
 /*  ------------------------ utils ------------------------- */
 

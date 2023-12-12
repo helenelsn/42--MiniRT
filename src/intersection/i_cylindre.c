@@ -6,7 +6,7 @@
 /*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 00:52:41 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/12 16:17:01 by Helene           ###   ########.fr       */
+/*   Updated: 2023/12/12 20:20:35 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ int	intersect_cylinder_covers(t_ray *ray, t_cylindre *cylinder, double *t,
 			|| (*t < f->t_1 && *t > f->t_2)));
 }
 
-bool    get_inter_for_cylindre(t_cylindre *cy, t_ray r, double *d)
+bool    get_inter_for_cylindre(t_cylindre *cy, t_ray *r, double *d)
 {
     t_quadratic q;
     double t_cover;
@@ -162,14 +162,18 @@ bool    get_inter_for_cylindre(t_cylindre *cy, t_ray r, double *d)
     // printf("\n from hier");
     // normalise(&r.direction);
     
-	if (!intersect_cylinder_tube(&r, cy, &q))
+    r->hit_info.cap_hit = false;
+	if (!intersect_cylinder_tube(r, cy, &q))
 		return (false);
     t = ft_min_and_positiv(q.t_1,q.t_2 );
     if (t <=0)
         return false;
-    cut_cylinder(&r, cy, &t);
-    if (intersect_cylinder_covers(&r, cy, &t_cover, &q))
+    cut_cylinder(r, cy, &t);
+    if (intersect_cylinder_covers(r, cy, &t_cover, &q))
+    {
+        r->hit_info.cap_hit = true;
 		t = ft_min_and_positiv(t_cover, t);
+    }
     *d = t;
     // return t > 0;
     return true;
@@ -336,7 +340,7 @@ bool    intersect_cylindre(t_ray *ray, void *object)
     // {
     //     return (false);
     // }
-    if (!get_inter_for_cylindre(cy, *ray, &t))
+    if (!get_inter_for_cylindre(cy, ray, &t))
         return false;
     ray->hit_info.coef  = t;
     if (ray->hit_info.coef <= 0)
