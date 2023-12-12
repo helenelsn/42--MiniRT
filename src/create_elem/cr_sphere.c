@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cr_sphere.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 01:20:17 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/12 21:19:34 by Helene           ###   ########.fr       */
+/*   Updated: 2023/12/12 21:28:39 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 t_sphere *create_sphere(char **tab, t_vlist **garbage, t_parsing_data *data)
 {
     t_sphere *elem;
-    t_raytracing_material mat;
-    ft_bzero(&mat, sizeof(t_raytracing_material));
+    t_material mat;
+    ft_bzero(&mat, sizeof(t_material));
 
     if (null_term_tab_len((void **) tab) != 4 && null_term_tab_len((void **) tab) != 5
         && null_term_tab_len((void **) tab) != 6)

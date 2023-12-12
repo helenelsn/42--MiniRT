@@ -6,14 +6,14 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 15:52:57 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/12 18:57:22 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/12 21:28:39 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/struct.h"
 #include "../../inc/mini_rt.h"
 
-// void set_obj_material(void * content, t_raytracing_material *mat, t_type t)
+// void set_obj_material(void * content, t_material *mat, t_type t)
 // {
 //     if (mat->specular || mat->reflective || mat->color.hex)
 //         return;
@@ -38,7 +38,7 @@
 //     // mat->color = 500;
 // }
 
-// void set_color_in_mat(void * content, t_raytracing_material *mat, t_type t)
+// void set_color_in_mat(void * content, t_material *mat, t_type t)
 // {
 //     if (mat->color.hex)
 //         return;
@@ -55,7 +55,7 @@
 //     // mat->color = 500;
 // }
 
-// void set_specular_in_mat(void * content, t_raytracing_material *mat, t_type t)
+// void set_specular_in_mat(void * content, t_material *mat, t_type t)
 // {
 //     if (mat->specular)
 //         return;
@@ -70,7 +70,7 @@
 //     }
 //     // mat->color = 500;
 // }
-// void set_reflective_in_mat(void * content, t_raytracing_material *mat, t_type t)
+// void set_reflective_in_mat(void * content, t_material *mat, t_type t)
 // {
 //     if (mat->reflective)
 //         return;

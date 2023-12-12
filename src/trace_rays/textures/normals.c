@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   normals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 15:00:07 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/12 21:14:46 by Helene           ###   ########.fr       */
+/*   Updated: 2023/12/12 21:33:04 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/struct.h"
-#include "../../inc/mini_rt.h"
+#include "../../../inc/struct.h"
+#include "../../../inc/mini_rt.h"
 
 t_vec   normal_perturbation(t_hit_info hit, void *object)
 {

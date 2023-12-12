@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cr_cylindre.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 01:29:43 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/12 21:19:07 by Helene           ###   ########.fr       */
+/*   Updated: 2023/12/12 21:28:39 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ t_cylindre *create_cylindre(char **tab, t_vlist **garbage, t_parsing_data *data)
 {
     t_cylindre *elem;
 
-    t_raytracing_material mat;
-    ft_bzero(&mat, sizeof(t_raytracing_material));
+    t_material mat;
+    ft_bzero(&mat, sizeof(t_material));
     elem = ft_calloc(1, sizeof(t_cylindre));
     if (!elem)
         return NULL;

@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 18:59:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/12 19:51:08 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/12 21:28:39 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ t_cone *create_cone(char **tab, t_vlist **garbage, t_parsing_data *data)
 {
     t_cone *elem;
 
-    t_raytracing_material mat;
-    ft_bzero(&mat, sizeof(t_raytracing_material));
+    t_material mat;
+    ft_bzero(&mat, sizeof(t_material));
     elem = ft_calloc(1, sizeof(t_cone));
     if (!elem)
         return NULL;

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   struct.h                                           :+:      :+:    :+:   */
+/*   struct_recup.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/10 02:52:26 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/12 21:28:39 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,12 +115,12 @@ typedef struct  s_raytracing_material
     // int                 specular; /* todo + tard init a -1.  -1 si matte */ // coefficient speculaire, dans le cas d'objects reflechissants
     double              reflective; /* todo + tard : init a 0. in [0, 1] */                 
     t_bbox_description  bbox;
-}               t_raytracing_material;
+}               t_material;
 
 typedef struct s_vlist
 {
     void *			        content;
-    t_raytracing_material   material;
+    t_material   material;
     t_type                  type;
 	struct s_vlist	        *next;
     void                    (*free_foo)(void *);
@@ -140,7 +140,7 @@ typedef struct	s_hit_info
 {
 	// autre chose ?
 	t_type 					obj_type;
-	t_raytracing_material	obj_mat;
+	t_material	obj_mat;
     void                    *obj_content;
 	t_point				hit_point;
 	t_vec				outward_normal;
@@ -174,7 +174,7 @@ typedef struct  s_light_infos
 typedef struct s_mood_light
 {
     t_light_info            infos;
-    // t_raytracing_material   material; // ?
+    // t_material   material; // ?
 }   t_mood_light;
 
 
@@ -182,7 +182,7 @@ typedef struct s_light
 {
     t_point p;
     t_light_info            infos;
-    // t_raytracing_material   material; // ?
+    // t_material   material; // ?
     struct s_light          *next;
 }   t_light;
 

@@ -70,7 +70,8 @@ FILES = \
 		camera/init_viewpoint \
 		trace_rays/intervals_utils \
 		trace_rays/textures/mapping \
-		trace_rays/textures/checkers 
+		trace_rays/textures/checkers \
+		trace_rays/textures/normals 
 # Resolving
 		
 	
