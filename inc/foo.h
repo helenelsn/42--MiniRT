@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/12 18:51:19 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/12 20:04:18 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ t_light *create_light(char **tab, t_vlist **garbage, t_parsing_data *data);
 t_mood_light *create_mood_light(char **tab, t_vlist **garbage, t_parsing_data *data);
 t_plan *create_plan(char **tab, t_vlist **garbage, t_parsing_data *data);
 t_sphere *create_sphere(char **tab, t_vlist **garbage, t_parsing_data *data);
-
+t_cone *create_cone(char **tab, t_vlist **garbage, t_parsing_data *data);
 
 //------------------------ DIST ------------------------------//
 double get_dist_between_droite(t_droite d, t_droite e);
 double get_dist_droite_point(t_droite d, t_point p);
 double get_dist_between_points(t_point p, t_point q);
 
-
+double ft_min_and_positiv(double a, double b);
 //------------------------ EXIT ------------------------------//
 void	destroy_and_free(t_app app);
 
@@ -194,4 +194,6 @@ double get_v_norm(t_vec v);
 t_point change_base_of_point(t_point v, t_vec trans, t_matrix *rot);
 t_vec change_base_of_vec(t_vec v, t_vec trans, t_matrix *rot);
 
+int	intersect_plane(t_ray *ray, t_plan *shape, double *t);
+bool    intersect_cone(t_ray *ray, void *object);
 #endif

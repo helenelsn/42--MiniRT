@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 19:29:00 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/12 20:03:26 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/12 21:00:40 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	cut_cone_surface(t_cone *cone, t_point hit_point, double *t)
 		return (0);
 	hit_to_center = get_directional_vect(cone->p, hit_point);
 	projected_height = dot(hit_to_center, (cone->vec));
-	if (projected_height <= cone->height && projected_height > 0.0)
+	if (projected_height <= cone->height && projected_height >= 0.0)
 		return (1);
 	*t = 0.0;
 	return (0);
@@ -55,20 +55,20 @@ bool    get_inter_for_cone(t_cone *co, t_ray r, double *d)
 	double		t_base;
     double      t;
 
-	if (!intersect_entire_cone(&r, cone, &f))
+	if (!intersect_entire_cone(&r, co, &f))
 		return (0);
 	if (dot((co->vec), (r.direction)) >= 0)
 	{
 		t = ft_min_and_positiv(f.t_1, f.t_2);
-		cut_cone_surface(cone, get_ray_point(r, t), &t);
+		cut_cone_surface(co, get_ray_point(r, t), &t);
 	}
 	else
 	{
-		cut_cone_surface(cone, get_ray_point(r, f.t_1), &f.t_1);
-		cut_cone_surface(cone, get_ray_point(r, f.t_2), &f.t_2);
+		cut_cone_surface(co, get_ray_point(r, f.t_1), &f.t_1);
+		cut_cone_surface(co, get_ray_point(r, f.t_2), &f.t_2);
 		t = ft_min_and_positiv(f.t_1, f.t_2);
 	}
-	intersect_circle(r, (t_circle) {co->cover_plane, co->p, co->radius}, &t_base, NULL);
+	intersect_circle(r, (t_circle) {co->cover_plane, co->p, co->radius}, &t_base);
 	t = ft_min_and_positiv(t, t_base);
 	return (t > 0.0);
 }
@@ -84,16 +84,16 @@ bool    intersect_cone(t_ray *ray, void *object)
     co = object;
     d.p = ray->origin;
     d.v = ray->direction;
-
-    if (!get_inter_for_cone(co, *ray, &t))
+	int flag = get_inter_for_cone(co, *ray, &t);
+	printf("res =%d ", flag);
+	
+    if (!flag)
         return false;
     ray->hit_info.coef  = t;
     if (ray->hit_info.coef <= 0)
         return false;
 
-    res.x = ray->origin.x + ray->hit_info.coef * ray->direction.x;
-    res.y = ray->origin.y + ray->hit_info.coef * ray->direction.y;
-    res.z = ray->origin.z + ray->hit_info.coef * ray->direction.z;
+    res = get_ray_point(*ray, ray->hit_info.coef);
     ray->hit_info.hit_point = res;
     ray->hit_info.distance = get_dist_between_points(ray->origin, ray->hit_info.hit_point);
 

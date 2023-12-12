@@ -230,6 +230,7 @@ typedef struct s_cylindre
 
 typedef struct  s_circle
 {
+    t_plan p;
     t_point  center;
     double      radius;
 }              t_circle;
@@ -237,6 +238,7 @@ typedef struct  s_circle
 typedef struct  s_cone
 {
     t_point  p;
+    t_point  top;
     t_vec    vec;
     t_vec    n0;
     t_vec    n1;
@@ -247,8 +249,8 @@ typedef struct  s_cone
     t_vec       p_to_origin;
     t_vec       origin_to_p;
     t_plan      cover_plane;
-    
-    t_circle    base;
+
+    // t_circle    base;
     double      slant_height; /* hauteur oblique, calculée avec pythagore */
 }               t_cone;
 
