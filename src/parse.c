@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:23 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/12 19:19:13 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/12 20:34:48 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,12 @@ void parse_and_create(int fd, t_vlist **garbage, t_parsing_data *data)
         parse_error_occured(file, garbage, fd);
     while (line)
     {
+        if (!line[0] || line[0]=='\n')
+        {
+            free(line);
+            line = get_next_line(fd);
+            continue;
+        }
         sp_line = ft_split(line, ' ');
         ft_vlstadd_back(garbage, ft_vlstnew(sp_line, free_tab, 0)); 
         free(line);
