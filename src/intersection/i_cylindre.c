@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 00:52:41 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/12 19:59:14 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/12 21:08:13 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ int	intersect_cylinder_covers(t_ray *ray, t_cylindre *cylinder, double *t,
     // t_1 = get_inter_for_plan(&cylinder->cover_planes[0], (t_droite) {ray->origin, ray->direction}, &tmp);
     // t_2 = get_inter_for_plan(&cylinder->cover_planes[0], (t_droite) {ray->origin, ray->direction}, &tmp);
 	*t = ft_min_and_positiv(t_1, t_2);
-	return (*t > 0.0 && ((*t > f->t_1 && *t < f->t_2)
+	return (*t >= 0.0 && ((*t > f->t_1 && *t < f->t_2)
 			|| (*t < f->t_1 && *t > f->t_2)));
 }
 
