@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:23 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/29 20:24:04 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/12 19:19:13 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ void *add_obj(char **tab, t_vlist **garbage, int fd, t_parsing_data *data)
         elem = create_plan(tab, garbage, data);
     else if (ft_strisequal(tab[0], "cy"))
         elem = create_cylindre(tab, garbage, data);
+    else if (ft_strisequal(tab[0], "co"))
+        elem = create_cone(tab, garbage, data);
     else
         parse_error_occured(file_content, garbage, fd);
     if (!elem)

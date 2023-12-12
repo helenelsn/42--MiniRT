@@ -15,6 +15,7 @@ FILES = \
 		create_elem/cr_mood_light \
 		create_elem/cr_plan \
 		create_elem/cr_sphere \
+		create_elem/cr_cone \
 		dist/dist_droite \
 		dist/dist_points \
 		dist/dist_point_droite \
@@ -31,6 +32,8 @@ FILES = \
 		intersection/set_object_material \
 		intersection/i_plan \
 		intersection/i_cylindre \
+		intersection/i_cone \
+		intersection/i_circle \
 		intersection/get_inter \
 		intersection/solving_utils \
 		mlx_gestion/close \

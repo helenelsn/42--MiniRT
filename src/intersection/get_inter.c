@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:20:33 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/12 18:57:41 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/12 20:05:13 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ bool    intersect(t_vlist *obj, t_ray *ray)
         return (intersect_plan(ray, obj->content));
     if (obj->type == cylindre)
         return (intersect_cylindre(ray, obj->content));
+    if (obj->type == cone)
+        return (intersect_cone(ray, obj->content));
     // if (obj->type == cone)
     //     return (intersect_cone(ray, obj->content));
     return false;

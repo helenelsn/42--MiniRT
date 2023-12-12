@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 15:35:11 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/05 22:38:38 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/12 19:21:02 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,9 @@ void    set_cone_bbox(t_vlist *object)
     t_cone *cone;
 
     cone = object->content;
-    bbox_reset(&object->material.bbox, point_addition(cone->base.center,  double_to_point(cone->base.radius + T_INF)));
-    bbox_add_point(&object->material.bbox, point_addition(cone->base.center,  double_to_point(-(cone->base.radius + T_INF))));
-    bbox_add_point(&object->material.bbox, point_addition(cone->base.center,  double_to_point(cone->height + T_INF)));
+    bbox_reset(&object->material.bbox, point_addition(cone->p,  double_to_point(cone->radius + T_INF)));
+    bbox_add_point(&object->material.bbox, point_addition(cone->p,  double_to_point(-(cone->radius + T_INF))));
+    bbox_add_point(&object->material.bbox, point_addition(cone->p,  double_to_point(cone->height + T_INF)));
 }
 /*
 For planes, the bounding box will stretch from 
