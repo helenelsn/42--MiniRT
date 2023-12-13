@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 19:29:00 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/13 17:52:33 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/14 00:16:09 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ bool    get_inter_for_cone(t_cone *co, t_ray r, double *d)
 		cut_cone_surface(co, get_ray_point(r, f.t_2), &f.t_2);
 		*d = ft_min_and_positiv(f.t_1, f.t_2);
 	}
-	// intersect_circle(&r, (t_circle) {co->cover_plane, co->p, co->radius}, &t_base);
+	intersect_circle(&r, (t_circle) {co->cover_plane, co->p, co->radius}, &t_base);
 	*d = ft_min_and_positiv(*d, t_base);
 	return (*d > 0.0);
 }

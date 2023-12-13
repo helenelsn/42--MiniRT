@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 00:03:13 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/07 00:43:50 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/13 23:55:58 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,12 @@ t_vec change_base_of_vec(t_vec v, t_vec trans, t_matrix *rot)
 	// print_mat(tmp);
 	tmp2 = matrix_product(rot, tmp);
 	// print_mat(tmp2);
-	// del_mat(tmp);
+	del_mat(tmp);
 	ret.x = tmp2->matrix[0][0];
 	ret.y = tmp2->matrix[1][0];
 	ret.z = tmp2->matrix[2][0];
-	ret = vect_addition(v, trans);
+	del_mat(tmp2);
+	ret = vect_addition(ret, trans);
 	return ret;
 	
 }
