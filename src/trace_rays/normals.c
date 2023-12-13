@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:15:06 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/14 00:52:27 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/14 00:54:00 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ t_vec 	normal_to_cylinder(void *obj, t_point p)
 	t_vec		center_to_hitpoint;
 
 	cy = (t_cylindre *)(obj);
-	center_to_hitpoint = get_directional_vect(cy->p, p);
+	center_to_hitpoint =  get_directional_vect(cy->p, p);
+	// normalise(&center_to_hitpoint);
 	projected = vect_double_multiply(dot(center_to_hitpoint, cy->vec), cy->vec);
 	
 	normal = get_directional_vect(get_vec_coord(projected), get_vec_coord(center_to_hitpoint));
