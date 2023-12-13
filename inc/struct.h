@@ -135,6 +135,8 @@ typedef struct  s_interval
     double  max;
 }               t_interval;
 
+#include <stdbool.h>
+
 typedef struct	s_hit_info
 {
 	t_type 					obj_type;
@@ -146,6 +148,8 @@ typedef struct	s_hit_info
 	t_vec				    reflected_ray;
 	double					distance; // ray_origin - object distance. set a -1 si le rayon n intersecte pas d objects
     double                  coef;
+    t_color                 color;
+    bool                    cap_hit;
 }				t_hit_info;
 
 typedef struct	s_ray
