@@ -6,7 +6,7 @@
 /*   By: eva <eva@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 14:59:51 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/13 01:24:07 by eva              ###   ########.fr       */
+/*   Updated: 2023/12/13 02:13:34 by eva              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,13 +126,12 @@ t_vec    rotate_relative_pos(t_vec surface_normal, t_point hit_point, t_point ob
         // rot_axis = vector3f_unit(vector3f_cross(vector3f_create(0, 1, 0), plane->axis));
         rotation_mat = rotation_matrix_from_angle(-rotation_phi, rot_axis);
 		position = change_base_of_vec(position, (t_vec){0,0,0,0}, rotation_mat);
-        // position = vec_mat_product(position, rotation_mat);
         
         // position = quaternionf_rotate_vector3f(-rotation_phi,
 				// vector3f_unit(vector3f_cross(vector3f_create(0, 1, 0), \
 				// plane->axis)), position);
+        del_mat(rotation_mat);
 	}
-    del_mat(rotation_mat);
     return (position);
 }
 
@@ -148,19 +147,7 @@ t_point_2d   planar_mapping(t_plan *pl, t_point p)
     t_vec       position;
 
     position = rotate_relative_pos(pl->vec, p, pl->p);
-    // position = get_directional_vect(pl->p, p);   
-	// if (!ft_is_equalsf(pl->vec.y, 1.f, FLT_EPSILON))
-	// {
-	// 	rotation_phi = rad_to_deg(acosf(pl->vec.y));
         
-    //     t_vec rot_axis = cross_product((t_vec){0, 1, 0}, pl->vec);
-    //     normalise(&rot_axis);
-    //     rotation_mat = rotation_matrix_from_angle(-rotation_phi, rot_axis);
-	// 	position = change_base_of_vec(position, (t_vec){0,0,0,0}, rotation_mat);
-	// }
-
-    double test = dot(position, pl->vec);
-    
 	uv.u = a_mod_b(position.x, 1); // modulof_positive()
 	uv.v = a_mod_b(position.z, 1);
 
@@ -185,9 +172,9 @@ t_point_2d   cylindrical_mapping(t_cylindre *cy, t_hit_info hit)
     double      raw_u;
       
     if (hit.cap_hit)
-        return (cap_mapping(cy->p, hit.outward_normal, hit.hit_point, cy->radius));
+        return (cap_mapping(cy->p, cy->vec, hit.hit_point, cy->radius));
         
-    position = rotate_relative_pos(hit.outward_normal, hit.hit_point, cy->p);
+    position = rotate_relative_pos(cy->vec, hit.hit_point, cy->p);
     theta = atan2f(position.x / cy->radius,
 			position.z / cy->radius);
 	raw_u = theta / (float)(2.f * M_PI);

@@ -6,7 +6,7 @@
 /*   By: eva <eva@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 14:59:58 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/13 00:21:24 by eva              ###   ########.fr       */
+/*   Updated: 2023/12/13 01:31:44 by eva              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,6 @@ t_color     checker_color_at(void *object, t_hit_info hit)
     {
         return (hit.obj_mat.textures.checkerboard.color);
     }
+    printf("youhou\n");
     return (hit.obj_mat.color);
 }

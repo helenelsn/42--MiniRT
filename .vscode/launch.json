@@ -10,7 +10,7 @@
 			"type": "cppdbg",
 			"request": "launch",
 			"program": "${workspaceFolder}/mimirt",
-			"args": ["scenes/plan.rt"],
+			"args": ["scenes/cyl.rt"],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
 			"environment": [],

@@ -6,7 +6,7 @@
 /*   By: eva <eva@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:13 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/13 01:22:23 by eva              ###   ########.fr       */
+/*   Updated: 2023/12/13 01:29:06 by eva              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@
 
 // should be different whether it's a sphere or another object ! (include it in the t_material plutot ?)
 # define CHECKERS_WIDTH     20
-# define CHECKERS_HEIGHT    2
+# define CHECKERS_HEIGHT    20
 
 
 
