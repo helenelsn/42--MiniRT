@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mapping.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eva <eva@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 14:59:51 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/13 02:13:34 by eva              ###   ########.fr       */
+/*   Updated: 2023/12/13 14:22:19 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,22 +79,20 @@ t_matrix	*rotation_matrix_from_angle(double angle, t_vec axis)
     rot = new_void_matrix(3, 3);
     c = cosf(angle);
     s = sinf(angle);
+
+    normalise(&axis);
     
-    // float x = axis.x;
-    // float y = axis.y;
-    // float z = axis.z;
+    rot->matrix[0][0] = axis.x * axis.x * (float)(1.0 - c) + c;
+    rot->matrix[0][1] = axis.x * axis.y * (float)(1.0 - c) - axis.z * s;
+    rot->matrix[0][2] = axis.x * axis.z * (float)(1.0 - c) + axis.y * s;
 
-    rot->matrix[0][0] = axis.x * axis.x * (1-c) + c;
-    rot->matrix[0][1] = axis.x * axis.y * (1-c) - axis.z * s;
-    rot->matrix[0][2] = axis.x * axis.z * (1-c) + axis.y * s;
+    rot->matrix[1][0] = axis.y * axis.x * (float)(1.0 - c) + axis.z * s;
+    rot->matrix[1][1] = axis.y * axis.y * (float)(1.0 - c) + c;
+    rot->matrix[1][2] = axis.y * axis.z * (float)(1.0 - c) - axis.x * s;
 
-    rot->matrix[1][0] = axis.y * axis.x * (1-c) + axis.z * s;
-    rot->matrix[1][1] = axis.y * axis.y * (1-c) + c;
-    rot->matrix[1][2] = axis.y * axis.z * (1-c) - axis.x * s;
-
-    rot->matrix[2][0] = axis.x * axis.z * (1-c) - axis.y * s;
-    rot->matrix[2][1] = axis.y * axis.z * (1-c) + axis.x * s;
-    rot->matrix[2][2] = axis.z * axis.z * (1-c) + c;
+    rot->matrix[2][0] = axis.x * axis.z * (float)(1.0 - c) - axis.y * s;
+    rot->matrix[2][1] = axis.y * axis.z * (float)(1.0 - c) + axis.x * s;
+    rot->matrix[2][2] = axis.z * axis.z * (float)(1.0 - c) + c;
 
     return rot;
 }
@@ -117,19 +115,22 @@ t_vec    rotate_relative_pos(t_vec surface_normal, t_point hit_point, t_point ob
     if (!ft_is_equalsf(surface_normal.y, 1.f, FLT_EPSILON))
 	{
         // angle <normal.y, y-axis>
-		rotation_phi = rad_to_deg(acosf(surface_normal.y));
+        // rotation_phi = rad_to_deg(acosf(surface_normal.y));
         
-        //rotates the og_p relative position to align with the Y-Axis
-        rot_axis = cross_product((t_vec){0, 1, 0}, surface_normal);
-        normalise(&rot_axis);
+        t_vec unit_vector = {0, 1, 0}; // the (0,1,0) unit vector
+        double dot_product = surface_normal.x * unit_vector.x + surface_normal.y * unit_vector.y + surface_normal.z * unit_vector.z;
+        double norm_product = get_v_norm(surface_normal) * get_v_norm(unit_vector);
+		double cos_theta = dot_product / norm_product;
+        double theta = acos(cos_theta);
         
-        // rot_axis = vector3f_unit(vector3f_cross(vector3f_create(0, 1, 0), plane->axis));
+        //rotates the relative position to align with the Y-Axis
+        rot_axis = cross_product(unit_vector, surface_normal);
+        
         rotation_mat = rotation_matrix_from_angle(-rotation_phi, rot_axis);
-		position = change_base_of_vec(position, (t_vec){0,0,0,0}, rotation_mat);
         
-        // position = quaternionf_rotate_vector3f(-rotation_phi,
-				// vector3f_unit(vector3f_cross(vector3f_create(0, 1, 0), \
-				// plane->axis)), position);
+		position = change_base_of_vec(position, (t_vec){0,0,0,0}, rotation_mat);
+        // position = vec_mat_product(position, rotation_mat);
+        
         del_mat(rotation_mat);
 	}
     return (position);
