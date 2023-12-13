@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_inter.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eva <eva@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:20:33 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/13 00:03:59 by eva              ###   ########.fr       */
+/*   Updated: 2023/12/13 15:16:21 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void    set_texture_material(t_ray *ray, t_hit_info *closest_obj, void *object)
     if (dot(ray->direction, closest_obj->outward_normal) > 0.0)
         closest_obj->outward_normal = vect_double_multiply(-1, closest_obj->outward_normal);
 	if (closest_obj->obj_mat.textures.bump_mapping)
-		closest_obj->outward_normal = normal_perturbation(*closest_obj, object);
+		closest_obj->outward_normal = get_normal_perturbation(*closest_obj, object);
 }
 
 bool    intersect(t_vlist *obj, t_ray *ray)
