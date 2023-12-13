@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:15:45 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/13 17:07:40 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/13 17:40:00 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,9 +163,9 @@ void 	compute_specular(t_light *light, t_ray ray, t_color *color, t_ray obj_to_l
 	if (r_dot_v <= 0.0)
 		return ;
 	
-	intensity = 0.4 * light->infos.ratio * pow(r_dot_v, ray.hit_info.obj_mat.specular) * n_dot_l;	// / (r.norm * obj_to_light.direction.norm )
+	intensity = light->infos.ratio * pow(r_dot_v, ray.hit_info.obj_mat.specular) * n_dot_l;	//0.4 *  // / (r.norm * obj_to_light.direction.norm )
 	// *color = color_add(*color, color_scale(light->infos.color, intensity));
-	*color = color_add(*color, color_scale(color_mult(light->infos.color, ray.hit_info.obj_mat.color), intensity));
+	*color = color_scale(color_mult(light->infos.color, ray.hit_info.obj_mat.color), intensity);
 }
 
 
@@ -177,7 +177,7 @@ bool 	compute_diffuse(t_light *light, t_ray ray, t_color *color, t_ray obj_to_li
 	n_dot_l = dot(ray.hit_info.outward_normal, obj_to_light.direction);
 	if (n_dot_l <= 0.0)
 		return (false);
-	intensity = 0.6 * light->infos.ratio / M_PI * (n_dot_l); // / dot(obj_to_light.direction.norm, obj_to_light.direction.norm); // /(ray.hit_info.outward_normal.norm * obj_to_light.direction.norm); // peut simplifier, normalemet les deux sont unitaires et ont donc une norme de 1
+	intensity = light->infos.ratio / M_PI * (n_dot_l); //0.6 *  // / dot(obj_to_light.direction.norm, obj_to_light.direction.norm); // /(ray.hit_info.outward_normal.norm * obj_to_light.direction.norm); // peut simplifier, normalemet les deux sont unitaires et ont donc une norme de 1
 	// *color = color_add(*color, color_scale(light->infos.color, intensity));
 	*color = color_add(*color, color_scale(color_mult(light->infos.color, ray.hit_info.obj_mat.color), intensity));
 	return (true);
@@ -204,6 +204,7 @@ bool	is_directly_illuminated(t_app *app, t_light *light, t_ray ray, t_ray *obj_t
 	no_tree_intersections(app->p_data, obj_to_light, get_interval(HITPOINT_OFFSET, obj_to_light_dist));
 	return (obj_to_light->hit_info.distance == -1);
 }
+
 
 // a mettre ailleurs !! (a besoin de le faire qu'une fois pour chaque lumiere)
 void	set_emitted_colors(t_light *light, t_mood_light *amb)
@@ -244,5 +245,5 @@ t_color		compute_lighting(t_app *app, t_ray ray)
 		effective_color = color_add(effective_color, color);
 		light = light->next;
 	}
-	return (color);
+	return (effective_color);
 }
