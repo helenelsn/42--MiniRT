@@ -1,33 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   inverse.c                                          :+:      :+:    :+:   */
+/*   i_circle.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/09 00:29:05 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/11 20:28:36 by srapin           ###   ########.fr       */
+/*   Created: 2023/12/12 19:52:43 by srapin            #+#    #+#             */
+/*   Updated: 2023/12/12 20:06:58 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/matrices.h"
+#include "../../inc/mini_rt.h"
 
-t_matrix *get_inverse(t_matrix *m)
+int	intersect_circle(t_ray *ray, t_circle circle, double *t)
 {
-	t_matrix *t;
-	t_matrix *inv;
-	double d;
+	t_point		hit_point;
 
-	d = get_mat_det(m);
-	print_mat(m);
-	if (!d)
-	{
-		printf("det is null can not inv matrix\n");
-		return NULL;
-	}
-	t=transpose(m);
-	inv = get_cofactor_matrix(t);
-	scalar_product(inv, 1/d);
-	print_mat(inv);
-	return inv;
+	if (!intersect_plane(ray, &circle.p, t))
+		return (0);
+	hit_point = get_ray_point(*ray, *t);
+	if (get_v_norm(get_directional_vect(circle.center, hit_point)) <= circle.radius)
+		return (1);
+	*t = 0.0;
+	return (0);
 }

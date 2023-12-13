@@ -194,10 +194,6 @@ typedef struct s_sphere
 {
     t_point  p;
     double      radius;
-    t_color     color;
-    double      specular;
-    // int         shininess;
-    double      reflective;
 }   t_sphere;
 
 typedef struct s_plan
@@ -209,11 +205,6 @@ typedef struct s_plan
     double      b;
     double      c;
     double      d;
-    
-    t_color   color;
-    double     specular;
-    // int         shininess;
-    double      reflective;
 }   t_plan;
 
 typedef struct  s_matrix
@@ -232,30 +223,37 @@ typedef struct s_cylindre
     t_vec    n1;
     double      radius;
     double      height;
-    t_color     color;
-    double      specular;
-    // int         shininess;
-    double      reflective;
-    
     struct  s_matrix *base_to_cyl;
     struct  s_matrix *cyl_to_base;
     t_vec       p_to_origin;
     t_vec       origin_to_p;
-
+    t_plan      cover_planes[2];
 }   t_cylindre;
 
 typedef struct  s_circle
 {
+    t_plan p;
     t_point  center;
     double      radius;
 }              t_circle;
 
 typedef struct  s_cone
 {
-    t_circle    base;
+    t_point  p;
+    t_point  top;
+    t_vec    vec;
+    t_vec    n0;
+    t_vec    n1;
+    double      radius;
     double      height;
+    struct  s_matrix *base_to_cyl;
+    struct  s_matrix *cyl_to_base;
+    t_vec       p_to_origin;
+    t_vec       origin_to_p;
+    t_plan      cover_plane;
+
+    // t_circle    base;
     double      slant_height; /* hauteur oblique, calculée avec pythagore */
-    t_vec    orientation; // ou direction
 }               t_cone;
 
 typedef struct  s_moebius

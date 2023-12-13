@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/11 19:57:55 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/13 17:21:42 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ t_light *create_light(char **tab, t_vlist **garbage, t_parsing_data *data);
 t_mood_light *create_mood_light(char **tab, t_vlist **garbage, t_parsing_data *data);
 t_plan *create_plan(char **tab, t_vlist **garbage, t_parsing_data *data);
 t_sphere *create_sphere(char **tab, t_vlist **garbage, t_parsing_data *data);
-
+t_cone *create_cone(char **tab, t_vlist **garbage, t_parsing_data *data);
 
 //------------------------ DIST ------------------------------//
 double get_dist_between_droite(t_droite d, t_droite e);
 double get_dist_droite_point(t_droite d, t_point p);
 double get_dist_between_points(t_point p, t_point q);
 
-
+double ft_min_and_positiv(double a, double b);
 //------------------------ EXIT ------------------------------//
 void	destroy_and_free(t_app app);
 
@@ -51,7 +51,8 @@ void				ft_vlst_del_in_list(t_vlist **lst, t_vlist *todel); // ln
 void				ft_vlstiter(t_vlist *lst, void (*f)(void *));
 t_vlist				*ft_vlstmap(t_vlist *lst, void *(*f)(void *),
 						void (*del)(void *));
-
+t_vlist *ft_vlstnew_with_mat(void * content, void foo(void *), t_type t,
+    t_raytracing_material mat);
 
 //------------------------ MLX GESTION ------------------------------//
 int close_mlx(void *arg);
@@ -90,8 +91,21 @@ t_vec	get_directional_vect(t_point origin, t_point dest);
 t_vec	get_unitary_dir_vect(t_point a, t_point b);
 t_vec 	get_unit_normal(t_hit_info hi, t_point p);
 
+/* ------------------- INTERSECTIONS ------------------ */
 
-/* -------------------- TRACE RAYS ---------------- */
+bool    	intersect(t_vlist *obj, t_ray *ray);
+bool    	intersect_plan(t_ray *ray, void *object);
+bool    	intersect_sphere(t_ray *ray, void *object);
+bool    	intersect_cylindre(t_ray *ray, void *object);
+bool    	solve_quadratic_eq(t_quadratic *eq);
+double  	get_closest_point(double a, double b) ;
+
+// bool    	get_inter_for_cylindre(t_cylindre *cy, t_ray d, double *);
+// bool    solve_quadratic_eq(t_quadratic *eq);
+t_point 	get_ray_point(t_ray ray, double t);
+void 		set_eq(t_plan *p);
+
+/* -------------------- TRACE RAYS ------------------- */
 
 void    	draw_scene(t_app *app);
 t_color   	trace_ray(t_app *app, t_point ray_origin, t_vec dir, int rebound_nb);
@@ -102,7 +116,7 @@ t_vec		reflect_ray(t_vec v, t_vec n); // ?
 
 /*  ------- CHGT COORD, ANTI ALIASING ---------- */
 
-t_vec	pixel_sample(t_app *app, int x, int y);
+t_vec		pixel_sample(t_app *app, int x, int y);
 void    	set_pixel_center(t_app *app, t_point *pc, int x, int y);
 
 /*  --------------- */
@@ -179,9 +193,7 @@ t_vec cross_product(t_vec v, t_vec w);
 double get_v_norm(t_vec v);
 t_point change_base_of_point(t_point v, t_vec trans, t_matrix *rot);
 t_vec change_base_of_vec(t_vec v, t_vec trans, t_matrix *rot);
-t_vlist    	*get_inter(t_vlist *elem, t_droite d);
-void    	get_inter_for_sphere(t_sphere *elem, t_droite d);
-int    	get_inter_for_plan(t_plan *p, t_droite d, t_point *res);
-int    get_inter_for_cylindre(t_cylindre *cy, t_ray d, double *t0, double *t1);
-bool    solve_quadratic_eq(t_quadratic *eq);
+
+int	intersect_plane(t_ray *ray, t_plan *shape, double *t);
+bool    intersect_cone(t_ray *ray, void *object);
 #endif
