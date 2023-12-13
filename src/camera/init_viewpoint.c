@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_viewpoint.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 20:04:36 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/05 22:38:56 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/13 20:47:29 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ void    init_viewpoint(t_app *app)
     app->p_data.cam->ref.w = vect_double_multiply(-1, app->p_data.cam->direction);
     normalise(&app->p_data.cam->ref.w);
 
-    app->p_data.cam->ref.u = cross_product((t_vec){0, 1, 0}, app->p_data.cam->ref.w);
+    if (app->p_data.cam->direction.y)
+        app->p_data.cam->ref.u = cross_product((t_vec){1, 0, 0}, app->p_data.cam->ref.w);
+    else
+        app->p_data.cam->ref.u = cross_product(app->p_data.cam->ref.w, (t_vec){0, 1, 0});
     normalise(&app->p_data.cam->ref.u);
     
     app->p_data.cam->ref.v = cross_product(app->p_data.cam->ref.w, app->p_data.cam->ref.u);
