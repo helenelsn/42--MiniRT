@@ -169,6 +169,7 @@ typedef struct  s_light_infos
 {   
     double      ratio;
     t_color     color;
+    t_color     emitted_color;
 }               t_light_info;
 
 typedef struct s_mood_light

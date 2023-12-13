@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:15:45 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/11 20:40:54 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/13 17:07:40 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,8 @@ void 	compute_specular(t_light *light, t_ray ray, t_color *color, t_ray obj_to_l
 		return ;
 	
 	intensity = 0.4 * light->infos.ratio * pow(r_dot_v, ray.hit_info.obj_mat.specular) * n_dot_l;	// / (r.norm * obj_to_light.direction.norm )
-	*color = color_add(*color, color_scale(light->infos.color, intensity));
+	// *color = color_add(*color, color_scale(light->infos.color, intensity));
+	*color = color_add(*color, color_scale(color_mult(light->infos.color, ray.hit_info.obj_mat.color), intensity));
 }
 
 
@@ -177,16 +178,17 @@ bool 	compute_diffuse(t_light *light, t_ray ray, t_color *color, t_ray obj_to_li
 	if (n_dot_l <= 0.0)
 		return (false);
 	intensity = 0.6 * light->infos.ratio / M_PI * (n_dot_l); // / dot(obj_to_light.direction.norm, obj_to_light.direction.norm); // /(ray.hit_info.outward_normal.norm * obj_to_light.direction.norm); // peut simplifier, normalemet les deux sont unitaires et ont donc une norme de 1
-	*color = color_add(*color, color_scale(light->infos.color, intensity));
+	// *color = color_add(*color, color_scale(light->infos.color, intensity));
+	*color = color_add(*color, color_scale(color_mult(light->infos.color, ray.hit_info.obj_mat.color), intensity));
 	return (true);
 }
 
 void 	compute_ambiant(t_light *light, t_ray ray, t_color *color, t_color amb_color)
 {
-	t_color		effective_color;
+	t_color		emitted_color;
 
-	effective_color = color_mult(ray.hit_info.obj_mat.color, light->infos.color);
-	*color = color_mult(effective_color, amb_color);
+	emitted_color = color_mult(ray.hit_info.obj_mat.color, light->infos.color);
+	*color = color_mult(emitted_color, amb_color);
 }
 
 bool	is_directly_illuminated(t_app *app, t_light *light, t_ray ray, t_ray *obj_to_light)
@@ -199,11 +201,23 @@ bool	is_directly_illuminated(t_app *app, t_light *light, t_ray ray, t_ray *obj_t
 	normalise(&obj_to_light->direction);
 
 	//ray_traversal_algo(&app->root, &obj_to_light);
-	no_tree_intersections(app->p_data, &obj_to_light, get_interval(HITPOINT_OFFSET, obj_to_light_dist));
+	no_tree_intersections(app->p_data, obj_to_light, get_interval(HITPOINT_OFFSET, obj_to_light_dist));
 	return (obj_to_light->hit_info.distance == -1);
 }
 
+// a mettre ailleurs !! (a besoin de le faire qu'une fois pour chaque lumiere)
+void	set_emitted_colors(t_light *light, t_mood_light *amb)
+{
+	t_light *curr_light;
 
+	curr_light = light;
+	amb->infos.emitted_color = color_scale(amb->infos.color, amb->infos.ratio);
+	while (curr_light)
+	{
+		curr_light->infos.emitted_color = color_scale(curr_light->infos.color, curr_light->infos.ratio);
+		curr_light = curr_light->next;
+	}
+}
 
 t_color		compute_lighting(t_app *app, t_ray ray)
 {
@@ -215,14 +229,19 @@ t_color		compute_lighting(t_app *app, t_ray ray)
 	ft_bzero(&color, sizeof(t_color));
 	light = app->p_data.lights;
 
+	// a mettre ailleurs (genre avant trace_ray)
+	set_emitted_colors(app->p_data.lights, app->p_data.mooooo);
+	
+	t_color effective_color = color_mult(app->p_data.mooooo->infos.emitted_color, ray.hit_info.obj_mat.color);
 	while (light)
 	{
 		ft_bzero(&obj_to_light, sizeof(t_ray));
+		color.hex = 0;
 		
-		compute_ambiant(light, ray, &color, app->p_data.mooooo->infos.color);
 		if (is_directly_illuminated(app, light, ray, &obj_to_light)
 			&& compute_diffuse(light, ray, &color, obj_to_light))
 				compute_specular(light, ray, &color, obj_to_light);
+		effective_color = color_add(effective_color, color);
 		light = light->next;
 	}
 	return (color);
