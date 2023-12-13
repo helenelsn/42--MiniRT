@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_rt.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:13 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/13 18:25:00 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/13 20:26:44 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@
 
 // should be different whether it's a sphere or another object ! (include it in the t_material plutot ?)
 # define CHECKERS_WIDTH     20
-# define CHECKERS_HEIGHT    2000
+# define CHECKERS_HEIGHT    20
 
 
 

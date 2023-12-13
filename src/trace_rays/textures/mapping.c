@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mapping.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 14:59:51 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/13 18:21:09 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/13 20:15:18 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,16 @@ t_vec    rotate_relative_pos(t_vec surface_normal, t_point hit_point, t_point ob
     return (position);
 }
 
+float	fmodf_positive(float dividend, float divisor)
+{
+	float	result;
+
+	result = fmodf(dividend, divisor);
+	if (result < 0)
+		result = divisor + result;
+	return (result);
+}
+
 /*
 The calculate_planar_map function calculates the UV coordinates for a hit position on a plane.
 It first subtracts the position of the plane from the hit position to get a relative position.
@@ -149,8 +159,8 @@ t_point_2d   planar_mapping(t_plan *pl, t_point p)
 
     position = rotate_relative_pos(pl->vec, p, pl->p);
         
-	uv.u = a_mod_b(position.x, 1); // modulof_positive()
-	uv.v = a_mod_b(position.z, 1);
+	uv.u = fmodf_positive(position.x, 1.0); // modulof_positive()
+	uv.v = fmodf_positive(position.z, 1.0);
 
 	return (uv);
 }

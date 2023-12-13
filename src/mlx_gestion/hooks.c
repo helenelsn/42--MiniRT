@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 22:46:45 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/13 00:32:16 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/13 20:29:05 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,7 @@ int	handle_mouse(int keysym, int x, int y, t_app *app)
 	{
 		viewp_pixel = translate_point(pixel_center, pixel_sample(app, x, y)) ;
 		//////printf("in %s, pixel = (%d, %d), sampled_coord = (%f, %f, %f)\n", __func__, x, y, viewp_pixel.x, viewp_pixel.y, viewp_pixel.z);
+		printf("%f, %f\n", viewp_pixel.x, viewp_pixel.y);
 		hit_info = get_hit_info(app, app->p_data.cam->p, get_directional_vect(app->p_data.cam->p, viewp_pixel), 0);
 		if (hit_info.distance > 0)
 			printf("object hit\n");
@@ -152,6 +153,27 @@ int	handle_mouse(int keysym, int x, int y, t_app *app)
 			// 	resize_sphere(app, hit_info);
 			// if (hit_info.obj_type == cylindre)
 			// 	resize_cylindre(app, hit_info);
+	}
+	if (keysym == 4)
+	{
+		printf("hey\n");
+		t_ray tmp;// = (t_ray) {app->p_data.cam->};
+		tmp.direction = app->p_data.cam->direction;
+		tmp.origin = app->p_data.cam->p;
+		app->p_data.cam->p = get_ray_point(tmp, 1000);
+		draw_scene(app);
+		mlx_put_image_to_window(app->mlx_data.mlx_ptr, app->mlx_data.win_ptr,
+        app->mlx_data.image.img, 0, 0);
+	}
+	else if (keysym == 5)
+	{
+		t_ray tmp;// = (t_ray) {app->p_data.cam->};
+		tmp.direction = app->p_data.cam->direction;
+		tmp.origin = app->p_data.cam->p;
+		app->p_data.cam->p = get_ray_point(tmp, -1000);
+		draw_scene(app);
+		mlx_put_image_to_window(app->mlx_data.mlx_ptr, app->mlx_data.win_ptr,
+        app->mlx_data.image.img, 0, 0);
 	}
 	return (keysym);
 }
