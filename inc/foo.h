@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   foo.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eva <eva@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/12 22:54:56 by eva              ###   ########.fr       */
+/*   Updated: 2023/12/13 19:57:22 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,4 +201,7 @@ t_vec change_base_of_vec(t_vec v, t_vec trans, t_matrix *rot);
 
 int	intersect_plane(t_ray *ray, t_plan *shape, double *t);
 bool    intersect_cone(t_ray *ray, void *object);
+int	intersect_circle(t_ray *ray, t_circle circle, double *t);
+double	pow2(double n);
+int	solve_quadratic(t_quadratic *f);
 #endif
