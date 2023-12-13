@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mapping.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 14:59:51 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/13 14:22:19 by Helene           ###   ########.fr       */
+/*   Updated: 2023/12/13 18:21:09 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ t_vec    rotate_relative_pos(t_vec surface_normal, t_point hit_point, t_point ob
         //rotates the relative position to align with the Y-Axis
         rot_axis = cross_product(unit_vector, surface_normal);
         
-        rotation_mat = rotation_matrix_from_angle(-rotation_phi, rot_axis);
+        rotation_mat = rotation_matrix_from_angle(-theta, rot_axis);
         
 		position = change_base_of_vec(position, (t_vec){0,0,0,0}, rotation_mat);
         // position = vec_mat_product(position, rotation_mat);

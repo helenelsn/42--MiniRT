@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 19:29:00 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/12 21:00:40 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/13 18:22:50 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ bool    intersect_cone(t_ray *ray, void *object)
     d.p = ray->origin;
     d.v = ray->direction;
 	int flag = get_inter_for_cone(co, *ray, &t);
-	printf("res =%d ", flag);
+	// printf("res =%d ", flag);
 	
     if (!flag)
         return false;
