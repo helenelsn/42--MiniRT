@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/12 20:04:18 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/13 17:31:07 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,4 +196,7 @@ t_vec change_base_of_vec(t_vec v, t_vec trans, t_matrix *rot);
 
 int	intersect_plane(t_ray *ray, t_plan *shape, double *t);
 bool    intersect_cone(t_ray *ray, void *object);
+int	intersect_circle(t_ray *ray, t_circle circle, double *t);
+double	pow2(double n);
+int	solve_quadratic(t_quadratic *f);
 #endif

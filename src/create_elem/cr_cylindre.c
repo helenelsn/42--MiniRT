@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 01:29:43 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/12 18:58:14 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/13 17:50:22 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ t_cylindre *create_cylindre(char **tab, t_vlist **garbage, t_parsing_data *data)
     tmp.origin = elem->p;
     tmp.direction = elem->vec;
     
-    elem->cover_planes[0] = (t_plan) {get_ray_point(tmp, elem->height/2), elem->vec, 0,0,0,0, 0xffffff, mat.specular, mat.reflective};
-    elem->cover_planes[1] = (t_plan) {get_ray_point(tmp, -elem->height/2), elem->vec, 0,0,0,0, 0xffffff, mat.specular, mat.reflective};
+    elem->cover_planes[0] = (t_plan) {get_ray_point(tmp, elem->height/2), elem->vec, 0,0,0,0};
+    elem->cover_planes[1] = (t_plan) {get_ray_point(tmp, -elem->height/2), elem->vec, 0,0,0,0};
     set_eq(&elem->cover_planes[0]);
     set_eq(&elem->cover_planes[1]);
     
