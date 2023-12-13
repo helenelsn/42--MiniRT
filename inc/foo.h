@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   foo.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: eva <eva@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/12 21:28:39 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/12 22:54:56 by eva              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ void    	set_pixel_center(t_app *app, t_point *pc, int x, int y);
 
 t_point_2d  object_mapping(void *object, t_hit_info hit);
 t_color     checker_color_at(void *object, t_hit_info hit);
+void    	set_checkerboard_map(t_checkers_map *map, t_type elem, t_color checker_color);
 t_vec   	normal_perturbation(t_hit_info hit, void *object);
 
 /* --------------------- checkerboard ---------------------- */

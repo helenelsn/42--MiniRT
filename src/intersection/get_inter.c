@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_inter.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: eva <eva@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:20:33 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/12 21:19:41 by Helene           ###   ########.fr       */
+/*   Updated: 2023/12/13 00:03:59 by eva              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@
 //     return (NULL); // pour que ça compile
 // }
 
-void    set_texture_material(t_ray *ray, void *object)
+void    set_texture_material(t_ray *ray, t_hit_info *closest_obj, void *object)
 {
-    ray->hit_info.color = checker_color_at(object, ray->hit_info);
+    closest_obj->color = checker_color_at(object, *closest_obj);
     
-    ray->hit_info.outward_normal = get_unit_normal(ray->hit_info, ray->hit_info.hit_point);
-    if (dot(ray->direction, ray->hit_info.outward_normal) > 0.0)
-        ray->hit_info.outward_normal = vect_double_multiply(-1, ray->hit_info.outward_normal);
-	if (ray->hit_info.obj_mat.textures.bump_mapping)
-		ray->hit_info.outward_normal = normal_perturbation(ray->hit_info, object);
+    closest_obj->outward_normal = get_unit_normal(*closest_obj, closest_obj->hit_point);
+    if (dot(ray->direction, closest_obj->outward_normal) > 0.0)
+        closest_obj->outward_normal = vect_double_multiply(-1, closest_obj->outward_normal);
+	if (closest_obj->obj_mat.textures.bump_mapping)
+		closest_obj->outward_normal = normal_perturbation(*closest_obj, object);
 }
 
 bool    intersect(t_vlist *obj, t_ray *ray)
@@ -76,7 +76,7 @@ void	no_tree_intersections(t_parsing_data pdata, t_ray *ray, t_interval t)
 				// set_color_in_mat(obj->content, &obj->material, obj->type);
 				// set_specular_in_mat(obj->content, &obj->material, obj->type);
         	    copy_obj_properties(obj, closest_obj, ray->hit_info.hit_point);
-                set_texture_material(ray, obj->content);
+                set_texture_material(ray, closest_obj, obj->content);
 			}
         obj = obj->next;
     }
@@ -91,10 +91,12 @@ void	no_tree_intersections(t_parsing_data pdata, t_ray *ray, t_interval t)
         	{
         	    min_dist = ray->hit_info.distance;
         	    copy_obj_properties(obj, closest_obj, ray->hit_info.hit_point);
-				set_texture_material(ray, obj->content);
+				set_texture_material(ray, closest_obj, obj->content);
         	}
         obj = obj->next;
     }
+
+    
     
     if (min_dist < t.max)
     {

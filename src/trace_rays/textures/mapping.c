@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mapping.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: eva <eva@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 14:59:51 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/12 20:23:52 by Helene           ###   ########.fr       */
+/*   Updated: 2023/12/13 01:24:07 by eva              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,17 @@ t_point_2d   spherical_mapping(t_sphere *sp, t_point p)
 	// return (vector2f_create((raw_u + 0.5f), (float)(phi / M_PI)));
 
     t_point_2d   uv;
-    t_point     og_pos;
+    t_vec       position;
     double      theta;
     double      phi;
     double      raw_u;
 
-    og_pos = translate_point(p, get_directional_vect(sp->p, (t_point){0,0,0}));
-    theta = atan2f(og_pos.x, og_pos.z);
-    phi = acosf(og_pos.y / sp->radius);
-    raw_u = theta / 2 * M_PI;
+    position = get_directional_vect(sp->p, p);
+    theta = atan2f(position.x, position.z); // atan2f(position.x, position.z);
+    phi = acosf(position.y / sp->radius);
+    raw_u = theta / (2.f * M_PI);
     
-    uv.u = raw_u + 0.5; // 1 - (raw_u + 0.5)
+    uv.u = raw_u + 0.5f; // 1 - (raw_u + 0.5)
     uv.v = phi / M_PI; // 1 - ( phi / M_PI)
     return (uv);
 }
@@ -47,6 +47,27 @@ t_point_2d   spherical_mapping(t_sphere *sp, t_point p)
 bool	ft_is_equalsf(const float a, const float b, const float tolerance)
 {
 	return ((a + tolerance >= b) && (a - tolerance <= b));
+}
+
+t_vec       vec_mat_product(t_vec v, t_matrix *m)
+{
+    t_vec   result;
+    ft_bzero(&result, sizeof(t_vec));
+    
+    t_matrix *a = new_matrix_from_var_args(3, 1, v.x, v.y, v.z);
+    
+    if (m->columns != 3)
+        return ((t_vec){0, 0, 0, 0});
+    
+    for (int i = 0; i < 3; i++)
+    {
+        result.x += m->matrix[0][i] * a->matrix[i][0];
+        result.y += m->matrix[1][i] * a->matrix[i][0];
+        result.z += m->matrix[2][i] * a->matrix[i][0];
+    }
+
+    del_mat(a);
+    return (result);
 }
 
 t_matrix	*rotation_matrix_from_angle(double angle, t_vec axis)
@@ -89,7 +110,7 @@ t_vec    rotate_relative_pos(t_vec surface_normal, t_point hit_point, t_point ob
     t_vec       position;
     float		rotation_phi;
     t_matrix    *rotation_mat;
-    t_vec rot_axis;
+    t_vec       rot_axis;
 
     position = get_directional_vect(obj_p, hit_point);
     
@@ -105,6 +126,7 @@ t_vec    rotate_relative_pos(t_vec surface_normal, t_point hit_point, t_point ob
         // rot_axis = vector3f_unit(vector3f_cross(vector3f_create(0, 1, 0), plane->axis));
         rotation_mat = rotation_matrix_from_angle(-rotation_phi, rot_axis);
 		position = change_base_of_vec(position, (t_vec){0,0,0,0}, rotation_mat);
+        // position = vec_mat_product(position, rotation_mat);
         
         // position = quaternionf_rotate_vector3f(-rotation_phi,
 				// vector3f_unit(vector3f_cross(vector3f_create(0, 1, 0), \
@@ -136,6 +158,8 @@ t_point_2d   planar_mapping(t_plan *pl, t_point p)
     //     rotation_mat = rotation_matrix_from_angle(-rotation_phi, rot_axis);
 	// 	position = change_base_of_vec(position, (t_vec){0,0,0,0}, rotation_mat);
 	// }
+
+    double test = dot(position, pl->vec);
     
 	uv.u = a_mod_b(position.x, 1); // modulof_positive()
 	uv.v = a_mod_b(position.z, 1);

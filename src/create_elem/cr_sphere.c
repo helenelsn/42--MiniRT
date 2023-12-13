@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cr_sphere.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: eva <eva@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 01:20:17 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/12 21:28:39 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/12 22:21:54 by eva              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_sphere *create_sphere(char **tab, t_vlist **garbage, t_parsing_data *data)
             free(elem);
             return NULL;
         }
+
     ft_vlstadd_back(garbage, ft_vlstnew(elem, free, sphere));
     ft_vlstadd_back(&data->objects, ft_vlstnew_with_mat(elem, free, sphere, mat));
     // printf("------------------------------------ rgb_to_hex = %u    %f %f %f\n", mat.color, elem->p.x, elem->p.y, elem->p.z);

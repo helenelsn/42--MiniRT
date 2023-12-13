@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trace_ray.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: eva <eva@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/12 21:01:39 by Helene           ###   ########.fr       */
+/*   Updated: 2023/12/13 00:21:35 by eva              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,7 @@ t_color    trace_ray(t_app *app, t_point ray_origin, t_vec dir, int rebound_nb)
 
 	update_ray_hit_infos(&ray);
 	
-	local_color = ray.hit_info.obj_mat.color;
-	
+	local_color = ray.hit_info.color;
 	
 	local_color = color_scale(local_color, compute_lighting(app, ray));
 	// local_color = color_mult(ray.hit_info.obj_mat.color, compute_lighting(app, ray));
