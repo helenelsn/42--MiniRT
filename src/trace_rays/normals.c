@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   normals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:15:06 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/14 00:54:00 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/14 01:02:33 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,13 @@ t_vec	normal_to_plan(void *obj, t_point p)
 
 /* traduit en coord cylindriques, calcule la normale, puis reconvertit en 
 coord cartesiennes (?) */
-//todo
+
+
+t_vec	project(t_vec projected, t_vec ref)
+{
+	return (vect_double_multiply( dot(projected, ref), ref));
+}
+
 t_vec 	normal_to_cylinder(void *obj, t_point p)
 {
 	t_cylindre	*cy;
@@ -51,13 +57,11 @@ t_vec 	normal_to_cylinder(void *obj, t_point p)
 	cy = (t_cylindre *)(obj);
 	center_to_hitpoint =  get_directional_vect(cy->p, p);
 	// normalise(&center_to_hitpoint);
-	projected = vect_double_multiply(dot(center_to_hitpoint, cy->vec), cy->vec);
-	
+	projected = project(center_to_hitpoint, cy->vec);
 	normal = get_directional_vect(get_vec_coord(projected), get_vec_coord(center_to_hitpoint));
 	normalise(&normal);
 	return (normal);
 }
-
 
 /*  --------------------------------------------- */
 
