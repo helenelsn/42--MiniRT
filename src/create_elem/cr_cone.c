@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cr_cone.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 18:59:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/14 20:23:02 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/14 23:57:15 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ t_cone *create_cone(char **tab, t_vlist **garbage, t_parsing_data *data)
     set_eq(&elem->cover_plane);
     elem->slant_height = sqrt(pow(elem->radius, 2)+ pow(elem->height, 2));
     // elem->base.center = elem->p;
+    construct_map(&mat.textures.normap, "/mnt/nfs/homes/srapin/42-MiniRT/normal_maps/terrain");
     
     if (!mat.specular)
         mat.specular = -1;

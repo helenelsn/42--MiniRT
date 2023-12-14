@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bounding_volumes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eva <eva@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 15:35:11 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/12 23:06:16 by eva              ###   ########.fr       */
+/*   Updated: 2023/12/14 22:28:27 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,7 +220,8 @@ t_vlist *ft_vlstnew_with_mat(void * content, void foo(void *), t_type t,
     new->material = mat;
 
     //todel
-    new->material.textures.checkered = true;
+    new->material.textures.checkered = false;
+    new->material.textures.bump_mapping = true;
     set_checkerboard_map(&new->material.textures.checkerboard, new->type, (t_color){0xffffff});
     
     // set_color_in_mat(content, &mat, t);

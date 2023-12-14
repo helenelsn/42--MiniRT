@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/14 22:27:42 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/14 23:37:09 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ t_vec	get_directional_vect(t_point origin, t_point dest);
 t_vec	get_unitary_dir_vect(t_point a, t_point b);
 t_vec 	get_unit_normal(t_hit_info hi, t_point p);
 
+void construct_map(t_normal_map *map, char *name);
 /* ------------------- INTERSECTIONS ------------------ */
 
 bool    	intersect(t_vlist *obj, t_ray *ray);

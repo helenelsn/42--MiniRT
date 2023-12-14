@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cr_cylindre.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 01:29:43 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/14 20:23:39 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/15 00:00:12 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ t_cylindre *create_cylindre(char **tab, t_vlist **garbage, t_parsing_data *data)
     
     if (!mat.specular)
         mat.specular = -1;
+    construct_map(&mat.textures.normap, "/mnt/nfs/homes/srapin/42-MiniRT/normal_maps/terrain");
     ft_vlstadd_back(&data->objects, ft_vlstnew_with_mat(elem, free, cylindre, mat));
     ft_vlstadd_back(garbage, ft_vlstnew(elem, free, cylindre));
     return elem;

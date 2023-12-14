@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/14 16:01:21 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/14 23:43:42 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,10 @@ typedef struct  s_checkers_map
 
 typedef struct  s_normal_map
 {
-
+    int width;
+    int height;
+    t_vec   *pixels;
+    char *name;
 }               t_normal_map;
 
 typedef struct  s_surface
@@ -129,6 +132,7 @@ typedef struct  s_surface
     bool            checkered;
     bool            bump_mapping;
     t_checkers_map  checkerboard;
+    t_normal_map    normap;
 
     // pas encore compris comment utiliser ça (github user tdameros)
     // t_ppm_p6			normals_map;

@@ -44,6 +44,7 @@ FILES = \
 		mlx_gestion/launch \
 		mlx_gestion/utils \
 		utils/atof \
+		utils/construct_map \
 		utils/change_base \
 		utils/fov \
 		utils/ft_strcheck \

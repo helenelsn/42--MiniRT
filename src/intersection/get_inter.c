@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/12/14 22:27:38 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/14 22:34:57 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void    set_texture_material(t_ray *ray, t_hit_info *closest_obj, void *object)
         closest_obj->outward_normal = vect_double_multiply(-1, closest_obj->outward_normal);
 	if (closest_obj->obj_mat.textures.bump_mapping)
 		closest_obj->outward_normal = get_normal_perturbation(*closest_obj, object);
+    // if (closest_obj->texture_normal.)  
 }
 
 bool    intersect(t_vlist *obj, t_ray *ray)
