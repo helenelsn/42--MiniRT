@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   i_cone.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 19:29:00 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/14 00:16:09 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/14 03:55:45 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,25 +49,33 @@ int	intersect_entire_cone(t_ray *ray, t_cone *cone, t_quadratic *f)
 }
 
 
-bool    get_inter_for_cone(t_cone *co, t_ray r, double *d)
+bool    get_inter_for_cone(t_cone *co, t_ray *r, double *d)
 {
     t_quadratic	f;
 	double		t_base = -1;
 
-	if (!intersect_entire_cone(&r, co, &f))
+	if (!intersect_entire_cone(r, co, &f))
 		return (false);
-	if (dot((co->vec), (r.direction)) > 0)
+	if (dot((co->vec), (r->direction)) > 0)
 	{
 		*d = ft_min_and_positiv(f.t_1, f.t_2);
-		cut_cone_surface(co, get_ray_point(r, *d), d);
+		cut_cone_surface(co, get_ray_point(*r, *d), d);
 	}
 	else
 	{
-		cut_cone_surface(co, get_ray_point(r, f.t_1), &f.t_1);
-		cut_cone_surface(co, get_ray_point(r, f.t_2), &f.t_2);
+		cut_cone_surface(co, get_ray_point(*r, f.t_1), &f.t_1);
+		cut_cone_surface(co, get_ray_point(*r, f.t_2), &f.t_2);
 		*d = ft_min_and_positiv(f.t_1, f.t_2);
 	}
-	intersect_circle(&r, (t_circle) {co->cover_plane, co->p, co->radius}, &t_base);
+	if (intersect_circle(r, (t_circle) {co->cover_plane, co->p, co->radius}, &t_base, *d))
+	{
+		// if (t_base <= 0)
+	}
+	else if( t_base != -1)
+	{
+			// r->hit_info.cap_hit =true;
+		
+	}
 	*d = ft_min_and_positiv(*d, t_base);
 	return (*d > 0.0);
 }
@@ -80,7 +88,7 @@ bool    intersect_cone(t_ray *ray, void *object)
     
     
     co = object;
-	int flag = get_inter_for_cone(co, *ray, &t);
+	int flag = get_inter_for_cone(co, ray, &t);
 	// if (t && t != 1)
 	// 	printf("res =%f\n ", t);
 	
