@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 19:52:43 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/14 04:18:53 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/14 04:25:52 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	intersect_circle(t_ray *ray, t_circle circle, double *t, double comp)
 	hit_point = get_ray_point(*ray, *t);
 	if (get_v_norm(get_directional_vect(circle.center, hit_point)) <= circle.radius)
 	{
-		ray->hit_info.cap_hit = true;
+		if (comp < DBL_EPSILON || ( *t > DBL_EPSILON && *t < comp))
+			ray->hit_info.cap_hit = true;
 		return 1;
 	}
 	*t = 0.0;
