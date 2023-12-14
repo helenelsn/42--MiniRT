@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   normals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:15:06 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/14 01:02:33 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/14 02:48:22 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,35 @@ t_vec	normal_to_cone(void *obj, t_point p, bool is_cap)
 
 	return (normal);
 }
+
+
+t_vec	normal_to_cone2(void *obj, t_point p, bool is_cap)
+{
+
+	t_cone *cn;
+	cn = obj;
+
+	if (is_cap)
+		return (normal_to_cap(cn->vec, cn->p, p));
+	
+// const t_vector3f	point = ray_at(ray, distance);
+	t_vec point_axe = get_directional_vect(cn->top, p);
+	//centre du cylindre 
+	t_ray tmp;
+	tmp.origin = cn->p;
+	tmp.direction = cn->vec;
+	t_point position = get_ray_point(tmp, cn->height/2);
+	t_vec point_to_axe = get_directional_vect(p, position );
+	
+
+	
+	t_vec	perpendicular_vector = cross_product(cross_product(point_axe, point_to_axe), point_axe);
+	normalise(&perpendicular_vector);
+	return perpendicular_vector;
+
+	// return (vector3f_unit(perpendicular_vector));
+}
+
 
 /* computes the normal of a point p on a given object */
 t_vec get_unit_normal(t_hit_info hi, t_point p)
