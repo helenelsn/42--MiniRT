@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   get_inter.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/25 10:20:33 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/13 15:16:21 by Helene           ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2023/12/14 22:27:38 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../../inc/mini_rt.h"
 
@@ -75,7 +76,7 @@ void	no_tree_intersections(t_parsing_data pdata, t_ray *ray, t_interval t)
         	    min_dist = ray->hit_info.distance;
 				// set_color_in_mat(obj->content, &obj->material, obj->type);
 				// set_specular_in_mat(obj->content, &obj->material, obj->type);
-        	    copy_obj_properties(obj, closest_obj, ray->hit_info.hit_point);
+        	    copy_obj_properties(obj, closest_obj, ray->hit_info);
                 set_texture_material(ray, closest_obj, obj->content);
 			}
         obj = obj->next;
@@ -90,7 +91,7 @@ void	no_tree_intersections(t_parsing_data pdata, t_ray *ray, t_interval t)
 			&& ray->hit_info.distance < min_dist)
         	{
         	    min_dist = ray->hit_info.distance;
-        	    copy_obj_properties(obj, closest_obj, ray->hit_info.hit_point);
+        	    copy_obj_properties(obj, closest_obj, ray->hit_info);
 				set_texture_material(ray, closest_obj, obj->content);
         	}
         obj = obj->next;
@@ -105,5 +106,5 @@ void	no_tree_intersections(t_parsing_data pdata, t_ray *ray, t_interval t)
         ray->hit_info.distance = min_dist;
         return ;
     }
-    // ray->hit_info.distance = -1;
+    ray->hit_info.distance = -1;
 }

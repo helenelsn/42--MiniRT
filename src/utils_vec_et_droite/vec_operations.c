@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:13:52 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/11 20:30:01 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/13 21:27:53 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,21 @@ t_vec	vect_double_multiply(double n, t_vec a)
 {
 	t_vec b;
 
-	if (a.x)
-		b.x = n * a.x;
-	else
-		b.x = 0.0;
-	if (a.y)
-		b.y = n * a.y;
-	else
-		b.y = 0.0;
-	if (a.z)
-		b.z = n * a.z;
-	else
-		b.z = 0.0;
+	// if (a.x)
+	// 	b.x = n * a.x;
+	// else
+	// 	b.x = 0.0;
+	// if (a.y)
+	// 	b.y = n * a.y;
+	// else
+	// 	b.y = 0.0;
+	// if (a.z)
+	// 	b.z = n * a.z;
+	// else
+	// 	b.z = 0.0;
+	b.x = n * a.x;
+	b.y = n * a.y;
+	b.z = n * a.z;
 	b.norm = get_v_norm(b);
 	return (b);
 }

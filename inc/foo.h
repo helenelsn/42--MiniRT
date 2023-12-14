@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   foo.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/13 15:16:21 by Helene           ###   ########.fr       */
+/*   Updated: 2023/12/14 22:27:42 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,10 +109,10 @@ void 		set_eq(t_plan *p);
 
 void    	draw_scene(t_app *app);
 t_color   	trace_ray(t_app *app, t_point ray_origin, t_vec dir, int rebound_nb);
-void    	copy_obj_properties(t_vlist *obj, t_hit_info *hinf, t_point hp);
+void    	copy_obj_properties(t_vlist *obj, t_hit_info *hinf, t_hit_info to_copy);
 bool    	intersect(t_vlist *obj, t_ray *ray);
 void		no_tree_intersections(t_parsing_data pdata, t_ray *ray, t_interval t);
-double 		compute_lighting(t_app *app, t_ray ray);
+t_color 	compute_lighting(t_app *app, t_ray ray);
 t_vec		get_incident_ray_of_light(t_vec l, t_vec n);
 t_vec		reflect_ray(t_vec v, t_vec n); // ?
 
@@ -191,7 +191,7 @@ double					ft_atof(char *nptr);
 void	add_hooks(t_app *app);
 
 void    compute_image(t_vlist *obj);
-
+t_vec	normal_to_cap(t_vec dir_obj, t_point obj_p, t_point hit_p);
 double dot(t_vec v, t_vec w);
 t_vec cross_product(t_vec v, t_vec w);
 
@@ -201,4 +201,7 @@ t_vec change_base_of_vec(t_vec v, t_vec trans, t_matrix *rot);
 
 int	intersect_plane(t_ray *ray, t_plan *shape, double *t);
 bool    intersect_cone(t_ray *ray, void *object);
+int	intersect_circle(t_ray *ray, t_circle circle, double *t, double comp);
+double	pow2(double n);
+int	solve_quadratic(t_quadratic *f);
 #endif

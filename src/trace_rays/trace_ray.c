@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trace_ray.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eva <eva@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/13 00:21:35 by eva              ###   ########.fr       */
+/*   Updated: 2023/12/14 22:20:56 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_color    trace_ray(t_app *app, t_point ray_origin, t_vec dir, int rebound_nb)
 	//rec_ray_traverse(app, &ray, get_interval(HITPOINT_OFFSET, INFINITY));
 	no_tree_intersections(app->p_data, &ray, get_interval(HITPOINT_OFFSET, INFINITY));
 	
-	if (ray.hit_info.distance == -1) // le rayon n'intersecte aucun objet
+	if (ray.hit_info.distance == -1 || !ray.hit_info.obj_content) // le rayon n'intersecte aucun objet
 	{
 		// printf("love\n");
 		return (app->background);
@@ -58,8 +58,9 @@ t_color    trace_ray(t_app *app, t_point ray_origin, t_vec dir, int rebound_nb)
 	update_ray_hit_infos(&ray);
 	
 	local_color = ray.hit_info.color;
+	local_color = compute_lighting(app, ray);
 	
-	local_color = color_scale(local_color, compute_lighting(app, ray));
+	// local_color = color_scale(local_color, compute_lighting(app, ray));
 	// local_color = color_mult(ray.hit_info.obj_mat.color, compute_lighting(app, ray));
 	
 	//local_color = color_scale(ray.hit_info.obj_mat.color, compute_lighting(app, ray.hit_info.obj_mat.specular, ray));

@@ -1,12 +1,14 @@
 
 
-A faire pour le checkerboard :
-
-- calcul de la couleur lorsqu'a une intersection (ie checkerboard ou non)
-
+pour les checkered cylinders, le rendu lu;iere est encore bizarre (les ombres ne se font pas
+bien, c'est des petits pixels sombres par ci par la, ie pas smooth (et pas normal...))
 
 
-----------------------------------------------------------------------
+
+
+
+-----------------------------------------------------------------
+
 
 Pas dans les bonus mais styles :
 soft shadows
