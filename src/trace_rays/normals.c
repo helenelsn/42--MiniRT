@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:15:06 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/14 04:41:18 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/14 05:00:30 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,13 @@ t_vec 	normal_to_cylinder(void *obj, t_hit_info info)
 	cy = (t_cylindre *)(obj);
 	if (info.cap_hit)
 	{
-		if (get_dist_between_points(info.hit_point, cy->cover_planes[0].p) >= cy->height)
-			return normal_to_cap(cy->cover_planes[1].vec, cy->cover_planes[1].p, info.hit_point);
-		return normal_to_cap(cy->cover_planes[0].vec, cy->cover_planes[0].p, info.hit_point);
+		if (get_dist_between_points(info.hit_point, cy->cover_planes[0].p) < get_dist_between_points(info.hit_point, cy->cover_planes[1].p))
+			return cy->vec;
+		else
+			return vect_double_multiply(-1, cy->vec);
+			// return cy->cover_planes[1].vec;
+		// 	return normal_to_cap(cy->cover_planes[1].vec, cy->cover_planes[1].p, info.hit_point);
+		// return normal_to_cap(cy->cover_planes[0].vec, cy->cover_planes[0].p, info.hit_point);
 		// normal_to_cap
 	}
 	center_to_hitpoint =  get_directional_vect(cy->p, info.hit_point);
@@ -99,10 +103,10 @@ t_vec 	normal_to_cylinder(void *obj, t_hit_info info)
 // obj_p = center for cylinder
 t_vec	normal_to_cap(t_vec dir_obj, t_point obj_p, t_point hit_p)
 {
-	double projection = dot(get_directional_vect(obj_p, hit_p), dir_obj);
-	int sign = (projection > 0.0) - (projection < 0.0);
-	
-	return (vect_double_multiply(sign, dir_obj));	
+	// double projection = dot(get_directional_vect(hit_p, obj_p), dir_obj);
+	// int sign = (projection > 0.0) - (projection < 0.0);
+	return vect_double_multiply(-1, dir_obj);
+	// return (vect_double_multiply(sign, dir_obj));	
 }
 
 //todo

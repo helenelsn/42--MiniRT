@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cr_sphere.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 01:20:17 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/14 04:29:05 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/14 05:06:55 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ t_sphere *create_sphere(char **tab, t_vlist **garbage, t_parsing_data *data)
             free(elem);
             return NULL;
         }
+    if (!mat.specular)
+        mat.specular = 1;
     ft_vlstadd_back(garbage, ft_vlstnew(elem, free, sphere));
     ft_vlstadd_back(&data->objects, ft_vlstnew_with_mat(elem, free, sphere, mat));
     // printf("------------------------------------ rgb_to_hex = %u    %f %f %f\n", mat.color, elem->p.x, elem->p.y, elem->p.z);

@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 18:59:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/13 17:49:04 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/14 05:07:30 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ t_cone *create_cone(char **tab, t_vlist **garbage, t_parsing_data *data)
     elem->slant_height = sqrt(pow(elem->radius, 2)+ pow(elem->height, 2));
     // elem->base.center = elem->p;
     
+    if (!mat.specular)
+        mat.specular = 1;
     ft_vlstadd_back(garbage, ft_vlstnew(elem, free, cone));
     ft_vlstadd_back(&data->objects, ft_vlstnew_with_mat(elem, free, cone, mat));
     return elem;
