@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 18:59:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/14 16:02:21 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/14 20:23:02 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,14 @@ t_cone *create_cone(char **tab, t_vlist **garbage, t_parsing_data *data)
     t_material mat;
     ft_bzero(&mat, sizeof(t_material));
     elem = ft_calloc(1, sizeof(t_cone));
+    int size_tab = null_term_tab_len((void **) tab);
+    if (size_tab < 6 || size_tab > 8)
+        return NULL;
     if (!elem)
         return NULL;
     elem->radius = atof(tab[3]) *(1 - 2 * !ft_strisfloat(tab[3])) / 2; //j'trouve c est stylé
     elem->height = atof(tab[4]) *(1 - 2 * !ft_strisfloat(tab[4])); //j'trouve c est stylé
-    if (!get_rgb(tab[5], &mat.color) || elem->radius < 0 || elem->height < 0 || !get_point(tab[1], &elem->p) || !get_vec_from_str(tab[2], &elem->vec) || !set_specular(tab[6], &mat.specular))
+    if (!get_rgb(tab[5], &mat.color) || elem->radius < 0 || elem->height < 0 || !get_point(tab[1], &elem->p) || !get_vec_from_str(tab[2], &elem->vec) || !set_specular(tab[6], &mat.specular) || (size_tab > 7 && !set_reflective(tab[7], &mat.reflective)))
     {
         free(elem);
         return NULL;
