@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/13 19:57:22 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/14 16:01:07 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,7 @@ double					ft_atof(char *nptr);
 void	add_hooks(t_app *app);
 
 void    compute_image(t_vlist *obj);
-
+t_vec	normal_to_cap(t_vec dir_obj, t_point obj_p, t_point hit_p);
 double dot(t_vec v, t_vec w);
 t_vec cross_product(t_vec v, t_vec w);
 
@@ -201,7 +201,7 @@ t_vec change_base_of_vec(t_vec v, t_vec trans, t_matrix *rot);
 
 int	intersect_plane(t_ray *ray, t_plan *shape, double *t);
 bool    intersect_cone(t_ray *ray, void *object);
-int	intersect_circle(t_ray *ray, t_circle circle, double *t);
+int	intersect_circle(t_ray *ray, t_circle circle, double *t, double comp);
 double	pow2(double n);
 int	solve_quadratic(t_quadratic *f);
 #endif

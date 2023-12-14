@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 01:29:43 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/13 19:57:32 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/14 16:07:44 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ t_cylindre *create_cylindre(char **tab, t_vlist **garbage, t_parsing_data *data)
     set_eq(&elem->cover_planes[0]);
     set_eq(&elem->cover_planes[1]);
     
+    if (!mat.specular)
+        mat.specular = -1;
     ft_vlstadd_back(&data->objects, ft_vlstnew_with_mat(elem, free, cylindre, mat));
     ft_vlstadd_back(garbage, ft_vlstnew(elem, free, cylindre));
     return elem;

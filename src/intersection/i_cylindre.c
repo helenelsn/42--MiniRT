@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 00:52:41 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/13 19:57:56 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/14 16:07:03 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	cut_cylinder(t_ray *ray, t_cylindre *cylinder, double *t)
 	return (0);
 }
 
-int	intersect_plane(t_ray *ray,t_plan	*plane, double *t)
+int	intersect_plane(t_ray *ray, t_plan	*plane, double *t)
 {
 	double	d;
 	double	n_ray_dot;
@@ -138,7 +138,6 @@ bool    get_inter_for_cylindre(t_cylindre *cy, t_ray *r, double *d)
     // printf("\n from hier");
     // normalise(&r.direction);
     
-    r->hit_info.cap_hit = false;
 	if (!intersect_cylinder_tube(r, cy, &q))
 		return (false);
     t = ft_min_and_positiv(q.t_1,q.t_2 );
@@ -146,10 +145,10 @@ bool    get_inter_for_cylindre(t_cylindre *cy, t_ray *r, double *d)
         return false;
     cut_cylinder(r, cy, &t);
     if (intersect_cylinder_covers(r, cy, &t_cover, &q))
-    {
-        r->hit_info.cap_hit = true;
+	{
 		t = ft_min_and_positiv(t_cover, t);
-    }
+		r->hit_info.cap_hit = true;
+	}
     *d = t;
     // return t > 0;
     return true;

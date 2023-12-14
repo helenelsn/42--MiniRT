@@ -10,7 +10,7 @@
 			"type": "cppdbg",
 			"request": "launch",
 			"program": "${workspaceFolder}/mimirt",
-			"args": ["scenes/cone.rt"],
+			"args": ["scenes/spheres.rt"],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
 			"environment": [],

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cr_plan.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 01:26:34 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/12 21:28:39 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/14 16:07:34 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ t_plan *create_plan(char **tab, t_vlist **garbage,t_parsing_data *data)
     }
     // printf("lool");
     set_eq(elem);
+    if (!mat.specular)
+        mat.specular = -1;
     ft_vlstadd_back(garbage, ft_vlstnew(elem, free, plan));
     ft_vlstadd_back(&data->planes, ft_vlstnew_with_mat(elem, free, plan, mat));
     // t_droite d;

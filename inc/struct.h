@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/13 00:27:45 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/14 16:01:21 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,8 @@ typedef struct  s_interval
     double  max;
 }               t_interval;
 
+#include <stdbool.h>
+
 typedef struct	s_hit_info
 {
 	t_type 					obj_type;
@@ -209,6 +211,7 @@ typedef struct  s_light_infos
 {   
     double      ratio;
     t_color     color;
+    t_color     emitted_color;
 }               t_light_info;
 
 typedef struct s_mood_light
