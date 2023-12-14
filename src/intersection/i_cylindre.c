@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   i_cylindre.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 00:52:41 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/14 16:07:03 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/14 22:21:50 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,8 @@ bool    get_inter_for_cylindre(t_cylindre *cy, t_ray *r, double *d)
     if (intersect_cylinder_covers(r, cy, &t_cover, &q))
 	{
 		t = ft_min_and_positiv(t_cover, t);
-		r->hit_info.cap_hit = true;
+		if (t == t_cover)
+			r->hit_info.cap_hit = true;
 	}
     *d = t;
     // return t > 0;
