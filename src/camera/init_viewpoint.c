@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 20:04:36 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/13 20:47:29 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/14 02:49:18 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void    init_viewpoint(t_app *app)
     if (app->p_data.cam->direction.y)
         app->p_data.cam->ref.u = cross_product((t_vec){1, 0, 0}, app->p_data.cam->ref.w);
     else
-        app->p_data.cam->ref.u = cross_product(app->p_data.cam->ref.w, (t_vec){0, 1, 0});
+        app->p_data.cam->ref.u = cross_product( (t_vec){0, 1, 0}, app->p_data.cam->ref.w);
     normalise(&app->p_data.cam->ref.u);
     
     app->p_data.cam->ref.v = cross_product(app->p_data.cam->ref.w, app->p_data.cam->ref.u);
