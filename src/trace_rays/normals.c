@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:15:06 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/14 02:48:22 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/14 03:06:17 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ t_vec	normal_to_cap(t_vec dir_obj, t_point obj_p, t_point hit_p)
 }
 
 //todo
-t_vec	normal_to_cone(void *obj, t_point p, bool is_cap)
+t_vec	normal_to_cone2(void *obj, t_point p, bool is_cap)
 {
 	t_cone *cn;
 	t_vec	normal;
@@ -128,7 +128,7 @@ t_vec	normal_to_cone(void *obj, t_point p, bool is_cap)
 }
 
 
-t_vec	normal_to_cone2(void *obj, t_point p, bool is_cap)
+t_vec	normal_to_cone(void *obj, t_point p, bool is_cap)
 {
 
 	t_cone *cn;
@@ -143,7 +143,7 @@ t_vec	normal_to_cone2(void *obj, t_point p, bool is_cap)
 	t_ray tmp;
 	tmp.origin = cn->p;
 	tmp.direction = cn->vec;
-	t_point position = get_ray_point(tmp, cn->height/2);
+	t_point position = get_ray_point(tmp, 0);// cn->height/2);
 	t_vec point_to_axe = get_directional_vect(p, position );
 	
 

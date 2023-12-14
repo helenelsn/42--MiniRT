@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_inter.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:20:33 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/12 20:05:13 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/14 04:15:04 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ void	no_tree_intersections(t_parsing_data pdata, t_ray *ray, t_interval t)
         	    min_dist = ray->hit_info.distance;
 				// set_color_in_mat(obj->content, &obj->material, obj->type);
 				// set_specular_in_mat(obj->content, &obj->material, obj->type);
-        	    copy_obj_properties(obj, closest_obj, ray->hit_info.hit_point);
-			}
+        	    copy_obj_properties(obj, closest_obj, ray->hit_info);
+			} 
         obj = obj->next;
     }
 	
@@ -77,7 +77,7 @@ void	no_tree_intersections(t_parsing_data pdata, t_ray *ray, t_interval t)
 			&& ray->hit_info.distance < min_dist)
         	{
         	    min_dist = ray->hit_info.distance;
-        	    copy_obj_properties(obj, closest_obj, ray->hit_info.hit_point);
+        	    copy_obj_properties(obj, closest_obj, ray->hit_info);
 				
         	}
         obj = obj->next;

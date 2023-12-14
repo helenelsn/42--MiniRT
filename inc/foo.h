@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   foo.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/13 17:31:07 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/14 04:17:56 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ void    	set_pixel_center(t_app *app, t_point *pc, int x, int y);
 
 /*  --------------- */
 
-void    	copy_obj_properties(t_vlist *obj, t_hit_info *hinf, t_point hp);
+void    	copy_obj_properties(t_vlist *obj, t_hit_info *hinf, t_hit_info to_copy);
 bool    	intersect(t_vlist *obj, t_ray *ray);
 
 void		no_tree_intersections(t_parsing_data pdata, t_ray *ray, t_interval t);
@@ -196,7 +196,7 @@ t_vec change_base_of_vec(t_vec v, t_vec trans, t_matrix *rot);
 
 int	intersect_plane(t_ray *ray, t_plan *shape, double *t);
 bool    intersect_cone(t_ray *ray, void *object);
-int	intersect_circle(t_ray *ray, t_circle circle, double *t);
+int	intersect_circle(t_ray *ray, t_circle circle, double *t, double comp);
 double	pow2(double n);
 int	solve_quadratic(t_quadratic *f);
 #endif
