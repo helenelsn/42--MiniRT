@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 22:46:45 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/11 18:49:01 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/14 03:22:05 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,7 @@ int	handle_mouse(int keysym, int x, int y, t_app *app)
 			printf("object hit\n");
 			app->mlx_data.elem_selected = true;
 			app->mlx_data.elem_hit = hit_info;
+			printf("is cap = %d\n", app->mlx_data.elem_hit.cap_hit);
 			// if (hit_info.obj_type == sphere)
 			// 	resize_sphere(app, hit_info);
 			// if (hit_info.obj_type == cylindre)

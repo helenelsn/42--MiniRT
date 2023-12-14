@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cr_light.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 01:17:10 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/24 15:06:06 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/14 00:01:22 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_light *create_light(char **tab, t_vlist **garbage, t_parsing_data *data)
 {
     t_light *elem;
 
-    if (null_term_tab_len((void **) tab) != 4 || data->lights)
+    if (null_term_tab_len((void **) tab) != 4)
         return NULL;
     elem = ft_calloc(1, sizeof(t_light));
     if (!elem)
@@ -28,7 +28,10 @@ t_light *create_light(char **tab, t_vlist **garbage, t_parsing_data *data)
         return NULL;
     }
     ft_vlstadd_back(garbage, ft_vlstnew(elem, free, light));
+    if (data->lights)
+        elem->next = data->lights;
+    else
+        elem->next = NULL; //todel, juste la pr eviter les segfaults pdt les tests
     data->lights = elem;
-    data->lights->next = NULL; //todel, juste la pr eviter les segfaults pdt les tests
     return elem;
 }

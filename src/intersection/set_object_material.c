@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_object_material.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 15:52:57 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/12 18:57:22 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/14 04:17:50 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,16 +86,17 @@
 //     // mat->color = 500;
 // }
 
-void    copy_obj_properties(t_vlist *obj, t_hit_info *hinf, t_point hp)
+void    copy_obj_properties(t_vlist *obj, t_hit_info *hit, t_hit_info to_copy)
 {
     // set_color_in_mat(obj->content, &obj->material, obj->type);
 	// set_specular_in_mat(obj->content, &obj->material, obj->type);
     // set_reflective_in_mat(obj->content, &obj->material, obj->type);
     // set_obj_material(obj->content, &obj->material, obj->type);
     
-    hinf->obj_content = obj->content;  // est-ce que couille si supprime l objet originel ?
-    hinf->obj_type = obj->type;
-    hinf->obj_mat = obj->material;
-    hinf->hit_point = hp;
+    hit->obj_content = obj->content;  // est-ce que couille si supprime l objet originel ?
+    hit->obj_type = obj->type;
+    hit->obj_mat = obj->material;
+    hit->hit_point = to_copy.hit_point;
+    hit->cap_hit = to_copy.cap_hit;
     
 }

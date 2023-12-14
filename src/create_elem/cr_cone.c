@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 18:59:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/12 19:51:08 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/13 17:49:04 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_cone *create_cone(char **tab, t_vlist **garbage, t_parsing_data *data)
     tmp.direction = elem->vec;
     
     elem->top = get_ray_point(tmp, elem->height);
-    elem->cover_plane = (t_plan) {elem->p, elem->vec, 0,0,0,0, 0xffffff, mat.specular, mat.reflective};
+    elem->cover_plane = (t_plan) {elem->p, elem->vec, 0,0,0,0};
     set_eq(&elem->cover_plane);
     elem->slant_height = sqrt(pow(elem->radius, 2)+ pow(elem->height, 2));
     // elem->base.center = elem->p;

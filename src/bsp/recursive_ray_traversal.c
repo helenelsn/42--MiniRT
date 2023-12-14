@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   recursive_ray_traversal.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 00:05:43 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/12 16:16:23 by Helene           ###   ########.fr       */
+/*   Updated: 2023/12/14 04:17:16 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ bool    test_intersections(t_bsp_node *leaf, t_parsing_data pdata, t_ray *ray, t
             && ray->hit_info.distance >= t.min && ray->hit_info.distance <= t.max)
             {
                 min_dist = ray->hit_info.distance;
-                copy_obj_properties(obj, closest_obj, ray->hit_info.hit_point);
+                copy_obj_properties(obj, closest_obj, ray->hit_info);
             }
         obj = obj->next;
     }
@@ -92,7 +92,7 @@ bool    test_intersections(t_bsp_node *leaf, t_parsing_data pdata, t_ray *ray, t
 			&& ray->hit_info.distance < min_dist)
         	{
         	    min_dist = ray->hit_info.distance;
-        	    copy_obj_properties(obj, closest_obj, ray->hit_info.hit_point);
+        	    copy_obj_properties(obj, closest_obj, ray->hit_info);
 				
         	}
         obj = obj->next;
