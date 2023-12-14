@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:15:45 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/14 05:09:32 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/14 21:29:16 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,9 @@ void 	compute_specular(t_light *light, t_ray ray, t_color *color, t_ray obj_to_l
 	intensity = light->infos.ratio * pow(r_dot_v, ray.hit_info.obj_mat.specular) * n_dot_l;	//0.4 *  // / (r.norm * obj_to_light.direction.norm )
 	// *color = color_add(*color, color_scale(light->infos.color, intensity));
 	*color = color_add(*color, color_scale(color_mult(light->infos.color, ray.hit_info.obj_mat.color), intensity));
+
+	if (intensity > 0.1)
+		printf("lol\n");
 }
 
 

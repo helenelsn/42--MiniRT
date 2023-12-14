@@ -1,5 +1,15 @@
 
 
+pour les checkered cylinders, le rendu lu;iere est encore bizarre (les ombres ne se font pas
+bien, c'est des petits pixels sombres par ci par la, ie pas smooth (et pas normal...))
+
+
+
+
+
+-----------------------------------------------------------------
+
+
 Pas dans les bonus mais styles :
 soft shadows
 depth of field
