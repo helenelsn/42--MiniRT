@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 01:20:17 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/14 16:07:30 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/14 16:09:27 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 t_sphere *create_sphere(char **tab, t_vlist **garbage, t_parsing_data *data)
 {
     t_sphere *elem;
-    t_raytracing_material mat;
+    t_material mat;
     int size_tab;
-    ft_bzero(&mat, sizeof(t_raytracing_material));
+    ft_bzero(&mat, sizeof(t_material));
 
     size_tab = null_term_tab_len((void **) tab);
     if ( size_tab != 4 && size_tab != 5

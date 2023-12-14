@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 22:46:45 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/14 16:02:25 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/14 16:26:16 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,13 +143,16 @@ int	handle_mouse(int keysym, int x, int y, t_app *app)
 	{
 		viewp_pixel = translate_point(pixel_center, pixel_sample(app, x, y)) ;
 		//////printf("in %s, pixel = (%d, %d), sampled_coord = (%f, %f, %f)\n", __func__, x, y, viewp_pixel.x, viewp_pixel.y, viewp_pixel.z);
-		printf("%f, %f\n", viewp_pixel.x, viewp_pixel.y);
+
+		// printf("%f, %f\n", viewp_pixel.x, viewp_pixel.y);
+		
 		hit_info = get_hit_info(app, app->p_data.cam->p, get_directional_vect(app->p_data.cam->p, viewp_pixel), 0);
 		if (hit_info.distance > 0)
 			printf("object hit\n");
 			app->mlx_data.elem_selected = true;
 			app->mlx_data.elem_hit = hit_info;
 			printf("is cap = %d\n", app->mlx_data.elem_hit.cap_hit);
+			printf("");
 			// if (hit_info.obj_type == sphere)
 			// 	resize_sphere(app, hit_info);
 			// if (hit_info.obj_type == cylindre)

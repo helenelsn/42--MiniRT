@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 14:59:51 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/13 20:15:18 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/14 16:48:46 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,8 +171,9 @@ t_point_2d  cap_mapping(t_point p, t_vec surface_normal, t_point hit_point, doub
     t_vec       position;
 
     position = rotate_relative_pos(surface_normal, hit_point, p);
-    uv.u = a_mod_b((position.x + radius) / (radius * 2), 1);
-	uv.v = a_mod_b((position.z + radius) / (radius * 2), 1);
+    uv.u = a_mod_b((position.x + radius) / (radius * 6), 1); // a_mod_b((position.x + radius) / (radius * 2), 1);
+	uv.v = a_mod_b((position.z + radius) / (radius * 6), 1);
+    return (uv);
 }
 
 t_point_2d   cylindrical_mapping(t_cylindre *cy, t_hit_info hit)
@@ -184,20 +185,39 @@ t_point_2d   cylindrical_mapping(t_cylindre *cy, t_hit_info hit)
       
     if (hit.cap_hit)
         return (cap_mapping(cy->p, cy->vec, hit.hit_point, cy->radius));
-        
+    
     position = rotate_relative_pos(cy->vec, hit.hit_point, cy->p);
     theta = atan2f(position.x / cy->radius,
 			position.z / cy->radius);
 	raw_u = theta / (float)(2.f * M_PI);
     
 	uv.u = 1.f - (raw_u + 0.5f);
-	uv.v = (0.5f + position.y / cy->height);
+	uv.v = (0.5f + position.y / cy->height);        
     
     return (uv);
 }
 
 t_point_2d  conical_mapping(t_cone *co, t_hit_info hit)
 {
+    // if (hit.cap_hit)
+        // return (cap_mapping(co->p, co->vec, hit.hit_point, co->radius));
+    t_point_2d  uv;
+    t_vec       position;
+    double      theta;
+    double      raw_u;
+      
+    if (hit.cap_hit)
+        return (cap_mapping(co->p, co->vec, hit.hit_point, co->radius));
+    
+    position = rotate_relative_pos(co->vec, hit.hit_point, co->p);
+    theta = atan2f(position.x / co->radius,
+			position.z / co->radius);
+	raw_u = theta / (float)(2.f * M_PI);
+    
+	uv.u = 1.f - (raw_u + 0.5f);
+	uv.v = (0.5f + position.y / co->height);        
+    
+    return (uv);
     
 }
 

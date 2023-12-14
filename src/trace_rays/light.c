@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:15:45 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/14 16:04:08 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/14 16:11:27 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,7 @@ void 	compute_specular(t_light *light, t_ray ray, t_color *color, t_ray obj_to_l
 	
 	intensity = light->infos.ratio * pow(r_dot_v, ray.hit_info.obj_mat.specular) * n_dot_l;	//0.4 *  // / (r.norm * obj_to_light.direction.norm )
 	// *color = color_add(*color, color_scale(light->infos.color, intensity));
-	*color = color_add(*color, color_scale(color_mult(light->infos.color, ray.hit_info.obj_mat.color), intensity));
+	*color = color_add(*color, color_scale(color_mult(light->infos.color, ray.hit_info.color), intensity));
 }
 
 
@@ -182,7 +182,7 @@ bool 	compute_diffuse(t_light *light, t_ray ray, t_color *color, t_ray obj_to_li
 		return (false);
 	intensity = light->infos.ratio / M_PI * (n_dot_l); //0.6 *  // / dot(obj_to_light.direction.norm, obj_to_light.direction.norm); // /(ray.hit_info.outward_normal.norm * obj_to_light.direction.norm); // peut simplifier, normalemet les deux sont unitaires et ont donc une norme de 1
 	// *color = color_add(*color, color_scale(light->infos.color, intensity));
-	*color = color_add(*color, color_scale(color_mult(light->infos.color, ray.hit_info.obj_mat.color), intensity));
+	*color = color_add(*color, color_scale(color_mult(light->infos.color, ray.hit_info.color), intensity));
 	return (true);
 }
 
@@ -190,7 +190,7 @@ void 	compute_ambiant(t_light *light, t_ray ray, t_color *color, t_color amb_col
 {
 	t_color		emitted_color;
 
-	emitted_color = color_mult(ray.hit_info.obj_mat.color, light->infos.color);
+	emitted_color = color_mult(ray.hit_info.color, light->infos.color);
 	*color = color_mult(emitted_color, amb_color);
 }
 
@@ -236,7 +236,7 @@ t_color		compute_lighting(t_app *app, t_ray ray)
 	// a mettre ailleurs (genre avant trace_ray)
 	set_emitted_colors(app->p_data.lights, app->p_data.mooooo);
 	
-	t_color effective_color = color_mult(app->p_data.mooooo->infos.emitted_color, ray.hit_info.obj_mat.color);
+	t_color effective_color = color_mult(app->p_data.mooooo->infos.emitted_color, ray.hit_info.color);
 	while (light)
 	{
 		ft_bzero(&obj_to_light, sizeof(t_ray));
