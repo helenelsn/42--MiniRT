@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:15:06 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/14 05:00:30 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/14 05:23:00 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,8 @@ t_vec	normal_to_cone2(void *obj, t_point p, bool is_cap)
 
 	cn = obj;
 	if (is_cap)
-		return (normal_to_cap(cn->vec, cn->p, p));
+		return vect_double_multiply(-1, cn->cover_plane.vec);
+		// return (normal_to_cap(cn->vec, cn->p, p));
 	
 	position = get_directional_vect(cn->top, p);
 	
@@ -146,7 +147,9 @@ t_vec	normal_to_cone(void *obj, t_point p, bool is_cap)
 	cn = obj;
 
 	if (is_cap)
-		return (normal_to_cap(cn->vec, cn->p, p));
+		return vect_double_multiply(-1, cn->cover_plane.vec);
+	// if (is_cap)
+		// return (normal_to_cap(cn->vec, cn->p, p));
 	
 // const t_vector3f	point = ray_at(ray, distance);
 	t_vec point_axe = get_directional_vect(cn->top, p);
