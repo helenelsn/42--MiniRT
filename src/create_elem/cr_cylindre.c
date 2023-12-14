@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 01:29:43 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/14 20:22:57 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/14 20:23:39 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ t_cylindre *create_cylindre(char **tab, t_vlist **garbage, t_parsing_data *data)
 {
     t_cylindre *elem;
 
-    t_raytracing_material mat;
-    ft_bzero(&mat, sizeof(t_raytracing_material));
+    t_material mat;
+    ft_bzero(&mat, sizeof(t_material));
     int size_tab = null_term_tab_len((void **) tab);
     if (size_tab < 6 || size_tab > 8)
         return NULL;
