@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_inter.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:20:33 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/14 04:15:04 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/14 20:48:21 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,5 @@ void	no_tree_intersections(t_parsing_data pdata, t_ray *ray, t_interval t)
         ray->hit_info.distance = min_dist;
         return ;
     }
-    // ray->hit_info.distance = -1;
+    ray->hit_info.distance = -1;
 }

@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:15:06 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/14 05:23:00 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/14 20:43:26 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,13 +158,14 @@ t_vec	normal_to_cone(void *obj, t_point p, bool is_cap)
 	tmp.origin = cn->p;
 	tmp.direction = cn->vec;
 	t_point position = get_ray_point(tmp, 0);// cn->height/2);
-	t_vec point_to_axe = get_directional_vect(p, position );
+	t_vec point_to_axe = get_directional_vect(cn->p, position );
 	
 
-	
+	// if ()
 	t_vec	perpendicular_vector = cross_product(cross_product(point_axe, point_to_axe), point_axe);
 	normalise(&perpendicular_vector);
 	return perpendicular_vector;
+	// return vect_double_multiply(-1, perpendicular_vector);
 
 	// return (vector3f_unit(perpendicular_vector));
 }
@@ -175,15 +176,16 @@ t_vec get_unit_normal(t_hit_info hi, t_point p)
 {
 	t_vec normal;
 
-	if (hi.obj_type == sphere)
-		normal = normal_to_sphere(hi.obj_content, p);
-	else if (hi.obj_type == plan)
+	if (hi.obj_type == plan)
 		normal = normal_to_plan(hi.obj_content, p);
+	else if (hi.obj_type == cone)
+		normal = normal_to_cone(hi.obj_content, p, hi.cap_hit);
 	else if (hi.obj_type == cylindre)
 		normal = normal_to_cylinder(hi.obj_content, hi); // 
+	else if (hi.obj_type == sphere)
+		normal = normal_to_sphere(hi.obj_content, p);
 	else
-		normal = normal_to_cone(hi.obj_content, p, hi.cap_hit);
-	
+		printf("type = %d\n", hi.obj_type);
 	normalise(&normal);
 	return (normal);
 }

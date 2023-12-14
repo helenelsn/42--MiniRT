@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trace_ray.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/13 17:21:54 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/14 20:42:26 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_color    trace_ray(t_app *app, t_point ray_origin, t_vec dir, int rebound_nb)
 	//rec_ray_traverse(app, &ray, get_interval(HITPOINT_OFFSET, INFINITY));
 	no_tree_intersections(app->p_data, &ray, get_interval(HITPOINT_OFFSET, INFINITY));
 	
-	if (ray.hit_info.distance == -1) // le rayon n'intersecte aucun objet
+	if (ray.hit_info.distance == -1 || !ray.hit_info.obj_content) // le rayon n'intersecte aucun objet
 	{
 		// printf("love\n");
 		return (app->background);
