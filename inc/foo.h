@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/14 04:29:37 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/14 04:46:02 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,7 @@ double					ft_atof(char *nptr);
 void	add_hooks(t_app *app);
 
 void    compute_image(t_vlist *obj);
-
+t_vec	normal_to_cap(t_vec dir_obj, t_point obj_p, t_point hit_p);
 double dot(t_vec v, t_vec w);
 t_vec cross_product(t_vec v, t_vec w);
 
