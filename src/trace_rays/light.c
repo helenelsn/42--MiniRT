@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:15:45 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/13 19:44:30 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/14 05:09:32 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,9 @@ void 	compute_specular(t_light *light, t_ray ray, t_color *color, t_ray obj_to_l
 {
 	double 		intensity;
 	t_vec		r;
+
+	if (ray.hit_info.obj_mat.specular == -1)
+		return ;	
 
 	r = get_incident_ray_of_light(obj_to_light.direction, ray.hit_info.outward_normal);
 	// r = reflect_ray(ray.direction, ray.hit_info.outward_normal);
