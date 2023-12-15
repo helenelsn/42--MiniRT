@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 15:51:47 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/15 22:42:48 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/15 22:57:19 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,5 @@ void deselect(t_app *app)
 	ft_bzero(&app->mlx_data.elem_hit, sizeof(t_hit_info));
 	app->mlx_data.orientation = (t_vec) {0,0,0,0};
 	app->mlx_data.radius_or_heigt = 0;
+	printf("%s\n", __func__);
 }
