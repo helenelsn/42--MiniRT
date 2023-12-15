@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   normals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:15:06 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/14 20:43:26 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/15 15:31:49 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 /* ---------------------- NORMALS COMPUTATIONS ----------------------- */
 
-/* need center coordinates */
-//tocheck
 t_vec	normal_to_sphere(void *obj, t_point p)
 {
 	t_sphere 	*sp;
@@ -28,8 +26,6 @@ t_vec	normal_to_sphere(void *obj, t_point p)
 	return (normal);
 }
 
-/* produit vectoriel de deux vecteurs generateurs du plan */
-//tocheck
 t_vec	normal_to_plan(void *obj, t_point p)
 {
 	t_plan 		*pl;
@@ -38,13 +34,9 @@ t_vec	normal_to_plan(void *obj, t_point p)
 	return (pl->vec);
 }
 
-/* traduit en coord cylindriques, calcule la normale, puis reconvertit en 
-coord cartesiennes (?) */
-
-
 t_vec	project(t_vec projected, t_vec ref)
 {
-	return (vect_double_multiply( dot(projected, ref), ref));
+	return (vect_double_multiply(dot(projected, ref), ref));
 }
 
 t_vec 	normal_to_cylinder(void *obj, t_hit_info info)
@@ -67,7 +59,6 @@ t_vec 	normal_to_cylinder(void *obj, t_hit_info info)
 		// normal_to_cap
 	}
 	center_to_hitpoint =  get_directional_vect(cy->p, info.hit_point);
-	// normalise(&center_to_hitpoint);
 	projected = project(center_to_hitpoint, cy->vec);
 	normal = get_directional_vect(get_vec_coord(projected), get_vec_coord(center_to_hitpoint));
 	normalise(&normal);
@@ -76,37 +67,14 @@ t_vec 	normal_to_cylinder(void *obj, t_hit_info info)
 
 /*  --------------------------------------------- */
 
-// static t_vector3f	calculate_cone_normal(const t_ray *ray,
-// 										const t_object *cone,
-// 										const t_hit hit_distance)
-// {
-// 	if (hit_distance.context == OUTLINE)
-// 		return (calculate_outline_cone_normal(ray, cone,
-// 				hit_distance.distance));
-// 	return (cone->cache.cone.cap_normal);
-// }
-
-// t_vector3f	calculate_outline_cone_normal(const t_ray *ray,
-// 											const t_object *cone,
-// 											const float distance)
-// {
-// 	const t_vector3f	point = ray_at(ray, distance);
-// 	const t_vector3f	point_axe = vector3f_subtract(point,
-// 			cone->cache.cone.endpoint2);
-// 	const t_vector3f	point_to_axe = vector3f_subtract(cone->position, point);
-// 	const t_vector3f	perpendicular_vector = vector3f_cross(\
-// 							vector3f_cross(point_axe, point_to_axe), point_axe);
-
-// 	return (vector3f_unit(perpendicular_vector));
-// }
-
 // obj_p = center for cylinder
 t_vec	normal_to_cap(t_vec dir_obj, t_point obj_p, t_point hit_p)
 {
 	// double projection = dot(get_directional_vect(hit_p, obj_p), dir_obj);
 	// int sign = (projection > 0.0) - (projection < 0.0);
-	return vect_double_multiply(-1, dir_obj);
 	// return (vect_double_multiply(sign, dir_obj));	
+	
+	return vect_double_multiply(-1, dir_obj); // ?????????????
 }
 
 //todo
@@ -142,12 +110,11 @@ t_vec	normal_to_cone2(void *obj, t_point p, bool is_cap)
 
 t_vec	normal_to_cone(void *obj, t_point p, bool is_cap)
 {
-
 	t_cone *cn;
 	cn = obj;
 
 	if (is_cap)
-		return vect_double_multiply(-1, cn->cover_plane.vec);
+		return (vect_double_multiply(-1, cn->cover_plane.vec));
 	// if (is_cap)
 		// return (normal_to_cap(cn->vec, cn->p, p));
 	
@@ -160,18 +127,16 @@ t_vec	normal_to_cone(void *obj, t_point p, bool is_cap)
 	t_point position = get_ray_point(tmp, 0);// cn->height/2);
 	t_vec point_to_axe = get_directional_vect(cn->p, position );
 	
-
-	// if ()
 	t_vec	perpendicular_vector = cross_product(cross_product(point_axe, point_to_axe), point_axe);
 	normalise(&perpendicular_vector);
-	return perpendicular_vector;
+	return (perpendicular_vector);
 	// return vect_double_multiply(-1, perpendicular_vector);
 
 	// return (vector3f_unit(perpendicular_vector));
 }
 
 
-/* computes the normal of a point p on a given object */
+/* computes the normal of a point P on a given object */
 t_vec get_unit_normal(t_hit_info hi, t_point p)
 {
 	t_vec normal;

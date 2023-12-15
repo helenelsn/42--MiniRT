@@ -3,25 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_inter.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/12/14 22:34:57 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/15 19:25:06 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../../inc/mini_rt.h"
-
-// t_vlist    *get_inter(t_vlist *elem, t_droite d) //clairement pas void mais j'ai pas d'idée
-// {
-//     if (elem->type == sphere)
-//         get_inter_for_sphere((t_sphere *) elem->content, d);
-//     else if (elem->type == plan)
-//         get_inter_for_plan((t_plan *) elem->content, d);
-    
-//     return (NULL); // pour que ça compile
-// }
 
 void    set_texture_material(t_ray *ray, t_hit_info *closest_obj, void *object)
 {
@@ -53,20 +42,39 @@ bool    intersect(t_vlist *obj, t_ray *ray)
     return false;
 }
 
+double    parse_objects(t_vlist *obj, t_ray *ray, t_hit_info *closest_obj, t_interval t)
+{
+    double  min_dist;
+
+    min_dist = t.max;
+    while (obj)
+    {
+        if (intersect(obj, ray) && ray->hit_info.distance >= t.min
+			&& ray->hit_info.distance <= min_dist)
+        	{
+        	    min_dist = ray->hit_info.distance;
+        	    copy_obj_properties(obj, closest_obj, ray->hit_info); // peut tej du coup nn ?
+                set_texture_material(ray, closest_obj, obj->content);
+			}
+        obj = obj->next;
+    }
+    
+    return (min_dist);
+}    
+
 void	no_tree_intersections(t_parsing_data pdata, t_ray *ray, t_interval t)
 {
     t_vlist     *obj;
     t_hit_info  *closest_obj;
     double 		min_dist;
-	static int print;
 
     closest_obj = ft_calloc(sizeof(t_hit_info), 1);
     if (!closest_obj)
         return ;
     min_dist = t.max;
-    
 
-    // a modif : repetitif, moche
+    ray->hit_info.distance = -1;
+
     
 	obj = pdata.objects;
 	while (obj)
@@ -98,14 +106,19 @@ void	no_tree_intersections(t_parsing_data pdata, t_ray *ray, t_interval t)
         obj = obj->next;
     }
 
+    /* ------------ normed version -------------------- */
     
+    min_dist = parse_objects(pdata.objects, ray, closest_obj, t);
+    min_dist = parse_objects(pdata.planes, ray, closest_obj, get_interval(t.min, min_dist));
+    
+    /* -------------------------------- */
+
     
     if (min_dist < t.max)
     {
-        // a verifier
         ray->hit_info = *closest_obj;
         ray->hit_info.distance = min_dist;
         return ;
     }
-    ray->hit_info.distance = -1;
+    //ray->hit_info.distance = -1;
 }

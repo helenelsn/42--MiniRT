@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   foo.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/14 23:37:09 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/15 16:14:44 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
   
 //-------------------------- CAMERA --------------------------------//
-double  deg_to_rad(double degrees);
+double  degrees_to_rad(double degrees);
 void 	set_viewpoint_dimensions(t_app *app);
 void    init_viewpoint(t_app *app);
 

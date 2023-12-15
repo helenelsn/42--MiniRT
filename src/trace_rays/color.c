@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 20:16:50 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/13 17:50:29 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/15 15:22:14 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ float  rgb_char_to_float(int color_comp)
 int     color_clamp(long color, int min, int max)
 {
     if (color < min)
-        return (min); // ?
+        return (min);
     if (color > max)
         return (max);
     return (color);
@@ -36,7 +36,7 @@ int     color_clamp(long color, int min, int max)
 t_color    color_scale(t_color color, double scale)
 {
     if (scale < 0.0)
-        return (color); // ?
+        return (color); // ? // return ((t_color){0, 0, 0})
     int inter;
     inter = color.r * scale;
     if (inter > 255)
@@ -70,30 +70,21 @@ t_color color_mult(t_color c1, t_color c2)
     int color;
 
     color = (float)(c1.r * c2.r) / 255.f;
-    // color = rgb_float_to_char(rgb_char_to_float(c1.r) * rgb_char_to_float(c2.r));
     c1.r = color_clamp(color, 0, UCHAR_MAX);
     
     color = (float)(c1.g * c2.g) / 255.f;
-    // color = rgb_float_to_char(rgb_char_to_float(c1.g) * rgb_char_to_float(c2.g));
     c1.g = color_clamp(color, 0, UCHAR_MAX);
 
     color = (float)(c1.b * c2.b) / 255.f;
-    // color = rgb_float_to_char(rgb_char_to_float(c1.b) * rgb_char_to_float(c2.b));
     c1.b = color_clamp(color, 0, UCHAR_MAX);
     return (c1);
-
-    
 }
 
-//todo : proteger en cas d'overflow ?
 t_color    color_add(t_color c1, t_color c2)
 {
     c1.r = color_clamp(c1.r + c2.r, 0, UCHAR_MAX);
     c1.g = color_clamp(c1.g + c2.g, 0, UCHAR_MAX);
     c1.b = color_clamp(c1.b + c2.b, 0, UCHAR_MAX);
     
-    // c1.r += c2.r;
-    // c1.g += c2.g;
-    // c1.b += c2.b;
     return (c1);
 }

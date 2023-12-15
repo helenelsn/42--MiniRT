@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mapping.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 14:59:51 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/14 16:48:46 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/15 15:29:14 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ t_matrix	*rotation_matrix_from_angle(double angle, t_vec axis)
     return rot;
 }
 
-double  rad_to_deg(double radians)
+double  radians_to_degrees(double radians)
 {
     return (radians * 180.0 / M_PI);
 }
@@ -115,7 +115,7 @@ t_vec    rotate_relative_pos(t_vec surface_normal, t_point hit_point, t_point ob
     if (!ft_is_equalsf(surface_normal.y, 1.f, FLT_EPSILON))
 	{
         // angle <normal.y, y-axis>
-        // rotation_phi = rad_to_deg(acosf(surface_normal.y));
+        // rotation_phi = radians_to_degrees(acosf(surface_normal.y));
         
         t_vec unit_vector = {0, 1, 0}; // the (0,1,0) unit vector
         double dot_product = surface_normal.x * unit_vector.x + surface_normal.y * unit_vector.y + surface_normal.z * unit_vector.z;
@@ -159,7 +159,7 @@ t_point_2d   planar_mapping(t_plan *pl, t_point p)
 
     position = rotate_relative_pos(pl->vec, p, pl->p);
         
-	uv.u = fmodf_positive(position.x, 1.0); // modulof_positive()
+	uv.u = fmodf_positive(position.x, 1.0);
 	uv.v = fmodf_positive(position.z, 1.0);
 
 	return (uv);
@@ -199,8 +199,6 @@ t_point_2d   cylindrical_mapping(t_cylindre *cy, t_hit_info hit)
 
 t_point_2d  conical_mapping(t_cone *co, t_hit_info hit)
 {
-    // if (hit.cap_hit)
-        // return (cap_mapping(co->p, co->vec, hit.hit_point, co->radius));
     t_point_2d  uv;
     t_vec       position;
     double      theta;
@@ -218,7 +216,6 @@ t_point_2d  conical_mapping(t_cone *co, t_hit_info hit)
 	uv.v = (0.5f + position.y / co->height);        
     
     return (uv);
-    
 }
 
 t_point_2d  object_mapping(void *object, t_hit_info hit)
@@ -229,6 +226,6 @@ t_point_2d  object_mapping(void *object, t_hit_info hit)
         return (planar_mapping((t_plan *)object, hit.hit_point));
     else if (hit.obj_type == cylindre)
         return (cylindrical_mapping((t_cylindre *)object, hit));
-    else // hit.obj_type == cone
+    else // if (hit.obj_type == cone)
         return (conical_mapping((t_cone *)object, hit));
 }

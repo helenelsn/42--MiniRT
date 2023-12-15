@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trace_ray.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/14 22:20:56 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/15 15:25:12 by Helene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,26 +51,20 @@ t_color    trace_ray(t_app *app, t_point ray_origin, t_vec dir, int rebound_nb)
 	
 	if (ray.hit_info.distance == -1 || !ray.hit_info.obj_content) // le rayon n'intersecte aucun objet
 	{
-		// printf("love\n");
 		return (app->background);
 	}
 
 	update_ray_hit_infos(&ray);
 	
-	local_color = ray.hit_info.color;
+	// local_color = ray.hit_info.color;
 	local_color = compute_lighting(app, ray);
-	
-	// local_color = color_scale(local_color, compute_lighting(app, ray));
-	// local_color = color_mult(ray.hit_info.obj_mat.color, compute_lighting(app, ray));
-	
-	//local_color = color_scale(ray.hit_info.obj_mat.color, compute_lighting(app, ray.hit_info.obj_mat.specular, ray));
 	
 	/* get the final pixel's color */
 	if (ray.hit_info.obj_mat.reflective <= 0 || rebound_nb == REBOUNDS_LIMIT)
 		return (local_color);
 
 	/* compute reflected color */
-	// A VERIFIER !!!!!!!!!!!
+	// A verifier !!!!!!
 	
 	// reflected_ray = reflect_ray(ray.direction, ray.hit_info.outward_normal); // ou juste ray.direction en premier argument ?
 	// reflected_ray = get_incident_ray_of_light(vect_double_multiply(-1, ray.direction), ray.hit_info.outward_normal); // ou juste ray.direction en premier argument ?
@@ -90,10 +84,8 @@ int		get_final_pixel_color(t_app *app, int x, int y)
 	int g = 0;
 	int b = 0;
 
-	// pour sample SAMPLES_PER_PIXEL pixels et avoir une impression plus homogene
 	sampling_count = 0;
 	double defocus_angle = 0;
-
 	ft_bzero(&pixel_color, sizeof(t_color)); 
 	
 	set_pixel_center(app, &pixel_center, x, y); // get coordinates of the pixel's center
@@ -169,6 +161,4 @@ void    draw_scene(t_app *app)
 		// y +=2;
 		y++;
 	}
-	
-//	mlx_put_image_to_window(app->mlx_data.mlx_ptr, app->mlx_data.image.img, 0, 0);
 }
