@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_viewpoint.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 20:04:36 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/05 22:38:56 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/14 17:03:46 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,18 @@ void 	set_viewpoint_dimensions(t_app *app)
     app->frame.height = app->frame.width * app->aspect_ratio; /* Height */
 }
 
+// a tej car sinon sera dupliquee (car aussi utilisee dans la branche checkerboard, qui est pas encore merge)
+static bool	ft_is_equalsf(const float a, const float b, const float tolerance)
+{
+	return ((a + tolerance >= b) && (a - tolerance <= b));
+}
+
+int sign(double a)
+{
+    return ((a > 0.0) - (a < 0.0));
+}
+
+
 /*  Definit le referentiel de la camera (origine et base vectorielle)
     Calcule la position du pixel en haut a gauche du plan de projection
     Calcule les deux vecteurs directeurs des deux axes du plan de projection
@@ -49,7 +61,11 @@ void    init_viewpoint(t_app *app)
     app->p_data.cam->ref.w = vect_double_multiply(-1, app->p_data.cam->direction);
     normalise(&app->p_data.cam->ref.w);
 
-    app->p_data.cam->ref.u = cross_product((t_vec){0, 1, 0}, app->p_data.cam->ref.w);
+    // a modif : pour l'instant l'axe X est inverse
+    if (ft_is_equalsf(fabs(app->p_data.cam->direction.y), 1.f, DBL_EPSILON))
+        app->p_data.cam->ref.u = cross_product((t_vec){0, 0, sign(app->p_data.cam->direction.y)}, app->p_data.cam->ref.w);
+    else
+        app->p_data.cam->ref.u = cross_product((t_vec){0, 1, 0}, app->p_data.cam->ref.w);
     normalise(&app->p_data.cam->ref.u);
     
     app->p_data.cam->ref.v = cross_product(app->p_data.cam->ref.w, app->p_data.cam->ref.u);

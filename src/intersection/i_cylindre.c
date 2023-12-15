@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 00:52:41 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/12 21:08:13 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/14 21:39:22 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ t_point get_ray_point(t_ray ray, double t)
 
 double ft_min_and_positiv(double a, double b)
 {
-    if (a < 0 && b < 0)
+    if (a <= 0 && b <= 0)
         return 0;
-    if (a < 0)
+    if (a <= 0)
         return b;
-    if (b < 0)
+    if (b <= 0)
         return a;
     return ft_min(a, b);
 }
@@ -91,7 +91,7 @@ int	cut_cylinder(t_ray *ray, t_cylindre *cylinder, double *t)
 	return (0);
 }
 
-int	intersect_plane(t_ray *ray,t_plan	*plane, double *t)
+int	intersect_plane(t_ray *ray, t_plan	*plane, double *t)
 {
 	double	d;
 	double	n_ray_dot;
@@ -124,7 +124,7 @@ int	intersect_cylinder_covers(t_ray *ray, t_cylindre *cylinder, double *t,
 			|| (*t < f->t_1 && *t > f->t_2)));
 }
 
-bool    get_inter_for_cylindre(t_cylindre *cy, t_ray r, double *d)
+bool    get_inter_for_cylindre(t_cylindre *cy, t_ray *r, double *d)
 {
     t_quadratic q;
     double t_cover;
@@ -138,14 +138,18 @@ bool    get_inter_for_cylindre(t_cylindre *cy, t_ray r, double *d)
     // printf("\n from hier");
     // normalise(&r.direction);
     
-	if (!intersect_cylinder_tube(&r, cy, &q))
+	if (!intersect_cylinder_tube(r, cy, &q))
 		return (false);
     t = ft_min_and_positiv(q.t_1,q.t_2 );
     if (t <=0)
         return false;
-    cut_cylinder(&r, cy, &t);
-    if (intersect_cylinder_covers(&r, cy, &t_cover, &q))
+    cut_cylinder(r, cy, &t);
+    if (intersect_cylinder_covers(r, cy, &t_cover, &q))
+	{
 		t = ft_min_and_positiv(t_cover, t);
+		if (t == t_cover)
+			r->hit_info.cap_hit = true;
+	}
     *d = t;
     // return t > 0;
     return true;
@@ -164,7 +168,7 @@ bool    intersect_cylindre(t_ray *ray, void *object)
     d.p = ray->origin;
     d.v = ray->direction;
 
-    if (!get_inter_for_cylindre(cy, *ray, &t))
+    if (!get_inter_for_cylindre(cy, ray, &t))
         return false;
     ray->hit_info.coef  = t;
     if (ray->hit_info.coef <= 0)
