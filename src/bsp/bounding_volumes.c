@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bounding_volumes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 15:35:11 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/15 19:35:11 by Helene           ###   ########.fr       */
+/*   Updated: 2023/12/15 22:01:45 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,22 +73,20 @@ void    set_sphere_bbox(t_vlist *object)
     t_sphere    *sphere;
 
     sphere = object->content;
-    bbox_reset(&object->material.bbox, point_addition(sphere->p, double_to_point(-(sphere->radius + T_INF))));
-    bbox_add_point(&object->material.bbox, point_addition(sphere->p, double_to_point(sphere->radius + T_INF)));
+    bbox_reset(&object->material.bbox, point_addition(sphere->p, double_to_point(-(sphere->radius + BBOX_EPSILON))));
+    bbox_add_point(&object->material.bbox, point_addition(sphere->p, double_to_point(sphere->radius + BBOX_EPSILON)));
 }
-
 
 void    set_cylinder_bbox(t_vlist *object)
 {
     t_cylindre *cylinder;
 
     cylinder = object->content;
-    bbox_reset(&object->material.bbox, point_addition(cylinder->p,  double_to_point(cylinder->radius + T_INF)));
-    bbox_add_point(&object->material.bbox, point_addition(cylinder->p,  double_to_point(-(cylinder->radius + T_INF))));
+    bbox_reset(&object->material.bbox, point_addition(cylinder->p,  double_to_point(cylinder->radius + BBOX_EPSILON)));
+    bbox_add_point(&object->material.bbox, point_addition(cylinder->p,  double_to_point(-(cylinder->radius + BBOX_EPSILON))));
 
-    
-    bbox_add_point(&object->material.bbox, point_addition(point_addition(cylinder->p,  double_to_point(cylinder->radius + T_INF)),
-        double_to_point(cylinder->height + T_INF)));
+    bbox_add_point(&object->material.bbox, point_addition(point_addition(cylinder->p,  double_to_point(cylinder->radius + BBOX_EPSILON)),
+        double_to_point(cylinder->height + BBOX_EPSILON)));
 }
 
 void    set_cone_bbox(t_vlist *object)
@@ -96,9 +94,9 @@ void    set_cone_bbox(t_vlist *object)
     t_cone *cone;
 
     cone = object->content;
-    bbox_reset(&object->material.bbox, point_addition(cone->p,  double_to_point(cone->radius + T_INF)));
-    bbox_add_point(&object->material.bbox, point_addition(cone->p,  double_to_point(-(cone->radius + T_INF))));
-    bbox_add_point(&object->material.bbox, point_addition(cone->p,  double_to_point(cone->height + T_INF)));
+    bbox_reset(&object->material.bbox, point_addition(cone->p,  double_to_point(cone->radius + BBOX_EPSILON)));
+    bbox_add_point(&object->material.bbox, point_addition(cone->p,  double_to_point(-(cone->radius + BBOX_EPSILON))));
+    bbox_add_point(&object->material.bbox, point_addition(cone->p,  double_to_point(cone->height + BBOX_EPSILON)));
 }
 
 /*
@@ -124,6 +122,11 @@ void    set_bounding_boxes(t_vlist *objects)
             set_cylinder_bbox(current);
         else if ((current)->type == cone)
             set_cone_bbox(current);
+        else
+        {
+            current = (current)->next;
+            continue; // ?
+        }
         /* implémenter pour les autres formes plus tard */
         set_infos(&current->material.bbox);
         current = (current)->next;
@@ -337,21 +340,21 @@ void    split_voxel(t_bsp_node *parent, t_split_infos si)
 void    set_left_subvoxel(t_bsp_node *parent, t_split_infos si, t_point *l_max)
 {
     if (si.dim == x)
-        set_point(&l_max, si.split_coord, parent->bbox.max.y, parent->bbox.max.z);
+        set_point(l_max, si.split_coord, parent->bbox.max.y, parent->bbox.max.z);
     else if (si.dim == y)
-        set_point(&l_max, parent->bbox.max.x, si.split_coord, parent->bbox.max.z);
+        set_point(l_max, parent->bbox.max.x, si.split_coord, parent->bbox.max.z);
     else // if (si.dim == z)
-        set_point(&l_max, parent->bbox.max.x, parent->bbox.max.y, si.split_coord);
+        set_point(l_max, parent->bbox.max.x, parent->bbox.max.y, si.split_coord);
 }
 
 void    set_right_subvoxel(t_bsp_node *parent, t_split_infos si, t_point *r_min)
 {
     if (si.dim == x)
-        set_point(&r_min, si.split_coord, parent->bbox.min.y, parent->bbox.min.z);
+        set_point(r_min, si.split_coord, parent->bbox.min.y, parent->bbox.min.z);
     else if (si.dim == y)
-        set_point(&r_min, parent->bbox.min.x, si.split_coord, parent->bbox.min.z);
+        set_point(r_min, parent->bbox.min.x, si.split_coord, parent->bbox.min.z);
     else if (si.dim == x)
-        set_point(&r_min, parent->bbox.min.x, parent->bbox.min.y, si.split_coord);
+        set_point(r_min, parent->bbox.min.x, parent->bbox.min.y, si.split_coord);
 }
 
 t_bbox_description  get_temp_subvoxel(t_bsp_node *parent, t_split_infos si, bool left_subvoxel)
@@ -384,10 +387,10 @@ t_bbox_description  get_temp_subvoxel(t_bsp_node *parent, t_split_infos si, bool
 
     /* ------------- normed version -----------*/
 
-    if (left_subvoxel)
-        set_left_subvoxel(parent, si, &l_max);
-    else
-        set_right_subvoxel(parent, si, &r_min);
+    //if (left_subvoxel)
+    //    set_left_subvoxel(parent, si, &l_max);
+    //else
+    //    set_right_subvoxel(parent, si, &r_min);
 
     /* ----------------------------- */
     

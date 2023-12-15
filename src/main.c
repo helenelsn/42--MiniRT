@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:20 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/08 00:23:46 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/15 20:48:41 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ static int  minirt_get_started(t_app *app)
     //app->background.b = 0xff;
     
     build_kd_tree(&app->root, app->p_data.objects); // prendre la valeur de retour (si un malloc foire et que doit return ici)
-    // print_kd_tree(&app->root);
+    print_kd_tree(&app->root);
+    
     init_viewpoint(app);
     draw_scene(app);
     

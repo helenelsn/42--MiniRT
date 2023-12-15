@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:44:16 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/06 19:13:15 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/15 22:03:46 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ void    set_root_voxel(t_bsp_node *root, t_vlist *objects)
     root->items = malloc(sizeof(t_vlist));
     if (!root->items)
         return ;
+    
     curr = objects;
     root->items = objects; /* set la liste d'objets */
     // !!!!!! plutot tout malloc nn ? et ensuite passe les pointeurs aux leafs, pas la peine de re-malloc, aura
@@ -147,7 +148,10 @@ void    set_root_voxel(t_bsp_node *root, t_vlist *objects)
 void build_kd_tree(t_bsp_node *root_voxel, t_vlist *objects)
 {
     if (!objects)
+    {
+        root_voxel->type = leaf;
         return ;
+    }
     /* set each object's bounding box */
     set_bounding_boxes(objects);
     

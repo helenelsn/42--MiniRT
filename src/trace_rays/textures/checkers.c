@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checkers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 14:59:58 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/13 18:18:53 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/15 21:13:38 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 void    set_map_dimensions(t_checkers_map *map, t_type elem)
 {
-    map->height = CHECKERS_HEIGHT;
-    map->width = CHECKERS_HEIGHT;
+    map->height = CHECKERS_SIZE;
+    map->width = CHECKERS_SIZE;
     if (elem == sphere)
         map->width *= 2;
 }

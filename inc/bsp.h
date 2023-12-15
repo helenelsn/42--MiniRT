@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:46:51 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/08 19:35:21 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/15 21:17:53 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 
 # define    MAX_DEPTH           5 /* profondeur maximale de l'arbre */
 # define TRAVERSE_COST          1 // a modif /* cost of traversing an inner node */ 
-# define UNITARY_INTERSECT_COST 1 // a modif /* cost of intersecting a triangle (ici ne décompose pas en triangles, donc devra ponderer selon la surface de l'objet i guess) */
-
+# define UNITARY_INTERSECT_COST 10 // a modif /* cost of intersecting a triangle (ici ne décompose pas en triangles, donc devra ponderer selon la surface de l'objet i guess) */
+# define BBOX_EPSILON           0.1
 
 /*  -------------------- build ----------------------  */
 

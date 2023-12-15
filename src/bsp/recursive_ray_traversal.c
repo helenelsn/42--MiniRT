@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 00:05:43 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/14 16:02:17 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/15 21:59:17 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,17 +153,24 @@ void    set_near_far_nodes(double ray_origin_coord, t_bsp_node *curr, t_bsp_node
 }
 
 /*  a tester : le cas ou le rayon est identique au plan de coupe -> verifier que crash pas */
-void    rec_ray_traverse(t_app *app, t_ray *ray, t_interval t) // t_bsp_node *node, 
+void    rec_ray_traverse(t_app *app, t_ray *ray, t_interval t) // t_bsp_node *node 
 {
     t_stack     curr;
     double      entry;
     double      exit;
     int         stack_top;
 
+
     entry = 0.0;
     exit = 0.0;
     
     ray->hit_info.distance = -1;
+    if (app->root.type == leaf && !app->root.items_count)
+    {
+        no_tree_intersections(app->p_data, ray, t);
+        return ;
+    }
+    
     if (!intersect_scene(app->root.bbox, *ray, &entry, &exit))
         return ;
 

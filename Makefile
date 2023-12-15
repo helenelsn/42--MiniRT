@@ -66,7 +66,6 @@ FILES = \
 		trace_rays/light \
 		trace_rays/normals \
 		trace_rays/point_sampling \
-		trace_rays/screen_scene_utils \
 		trace_rays/trace_ray \
 		camera/init_viewpoint \
 		trace_rays/intervals_utils \

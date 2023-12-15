@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   foo.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/15 16:14:44 by Helene           ###   ########.fr       */
+/*   Updated: 2023/12/15 20:31:47 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ t_vec   	get_normal_perturbation(t_hit_info hit, void *object);
 
 t_interval  get_interval(double min, double max);
 double  	a_mod_b(double a, int n);
+int         ft_sign(double n);
 
 t_color    	color_scale(t_color color, double scale);
 t_color    	color_add(t_color c1, t_color c2);

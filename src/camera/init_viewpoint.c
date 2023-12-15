@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_viewpoint.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 20:04:36 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/15 18:35:42 by Helene           ###   ########.fr       */
+/*   Updated: 2023/12/15 20:31:19 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,6 @@ void 	set_viewpoint_dimensions(t_app *app)
 static bool	ft_is_equalsf(const float a, const float b, const float tolerance)
 {
 	return ((a + tolerance >= b) && (a - tolerance <= b));
-}
-
-int ft_sign(double a)
-{
-    return ((a > 0.0) - (a < 0.0));
 }
 
 void    set_camera_ref(t_app *app)

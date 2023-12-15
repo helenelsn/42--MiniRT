@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_rt.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:13 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/15 16:14:45 by Helene           ###   ########.fr       */
+/*   Updated: 2023/12/15 21:13:46 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,10 @@
 
 # define REBOUNDS_LIMIT	1
 
-# define degrees_to_rad 	    M_PI/180.0
-# define T_INF      0.00001 //new
+# define deg_to_rad 	    M_PI/180.0
+# define T_INF              1e-5
 
-// should be different whether it's a sphere or another object ! (include it in the t_material plutot ?)
-# define CHECKERS_WIDTH     20
-# define CHECKERS_HEIGHT    20
+# define CHECKERS_SIZE      20
 
 
 

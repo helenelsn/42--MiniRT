@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cr_plan.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 01:26:34 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/14 23:57:07 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/15 20:32:23 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ t_plan *create_plan(char **tab, t_vlist **garbage,t_parsing_data *data)
     set_eq(elem);
     if (!mat.specular)
         mat.specular = -1;
-    construct_map(&mat.textures.normap, "/mnt/nfs/homes/srapin/42-MiniRT/normal_maps/terrain");
+        
+    // construct_map(&mat.textures.normap, "/mnt/nfs/homes/srapin/42-MiniRT/normal_maps/terrain");
+    
     ft_vlstadd_back(garbage, ft_vlstnew(elem, free, plan));
     ft_vlstadd_back(&data->planes, ft_vlstnew_with_mat(elem, free, plan, mat));
     // t_droite d;

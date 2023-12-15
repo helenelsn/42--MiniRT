@@ -6,17 +6,15 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 15:25:26 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/11 15:34:40 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/15 20:31:25 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/mini_rt.h"
 
-int     ft_sign(double n)
-{
-    if (n < 0.0)
-        return (-1);
-    return (1);
+int ft_sign(double n)
+{ 
+    return ((n > 0.0) - (n < 0.0));
 }
 
 double  a_mod_b(double a, int n)
