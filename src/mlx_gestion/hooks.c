@@ -46,22 +46,16 @@ int	enter_press(int keycode, t_app *app)
 		((t_sphere *) app->mlx_data.elem_hit.obj_content)->radius = app->mlx_data.n + app->mlx_data.after_dot/10;
 	if (app->mlx_data.elem_selected && app->mlx_data.n && app->mlx_data.elem_hit.obj_type == cylindre)
 	{
-
-		((t_cylindre *) app->mlx_data.elem_hit.obj_content)->radius = app->mlx_data.n + app->mlx_data.after_dot/10;
+		if (app->mlx_data.radius_or_heigt == 1)
+			((t_cylindre *) app->mlx_data.elem_hit.obj_content)->radius = app->mlx_data.n + app->mlx_data.after_dot/10;
+		if (app->mlx_data.radius_or_heigt == 2)
+			((t_cylindre *) app->mlx_data.elem_hit.obj_content)->height = app->mlx_data.n + app->mlx_data.after_dot/10;
 	}
 	deselect(app);
 	redraw(app);
 }
 
-void deselect(t_app *app)
-{
-	app->mlx_data.point_pushed = false;
-	app->mlx_data.n = 0;
-	app->mlx_data.after_dot = 0;
-	app->mlx_data.elem_selected = false;
-	ft_bzero(&app->mlx_data.elem_hit, sizeof(t_hit_info));
-	app->mlx_data.orientation = (t_vec) {0,0,0,0};
-}
+
 
 void arrow_press_no_elem(int keycode, t_app *app)
 {
@@ -128,6 +122,10 @@ int	key_press(int keycode, t_app *app)
 		return number_press(keycode, app);
 	if (keycode == XK_p)
 		app->mlx_data.point_pushed = true;
+	if (keycode == XK_h && app->mlx_data.elem_selected && (app->mlx_data.elem_hit.obj_type == cylindre || app->mlx_data.elem_hit.obj_type == cone))
+		app->mlx_data.radius_or_heigt = 1;
+	if (keycode == XK_r && app->mlx_data.elem_selected && (app->mlx_data.elem_hit.obj_type == cylindre || app->mlx_data.elem_hit.obj_type == cone))
+		app->mlx_data.radius_or_heigt = 2;
 	if (keycode == XK_e) //todo trouver le keysim du enter
 		enter_press(keycode, app); 
 	if (keycode == KEY_ESC)

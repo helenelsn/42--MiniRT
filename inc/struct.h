@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/14 23:43:42 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/15 22:40:53 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -369,13 +369,16 @@ typedef struct  s_mlx_data
     t_image			image;
     void		    *mlx_ptr;
 	void		    *win_ptr;
-     int            elem_selected;
+    
+    int            elem_selected;
     int            point_pushed;
     int            mute;
-    t_hit_info      elem_hit;
+    int            radius_or_heigt;
+    
     double          after_dot;
     double          n;
     t_vec         orientation;
+    t_hit_info      elem_hit;
 }               t_mlx_data;
 
 /* ---------------------------- CAMERA, FRAME ---------------------------- */
