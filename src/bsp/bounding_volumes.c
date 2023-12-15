@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bounding_volumes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Helene <Helene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 15:35:11 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/15 19:35:11 by Helene           ###   ########.fr       */
+/*   Updated: 2023/12/15 21:40:55 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -337,21 +337,21 @@ void    split_voxel(t_bsp_node *parent, t_split_infos si)
 void    set_left_subvoxel(t_bsp_node *parent, t_split_infos si, t_point *l_max)
 {
     if (si.dim == x)
-        set_point(&l_max, si.split_coord, parent->bbox.max.y, parent->bbox.max.z);
+        set_point(l_max, si.split_coord, parent->bbox.max.y, parent->bbox.max.z);
     else if (si.dim == y)
-        set_point(&l_max, parent->bbox.max.x, si.split_coord, parent->bbox.max.z);
+        set_point(l_max, parent->bbox.max.x, si.split_coord, parent->bbox.max.z);
     else // if (si.dim == z)
-        set_point(&l_max, parent->bbox.max.x, parent->bbox.max.y, si.split_coord);
+        set_point(l_max, parent->bbox.max.x, parent->bbox.max.y, si.split_coord);
 }
 
 void    set_right_subvoxel(t_bsp_node *parent, t_split_infos si, t_point *r_min)
 {
     if (si.dim == x)
-        set_point(&r_min, si.split_coord, parent->bbox.min.y, parent->bbox.min.z);
+        set_point(r_min, si.split_coord, parent->bbox.min.y, parent->bbox.min.z);
     else if (si.dim == y)
-        set_point(&r_min, parent->bbox.min.x, si.split_coord, parent->bbox.min.z);
+        set_point(r_min, parent->bbox.min.x, si.split_coord, parent->bbox.min.z);
     else if (si.dim == x)
-        set_point(&r_min, parent->bbox.min.x, parent->bbox.min.y, si.split_coord);
+        set_point(r_min, parent->bbox.min.x, parent->bbox.min.y, si.split_coord);
 }
 
 t_bbox_description  get_temp_subvoxel(t_bsp_node *parent, t_split_infos si, bool left_subvoxel)
