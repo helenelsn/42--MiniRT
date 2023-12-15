@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cr_sphere.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 01:20:17 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/15 22:13:11 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/15 23:20:23 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ t_sphere *create_sphere(char **tab, t_vlist **garbage, t_parsing_data *data)
         }
     if (!mat.specular)
         mat.specular = -1;
-    construct_map(&mat.textures.normap, "/mnt/nfs/homes/srapin/42-MiniRT/normal_maps/sand");
+        
+    mat.textures.bump_mapping = false;
+    // if 'do bump mapping'
+        // mat.textures.bump_mapping = construct_map(&mat.textures.normap, "./normal_maps/sand");
     
     ft_vlstadd_back(garbage, ft_vlstnew(elem, free, sphere));
     ft_vlstadd_back(&data->objects, ft_vlstnew_with_mat(elem, free, sphere, mat));

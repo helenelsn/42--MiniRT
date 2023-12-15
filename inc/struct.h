@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/15 22:40:53 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/15 23:01:32 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,11 +139,11 @@ typedef struct  s_surface
 	// char				*normals_map_file;
 }               t_surface;
 
-typedef struct  s_textures
-{
-    t_surface   cap;
-    t_surface   body;
-}               t_textures;
+// typedef struct  s_textures
+// {
+//     t_surface   cap;
+//     t_surface   body;
+// }               t_textures;
 
 typedef struct  s_material
 {

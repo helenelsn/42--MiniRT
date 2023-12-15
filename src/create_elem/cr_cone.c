@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cr_cone.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 18:59:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/14 23:57:15 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/15 23:20:19 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,15 @@ t_cone *create_cone(char **tab, t_vlist **garbage, t_parsing_data *data)
     set_eq(&elem->cover_plane);
     elem->slant_height = sqrt(pow(elem->radius, 2)+ pow(elem->height, 2));
     // elem->base.center = elem->p;
-    construct_map(&mat.textures.normap, "/mnt/nfs/homes/srapin/42-MiniRT/normal_maps/terrain");
     
     if (!mat.specular)
         mat.specular = -1;
+
+    mat.textures.bump_mapping = false;
+    // if 'do bump mapping'
+        // mat.textures.bump_mapping = construct_map(&mat.textures.normap, "./normal_maps/terrain");
+        
+    // construct_map(&mat.textures.normap, "./normal_maps/terrain");
     ft_vlstadd_back(garbage, ft_vlstnew(elem, free, cone));
     ft_vlstadd_back(&data->objects, ft_vlstnew_with_mat(elem, free, cone, mat));
     return elem;

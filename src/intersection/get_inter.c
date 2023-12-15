@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_inter.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/12/14 22:34:57 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/15 23:12:37 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,12 @@ void    set_texture_material(t_ray *ray, t_hit_info *closest_obj, void *object)
     closest_obj->color = checker_color_at(object, *closest_obj);
     
     closest_obj->outward_normal = get_unit_normal(*closest_obj, closest_obj->hit_point);
-    if (dot(ray->direction, closest_obj->outward_normal) > 0.0)
+     if (dot(ray->direction, closest_obj->outward_normal) > 0.0)
         closest_obj->outward_normal = vect_double_multiply(-1, closest_obj->outward_normal);
 	if (closest_obj->obj_mat.textures.bump_mapping)
 		closest_obj->outward_normal = get_normal_perturbation(*closest_obj, object);
-    // if (closest_obj->texture_normal.)  
+    
+    // cas ou est dans l'objet : dans quel sens doit pointer la normale ? 
 }
 
 bool    intersect(t_vlist *obj, t_ray *ray)

@@ -3,18 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   construct_map.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 23:26:42 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/14 23:49:36 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/15 23:12:00 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/mini_rt.h"
 
-void construct_map(t_normal_map *map, char *name)
+bool construct_map(t_normal_map *map, char *name)
 {
 	int fd = open(name, O_RDONLY);
+	if (fd == -1)
+	{
+		return (false);
+	}
 	char *line;
 	char **sp_line;
 	line = get_next_line(fd);
@@ -46,4 +50,5 @@ void construct_map(t_normal_map *map, char *name)
 		i++;
 		line = get_next_line(fd);
 	}
+	return (true);
 }

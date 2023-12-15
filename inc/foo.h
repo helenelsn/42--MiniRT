@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   foo.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/15 22:16:46 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/15 23:05:46 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ t_vec	get_directional_vect(t_point origin, t_point dest);
 t_vec	get_unitary_dir_vect(t_point a, t_point b);
 t_vec 	get_unit_normal(t_hit_info hi, t_point p);
 
-void construct_map(t_normal_map *map, char *name);
+bool construct_map(t_normal_map *map, char *name);
 /* ------------------- INTERSECTIONS ------------------ */
 
 bool    	intersect(t_vlist *obj, t_ray *ray);

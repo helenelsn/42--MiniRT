@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trace_ray.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/14 22:20:56 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/15 23:24:06 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,18 +92,19 @@ int		get_final_pixel_color(t_app *app, int x, int y)
 
 	// pour sample SAMPLES_PER_PIXEL pixels et avoir une impression plus homogene
 	sampling_count = 0;
-	double defocus_angle = 0;
+	// double defocus_angle = 0;
 
 	ft_bzero(&pixel_color, sizeof(t_color)); 
 	
 	set_pixel_center(app, &pixel_center, x, y); // get coordinates of the pixel's center
-	// pixel_color = trace_ray(app, app->p_data.cam->p, get_directional_vect(app->p_data.cam->p, viewp_pixel), 0);
 	while (sampling_count < SAMPLES_PER_PIXEL)
 	{
 		viewp_pixel = translate_point(pixel_center, pixel_sample(app, x, y)) ;
 
-		tmp = trace_ray(app, app->p_data.cam->p, get_directional_vect(app->p_data.cam->p, viewp_pixel), 0);
-
+		// pixel_color = color_add(pixel_color, trace_ray(app, app->p_data.cam->p, \
+			get_directional_vect(app->p_data.cam->p, viewp_pixel), 0));
+		
+		tmp = trace_ray(app, app->p_data.cam->p, get_directional_vect(app->p_data.cam->p, viewp_pixel), 0);	
 		r += tmp.r;
 		g += tmp.g;
 		b += tmp.b;
@@ -116,7 +117,7 @@ int		get_final_pixel_color(t_app *app, int x, int y)
 	pixel_color.g = g / inv;
 	pixel_color.b = b / inv;
 	
-	// pixel_color = color_scale(pixel_color, inv); // ok ou va trop arrondir ?
+	// pixel_color = color_scale(pixel_color, 1.0 / SAMPLES_PER_PIXEL); // ok ou va trop arrondir ?
 	// printf("{%s}, final_color = %u\n", __func__, pixel_color.hex);
 	return (pixel_color.hex); 
 }
