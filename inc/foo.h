@@ -6,13 +6,14 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/14 23:37:09 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/15 22:16:46 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FOO_H
 #define FOO_H
 #include "struct.h"
+
 
   
 //-------------------------- CAMERA --------------------------------//
@@ -56,12 +57,12 @@ t_vlist *ft_vlstnew_with_mat(void * content, void foo(void *), t_type t,
 
 //------------------------ MLX GESTION ------------------------------//
 int close_mlx(void *arg);
-
-void resize_sphere(t_app *app, t_hit_info info);
-void resize_cylindre(t_app *app, t_hit_info info);
+t_vec *get_elem_vec(t_hit_info hit);
+// void resize_sphere(t_app *app, t_hit_info info);
+// void resize_cylindre(t_app *app, t_hit_info info);
 void	add_hooks(t_app *app);
 void	my_mlx_pixel_put(t_image *img, int x, int y, int color);
-int	key_press(int keycode, t_app *app);
+// int	key_press(int keycode, t_app *app);
 void launch_app(t_app *app);
 t_hit_info    get_hit_info(t_app *app, t_point ray_origin, t_vec dir, int rebound_nb);
 
@@ -111,7 +112,7 @@ void 		set_eq(t_plan *p);
 void    	draw_scene(t_app *app);
 t_color   	trace_ray(t_app *app, t_point ray_origin, t_vec dir, int rebound_nb);
 void    	copy_obj_properties(t_vlist *obj, t_hit_info *hinf, t_hit_info to_copy);
-bool    	intersect(t_vlist *obj, t_ray *ray);
+// bool    	intersect(t_vlist *obj, t_ray *ray);
 void		no_tree_intersections(t_parsing_data pdata, t_ray *ray, t_interval t);
 t_color 	compute_lighting(t_app *app, t_ray ray);
 t_vec		get_incident_ray_of_light(t_vec l, t_vec n);
@@ -154,11 +155,13 @@ void 		init_app(t_app *app);
 int 		close_mlx(void *app);
 
 void		img_pixel_put(t_image image, int x, int y, int color);
-void 		launch_app(t_app *arg);
+// void 		launch_app(t_app *arg);
 
-
-
-
+void print_elem_selected(int mute, t_type t);
+void print_usage(int mute);
+int	handle_mouse(int keysym, int x, int y, t_app *app);
+void redraw(t_app *app);
+void deselect(t_app *app);
 //other
 
 //parse
@@ -189,7 +192,7 @@ bool					ft_strisequal(char *s1, char *s2);
 double					ft_atof(char *nptr);
 
 
-void	add_hooks(t_app *app);
+// void	add_hooks(t_app *app);
 
 void    compute_image(t_vlist *obj);
 t_vec	normal_to_cap(t_vec dir_obj, t_point obj_p, t_point hit_p);

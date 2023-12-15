@@ -37,11 +37,14 @@ FILES = \
 		intersection/get_inter \
 		intersection/solving_utils \
 		mlx_gestion/close \
-		mlx_gestion/hooks_resize \
+		mlx_gestion/get_elem_vec \
 		mlx_gestion/hooks \
 		mlx_gestion/init \
 		mlx_gestion/key_press \
 		mlx_gestion/launch \
+		mlx_gestion/mouse_hooks \
+		mlx_gestion/print_usage \
+		mlx_gestion/redraw \
 		mlx_gestion/utils \
 		utils/atof \
 		utils/construct_map \

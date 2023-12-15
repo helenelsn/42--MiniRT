@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hooks_resize.c                                     :+:      :+:    :+:   */
+/*   redraw.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/05 22:46:58 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/05 22:49:38 by srapin           ###   ########.fr       */
+/*   Created: 2023/12/15 18:23:11 by srapin            #+#    #+#             */
+/*   Updated: 2023/12/15 22:31:25 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/mini_rt.h"
 
-void resize_sphere(t_app *app, t_hit_info info)
+void redraw(t_app *app)
 {
-	// return true;
-}
-
-
-void resize_cylindre(t_app *app, t_hit_info info)
-{
+    draw_scene(app);
+	mlx_put_image_to_window(app->mlx_data.mlx_ptr, app->mlx_data.win_ptr,
+        app->mlx_data.image.img, 0, 0);
 }
