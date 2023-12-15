@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 00:05:43 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/15 21:59:17 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/15 22:24:02 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ bool    test_intersections(t_bsp_node *leaf, t_parsing_data pdata, t_ray *ray, t
             {
                 min_dist = ray->hit_info.distance;
                 copy_obj_properties(obj, closest_obj, ray->hit_info);
+                set_texture_material(ray, closest_obj, obj->content);
             }
         obj = obj->next;
     }
@@ -93,6 +94,7 @@ bool    test_intersections(t_bsp_node *leaf, t_parsing_data pdata, t_ray *ray, t
         	{
         	    min_dist = ray->hit_info.distance;
         	    copy_obj_properties(obj, closest_obj, ray->hit_info);
+                set_texture_material(ray, closest_obj, obj->content);
 				
         	}
         obj = obj->next;
@@ -105,6 +107,7 @@ bool    test_intersections(t_bsp_node *leaf, t_parsing_data pdata, t_ray *ray, t
         ray->hit_info.distance = min_dist;
         return (true);
     }
+    ray->hit_info.distance = -1;
     return (false);
 }
 

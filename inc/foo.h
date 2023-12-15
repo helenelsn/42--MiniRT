@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/15 20:31:47 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/15 22:24:13 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ void    	set_pixel_center(t_app *app, t_point *pc, int x, int y);
 
 /* --------------- textures, color disruption -------------- */
 
+void        set_texture_material(t_ray *ray, t_hit_info *closest_obj, void *object);
 t_point_2d  object_mapping(void *object, t_hit_info hit);
 t_color     checker_color_at(void *object, t_hit_info hit);
 void    	set_checkerboard_map(t_checkers_map *map, t_type elem, t_color checker_color);

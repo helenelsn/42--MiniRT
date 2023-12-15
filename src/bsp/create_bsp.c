@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 21:44:16 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/15 22:03:46 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/15 22:38:25 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,9 @@ bool terminate(t_bsp_node *current, double cost)
     
     //printf("get_object_list_intersection_cost : %lf\n", get_object_list_intersection_cost(current));
     
+
+    // cut.cost = (*data).count * INTERSECTION_COST;
+
     if (get_object_list_intersection_cost(current) < cost)
         return (true);
     return (false);

@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 15:35:11 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/15 22:01:45 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/15 22:32:50 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,11 +158,11 @@ double  count_in_cost(t_bbox_description voxel, t_vlist *object)
         in_v.min.y = voxel.min.y;
     if (object->material.bbox.min.z < voxel.min.z)
         in_v.min.z = voxel.min.z;
-    if (object->material.bbox.max.x < voxel.max.x)
+    if (object->material.bbox.max.x > voxel.max.x)
         in_v.max.x = voxel.max.x;
-    if (object->material.bbox.max.y < voxel.max.y)
+    if (object->material.bbox.max.y > voxel.max.y)
         in_v.max.y = voxel.max.y;
-    if (object->material.bbox.max.z < voxel.max.z)
+    if (object->material.bbox.max.z > voxel.max.z)
         in_v.max.z = voxel.max.z;
     set_infos(&in_v);
     if (object->material.bbox.surface_area == 0)
