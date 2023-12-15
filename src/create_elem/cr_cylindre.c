@@ -3,15 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   cr_cylindre.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 01:29:43 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/15 23:17:19 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/15 23:36:06 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/mini_rt.h"
 
+
+void set_cylindre_dep(t_cylindre *elem)
+{
+    t_ray tmp;
+    tmp.origin = elem->p;
+    tmp.direction = elem->vec;
+    
+    elem->cover_planes[0] = (t_plan) {get_ray_point(tmp, elem->height/2), elem->vec, 0,0,0,0};
+    elem->cover_planes[1] = (t_plan) {get_ray_point(tmp, -elem->height/2), elem->vec, 0,0,0,0};
+    set_eq(&elem->cover_planes[0]);
+    set_eq(&elem->cover_planes[1]);
+}
 
 t_cylindre *create_cylindre(char **tab, t_vlist **garbage, t_parsing_data *data)
 {
@@ -33,29 +45,7 @@ t_cylindre *create_cylindre(char **tab, t_vlist **garbage, t_parsing_data *data)
         return NULL;
     }
     normalise(&elem->vec);
-    if (elem->vec.x)
-        elem->n0 = cross_product(elem->vec, (t_vec) {0,1,0,1});
-    else
-        elem->n0 = cross_product(elem->vec, (t_vec) {1,0,0,1});
-    elem->n1 = cross_product(elem->vec, elem->n0);
-    normalise(&elem->n0);
-    normalise(&elem->n1);
-    elem->base_to_cyl = new_3x3_matrix_from_vec(elem->n0, elem->vec, elem->n1, false);
-    elem->p_to_origin = get_directional_vect(elem->p, (t_point) {0,0,0});
-    
-    elem->cyl_to_base = get_inverse(elem->base_to_cyl);
-    
-    elem->origin_to_p = get_directional_vect((t_point) {0,0,0}, elem->p);
-    
-    t_ray tmp;
-    tmp.origin = elem->p;
-    tmp.direction = elem->vec;
-    
-    elem->cover_planes[0] = (t_plan) {get_ray_point(tmp, elem->height/2), elem->vec, 0,0,0,0};
-    elem->cover_planes[1] = (t_plan) {get_ray_point(tmp, -elem->height/2), elem->vec, 0,0,0,0};
-    set_eq(&elem->cover_planes[0]);
-    set_eq(&elem->cover_planes[1]);
-    
+    set_cylindre_dep(elem);    
     if (!mat.specular)
         mat.specular = -1;
 

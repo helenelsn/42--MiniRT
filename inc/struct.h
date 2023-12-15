@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/15 23:29:38 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/15 23:36:01 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -265,14 +265,8 @@ typedef struct s_cylindre
 {
     t_point  p;
     t_vec    vec;
-    t_vec    n0;
-    t_vec    n1;
     double      radius;
     double      height;
-    struct  s_matrix *base_to_cyl;
-    struct  s_matrix *cyl_to_base;
-    t_vec       p_to_origin;
-    t_vec       origin_to_p;
     t_plan      cover_planes[2];
 }   t_cylindre;
 
@@ -286,20 +280,11 @@ typedef struct  s_circle
 typedef struct  s_cone
 {
     t_point  p;
-    t_point  top;
     t_vec    vec;
-    t_vec    n0;
-    t_vec    n1;
     double      radius;
     double      height;
-    struct  s_matrix *base_to_cyl;
-    struct  s_matrix *cyl_to_base;
-    t_vec       p_to_origin;
-    t_vec       origin_to_p;
     t_plan      cover_plane;
-
-    // t_circle    base;
-    double      slant_height; /* hauteur oblique, calculée avec pythagore */
+    t_point  top;
 }               t_cone;
 
 typedef struct  s_moebius

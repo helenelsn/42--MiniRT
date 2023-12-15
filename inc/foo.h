@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   foo.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/15 23:05:46 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/15 23:37:03 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ t_mood_light *create_mood_light(char **tab, t_vlist **garbage, t_parsing_data *d
 t_plan *create_plan(char **tab, t_vlist **garbage, t_parsing_data *data);
 t_sphere *create_sphere(char **tab, t_vlist **garbage, t_parsing_data *data);
 t_cone *create_cone(char **tab, t_vlist **garbage, t_parsing_data *data);
+void set_cone_dep(t_cone *elem);
+void set_cylindre_dep(t_cylindre *elem);
+// void set_cylindre_dep(t_cone *elem);
 
 //------------------------ DIST ------------------------------//
 double get_dist_between_droite(t_droite d, t_droite e);
