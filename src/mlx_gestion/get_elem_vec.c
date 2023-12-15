@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hooks_resize.c                                     :+:      :+:    :+:   */
+/*   get_elem_vec.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/05 22:46:58 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/05 22:49:38 by srapin           ###   ########.fr       */
+/*   Created: 2023/12/15 19:34:44 by srapin            #+#    #+#             */
+/*   Updated: 2023/12/15 19:45:53 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/mini_rt.h"
 
-void resize_sphere(t_app *app, t_hit_info info)
+t_vec *get_elem_vec(t_hit_info hit)
 {
-	// return true;
-}
-
-
-void resize_cylindre(t_app *app, t_hit_info info)
-{
+    if (hit.obj_type == plan)
+        return &((t_plan *) hit.obj_content)->vec;
+    if (hit.obj_type == cylindre)
+        return &((t_cylindre *) hit.obj_content)->vec;
+    if (hit.obj_type == cone)
+        return &((t_cone *) hit.obj_content)->vec;
+    return NULL;
 }
