@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/14 23:43:42 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/15 20:19:41 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,14 @@ typedef enum e_parse_error
     
 } t_parse_error;
 
+typedef enum e_nmaps
+{
+    cliff,
+    sand,
+    terrain,
+    tree,
+    wood
+} t_nmaps;
 
 /* ------------------ INTERSECTIONS -------------------- */
 
