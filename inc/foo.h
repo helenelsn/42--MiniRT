@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   foo.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/14 04:46:02 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/15 19:46:24 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FOO_H
 #define FOO_H
 #include "struct.h"
+
 
   
 //-------------------------- CAMERA --------------------------------//
@@ -56,9 +57,9 @@ t_vlist *ft_vlstnew_with_mat(void * content, void foo(void *), t_type t,
 
 //------------------------ MLX GESTION ------------------------------//
 int close_mlx(void *arg);
-
-void resize_sphere(t_app *app, t_hit_info info);
-void resize_cylindre(t_app *app, t_hit_info info);
+t_vec *get_elem_vec(t_hit_info hit)
+// void resize_sphere(t_app *app, t_hit_info info);
+// void resize_cylindre(t_app *app, t_hit_info info);
 void	add_hooks(t_app *app);
 void	my_mlx_pixel_put(t_image *img, int x, int y, int color);
 int	key_press(int keycode, t_app *app);
@@ -151,9 +152,11 @@ int 		close_mlx(void *app);
 void		img_pixel_put(t_image image, int x, int y, int color);
 void 		launch_app(t_app *arg);
 
-
-
-
+void print_elem_selected(t_type t);
+void print_usage();
+int	handle_mouse(int keysym, int x, int y, t_app *app);
+void redraw(t_app *app);
+void deselect(t_app *app);
 //other
 
 //parse

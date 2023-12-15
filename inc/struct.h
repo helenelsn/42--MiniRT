@@ -329,9 +329,11 @@ typedef struct  s_mlx_data
 	void		    *win_ptr;
      int            elem_selected;
     int            point_pushed;
+    int            mute;
     t_hit_info      elem_hit;
     double          after_dot;
     double          n;
+    t_vec         orientation;
 }               t_mlx_data;
 
 /* ---------------------------- CAMERA, FRAME ---------------------------- */
@@ -350,11 +352,6 @@ typedef struct s_camera
     t_vec        direction;
     int             fov;
     t_referentiel   ref;
-    
-    // camera frame basis vectors 
-    //t_vec    u;
-    //t_vec    v;
-    //t_vec    w;
 }   t_camera;
 
 typedef struct  s_viewport
@@ -362,15 +359,10 @@ typedef struct  s_viewport
     int         height;
     int         width;
 
-   /*  t_vec    u;
-    t_vec    v;
-    t_vec    w; */
-    
     t_point  pixel_00; // up-left pixel coordinates
     t_vec    pixel_delta_u;  // Offset to pixel to the right
     t_vec    pixel_delta_v;  // Offset to pixel below
 
-    // pas encore sure d'ou ca s'applique exactement
     t_vec    defocus_disk_u; // Defocus disk horizontal radius
     t_vec    defocus_disk_v; // Defocus disk vertical radius
 }               t_viewport;
