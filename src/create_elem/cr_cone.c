@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cr_cone.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 18:59:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/16 02:33:19 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/16 15:06:47 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,15 +84,15 @@ t_cone *create_cone(char **tab, t_vlist **garbage, t_parsing_data *data)
         free(elem);
         return NULL;
     }
-    if (size_tab > 8)
-        flag = set_bump_map_type(&mat, tab[8]) || set_checkerboard(&mat, tab[8]);
-    if (flag && size_tab > 9)
-        flag = set_bump_map_type(&mat, tab[9]) || set_checkerboard(&mat, tab[9]);
-    if (!flag)
-    {
-        free(elem);
-        return NULL;
-    }
+    // if (size_tab > 8)
+    //     flag = set_bump_map_type(&mat, tab[8]) || set_checkerboard(&mat, tab[8]);
+    // if (flag && size_tab > 9)
+    //     flag = set_bump_map_type(&mat, tab[9]) || set_checkerboard(&mat, tab[9]);
+    // if (!flag)
+    // {
+    //     free(elem);
+    //     return NULL;
+    // }
     normalise(&elem->vec);
     set_cone_dep(elem);
     ft_vlstadd_back(&data->objects, ft_vlstnew_with_mat(elem, free, cone, mat));

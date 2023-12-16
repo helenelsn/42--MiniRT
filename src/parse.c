@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:23 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/16 01:08:12 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/16 15:04:53 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,12 +111,11 @@ void parse_and_create(int fd, t_vlist **garbage, t_parsing_data *data)
         free(line);
         if (!sp_line || !sp_line[0])
         {
-            //free_tab(sp_line);
+            free_tab(sp_line);
             parse_error_occured(file_content, garbage, fd);
         }
         add_obj(sp_line, garbage, fd, data);
         free_tab(sp_line);
-        //free_tab(sp_line);
         line = get_next_line(fd);
         // printf("%s", line);
     }

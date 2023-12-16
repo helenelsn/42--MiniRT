@@ -174,4 +174,5 @@ void	add_hooks(t_app *app)
 	mlx_hook(app->mlx_data.win_ptr, 2, 1L << 0, key_press, app);
 	mlx_hook(app->mlx_data.win_ptr, 33, 1L << 17, close_mlx, app);
 	mlx_mouse_hook(app->mlx_data.win_ptr, &handle_mouse, app);
+	mlx_loop(app->mlx_data.mlx_ptr); //ln (etait dans le main)
 }
