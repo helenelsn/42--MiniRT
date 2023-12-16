@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 23:32:08 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/16 23:55:10 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 00:17:04 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,16 @@ void    join_threads(t_renderer *threads)
     }
 }
 
+t_renderer*    redraw_bonus(t_app *app)
+{
+    t_renderer *threads = init_threads(app);
+    if (!threads)
+        return (EXIT_FAILURE);
+    launch_threads(threads);
+    join_threads(threads);
+    free(threads);
+}
+
 int  minirt_get_started_bonus(t_app *app)
 {
     if (initialise_mlx_data(app))
@@ -83,6 +93,7 @@ int  minirt_get_started_bonus(t_app *app)
         return (EXIT_FAILURE);
     launch_threads(threads);
     join_threads(threads);
+    free(threads);
     // draw_scene_routine((void *) &threads[0]);
     mlx_put_image_to_window(app->mlx_data.mlx_ptr, app->mlx_data.win_ptr,
         app->mlx_data.image.img, 0, 0); 

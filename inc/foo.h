@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/16 23:56:24 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 00:18:08 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,10 +217,14 @@ double              ft_min(double a, double b);
 t_normal_map *get_map_from_type(t_normap_type t);
 void init_mat(t_material *mat);
 
-void    *draw_scene_routine(void *routine_data);
-int  minirt_get_started_bonus(t_app *app);
-int  minirt_get_started_bonus(t_app *app);
-int  initialise_mlx_data(t_app *app);
-int		get_final_pixel_color(t_app *app, int x, int y);
+
+
+void    *       draw_scene_routine(void *routine_data);
+t_renderer      *init_threads(t_app *app);
+int             minirt_get_started_bonus(t_app *app);
+int             minirt_get_started_bonus(t_app *app);
+int             initialise_mlx_data(t_app *app);
+int		        get_final_pixel_color(t_app *app, int x, int y);
+t_renderer*     redraw_bonus(t_app *app);
 
 #endif
