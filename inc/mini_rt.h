@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:13 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/16 15:51:46 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/16 22:35:59 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 #include <fcntl.h>
 #include <float.h>
 #include <limits.h>
+// #include <pthread.h>
+
 
 # include <math.h>
 #define _USE_MATH_DEFINES // pour M_PI askip
@@ -46,5 +48,8 @@
 # define REBOUNDS_LIMIT	1
 # define T_INF      0.00001 //new
 # define CHECKERS_HEIGHT    20
+
+
+# define    THREADS_NB  1
 
 #endif

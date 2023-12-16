@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   trace_ray.c                                        :+:      :+:    :+:   */
+/*   cast_rays.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/16 01:59:16 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/16 22:35:13 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,24 +103,41 @@ void	img_pixel_put(t_image image, int x, int y, int color)
 	}
 }
 
-void    draw_scene(t_app *app)
+void    *draw_scene_routine(void *routine_data)
 {
 	int	x;
 	int	y;
-
-	x = 0;
+	int	color;
+	t_renderer *r;
+	
+	r = (t_renderer *)routine_data;
+	// x = r->id;
 	y = 0;
-	while (y < IMAGE_HEIGHT)
+
+	// int	pixels_submap = r->app->screen.image_height / r->app->screen.threads_amount;
+	// y = pixels_submap * (r->id);
+	// int y_max = pixels_submap * (r->id + 1);
+	// if (r->id == r->app->screen.threads_amount - 1)
+	// 	y_max = r->app->screen.image_height;
+	// printf("y = %d, x = %d, %d \n", y, x, r->app->screen.threads_amount);
+	
+	while (y < r->app->screen.image_height) //y < r->app->screen.image_height
 	{
-		x = 0;
-		while (x < IMAGE_WIDTH)
+		// x = x % r->app->screen.threads_amount; // a verifier
+		// if (r->id == 5)
+			// printf("y = %d, x = %d, %d \n", y, x, r->app->screen.threads_amount);
+		x = r->id;
+		while (x < r->app->screen.image_width)
 		{
-			int color =  get_final_pixel_color(app, x, y);
-			img_pixel_put(app->mlx_data.image, x, y, color);
-			x++;
+			color =  get_final_pixel_color(r->app, x, y);
+			img_pixel_put(r->app->mlx_data.image, x, y, color);
+			x += r->app->screen.threads_amount;
 		}
+		// y += r->app->screen.threads_amount;
 		y++;
 	}
+	printf("end of thread %d\n", r->id);
+	return (NULL);
 	
 //	mlx_put_image_to_window(app->mlx_data.mlx_ptr, app->mlx_data.image.img, 0, 0);
 }

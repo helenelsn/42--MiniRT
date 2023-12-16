@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/16 16:26:42 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/16 20:57:41 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 //-------------------------- CAMERA --------------------------------//
 double  deg_to_rad(double degrees);
 void    init_viewpoint(t_app *app);
-void    set_aspect_ratio(t_app *app);
+void    set_screen_data(t_app *app);
 
 //------------------------ CREATE ELEM ------------------------------//
 t_camera *create_camera(char **tab, t_vlist **garbage, t_parsing_data *data);
@@ -110,7 +110,7 @@ void 		set_eq(t_plan *p);
 
 /* -------------------- RENDER ------------------- */
 
-void    	draw_scene(t_app *app);
+void    	*draw_scene_routine(void *routine_data);
 t_color   	trace_ray(t_app *app, t_point ray_origin, t_vec dir, int rebound_nb);
 void    	copy_obj_properties(t_vlist *obj, t_hit_info *hinf, t_hit_info to_copy);
 void		no_tree_intersections(t_app *app, t_ray *ray, t_interval t);

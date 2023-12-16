@@ -6,7 +6,7 @@ CFLAGS = -MMD -g3 -I/opt/X11/include -I/opt/Xext/include -I$(INCLUDES_DIR) #-Wal
 
 FILES = \
 		camera/init_viewpoint \
-		camera/set_aspect_ratio \
+		camera/set_screen_data \
 		create_elem/cr_camera \
 		create_elem/cr_cylindre \
 		create_elem/cr_light \

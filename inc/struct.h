@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/16 02:00:36 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/16 20:40:20 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 // #include "mini_rt.h"
 
 #include <stdbool.h>
+#include <pthread.h>
 
 
 
@@ -416,17 +417,34 @@ typedef struct s_parsing_data
     t_vlist         *planes;
 } t_parsing_data;
 
+typedef struct s_screen
+{
+    int     image_width;
+    int     image_height;
+    double  aspect_ratio;
+    int     pixels_per_thread; // inutile jpense
+    int     threads_amount;
+}               t_screen;
+
 typedef struct s_app
 {
     t_parsing_data  p_data;
     t_viewport      frame;
-    double          aspect_ratio;
+    t_screen        screen;
     t_color         background;
     t_vlist         *garbage;
     t_vlist         *planes;
     t_bsp_node      root;
     t_mlx_data      mlx_data;
+    int             thread_id;
+    pthread_t       *tid;
 } t_app;
 
+typedef struct  s_renderer
+{
+    pthread_t   tid;
+    int         id;
+    t_app       *app;
+}               t_renderer;
 
 #endif
