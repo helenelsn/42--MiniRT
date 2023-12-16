@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cr_mood_light.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 23:34:39 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/16 01:43:28 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/16 20:22:18 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/mini_rt.h"
 
-t_mood_light *create_mood_light(char **tab, t_vlist **garbage, t_parsing_data *data)
+t_mood_light *create_mood_light(char **tab,  t_parsing_data *data)
 {
     t_mood_light *elem;
 
@@ -28,7 +28,7 @@ t_mood_light *create_mood_light(char **tab, t_vlist **garbage, t_parsing_data *d
         free(elem);
         return NULL;
     }
-   // ft_vlstadd_back(garbage, ft_vlstnew(elem, free, mood_light));
+   // ft_vlstadd_back( ft_vlstnew(elem, free, mood_light));
     elem->infos.emitted_color = color_scale(elem->infos.color, elem->infos.ratio);
     data->mooooo = elem;
     return elem;

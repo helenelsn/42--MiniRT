@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_rt.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:13 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/16 15:51:46 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/16 20:07:29 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,9 @@
 # define REBOUNDS_LIMIT	1
 # define T_INF      0.00001 //new
 # define CHECKERS_HEIGHT    20
+
+#define BONUS_SIZE 4
+#define SP_PL_ARG_SIZE 4
+#define CO_CY_ARG_SIZE 6
 
 #endif

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   trace_ray.c                                        :+:      :+:    :+:   */
+/*   cast_rays.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/16 01:59:16 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/16 20:12:31 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ int		get_final_pixel_color(t_app *app, int x, int y)
 	pixel_color.r = r / inv;
 	pixel_color.g = g / inv;
 	pixel_color.b = b / inv;
-	// pixel_color = color_scale(pixel_color, 1.0 / SAMPLES_PER_PIXEL);
 	return (pixel_color.hex); 
 }
 

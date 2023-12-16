@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   normals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 15:00:07 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/16 17:39:49 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/16 21:01:31 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,19 @@ int	ft_clamp(const int nb, const int min, const int max)
 	return (nb);
 }
 
-t_vec	get_normal_in_map(t_point_2d uv, t_surface surf)
+t_vec	get_normal_in_map(t_point_2d uv, t_surface *surf)
 {
 	int				x;
 	int				y;
 	t_vec			normal;
 	t_normal_map	*normap;
 
-	normap = get_map_from_type(surf.t);
+	normap = get_map_from_type(surf->t);
 	if (!normap)
+	{
+		surf->t = no_map;
 		return ((t_vec){0, 0, 0, 0});
+	}
 	x = (int)roundf(uv.u * (float)(normap->width - 1));
 	y = (int)roundf(uv.v * (float)(normap->height - 1));
 	x = ft_clamp(x, 0, normap->width - 1);
@@ -68,8 +71,8 @@ t_vec	get_normal_perturbation(t_hit_info hit, void *object)
 	t_vec		dernorm;
 
 	uv = object_mapping(object, hit);
-	dernorm = get_normal_in_map(uv, hit.obj_mat.textures);
-	if (!get_v_norm(dernorm))
-		return (hit.outward_normal);
+	dernorm = get_normal_in_map(uv, &hit.obj_mat.textures);
+	// if (!get_v_norm(dernorm))
+	// 	return (hit.outward_normal);
 	return (get_tangente_space_normal(hit.outward_normal, dernorm));
 }

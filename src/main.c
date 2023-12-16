@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:20 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/16 15:42:02 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/16 20:23:39 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int main(int argc, char **argv)
     t_app   app;
     
     ft_bzero(&app, sizeof(t_app));
-    parse(argc, argv, &app.garbage, &app.p_data);
+    parse(argc, argv,  &app.p_data);
     if (minirt_get_started(&app))
         return (EXIT_MLX_FAILURE);
     return (0);

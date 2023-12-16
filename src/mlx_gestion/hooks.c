@@ -67,6 +67,18 @@ int	enter_press(int keycode, t_app *app)
 	return 0;
 }
 
+void set_coherence(t_app *app)
+{
+	if (app->mlx_data.elem_selected && app->mlx_data.elem_hit.obj_type == cone)
+		set_cone_dep((t_cone *) app->mlx_data.elem_hit.obj_content);
+	if (app->mlx_data.elem_selected && app->mlx_data.elem_hit.obj_type == cylindre)
+		set_cylindre_dep((t_cylindre *) app->mlx_data.elem_hit.obj_content);
+	if (app->mlx_data.elem_selected && app->mlx_data.elem_hit.obj_type == plan)
+		set_eq((t_plan *) app->mlx_data.elem_hit.obj_content);
+	if (!app->mlx_data.elem_selected)
+		init_viewpoint(app);
+}
+
 
 void up_down_arrow(int keycode, t_app *app)
 {
@@ -82,12 +94,8 @@ void up_down_arrow(int keycode, t_app *app)
 	tmp.origin = *to_move;
 	normalise(&tmp.direction);
 	*to_move = get_ray_point(tmp, 2);
-	if (app->mlx_data.elem_selected && app->mlx_data.elem_hit.obj_type == cone)
-		set_cone_dep((t_cone *) app->mlx_data.elem_hit.obj_content);
-	if (app->mlx_data.elem_selected && app->mlx_data.elem_hit.obj_type == cylindre)
-		set_cylindre_dep((t_cylindre *) app->mlx_data.elem_hit.obj_content);
-	if (!app->mlx_data.elem_selected)
-		init_viewpoint(app);
+	
+	
 }
 
 void left_right_arrow(int keycode, t_app *app)
@@ -104,12 +112,6 @@ void left_right_arrow(int keycode, t_app *app)
 	else if (keycode == XK_Left)
 		*tmp = vect_substract(*tmp, app->mlx_data.orientation);
 	normalise(tmp);
-	if (app->mlx_data.elem_selected && app->mlx_data.elem_hit.obj_type == cone)
-		set_cone_dep((t_cone *) app->mlx_data.elem_hit.obj_content);
-	if (app->mlx_data.elem_selected && app->mlx_data.elem_hit.obj_type == cylindre)
-		set_cylindre_dep((t_cylindre *) app->mlx_data.elem_hit.obj_content);
-	if (!app->mlx_data.elem_selected)
-		init_viewpoint(app);
 }
 
 void arrow_press(int keycode, t_app *app)
@@ -121,7 +123,7 @@ void arrow_press(int keycode, t_app *app)
 		left_right_arrow(keycode, app);
 	else
 		up_down_arrow(keycode, app);
-	// printf("%s\n", __func__);
+	set_coherence(app);
 	redraw(app);
 }
 
