@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 19:29:00 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/14 16:07:13 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 00:28:53 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ bool    get_inter_for_cone(t_cone *co, t_ray *r, double *d)
 	}
 	intersect_circle(r, (t_circle) {co->cover_plane, co->p, co->radius}, &t_base, *d);
 	*d = ft_min_and_positiv(*d, t_base);
+	if (*d != t_base)
+		r->hit_info.cap_hit = false;
 	return (*d > 0.0);
 }
 

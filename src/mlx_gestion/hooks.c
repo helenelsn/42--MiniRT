@@ -94,6 +94,8 @@ void	up_down_arrow(int keycode, t_app *app)
 	if (!to_move)
 		return ;
 	tmp.direction = app->mlx_data.orientation;
+	if (keycode == XK_Down)
+		tmp.direction = vect_double_multiply(-1, tmp.direction) ;
 	tmp.origin = *to_move;
 	normalise(&tmp.direction);
 	*to_move = get_ray_point(tmp, 2);
