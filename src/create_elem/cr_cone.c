@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 18:59:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/16 01:23:28 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/16 02:33:19 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,56 @@ void set_cone_dep(t_cone *elem)
     set_eq(&elem->cover_plane);
 }
 
+bool set_checkerboard(t_material *mat,char *info)
+{
+    if (!info || info[0] != 'c')
+        return false;
+    mat->textures.checkered = true;
+    return (true);   
+}
+
+bool set_bump_map_type(t_material *mat,char *info)
+{
+    if (!info || info[0] != 'b')
+        return false;
+    if (!info[1])
+        mat->textures.t = 0;
+    else if (info[2] == 'c')
+        mat->textures.t = cliff;
+    else if(info[2] == 's')
+        mat->textures.t = sand;
+    else if (info[2] == 't' && info[2] == 'e')
+        mat->textures.t = terrain;
+    else if (info[2] == 't' && info[2] == 'r')
+        mat->textures.t = tree;
+    else if (info[2] == 'w')
+        mat->textures.t = wood;
+    else
+        return (false);
+    mat->textures.bump_mapping = true;
+    return (true);   
+}
+
+void init_mat(t_material *mat)
+{
+    mat->specular = -1;
+    mat->textures.checkered = false;
+    mat->textures.bump_mapping = false;
+    mat->textures.t = no_map;
+    mat->reflective = 0;
+}
+
 t_cone *create_cone(char **tab, t_vlist **garbage, t_parsing_data *data)
 {
     t_cone *elem;
+    bool flag;
 
     t_material mat;
     ft_bzero(&mat, sizeof(t_material));
     elem = ft_calloc(1, sizeof(t_cone));
     int size_tab = null_term_tab_len((void **) tab);
-    if (size_tab < 6 || size_tab > 8)
+    init_mat(&mat);
+    if (size_tab < 6 || size_tab > 10)
         return NULL;
     if (!elem)
         return NULL;
@@ -43,18 +84,17 @@ t_cone *create_cone(char **tab, t_vlist **garbage, t_parsing_data *data)
         free(elem);
         return NULL;
     }
+    if (size_tab > 8)
+        flag = set_bump_map_type(&mat, tab[8]) || set_checkerboard(&mat, tab[8]);
+    if (flag && size_tab > 9)
+        flag = set_bump_map_type(&mat, tab[9]) || set_checkerboard(&mat, tab[9]);
+    if (!flag)
+    {
+        free(elem);
+        return NULL;
+    }
     normalise(&elem->vec);
     set_cone_dep(elem);
-    if (!mat.specular)
-        mat.specular = -1;
-
-    mat.textures.bump_mapping = false;
-    // if 'do bump mapping'
-        // mat.textures.bump_mapping = construct_map(&mat.textures.normap, "./normal_maps/terrain");
-        
-    // construct_map(&mat.textures.normap, "./normal_maps/terrain");
-   // ft_vlstadd_back(garbage, ft_vlstnew(elem, free, cone));
     ft_vlstadd_back(&data->objects, ft_vlstnew_with_mat(elem, free, cone, mat));
-    // ft_vlstadd_back(garbage, ft_vlstlast(data->objects));
     return elem;
 }

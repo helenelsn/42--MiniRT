@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cr_sphere.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 01:20:17 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/16 01:14:34 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/16 02:02:32 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ t_sphere *create_sphere(char **tab, t_vlist **garbage, t_parsing_data *data)
     if (!mat.specular)
         mat.specular = -1;
         
-    mat.textures.bump_mapping = false;
+    mat.textures.bump_mapping = true;
+    mat.textures.t = wood;
     // if 'do bump mapping'
         // mat.textures.bump_mapping = construct_map(&mat.textures.normap, "./normal_maps/sand");
     

@@ -47,6 +47,7 @@ FILES = \
 		utils/change_base \
 		utils/fov \
 		utils/ft_strcheck \
+		utils/normaps_getter \
 		utils/modulo \
 		utils/point3d \
 		utils/ratio \

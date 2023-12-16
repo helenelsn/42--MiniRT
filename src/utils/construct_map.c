@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   construct_map.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 23:26:42 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/15 23:12:00 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/16 01:38:59 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ bool construct_map(t_normal_map *map, char *name)
 {
 	int fd = open(name, O_RDONLY);
 	if (fd == -1)
-	{
 		return (false);
-	}
 	char *line;
 	char **sp_line;
 	line = get_next_line(fd);
@@ -28,18 +26,11 @@ bool construct_map(t_normal_map *map, char *name)
 	free_tab(sp_line);
 	free(line);
 	map->pixels = ft_calloc(map->height * map->height, sizeof(t_vec));
-	// int i = 0;
-	
-	// while (i < map->height)
-	// {
-	// 	map->pixels
-	// }
 	line = get_next_line(fd);
 	int i = 0;
 	while(line && line[0] !='\n')
 	{		
 		sp_line = ft_split(line, ' ');
-		// printf("%s$\n", sp_line[1]);
 		t_vec tmp;
 		tmp.x = atof( sp_line[0]);
 		tmp.y = atof(sp_line[1]);
