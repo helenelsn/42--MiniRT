@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 01:17:10 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/16 00:42:36 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/16 01:43:43 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,8 @@ t_light *create_light(char **tab, t_vlist **garbage, t_parsing_data *data)
     if (data->lights)
         elem->next = data->lights;
     else
-        elem->next = NULL; //todel, juste la pr eviter les segfaults pdt les tests
-    // data->lights = elem;
-   // ft_vlstadd_back(garbage, ft_vlstnew(elem, free, light));
-    if (data->lights)
-        elem->next = data->lights;
-    else
-        elem->next = NULL; //todel, juste la pr eviter les segfaults pdt les tests
+        elem->next = NULL;
+    elem->infos.emitted_color = color_scale(elem->infos.color, elem->infos.ratio);
     data->lights = elem;
     return elem;
 }
