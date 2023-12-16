@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 20:16:50 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/16 01:35:14 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/16 16:02:11 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int     color_clamp(long color, int min, int max)
 {
     if (color < min)
-        return (min); // ?
+        return (min);
     if (color > max)
         return (max);
     return (color);
@@ -25,7 +25,7 @@ int     color_clamp(long color, int min, int max)
 t_color    color_scale(t_color color, double scale)
 {
     if (scale < 0.0)
-        return (color); // ?
+        return (color);
     int inter;
     inter = color.r * scale;
     if (inter > 255)
@@ -53,11 +53,8 @@ t_color color_mult(t_color c1, t_color c2)
     color = (float)(c1.b * c2.b) / 255.f;
     c1.b = color_clamp(color, 0, UCHAR_MAX);
     return (c1);
-
-    
 }
 
-//todo : proteger en cas d'overflow ?
 t_color    color_add(t_color c1, t_color c2)
 {
     c1.r = color_clamp(c1.r + c2.r, 0, UCHAR_MAX);

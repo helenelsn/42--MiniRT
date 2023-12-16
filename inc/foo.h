@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   foo.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/16 01:56:34 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/16 15:59:47 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
   
 //-------------------------- CAMERA --------------------------------//
 double  deg_to_rad(double degrees);
-void 	set_viewpoint_dimensions(t_app *app);
 void    init_viewpoint(t_app *app);
+void    set_aspect_ratio(t_app *app);
 
 //------------------------ CREATE ELEM ------------------------------//
 t_camera *create_camera(char **tab, t_vlist **garbage, t_parsing_data *data);
@@ -39,8 +39,6 @@ double get_dist_droite_point(t_droite d, t_point p);
 double get_dist_between_points(t_point p, t_point q);
 
 double ft_min_and_positiv(double a, double b);
-//------------------------ EXIT ------------------------------//
-void	destroy_and_free(t_app app);
 
 //------------------------ VLIST ------------------------------//
 
@@ -110,23 +108,26 @@ double  	get_closest_point(double a, double b) ;
 t_point 	get_ray_point(t_ray ray, double t);
 void 		set_eq(t_plan *p);
 
-/* -------------------- TRACE RAYS ------------------- */
+/* -------------------- RENDER ------------------- */
 
 void    	draw_scene(t_app *app);
 t_color   	trace_ray(t_app *app, t_point ray_origin, t_vec dir, int rebound_nb);
 void    	copy_obj_properties(t_vlist *obj, t_hit_info *hinf, t_hit_info to_copy);
-// bool    	intersect(t_vlist *obj, t_ray *ray);
 void		no_tree_intersections(t_app *app, t_ray *ray, t_interval t);
 t_color 	compute_lighting(t_app *app, t_ray ray);
-t_vec		get_incident_ray_of_light(t_vec l, t_vec n);
-t_vec		reflect_ray(t_vec v, t_vec n); // ?
 
+/* -------------------- shader ------------------ */
+
+t_color		compute_lighting(t_app *app, t_ray ray);
+bool 	    compute_diffuse(t_light *light, t_ray ray, t_color *color, t_ray obj_to_light);
+void 	    compute_specular(t_light *light, t_ray ray, t_color *color, t_ray obj_to_light);
+t_vec		get_incident_ray_of_light(t_vec l, t_vec n);
+t_vec		reflect_ray(t_vec v, t_vec n);
 
 /*  ------ camera, coordinates changes, anti-aliasing ------ */
 
 t_vec		pixel_sample(t_app *app, int x, int y);
 void    	set_pixel_center(t_app *app, t_point *pc, int x, int y);
-
 
 /* --------------- textures, color disruption -------------- */
 
@@ -135,22 +136,19 @@ t_color     checker_color_at(void *object, t_hit_info hit);
 void    	set_checkerboard_map(t_checkers_map *map, t_type elem, t_color checker_color);
 t_vec   	get_normal_perturbation(t_hit_info hit, void *object);
 
-/* --------------------- checkerboard ---------------------- */
-
-// t_color 		checkers_color(t_hit_info hit);
-// t_point_2d		map_object(t_hit_info hit);
-// t_checkers_map  checkers_map_white(t_color obj_color);
-// t_checkers_map  checkers_map_complementary_colors(t_color obj_color);
-
 /*  ------------------------ utils ------------------------- */
 
 t_interval  get_interval(double min, double max);
 double  	a_mod_b(double a, int n);
+bool	    ft_is_equalsf(const float a, const float b, const float tolerance);
 
 t_color    	color_scale(t_color color, double scale);
 t_color    	color_add(t_color c1, t_color c2);
 t_color 	color_mult(t_color c1, t_color c2);
 
+/*  ------------------------- exit ------------------------- */
+
+void        minirt_destroy_display(t_app *app);
 
 /*  -------------------- MLX ------------------------ */
 

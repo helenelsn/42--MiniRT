@@ -5,6 +5,8 @@ CC = cc
 CFLAGS = -MMD -g3 -I/opt/X11/include -I/opt/Xext/include -I$(INCLUDES_DIR) #-Wall -Wextra -Werror
 
 FILES = \
+		camera/init_viewpoint \
+		camera/set_aspect_ratio \
 		create_elem/cr_camera \
 		create_elem/cr_cylindre \
 		create_elem/cr_light \
@@ -12,9 +14,7 @@ FILES = \
 		create_elem/cr_plan \
 		create_elem/cr_sphere \
 		create_elem/cr_cone \
-		dist/dist_droite \
-		dist/dist_points \
-		dist/dist_point_droite \
+		exit \
 		garbage_collector/ft_lstnew \
 		garbage_collector/ft_lstadd_front \
 		garbage_collector/ft_lstsize \
@@ -24,6 +24,7 @@ FILES = \
 		garbage_collector/ft_lstclear \
 		garbage_collector/ft_lstiter \
 		garbage_collector/ft_vlst_del_in_list \
+		garbage_collector/ft_vlstnew_with_mat \
 		intersection/i_sphere \
 		intersection/set_object_material \
 		intersection/i_plan \
@@ -32,6 +33,10 @@ FILES = \
 		intersection/i_circle \
 		intersection/get_inter \
 		intersection/solving_utils \
+		maths_utils/intervals \
+		maths_utils/distances/distance_point_line \
+		maths_utils/distances/distance_two_lines \
+		maths_utils/distances/distance_two_points \
 		mlx_gestion/close \
 		mlx_gestion/get_elem_vec \
 		mlx_gestion/hooks \
@@ -62,17 +67,21 @@ FILES = \
 		utils_vec_et_droite/vec_operations \
 		main \
 		parse \
-		trace_rays/color \
-		trace_rays/light \
-		trace_rays/normals \
-		trace_rays/point_sampling \
-		trace_rays/screen_scene_utils \
-		trace_rays/trace_ray \
-		camera/init_viewpoint \
-		trace_rays/intervals_utils \
-		trace_rays/textures/mapping \
-		trace_rays/textures/checkers \
-		trace_rays/textures/normals \
+		render/color \
+		render/normals \
+		render/point_sampling \
+		render/cast_rays \
+		render/shader/diffuse_reflection \
+		render/shader/phong_model \
+		render/shader/specular_reflection \
+		render/shader/utils \
+		render/textures/mapping \
+		render/textures/checkers \
+		render/textures/normals \
+		#dist/dist_droite \
+		dist/dist_points \
+		dist/dist_point_droite \
+		render/light \
 		bsp/create_bsp \
 		bsp/bounding_volumes \
 		bsp/get_splitting_plane \
@@ -118,19 +127,21 @@ $(NAME): $(LIBS) $(OBJS)
 
 ${OBJS_DIR}/%.o : ${SRCS_DIR}/%.c
 	@mkdir -p $(OBJS_DIR)
-	@mkdir -p $(OBJS_DIR)/bsp
 	@mkdir -p $(OBJS_DIR)/camera
 	@mkdir -p $(OBJS_DIR)/create_elem
-	@mkdir -p $(OBJS_DIR)/dist
-	@mkdir -p $(OBJS_DIR)/trace_rays
+	@mkdir -p $(OBJS_DIR)/render
 	@mkdir -p $(OBJS_DIR)/garbage_collector
 	@mkdir -p $(OBJS_DIR)/intersection
 	@mkdir -p $(OBJS_DIR)/mlx_gestion
+	@mkdir -p $(OBJS_DIR)/maths_utils
+	@mkdir -p $(OBJS_DIR)/maths_utils/distances
 	@mkdir -p $(OBJS_DIR)/utils
 	@mkdir -p $(OBJS_DIR)/utils_vec_et_droite
-	@mkdir -p $(OBJS_DIR)/checkerboard
-	@mkdir -p $(OBJS_DIR)/trace_rays/textures
+	@mkdir -p $(OBJS_DIR)/render/textures
+	@mkdir -p $(OBJS_DIR)/render/shader
 	$(CC) $(CFLAGS) -o $@ -c $< 
+#@mkdir -p $(OBJS_DIR)/dist
+#@mkdir -p $(OBJS_DIR)/checkerboard
 #$(INCLUDES_DIR) 
 
 -include $(DEP_OBJS)
