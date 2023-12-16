@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   normals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 15:00:07 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/16 21:01:31 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/17 00:10:46 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,17 @@ t_vec	get_normal_in_map(t_point_2d uv, t_surface *surf)
 	int				x;
 	int				y;
 	t_vec			normal;
-	t_normal_map	*normap;
-
-	normap = get_map_from_type(surf->t);
-	if (!normap)
+	
+	if (!surf->normap)
 	{
 		surf->t = no_map;
 		return ((t_vec){0, 0, 0, 0});
 	}
-	x = (int)roundf(uv.u * (float)(normap->width - 1));
-	y = (int)roundf(uv.v * (float)(normap->height - 1));
-	x = ft_clamp(x, 0, normap->width - 1);
-	y = ft_clamp(y, 0, normap->height - 1);
-	normal = normap->pixels[y * normap->width + x];
+	x = (int)roundf(uv.u * (float)(surf->normap->width - 1));
+	y = (int)roundf(uv.v * (float)(surf->normap->height - 1));
+	x = ft_clamp(x, 0, surf->normap->width - 1);
+	y = ft_clamp(y, 0, surf->normap->height - 1);
+	normal = surf->normap->pixels[y * surf->normap->width + x];
 	normal = vect_substract(vect_double_multiply(2, normal), (t_vec){1, 1, 1});
 	return (normal);
 }

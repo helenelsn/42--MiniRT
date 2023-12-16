@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   material.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 19:17:45 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/16 21:09:06 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/17 00:09:55 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ bool set_bump_map_type(t_material *mat,char *info)
         mat->textures.t = wood;
     else
         return (false);
+    mat->textures.normap = get_map_from_type(mat->textures.t);
     // mat->textures.bump_mapping = true;
     return (true);   
 }

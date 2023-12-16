@@ -179,6 +179,7 @@ void	change_texture(int keycode, t_app *app)
 			app->mlx_data.elem_hit.obj_mat.textures.t = 0;
 		else
 			app->mlx_data.elem_hit.obj_mat.textures.t += 1;
+		app->mlx_data.elem_hit.obj_mat.textures.normap = get_map_from_type(app->mlx_data.elem_hit.obj_mat.textures.t);
 	}
 
 	// printf("hier %d, %d\n", app->mlx_data.elem_hit.obj_mat.textures.checkered, app->mlx_data.elem_hit.obj_mat.textures.t);
