@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cast_rays.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/16 20:12:31 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/16 23:56:56 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void    draw_scene(t_app *app)
 		while (x < IMAGE_WIDTH)
 		{
 			int color =  get_final_pixel_color(app, x, y);
-			img_pixel_put(app->mlx_data.image, x, y, color);
+			my_mlx_pixel_put(&app->mlx_data.image, x, y, color);
 			x++;
 		}
 		y++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/16 21:00:49 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/16 23:51:47 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 // #include "mini_rt.h"
 
 #include <stdbool.h>
+#include <pthread.h>
 
 
 
@@ -427,5 +428,23 @@ typedef struct s_app
     t_mlx_data      mlx_data;
 } t_app;
 
+// typedef struct s_app
+// {
+//     t_parsing_data  p_data;
+//     t_viewport      frame;
+//     t_screen        screen;
+//     t_color         background;
+//     t_vlist         *garbage;
+//     t_vlist         *planes;
+//     t_bsp_node      root;
+//     t_mlx_data      mlx_data;
+// } t_app;
+
+typedef struct  s_renderer
+{
+    pthread_t   tid;
+    int         id;
+    t_app       *app;
+}               t_renderer;
 
 #endif
