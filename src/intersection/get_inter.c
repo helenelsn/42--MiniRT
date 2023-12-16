@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/12/15 23:12:37 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/15 23:48:59 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,22 +54,25 @@ bool    intersect(t_vlist *obj, t_ray *ray)
     return false;
 }
 
-void	no_tree_intersections(t_parsing_data pdata, t_ray *ray, t_interval t)
+void	no_tree_intersections(t_app *app, t_ray *ray, t_interval t)
 {
     t_vlist     *obj;
-    t_hit_info  *closest_obj;
+    t_hit_info  closest_obj;
     double 		min_dist;
 	static int print;
 
-    closest_obj = ft_calloc(sizeof(t_hit_info), 1);
-    if (!closest_obj)
-        return ;
+    // closest_obj = ft_calloc(sizeof(t_hit_info), 1);
+    // if (!closest_obj)
+    //     return ;
+    // ft_vlstadd_back(app->garbage, ft_vlstnew(elem, free, sphere));
+    
+    ft_bzero(&closest_obj, sizeof(t_hit_info));
     min_dist = t.max;
     
 
     // a modif : repetitif, moche
     
-	obj = pdata.objects;
+	obj = app->p_data.objects;
 	while (obj)
     {
         if (intersect(obj, ray) && ray->hit_info.distance >= t.min
@@ -78,13 +81,13 @@ void	no_tree_intersections(t_parsing_data pdata, t_ray *ray, t_interval t)
         	    min_dist = ray->hit_info.distance;
 				// set_color_in_mat(obj->content, &obj->material, obj->type);
 				// set_specular_in_mat(obj->content, &obj->material, obj->type);
-        	    copy_obj_properties(obj, closest_obj, ray->hit_info);
-                set_texture_material(ray, closest_obj, obj->content);
+        	    copy_obj_properties(obj, &closest_obj, ray->hit_info);
+                set_texture_material(ray, &closest_obj, obj->content);
 			}
         obj = obj->next;
     }
 	
-	obj = pdata.planes;
+	obj = app->p_data.planes;
 	while (obj)
     {
 		// set_specular_in_mat(obj->content, &obj->material, obj->type);
@@ -93,8 +96,8 @@ void	no_tree_intersections(t_parsing_data pdata, t_ray *ray, t_interval t)
 			&& ray->hit_info.distance < min_dist)
         	{
         	    min_dist = ray->hit_info.distance;
-        	    copy_obj_properties(obj, closest_obj, ray->hit_info);
-				set_texture_material(ray, closest_obj, obj->content);
+        	    copy_obj_properties(obj, &closest_obj, ray->hit_info);
+				set_texture_material(ray, &closest_obj, obj->content);
         	}
         obj = obj->next;
     }
@@ -104,7 +107,7 @@ void	no_tree_intersections(t_parsing_data pdata, t_ray *ray, t_interval t)
     if (min_dist < t.max)
     {
         // a verifier
-        ray->hit_info = *closest_obj;
+        ray->hit_info = closest_obj;
         ray->hit_info.distance = min_dist;
         return ;
     }

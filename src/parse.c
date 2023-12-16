@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:23 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/12 20:34:48 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/16 01:08:12 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void free_tab(void *arg)
         return;
     while(tab[i])
         free(tab[i++]);
-    // free(tab);
+    free(tab);
 }
 
 int null_term_tab_len(void **tab)
@@ -107,11 +107,16 @@ void parse_and_create(int fd, t_vlist **garbage, t_parsing_data *data)
             continue;
         }
         sp_line = ft_split(line, ' ');
-        ft_vlstadd_back(garbage, ft_vlstnew(sp_line, free_tab, 0)); 
+        // ft_vlstadd_back(garbage, ft_vlstnew(sp_line, free_tab, 0)); 
         free(line);
         if (!sp_line || !sp_line[0])
+        {
+            //free_tab(sp_line);
             parse_error_occured(file_content, garbage, fd);
+        }
         add_obj(sp_line, garbage, fd, data);
+        free_tab(sp_line);
+        //free_tab(sp_line);
         line = get_next_line(fd);
         // printf("%s", line);
     }
