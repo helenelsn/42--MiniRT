@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   normals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 15:00:07 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/16 02:00:08 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/16 16:21:12 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,14 @@ t_vec	get_normal_in_map(t_point_2d uv, t_surface surf)
 			// vector3f_create(1, 1, 1));
 }
 
-
 static t_vec	get_tangente_space_normal( t_vec world_normal,
 											 t_vec map_normal)
 {
-	
 	t_matrix *mat;
 	
 	t_vec	tangent;
 	t_vec	bitangent;
 	t_vec res;
-	// t_matrix3	tbn;
 
 	tangent = cross_product(world_normal, (t_vec) {0, 1, 0, 1});
 	
@@ -67,7 +64,6 @@ static t_vec	get_tangente_space_normal( t_vec world_normal,
 	normalise(&res);
 	return res;
 }
-
 
 t_vec   get_normal_perturbation(t_hit_info hit, void *object)
 {

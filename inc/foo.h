@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/16 15:59:47 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/16 16:26:42 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,12 +135,18 @@ t_point_2d  object_mapping(void *object, t_hit_info hit);
 t_color     checker_color_at(void *object, t_hit_info hit);
 void    	set_checkerboard_map(t_checkers_map *map, t_type elem, t_color checker_color);
 t_vec   	get_normal_perturbation(t_hit_info hit, void *object);
+t_vec       rotate_relative_pos(t_vec surface_normal, t_point hit_point, t_point obj_p);
+double      get_rotation_angle(t_vec surface_normal, t_vec unit_vector);
+t_matrix	*rotation_matrix_from_angle(double angle, t_vec axis);
+t_point_2d  spherical_mapping(t_sphere *sp, t_point p);
+
 
 /*  ------------------------ utils ------------------------- */
 
 t_interval  get_interval(double min, double max);
 double  	a_mod_b(double a, int n);
 bool	    ft_is_equalsf(const float a, const float b, const float tolerance);
+float	    fmodf_positive(float dividend, float divisor);
 
 t_color    	color_scale(t_color color, double scale);
 t_color    	color_add(t_color c1, t_color c2);

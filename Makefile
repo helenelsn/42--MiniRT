@@ -67,7 +67,6 @@ FILES = \
 		utils_vec_et_droite/vec_operations \
 		main \
 		parse \
-		render/color \
 		render/normals \
 		render/point_sampling \
 		render/cast_rays \
@@ -75,12 +74,17 @@ FILES = \
 		render/shader/phong_model \
 		render/shader/specular_reflection \
 		render/shader/utils \
-		render/textures/mapping \
+		render/shader/color \
 		render/textures/checkers \
 		render/textures/normals \
+		render/textures/mapping/mapping \
+		render/textures/mapping/sphere \
+		render/textures/mapping/rotation_utils \
+		render/textures/mapping/utils \
 		#dist/dist_droite \
 		dist/dist_points \
 		dist/dist_point_droite \
+		render/color \
 		render/light \
 		bsp/create_bsp \
 		bsp/bounding_volumes \
@@ -137,8 +141,9 @@ ${OBJS_DIR}/%.o : ${SRCS_DIR}/%.c
 	@mkdir -p $(OBJS_DIR)/maths_utils/distances
 	@mkdir -p $(OBJS_DIR)/utils
 	@mkdir -p $(OBJS_DIR)/utils_vec_et_droite
-	@mkdir -p $(OBJS_DIR)/render/textures
 	@mkdir -p $(OBJS_DIR)/render/shader
+	@mkdir -p $(OBJS_DIR)/render/textures
+	@mkdir -p $(OBJS_DIR)/render/textures/mapping
 	$(CC) $(CFLAGS) -o $@ -c $< 
 #@mkdir -p $(OBJS_DIR)/dist
 #@mkdir -p $(OBJS_DIR)/checkerboard
