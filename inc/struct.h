@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/16 01:23:23 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/16 02:00:36 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,15 @@ typedef enum e_parse_error
     
 } t_parse_error;
 
+typedef enum e_normap_type
+{
+    cliff,
+    sand,
+    terrain,
+    tree,
+    wood,
+    no_map
+}   t_normap_type;
 
 /* ------------------ INTERSECTIONS -------------------- */
 
@@ -124,7 +133,6 @@ typedef struct  s_normal_map
     int width;
     int height;
     t_vec   *pixels;
-    char *name;
 }               t_normal_map;
 
 typedef struct  s_surface
@@ -132,8 +140,8 @@ typedef struct  s_surface
     bool            checkered;
     bool            bump_mapping;
     t_checkers_map  checkerboard;
-    t_normal_map    normap;
-
+    t_normap_type t;
+    // t_normal_map    normap;
     // pas encore compris comment utiliser ça (github user tdameros)
     // t_ppm_p6			normals_map;
 	// char				*normals_map_file;

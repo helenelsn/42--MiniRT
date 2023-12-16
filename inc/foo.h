@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/16 01:25:13 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/16 01:56:34 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,4 +212,5 @@ int	intersect_circle(t_ray *ray, t_circle circle, double *t, double comp);
 double	pow2(double n);
 int	solve_quadratic(t_quadratic *f);
 double              ft_min(double a, double b);
+t_normal_map *get_map_from_type(t_normap_type t);
 #endif

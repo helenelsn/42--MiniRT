@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   normals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 15:00:07 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/15 23:06:27 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/16 02:00:08 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,16 @@ t_vec	get_normal_in_map(t_point_2d uv, t_surface surf)
 	int			x;
 	int			y;
 	t_vec	normal;
+	t_normal_map *normap;
 
-	x = (int) roundf(uv.u * (float)(surf.normap.width - 1));
-	y = (int) roundf(uv.v * (float)(surf.normap.height - 1));
-	x = ft_clamp(x, 0, surf.normap.width - 1);
-	y = ft_clamp(y, 0, surf.normap.height - 1);
-	normal = surf.normap.pixels[y * surf.normap.width + x];
+	normap = get_map_from_type(surf.t);
+	if (!normap)
+		return (t_vec) {0,0,0,0};
+	x = (int) roundf(uv.u * (float)(  normap->width - 1));
+	y = (int) roundf(uv.v * (float)(  normap->height - 1));
+	x = ft_clamp(x, 0,   normap->width - 1);
+	y = ft_clamp(y, 0,   normap->height - 1);
+	normal =   normap->pixels[y *   normap->width + x];
 	normal = vect_substract(vect_double_multiply(2, normal), (t_vec) {1, 1, 1});
 	return normal;
 	// normal = vector3f_subtract(vector3f_multiply(normal, 2),
@@ -69,6 +73,7 @@ t_vec   get_normal_perturbation(t_hit_info hit, void *object)
 {
     t_point_2d uv = object_mapping(object, hit);
 	t_vec dernorm = get_normal_in_map(uv, hit.obj_mat.textures);
-	
+	if (!get_v_norm(dernorm))
+		return hit.outward_normal;
 	return get_tangente_space_normal(hit.outward_normal, dernorm);
 }
