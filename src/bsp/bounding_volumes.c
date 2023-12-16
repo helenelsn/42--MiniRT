@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bounding_volumes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 15:35:11 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/15 23:14:31 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/16 01:26:32 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,6 @@
 #include "../../inc/mini_rt.h"
 #include "../../inc/bsp.h"
 
-double  ft_min(double a, double b)
-{
-    if (a < b)
-        return (a);
-    return (b);
-}
 
 double  ft_max_double(double a, double b)
 {

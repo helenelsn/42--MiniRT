@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 00:52:41 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/14 22:21:50 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/16 01:25:48 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,13 @@ t_point get_ray_point(t_ray ray, double t)
     p.y =ray.origin.y + t * ray.direction.y;
     p.z =ray.origin.z + t * ray.direction.z;
     return p;
+}
+
+double  ft_min(double a, double b)
+{
+    if (a < b)
+        return (a);
+    return (b);
 }
 
 double ft_min_and_positiv(double a, double b)

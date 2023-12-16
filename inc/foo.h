@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/16 01:23:10 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/16 01:25:13 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,4 +211,5 @@ bool    intersect_cone(t_ray *ray, void *object);
 int	intersect_circle(t_ray *ray, t_circle circle, double *t, double comp);
 double	pow2(double n);
 int	solve_quadratic(t_quadratic *f);
+double              ft_min(double a, double b);
 #endif

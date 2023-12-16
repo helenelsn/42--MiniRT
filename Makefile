@@ -72,7 +72,7 @@ FILES = \
 		trace_rays/textures/mapping \
 		trace_rays/textures/checkers \
 		trace_rays/textures/normals \
-		# bsp/create_bsp \
+		bsp/create_bsp \
 		bsp/bounding_volumes \
 		bsp/get_splitting_plane \
 		bsp/recursive_ray_traversal \
