@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/16 22:42:27 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/16 23:12:44 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,6 @@ void    *draw_scene_routine(void *routine_data)
 	t_renderer *r;
 	
 	r = (t_renderer *)routine_data;
-	// x = r->id;
 	y = 0;
 
 	// int	pixels_submap = r->app->screen.image_height / r->app->screen.threads_amount;
@@ -119,23 +118,23 @@ void    *draw_scene_routine(void *routine_data)
 	// if (r->id == r->app->screen.threads_amount - 1)
 	// 	y_max = r->app->screen.image_height;
 	// printf("y = %d, x = %d, %d \n", y, x, r->app->screen.threads_amount);
-	
+	// printf("%x\n", &r->app->mlx_data);
 	while (y < r->app->screen.image_height) //y < r->app->screen.image_height
 	{
 		// x = x % r->app->screen.threads_amount; // a verifier
 		// if (r->id == 5)
-			// printf("y = %d, x = %d, %d \n", y, x, r->app->screen.threads_amount);
 		x = r->id;
 		while (x < r->app->screen.image_width)
 		{
+			// printf("y = %d, x = %d, %d \n", y, x, r->id);
 			color =  get_final_pixel_color(r->app, x, y);
-			img_pixel_put(r->app->mlx_data.image, x, y, color);
-			x += r->app->screen.threads_amount;
+			my_mlx_pixel_put(&r->app->mlx_data.image, x, y, color);
+			x +=2;
 		}
 		// y += r->app->screen.threads_amount;
 		y++;
 	}
-	printf("end of thread %d\n", r->id);
+	// printf("end of thread %d\n", r->id);
 	return (NULL);
 	
 //	mlx_put_image_to_window(app->mlx_data.mlx_ptr, app->mlx_data.image.img, 0, 0);

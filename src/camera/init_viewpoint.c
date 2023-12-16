@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 20:04:36 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/16 15:33:13 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/16 19:56:45 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ double  deg_to_rad(double degrees)
 void 	set_viewpoint_dimensions(t_app *app)
 {
     app->frame.width = FOCUS_DIST * tan(deg_to_rad(app->p_data.cam->fov) * 0.5f) * 2;
-    app->frame.height = app->frame.width * app->aspect_ratio;
+    app->frame.height = app->frame.width * app->screen.aspect_ratio;
 }
 
 int sign(double a)

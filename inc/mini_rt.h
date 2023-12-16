@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:13 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/16 22:41:23 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/16 23:06:11 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@
 # define CHECKERS_HEIGHT    20
 
 
-# define    THREADS_NB  1
+# define    THREADS_NB  10
 
 #define BONUS_SIZE 4
 #define SP_PL_ARG_SIZE 4
