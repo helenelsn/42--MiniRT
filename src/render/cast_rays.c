@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/16 22:35:13 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/16 22:42:27 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ int		get_final_pixel_color(t_app *app, int x, int y)
 	pixel_color.r = r / inv;
 	pixel_color.g = g / inv;
 	pixel_color.b = b / inv;
-	// pixel_color = color_scale(pixel_color, 1.0 / SAMPLES_PER_PIXEL);
 	return (pixel_color.hex); 
 }
 

@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:13 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/16 22:35:59 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/16 22:41:23 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,9 @@
 
 
 # define    THREADS_NB  1
+
+#define BONUS_SIZE 4
+#define SP_PL_ARG_SIZE 4
+#define CO_CY_ARG_SIZE 6
 
 #endif

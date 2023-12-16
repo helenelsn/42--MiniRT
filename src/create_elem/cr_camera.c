@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cr_camera.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 00:53:38 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/16 00:42:36 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/16 20:22:18 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/mini_rt.h"
 
-t_camera *create_camera(char **tab, t_vlist **garbage, t_parsing_data *data)
+t_camera *create_camera(char **tab,  t_parsing_data *data)
 {
     t_camera *elem;
     
@@ -28,7 +28,7 @@ t_camera *create_camera(char **tab, t_vlist **garbage, t_parsing_data *data)
         free(elem);
         return NULL;
     }
-   // ft_vlstadd_back(garbage, ft_vlstnew(elem, free, camera));
+   // ft_vlstadd_back( ft_vlstnew(elem, free, camera));
     data->cam = elem;
     return elem;
 }

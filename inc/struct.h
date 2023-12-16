@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/16 20:40:20 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/16 22:41:42 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,6 @@ typedef struct  s_normal_map
 typedef struct  s_surface
 {
     bool            checkered;
-    bool            bump_mapping;
     t_checkers_map  checkerboard;
     t_normap_type t;
     // t_normal_map    normap;

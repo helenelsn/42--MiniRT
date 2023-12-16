@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 01:30:27 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/16 02:09:26 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/16 21:23:27 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 t_normal_map *get_cliff_map(bool to_free)
 {
 	static t_normal_map *map;
-	bool flag;
+	static bool flag;
 	
 	if (to_free)
 	{
@@ -42,7 +42,7 @@ t_normal_map *get_cliff_map(bool to_free)
 t_normal_map *get_sand_map(bool to_free)
 {
 	static t_normal_map *map;
-	bool flag;
+	static bool flag;
 	
 	if (to_free)
 	{
@@ -68,7 +68,7 @@ t_normal_map *get_sand_map(bool to_free)
 t_normal_map *get_terrain_map(bool to_free)
 {
 	static t_normal_map *map;
-	bool flag;
+	static bool flag;
 	
 	if (to_free)
 	{
@@ -94,7 +94,7 @@ t_normal_map *get_terrain_map(bool to_free)
 t_normal_map *get_tree_map(bool to_free)
 {
 	static t_normal_map *map;
-	bool flag;
+	static bool flag;
 	
 	if (to_free)
 	{
@@ -120,7 +120,7 @@ t_normal_map *get_tree_map(bool to_free)
 t_normal_map *get_wood_map(bool to_free)
 {
 	static t_normal_map *map;
-	bool flag;
+	static bool flag;
 	
 	if (to_free)
 	{
@@ -155,6 +155,22 @@ t_normal_map *get_map_from_type(t_normap_type t)
 		return get_wood_map(false);
 	if (t == tree)
 		return get_tree_map(false);
+	return (NULL);
+	
+}
+
+t_normal_map *erase_maps(t_normap_type t)
+{
+	if (t == cliff)
+		return get_cliff_map(true);
+	if (t == sand)
+		return get_sand_map(true);
+	if (t == terrain)
+		return get_terrain_map(true);
+	if (t == wood)
+		return get_wood_map(true);
+	if (t == tree)
+		return get_tree_map(true);
 	return (NULL);
 	
 }

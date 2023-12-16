@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_inter.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/12/15 23:48:59 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/16 20:48:25 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void    set_texture_material(t_ray *ray, t_hit_info *closest_obj, void *object)
     closest_obj->outward_normal = get_unit_normal(*closest_obj, closest_obj->hit_point);
      if (dot(ray->direction, closest_obj->outward_normal) > 0.0)
         closest_obj->outward_normal = vect_double_multiply(-1, closest_obj->outward_normal);
-	if (closest_obj->obj_mat.textures.bump_mapping)
+	if (closest_obj->obj_mat.textures.t != no_map)
 		closest_obj->outward_normal = get_normal_perturbation(*closest_obj, object);
     
     // cas ou est dans l'objet : dans quel sens doit pointer la normale ? 
@@ -64,7 +64,7 @@ void	no_tree_intersections(t_app *app, t_ray *ray, t_interval t)
     // closest_obj = ft_calloc(sizeof(t_hit_info), 1);
     // if (!closest_obj)
     //     return ;
-    // ft_vlstadd_back(app->garbage, ft_vlstnew(elem, free, sphere));
+    // ft_vlstadd_back(app-> ft_vlstnew(elem, free, sphere));
     
     ft_bzero(&closest_obj, sizeof(t_hit_info));
     min_dist = t.max;

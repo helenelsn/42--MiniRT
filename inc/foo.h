@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/16 20:57:41 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/16 22:41:06 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ void    init_viewpoint(t_app *app);
 void    set_screen_data(t_app *app);
 
 //------------------------ CREATE ELEM ------------------------------//
-t_camera *create_camera(char **tab, t_vlist **garbage, t_parsing_data *data);
-t_cylindre *create_cylindre(char **tab, t_vlist **garbage, t_parsing_data *data);
-t_light *create_light(char **tab, t_vlist **garbage, t_parsing_data *data);
-t_mood_light *create_mood_light(char **tab, t_vlist **garbage, t_parsing_data *data);
-t_plan *create_plan(char **tab, t_vlist **garbage, t_parsing_data *data);
-t_sphere *create_sphere(char **tab, t_vlist **garbage, t_parsing_data *data);
-t_cone *create_cone(char **tab, t_vlist **garbage, t_parsing_data *data);
+t_camera *create_camera(char **tab,  t_parsing_data *data);
+t_cylindre *create_cylindre(char **tab,  t_parsing_data *data);
+t_light *create_light(char **tab,  t_parsing_data *data);
+t_mood_light *create_mood_light(char **tab,  t_parsing_data *data);
+t_plan *create_plan(char **tab,  t_parsing_data *data);
+t_sphere *create_sphere(char **tab,  t_parsing_data *data);
+t_cone *create_cone(char **tab,  t_parsing_data *data);
 void set_cone_dep(t_cone *elem);
 void set_cylindre_dep(t_cylindre *elem);
 // void set_cylindre_dep(t_cone *elem);
@@ -172,9 +172,7 @@ void deselect(t_app *app);
 //other
 
 //parse
-
-bool 			set_specular(char *str, double *to_mod);
-bool 			set_reflective(char *str, double *to_mod);
+bool set_bonus_options(t_material *mat,char **tab);
 bool			set_checkers(char *str, bool *to_mod);
 
 void			set_ray_infos(t_ray *ray, t_vec direction, t_point ray_origin);
@@ -186,8 +184,8 @@ bool			get_vec_from_str(char *str, t_vec *p);
 t_vec 			get_vec_from_point(t_point p, t_point q);
 int 			get_fov(char *str);
 int				create_rgb(unsigned char r, unsigned char g, unsigned char b);
-bool			get_rgb(char *str,  int *c);
-t_parse_error 	parse(int ac, char **av, t_vlist **garbage, t_parsing_data *data);
+bool			get_rgb(char *str,  t_color *c);
+t_parse_error 	parse(int ac, char **av,  t_parsing_data *data);
 void 			free_tab(void *arg);
 int 			null_term_tab_len(void **tab);
 						
@@ -217,4 +215,5 @@ double	pow2(double n);
 int	solve_quadratic(t_quadratic *f);
 double              ft_min(double a, double b);
 t_normal_map *get_map_from_type(t_normap_type t);
+void init_mat(t_material *mat);
 #endif

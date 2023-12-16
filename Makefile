@@ -14,6 +14,7 @@ FILES = \
 		create_elem/cr_plan \
 		create_elem/cr_sphere \
 		create_elem/cr_cone \
+		create_elem/material \
 		exit \
 		garbage_collector/ft_lstnew \
 		garbage_collector/ft_lstadd_front \
@@ -57,8 +58,6 @@ FILES = \
 		utils/point3d \
 		utils/ratio \
 		utils/rgb \
-		utils/set_specular \
-		utils/set_reflective \
 		utils/set_checkers \
 		utils/vec3d \
 		utils_vec_et_droite/norm \
