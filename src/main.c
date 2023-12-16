@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:20 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/16 20:23:39 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/17 00:00:19 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/mini_rt.h"
 #include "../inc/bsp.h"
 
-static int  initialise_mlx_data(t_app *app)
+int  initialise_mlx_data(t_app *app)
 {
     app->mlx_data.mlx_ptr = mlx_init();
     if (!app->mlx_data.mlx_ptr)
@@ -55,7 +55,9 @@ int main(int argc, char **argv)
     
     ft_bzero(&app, sizeof(t_app));
     parse(argc, argv,  &app.p_data);
-    if (minirt_get_started(&app))
+    // if (minirt_get_started(&app))
+        // return (EXIT_MLX_FAILURE);
+    if (minirt_get_started_bonus(&app))
         return (EXIT_MLX_FAILURE);
     return (0);
 }

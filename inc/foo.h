@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   foo.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/16 20:22:01 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/16 23:56:24 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,4 +216,11 @@ int	solve_quadratic(t_quadratic *f);
 double              ft_min(double a, double b);
 t_normal_map *get_map_from_type(t_normap_type t);
 void init_mat(t_material *mat);
+
+void    *draw_scene_routine(void *routine_data);
+int  minirt_get_started_bonus(t_app *app);
+int  minirt_get_started_bonus(t_app *app);
+int  initialise_mlx_data(t_app *app);
+int		get_final_pixel_color(t_app *app, int x, int y);
+
 #endif

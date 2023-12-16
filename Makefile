@@ -80,6 +80,8 @@ FILES = \
 		render/textures/mapping/sphere \
 		render/textures/mapping/rotation_utils \
 		render/textures/mapping/utils \
+		main_bonus \
+		render_bonus \
 		#dist/dist_droite \
 		dist/dist_points \
 		dist/dist_point_droite \

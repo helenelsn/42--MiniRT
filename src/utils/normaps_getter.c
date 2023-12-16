@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   normaps_getter.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 01:30:27 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/16 21:23:27 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/17 00:06:55 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/mini_rt.h"
 
 
-t_normal_map *get_cliff_map(bool to_free)
+static t_normal_map *get_cliff_map(bool to_free)
 {
 	static t_normal_map *map;
 	static bool flag;
@@ -39,7 +39,7 @@ t_normal_map *get_cliff_map(bool to_free)
 	return map;
 }
 
-t_normal_map *get_sand_map(bool to_free)
+static t_normal_map *get_sand_map(bool to_free)
 {
 	static t_normal_map *map;
 	static bool flag;
@@ -65,7 +65,7 @@ t_normal_map *get_sand_map(bool to_free)
 	return map;
 }
 
-t_normal_map *get_terrain_map(bool to_free)
+static t_normal_map *get_terrain_map(bool to_free)
 {
 	static t_normal_map *map;
 	static bool flag;
@@ -91,7 +91,7 @@ t_normal_map *get_terrain_map(bool to_free)
 	return map;
 }
 
-t_normal_map *get_tree_map(bool to_free)
+static t_normal_map *get_tree_map(bool to_free)
 {
 	static t_normal_map *map;
 	static bool flag;
@@ -117,7 +117,7 @@ t_normal_map *get_tree_map(bool to_free)
 	return map;
 }
 
-t_normal_map *get_wood_map(bool to_free)
+static t_normal_map *get_wood_map(bool to_free)
 {
 	static t_normal_map *map;
 	static bool flag;
