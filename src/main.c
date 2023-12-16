@@ -6,13 +6,12 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:20 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/16 01:15:20 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/16 15:42:02 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/mini_rt.h"
 #include "../inc/bsp.h"
-
 
 static int  initialise_mlx_data(t_app *app)
 {
@@ -20,18 +19,17 @@ static int  initialise_mlx_data(t_app *app)
     if (!app->mlx_data.mlx_ptr)
         return (EXIT_MLX_FAILURE);
     app->mlx_data.win_ptr = mlx_new_window(app->mlx_data.mlx_ptr, IMAGE_WIDTH, IMAGE_HEIGHT, "miniRT");
-    // if (!app->mlx_data.win_ptr)
-    // {
-    //     mlx_destroy_display(app->mlx_data.mlx_ptr);
-    //     free(app->mlx_data.mlx_ptr);
-    //     return (EXIT_MLX_FAILURE);
-    // }
+    if (!app->mlx_data.win_ptr)
+    {
+        mlx_destroy_display(app->mlx_data.mlx_ptr);
+        free(app->mlx_data.mlx_ptr);
+        return (EXIT_MLX_FAILURE);
+    }
     app->mlx_data.image.img = mlx_new_image(app->mlx_data.mlx_ptr, IMAGE_WIDTH, IMAGE_HEIGHT);
     app->mlx_data.image.addr = mlx_get_data_addr(app->mlx_data.image.img, &(app->mlx_data.image.bpp), 
                         &(app->mlx_data.image.line_length), &(app->mlx_data.image.endian));
     return (0);
 }
-
 
 static int  minirt_get_started(t_app *app)
 {
@@ -40,83 +38,16 @@ static int  minirt_get_started(t_app *app)
         write(STDERR_FILENO, "Error : mlx initialisation.\n", 28);
         return (EXIT_MLX_FAILURE);
     }
-    
-    app->aspect_ratio =IMAGE_HEIGHT / IMAGE_WIDTH;
-    
-    ft_bzero(&app->background, sizeof(t_color)); 
-    //app->background.r = 0xff;
-    //app->background.g = 0xff;
-    //app->background.b = 0xff;
-    
-    //build_kd_tree(&app->root, app->p_data.objects); // prendre la valeur de retour (si un malloc foire et que doit return ici)
-    // print_kd_tree(&app->root);
-    
+    set_aspect_ratio(app);
     init_viewpoint(app);
+    ft_bzero(&app->background, sizeof(t_color)); 
     draw_scene(app);
-    
     mlx_put_image_to_window(app->mlx_data.mlx_ptr, app->mlx_data.win_ptr,
-        app->mlx_data.image.img, 0, 0); // 2 derniers a verif
-    // set_img(app);
-
-        
+        app->mlx_data.image.img, 0, 0); 
     add_hooks(app);
-	mlx_loop(app->mlx_data.mlx_ptr);
-    
-    
-    // destroy and free data 
-    mlx_destroy_image(app->mlx_data.mlx_ptr, app->mlx_data.image.img);
-	mlx_destroy_window(app->mlx_data.mlx_ptr, app->mlx_data.win_ptr);
-	mlx_destroy_display(app->mlx_data.mlx_ptr);
-    free(app->mlx_data.mlx_ptr);
-
-    
-    /* -------------- */
-    //  if (app->garbage)
-	//      ft_vlstclear(&app->garbage);
-    
-    t_vlist *obj = app->p_data.objects;
-    while (obj)
-    {
-        t_vlist *tmp = obj;
-        obj = obj->next;
-        if (tmp->content)
-        {
-            free(tmp->content);
-            tmp->content = NULL;
-        }
-        free(tmp);
-        tmp = NULL;
-    }
-    obj = app->p_data.planes;
-    while (obj)
-    {
-        t_vlist *tmp = obj;
-        obj = obj->next;
-        if (tmp->content)
-        {
-            free(tmp->content);
-            tmp->content = NULL;
-        }
-        free(tmp);
-        tmp = NULL;
-    }
-    t_light *l = app->p_data.lights;
-    while (l)
-    {
-        t_vlist *tmp = l;
-        l = l->next;
-        free(tmp);
-        tmp = NULL;
-    }
-    free(app->p_data.mooooo);
-    app->p_data.mooooo = NULL;
-    free(app->p_data.cam);
-    app->p_data.cam = NULL;
-    
+    minirt_destroy_display(app);
     return (0);
 }
-
-
 
 int main(int argc, char **argv)
 {
@@ -124,8 +55,7 @@ int main(int argc, char **argv)
     
     ft_bzero(&app, sizeof(t_app));
     parse(argc, argv, &app.garbage, &app.p_data);
-
-    if (minirt_get_started(&app)) //free les bails 
+    if (minirt_get_started(&app))
         return (EXIT_MLX_FAILURE);
-
+    return (0);
 }
