@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/15 23:24:06 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/15 23:52:23 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_color    trace_ray(t_app *app, t_point ray_origin, t_vec dir, int rebound_nb)
 	set_ray_infos(&ray, dir, ray_origin);
 	
 	//rec_ray_traverse(app, &ray, get_interval(HITPOINT_OFFSET, INFINITY));
-	no_tree_intersections(app->p_data, &ray, get_interval(HITPOINT_OFFSET, INFINITY));
+	no_tree_intersections(app, &ray, get_interval(HITPOINT_OFFSET, INFINITY));
 	
 	if (ray.hit_info.distance == -1 || !ray.hit_info.obj_content) // le rayon n'intersecte aucun objet
 	{

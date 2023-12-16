@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cr_camera.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 00:53:38 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/12 18:47:03 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/16 00:42:36 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_camera *create_camera(char **tab, t_vlist **garbage, t_parsing_data *data)
         free(elem);
         return NULL;
     }
-    ft_vlstadd_back(garbage, ft_vlstnew(elem, free, camera));
+   // ft_vlstadd_back(garbage, ft_vlstnew(elem, free, camera));
     data->cam = elem;
     return elem;
 }

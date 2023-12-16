@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/15 23:05:46 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/15 23:44:53 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void    	draw_scene(t_app *app);
 t_color   	trace_ray(t_app *app, t_point ray_origin, t_vec dir, int rebound_nb);
 void    	copy_obj_properties(t_vlist *obj, t_hit_info *hinf, t_hit_info to_copy);
 // bool    	intersect(t_vlist *obj, t_ray *ray);
-void		no_tree_intersections(t_parsing_data pdata, t_ray *ray, t_interval t);
+void		no_tree_intersections(t_app *app, t_ray *ray, t_interval t);
 t_color 	compute_lighting(t_app *app, t_ray ray);
 t_vec		get_incident_ray_of_light(t_vec l, t_vec n);
 t_vec		reflect_ray(t_vec v, t_vec n); // ?

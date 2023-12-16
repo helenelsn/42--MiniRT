@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:20 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/15 23:21:11 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/16 01:15:20 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,59 @@ static int  minirt_get_started(t_app *app)
 
         
     add_hooks(app);
-    // printf("HEY\n");
 	mlx_loop(app->mlx_data.mlx_ptr);
     
+    
     // destroy and free data 
+    mlx_destroy_image(app->mlx_data.mlx_ptr, app->mlx_data.image.img);
+	mlx_destroy_window(app->mlx_data.mlx_ptr, app->mlx_data.win_ptr);
+	mlx_destroy_display(app->mlx_data.mlx_ptr);
+    free(app->mlx_data.mlx_ptr);
+
+    
+    /* -------------- */
+    //  if (app->garbage)
+	//      ft_vlstclear(&app->garbage);
+    
+    t_vlist *obj = app->p_data.objects;
+    while (obj)
+    {
+        t_vlist *tmp = obj;
+        obj = obj->next;
+        if (tmp->content)
+        {
+            free(tmp->content);
+            tmp->content = NULL;
+        }
+        free(tmp);
+        tmp = NULL;
+    }
+    obj = app->p_data.planes;
+    while (obj)
+    {
+        t_vlist *tmp = obj;
+        obj = obj->next;
+        if (tmp->content)
+        {
+            free(tmp->content);
+            tmp->content = NULL;
+        }
+        free(tmp);
+        tmp = NULL;
+    }
+    t_light *l = app->p_data.lights;
+    while (l)
+    {
+        t_vlist *tmp = l;
+        l = l->next;
+        free(tmp);
+        tmp = NULL;
+    }
+    free(app->p_data.mooooo);
+    app->p_data.mooooo = NULL;
+    free(app->p_data.cam);
+    app->p_data.cam = NULL;
+    
     return (0);
 }
 

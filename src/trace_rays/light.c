@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:15:45 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/14 22:21:18 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/15 23:45:06 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,7 +204,7 @@ bool	is_directly_illuminated(t_app *app, t_light *light, t_ray ray, t_ray *obj_t
 	normalise(&obj_to_light->direction);
 
 	//ray_traversal_algo(&app->root, &obj_to_light);
-	no_tree_intersections(app->p_data, obj_to_light, get_interval(HITPOINT_OFFSET, obj_to_light_dist));
+	no_tree_intersections(app, obj_to_light, get_interval(HITPOINT_OFFSET, obj_to_light_dist));
 	return (obj_to_light->hit_info.distance == -1);
 }
 

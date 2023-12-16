@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 18:59:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/15 23:20:19 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/16 01:14:07 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ t_cone *create_cone(char **tab, t_vlist **garbage, t_parsing_data *data)
         // mat.textures.bump_mapping = construct_map(&mat.textures.normap, "./normal_maps/terrain");
         
     // construct_map(&mat.textures.normap, "./normal_maps/terrain");
-    ft_vlstadd_back(garbage, ft_vlstnew(elem, free, cone));
+   // ft_vlstadd_back(garbage, ft_vlstnew(elem, free, cone));
     ft_vlstadd_back(&data->objects, ft_vlstnew_with_mat(elem, free, cone, mat));
+    // ft_vlstadd_back(garbage, ft_vlstlast(data->objects));
     return elem;
 }

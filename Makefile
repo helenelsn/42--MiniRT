@@ -2,13 +2,9 @@
 NAME = mimirt
 
 CC = cc
-CFLAGS = -MMD -g3 -I/opt/X11/include -I/opt/Xext/include -I$(INCLUDES_DIR) #-Wall -Wextra -Werror -I
+CFLAGS = -MMD -g3 -I/opt/X11/include -I/opt/Xext/include -I$(INCLUDES_DIR) #-Wall -Wextra -Werror
 
 FILES = \
-		bsp/bounding_volumes \
-		bsp/create_bsp \
-		bsp/get_splitting_plane \
-		bsp/recursive_ray_traversal \
 		create_elem/cr_camera \
 		create_elem/cr_cylindre \
 		create_elem/cr_light \
@@ -75,7 +71,11 @@ FILES = \
 		trace_rays/intervals_utils \
 		trace_rays/textures/mapping \
 		trace_rays/textures/checkers \
-		trace_rays/textures/normals 
+		trace_rays/textures/normals \
+		# bsp/create_bsp \
+		bsp/bounding_volumes \
+		bsp/get_splitting_plane \
+		bsp/recursive_ray_traversal \
 # Resolving
 		
 	

@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 23:34:39 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/28 16:05:48 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/16 00:42:36 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_mood_light *create_mood_light(char **tab, t_vlist **garbage, t_parsing_data *d
         free(elem);
         return NULL;
     }
-    ft_vlstadd_back(garbage, ft_vlstnew(elem, free, mood_light));
+   // ft_vlstadd_back(garbage, ft_vlstnew(elem, free, mood_light));
     data->mooooo = elem;
     return elem;
 }

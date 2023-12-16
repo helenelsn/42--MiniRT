@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/15 23:29:38 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/16 00:33:41 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -416,8 +416,8 @@ typedef struct  s_viewport
 
 typedef struct s_parsing_data
 {
-    t_camera        *cam;
-    t_mood_light    *mooooo; // batarde j avais pas vu (drole)
+    t_camera        *cam; // a besoin de malloc ?
+    t_mood_light    *mooooo; // a besoin de malloc ?
     t_light         *lights;
     t_vlist         *objects;
     t_vlist         *planes;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cr_light.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 01:17:10 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/15 22:20:59 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/16 00:42:36 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_light *create_light(char **tab, t_vlist **garbage, t_parsing_data *data)
     else
         elem->next = NULL; //todel, juste la pr eviter les segfaults pdt les tests
     // data->lights = elem;
-    ft_vlstadd_back(garbage, ft_vlstnew(elem, free, light));
+   // ft_vlstadd_back(garbage, ft_vlstnew(elem, free, light));
     if (data->lights)
         elem->next = data->lights;
     else
