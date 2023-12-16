@@ -43,12 +43,10 @@ int	enter_press(int keycode, t_app *app)
 	double number = app->mlx_data.n + app->mlx_data.after_dot/10;
 	app->mlx_data.n=0;
 	app->mlx_data.after_dot=0;
-	printf("enter press %f\n", number);
 	if (app->mlx_data.elem_selected && number && app->mlx_data.elem_hit.obj_type == sphere)
 		((t_sphere *) app->mlx_data.elem_hit.obj_content)->radius = number;
 	else if (app->mlx_data.elem_selected && number && app->mlx_data.elem_hit.obj_type == cylindre)
 	{
-		printf("replacing in cylindre\n");
 		if (app->mlx_data.radius_or_heigt == 1)
 			((t_cylindre *) app->mlx_data.elem_hit.obj_content)->radius = number;
 		else if (app->mlx_data.radius_or_heigt == 2)
@@ -57,7 +55,6 @@ int	enter_press(int keycode, t_app *app)
 	}
 	else if (app->mlx_data.elem_selected && number && app->mlx_data.elem_hit.obj_type == cone)
 	{
-		printf("replacing in cone\n");
 		if (app->mlx_data.radius_or_heigt == 1)
 			((t_cone *) app->mlx_data.elem_hit.obj_content)->radius = number;
 		else if (app->mlx_data.radius_or_heigt == 2)
@@ -68,62 +65,77 @@ int	enter_press(int keycode, t_app *app)
 		return 0;
 	redraw(app);
 	return 0;
-	// deselect(app);
 }
 
 
-
-void arrow_press_no_elem(int keycode, t_app *app)
+void up_down_arrow(int keycode, t_app *app)
 {
-	if (keycode == XK_Up)
-		app->p_data.cam->direction.y += 0.1;
-	else if (keycode == XK_Down)
-		app->p_data.cam->direction.y -= 0.1;
-	else if (keycode == XK_Right)
-		app->p_data.cam->direction.x += 0.1;
-	else if (keycode == XK_Left)
-		app->p_data.cam->direction.x -= 0.1;
-	normalise(&app->p_data.cam->direction);
-	init_viewpoint(app);
-}
+	t_ray tmp;
+	t_point *to_move;
 
-void arrow_press_elem(int keycode, t_app *app)
-{
-	
-	if (!get_v_norm(app->mlx_data.orientation))
+	to_move = get_elem_point(app->mlx_data.elem_hit);
+	if (!app->mlx_data.elem_selected)
+		to_move = &app->p_data.cam->p;
+	if (!to_move)
 		return;
-	// if (keycode == XK_Up)
-	// 	app->p_data.cam->direction.y += 0.1;
-	// else if (keycode == XK_Down)
-	// 	app->p_data.cam->direction.y -= 0.1;
-	// else if (keycode == XK_Right)
-	// 	app->p_data.cam->direction.x += 0.1;
-	// else if (keycode == XK_Left)
-	// 	app->p_data.cam->direction.x -= 0.1;
-	// normalise(&app->p_data.cam->direction);
+	tmp.direction = app->mlx_data.orientation;
+	tmp.origin = *to_move;
+	normalise(&tmp.direction);
+	*to_move = get_ray_point(tmp, 2);
+	if (app->mlx_data.elem_selected && app->mlx_data.elem_hit.obj_type == cone)
+		set_cone_dep((t_cone *) app->mlx_data.elem_hit.obj_content);
+	if (app->mlx_data.elem_selected && app->mlx_data.elem_hit.obj_type == cylindre)
+		set_cylindre_dep((t_cylindre *) app->mlx_data.elem_hit.obj_content);
+	if (!app->mlx_data.elem_selected)
+		init_viewpoint(app);
+}
+
+void left_right_arrow(int keycode, t_app *app)
+{
+	t_vec *tmp;
+
+	tmp = get_elem_vec(app->mlx_data.elem_hit);
+	if (!app->mlx_data.elem_selected)
+		tmp = &app->p_data.cam->direction;
+	if (!tmp)
+		return;
+	if (keycode == XK_Right)
+		*tmp = vect_addition(*tmp, app->mlx_data.orientation);
+	else if (keycode == XK_Left)
+		*tmp = vect_substract(*tmp, app->mlx_data.orientation);
+	normalise(tmp);
+	if (app->mlx_data.elem_selected && app->mlx_data.elem_hit.obj_type == cone)
+		set_cone_dep((t_cone *) app->mlx_data.elem_hit.obj_content);
+	if (app->mlx_data.elem_selected && app->mlx_data.elem_hit.obj_type == cylindre)
+		set_cylindre_dep((t_cylindre *) app->mlx_data.elem_hit.obj_content);
+	if (!app->mlx_data.elem_selected)
+		init_viewpoint(app);
 }
 
 void arrow_press(int keycode, t_app *app)
 {
-	if (!app->mlx_data.elem_selected)
-		arrow_press_no_elem(keycode, app);
+
+	if (!get_v_norm(app->mlx_data.orientation))
+		return;
+	if (keycode == XK_Right || keycode == XK_Left)
+		left_right_arrow(keycode, app);
 	else
-		arrow_press_elem(keycode, app);
+		up_down_arrow(keycode, app);
+	// printf("%s\n", __func__);
 	redraw(app);
 }
 
+
 void modify_orientation(int keycode, t_app * app)
 {
-	if (!app->mlx_data.elem_selected)
-		return;
-	app->mlx_data.orientation = (t_vec) {0,0,0,0};
+	if (keycode == XK_w)	
+		app->mlx_data.orientation = (t_vec) {0,0,0,0};
 	if (keycode == XK_x)	 
-		app->mlx_data.orientation.x = 1;
+		app->mlx_data.orientation.x += 0.3;
 	if (keycode == XK_y)	
-		app->mlx_data.orientation.y  = 1;
+		app->mlx_data.orientation.y += 0.3;
 	if (keycode == XK_z)	
-		app->mlx_data.orientation.z  = 1;
-	normalise(&app->mlx_data.orientation);
+		app->mlx_data.orientation.z  += 0.3;
 	printf("%s\n", __func__);
 	
 }
@@ -137,19 +149,19 @@ int	key_press(int keycode, t_app *app)
 {
 	if (keycode >=XK_0 && keycode <= XK_9)
 		return number_press(keycode, app);
-	if (keycode == XK_p)
+	if (keycode == 46)
 		app->mlx_data.point_pushed = true;
 	if (keycode == XK_h && app->mlx_data.elem_selected && (app->mlx_data.elem_hit.obj_type == cylindre || app->mlx_data.elem_hit.obj_type == cone))
 		app->mlx_data.radius_or_heigt = 2;
 	if (keycode == XK_r && app->mlx_data.elem_selected && (app->mlx_data.elem_hit.obj_type == cylindre || app->mlx_data.elem_hit.obj_type == cone))
 		app->mlx_data.radius_or_heigt = 1;
-	if (keycode == XK_e) //todo trouver le keysim du enter
-		enter_press(keycode, app); 
+	if (keycode == 65293)
+		enter_press(keycode, app);
 	if (keycode == KEY_ESC)
 		return (!close_mlx(app));
 	if (keycode >= XK_Left && keycode <= XK_Down)
 		arrow_press(keycode, app);
-	if (keycode >= XK_x && keycode <= XK_z)
+	if (keycode >= XK_w && keycode <= XK_z)
 		modify_orientation(keycode, app);
 	if (keycode >= XK_m)
 		app->mlx_data.mute = !app->mlx_data.mute;

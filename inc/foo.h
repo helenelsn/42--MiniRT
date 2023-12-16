@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/15 23:37:03 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/16 00:36:11 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	my_mlx_pixel_put(t_image *img, int x, int y, int color);
 void launch_app(t_app *app);
 t_hit_info    get_hit_info(t_app *app, t_point ray_origin, t_vec dir, int rebound_nb);
 
-
+t_point *get_elem_point(t_hit_info hit);
 
 /* -------------------- VEC POINT UTILS ------------------- */
 
