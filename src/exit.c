@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 15:38:52 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/16 15:43:47 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 00:54:15 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ void    free_vlist(t_vlist *list)
 
 void    minirt_destroy_display(t_app *app)
 {
+    int i;
+    
     mlx_destroy_image(app->mlx_data.mlx_ptr, app->mlx_data.image.img);
 	mlx_destroy_window(app->mlx_data.mlx_ptr, app->mlx_data.win_ptr);
 	mlx_destroy_display(app->mlx_data.mlx_ptr);
@@ -61,4 +63,7 @@ void    minirt_destroy_display(t_app *app)
     free_lights(app);
     free(app->p_data.cam);
     app->p_data.cam = NULL;
+    i = 0;
+    while (i < no_map)
+        erase_maps(i++);
 }

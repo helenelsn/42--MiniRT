@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 01:20:17 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/16 23:44:55 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/17 00:22:01 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,7 @@ t_sphere	*create_sphere(char **tab, t_parsing_data *data)
 		free(elem);
 		return (NULL);
 	}
-
-	// if 'do bump mapping'
-	// mat.textures.bump_mapping = construct_map(&mat.textures.normap,
-			"./normal_maps/sand");
-
-			// ft_vlstadd_back( ft_vlstnew(elem, free, sphere));
-			ft_vlstadd_back(&data->objects, ft_vlstnew_with_mat(elem, free,
-						sphere, mat));
-			// ft_vlstadd_back( ft_vlstlast(data->objects));
-			return (elem);
+    ft_vlstadd_back(&data->objects, ft_vlstnew_with_mat(elem, free,
+                sphere, mat));
+    return (elem);
 }

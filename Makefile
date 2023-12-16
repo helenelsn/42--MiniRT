@@ -48,7 +48,6 @@ FILES = \
 		mlx_gestion/print_usage \
 		mlx_gestion/redraw \
 		mlx_gestion/utils \
-		utils/atof \
 		utils/construct_map \
 		utils/change_base \
 		utils/fov \

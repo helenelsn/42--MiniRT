@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 01:29:43 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/16 23:43:23 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/17 00:22:14 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,17 @@ void	set_cylindre_dep(t_cylindre *elem)
 	tmp.origin = elem->p;
 	tmp.direction = elem->vec;
 	elem->cover_planes[0] = (t_plan){get_ray_point(tmp, elem->height / 2),
-		elem->vec, 0, 0, 0, 0};
+										elem->vec,
+										0,
+										0,
+										0,
+										0};
 	elem->cover_planes[1] = (t_plan){get_ray_point(tmp, -elem->height / 2),
-		elem->vec, 0, 0, 0, 0};
+										elem->vec,
+										0,
+										0,
+										0,
+										0};
 	set_eq(&elem->cover_planes[0]);
 	set_eq(&elem->cover_planes[1]);
 }
@@ -39,9 +47,9 @@ t_cylindre	*create_cylindre(char **tab, t_parsing_data *data)
 	if (!elem)
 		return (NULL);
 	elem->radius = atof(tab[3]) * (1 - 2 * !ft_strisfloat(tab[3])) / 2;
-		//j'trouve c est stylé
-	elem->height = atof(tab[4]) * (1 - 2 * !ft_strisfloat(tab[4]));    
-		//j'trouve c est stylé
+	//j'trouve c est stylé
+	elem->height = atof(tab[4]) * (1 - 2 * !ft_strisfloat(tab[4]));
+	//j'trouve c est stylé
 	if (!get_rgb(tab[5], &mat.color) || elem->radius < 0 || elem->height < 0
 		|| !get_point(tab[1], &elem->p) || !get_vec_from_str(tab[2], &elem->vec)
 		|| !set_bonus_options(&mat, tab + CO_CY_ARG_SIZE))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   foo.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/17 00:18:08 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 00:53:24 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,5 +226,5 @@ int             minirt_get_started_bonus(t_app *app);
 int             initialise_mlx_data(t_app *app);
 int		        get_final_pixel_color(t_app *app, int x, int y);
 t_renderer*     redraw_bonus(t_app *app);
-
+t_normal_map *erase_maps(t_normap_type t);
 #endif
