@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_rt.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:13 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/16 23:53:58 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 02:15:49 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@
 
 # include "struct.h"
 # include "foo.h"
-# include "bsp.h"
-# include "mlx_hooks.h"
 
 #define EXIT_SUCCES 	    0
 #define EXIT_FAILURE 	    1
@@ -52,5 +50,6 @@
 #define CO_CY_ARG_SIZE 6
 
 # define THREADS_NB 10
+# define KEY_ESC    65307
 
 #endif
