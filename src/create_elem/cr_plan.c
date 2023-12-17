@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 01:26:34 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/17 01:07:36 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/17 02:01:52 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ t_plan	*create_plan(char **tab, t_parsing_data *data)
 	t_material	mat;
 	int			size_tab;
 
-	ft_bzero(&mat, sizeof(t_material));
 	size_tab = null_term_tab_len((void **)tab);
 	if (size_tab < SP_PL_ARG_SIZE || size_tab > SP_PL_ARG_SIZE + BONUS_SIZE)
 		return (NULL);
@@ -41,6 +40,7 @@ t_plan	*create_plan(char **tab, t_parsing_data *data)
 		free(elem);
 		return (NULL);
 	}
+	set_eq(elem);
 	ft_vlstadd_back(&data->planes, ft_vlstnew_with_mat(elem, free, plan, mat));
 	return (elem);
 }
