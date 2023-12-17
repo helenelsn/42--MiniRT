@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 19:17:45 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/17 20:00:11 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 20:02:37 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ bool	set_bump_map_type(t_material *mat, char *info)
 {
 	if ((ft_strlen(info) < 3) || !info || !ft_str_beggin_with(info, "b=")
 		|| (ft_strlen(info) == 4 && !ft_str_end_with(info, "\n"))
-		|| ft_strlen(info) < 5)
+		|| ft_strlen(info) > 4)
 		return (false);
 	if (info[2] == 'c')
 		mat->textures.t = cliff;
