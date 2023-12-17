@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 18:59:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/17 00:22:09 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/17 01:00:35 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,12 @@ void	set_cone_dep(t_cone *elem)
 
 t_cone	*create_cone(char **tab, t_parsing_data *data)
 {
-	t_material mat;
-	t_cone *elem;
-	bool flag;
-	int size_tab = null_term_tab_len((void **)tab);
+	t_material	mat;
+	t_cone		*elem;
+	bool		flag;
+	int			size_tab;
 
+	size_tab = null_term_tab_len((void **)tab);
 	if (size_tab < CO_CY_ARG_SIZE || size_tab > CO_CY_ARG_SIZE + BONUS_SIZE)
 		return (NULL);
 	elem = ft_calloc(1, sizeof(t_cone));
