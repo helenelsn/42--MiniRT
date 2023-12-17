@@ -6,31 +6,30 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 19:34:44 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/16 00:29:49 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/17 01:22:29 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/mini_rt.h"
 
-t_vec *get_elem_vec(t_hit_info hit)
+t_vec	*get_elem_vec(t_hit_info hit)
 {
-    if (hit.obj_type == plan)
-        return &((t_plan *) hit.obj_content)->vec;
-    if (hit.obj_type == cylindre)
-        return &((t_cylindre *) hit.obj_content)->vec;
-    if (hit.obj_type == cone)
-        return &((t_cone *) hit.obj_content)->vec;
-    return NULL;
+	if (hit.obj_type == plan)
+		return (&((t_plan *)hit.obj_content)->vec);
+	if (hit.obj_type == cylindre)
+		return (&((t_cylindre *)hit.obj_content)->vec);
+	if (hit.obj_type == cone)
+		return (&((t_cone *)hit.obj_content)->vec);
+	return (NULL);
 }
 
-
-t_point *get_elem_point(t_hit_info hit)
+t_point	*get_elem_point(t_hit_info hit)
 {
-    if (hit.obj_type == plan)
-        return &((t_plan *) hit.obj_content)->p;
-    if (hit.obj_type == cylindre)
-        return &((t_cylindre *) hit.obj_content)->p;
-    if (hit.obj_type == cone)
-        return &((t_cone *) hit.obj_content)->p;
-    return NULL;
+	if (hit.obj_type == plan)
+		return (&((t_plan *)hit.obj_content)->p);
+	if (hit.obj_type == cylindre)
+		return (&((t_cylindre *)hit.obj_content)->p);
+	if (hit.obj_type == cone)
+		return (&((t_cone *)hit.obj_content)->p);
+	return (NULL);
 }
