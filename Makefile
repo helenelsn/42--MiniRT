@@ -39,11 +39,10 @@ FILES = \
 		maths_utils/distances/distance_point_line \
 		maths_utils/distances/distance_two_lines \
 		maths_utils/distances/distance_two_points \
+		mlx_gestion/arrow_press \
 		mlx_gestion/close \
 		mlx_gestion/get_elem_vec \
 		mlx_gestion/hooks \
-		mlx_gestion/init \
-		mlx_gestion/key_press \
 		mlx_gestion/launch \
 		mlx_gestion/mouse_hooks \
 		mlx_gestion/print_usage \
