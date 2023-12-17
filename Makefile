@@ -81,34 +81,27 @@ FILES = \
 		render/textures/mapping/sphere \
 		render/textures/mapping/rotation_utils \
 		render/textures/mapping/utils \
-		main_bonus \
+		#main_bonus \
 		render_bonus \
 		#dist/dist_droite \
 		dist/dist_points \
 		dist/dist_point_droite \
 		render/color \
 		render/light \
-		bsp/create_bsp \
-		bsp/bounding_volumes \
-		bsp/get_splitting_plane \
-		bsp/recursive_ray_traversal \
 # Resolving
 		
-	
 SRCS_DIR = src
 SRCS = $(addprefix $(SRCS_DIR)/, $(addsuffix .c, $(FILES))) 
 
 OBJS_DIR = obj
 OBJS = ${patsubst ${SRCS_DIR}/%.c, ${OBJS_DIR}/%.o, ${SRCS}}
 
-#DEP_OBJS = ${patsubst ${SRCS_DIR}/%.c, ${OBJS_DIR}/%.d, ${SRCS}}
 DEP_OBJS = $(OBJS:.o=.d)
 
 LIBS_FOLDER = libs
 
 LIBSR_DIR = libft
 LIBSR = $(LIBS_FOLDER)/$(LIBSR_DIR)/libft.a
-
 
 MLX_DIR = minilibx-linux
 MLX = $(LIBS_FOLDER)/$(MLX_DIR)/libmlx_Linux.a
