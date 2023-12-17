@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   create.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 16:44:06 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/17 04:21:23 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/17 22:59:01 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/matrices.h"
+#include <stdarg.h>
 
 t_matrix	*new_matrix_from_var_args(int r, int c, ...)
 {

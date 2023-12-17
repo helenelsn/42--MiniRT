@@ -6,7 +6,7 @@
 #    By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/21 21:53:58 by therodri          #+#    #+#              #
-#    Updated: 2023/12/08 19:39:53 by hlesny           ###   ########.fr        #
+#    Updated: 2023/12/17 23:48:25 by hlesny           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,11 +58,11 @@ all: $(NAME)
 
 clean:
 	make -C $(LIBFT_DIR) clean
-	rm -f $(OBJS)
+	rm -rf $(OBJS)
 
 fclean: clean
 	make -C $(LIBFT_DIR) fclean
-	rm -f $(NAME)
+	rm -rf $(NAME)
 
 re: fclean all
 

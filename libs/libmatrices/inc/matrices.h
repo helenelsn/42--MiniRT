@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   matrices.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 20:52:41 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/17 05:27:25 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/17 23:00:20 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MATRICES_H
 # define MATRICES_H
 
-# include "../../../inc/mini_rt.h"
-# include "../../../inc/struct.h"
-# include <stdbool.h>
+# include "../../../mimi_rt/inc/struct.h"
+#include <stdarg.h>
+#include "../../libft/ft_printf.h"
 
 typedef struct s_cofactor_calc
 {
