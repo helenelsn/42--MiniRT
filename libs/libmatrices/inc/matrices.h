@@ -6,14 +6,13 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 20:52:41 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/17 04:17:58 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/17 05:27:25 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MATRICES_H
 # define MATRICES_H
 
-# pragma once
 # include "../../../inc/mini_rt.h"
 # include "../../../inc/struct.h"
 # include <stdbool.h>
@@ -44,4 +43,8 @@ void			del_mat(void *v);
 void			print_mat(t_matrix *m);
 t_cofactor_info	scan_mat(t_matrix *m);
 double			get_mat_det(t_matrix *m);
+void			set_2_int_to_null(int *a, int *b);
+void			incr_2_int(int *a, int *b);
+void			update_res(double *res, t_matrix *m, int i, int j);
+int				get_det_sign(int row, int col);
 #endif

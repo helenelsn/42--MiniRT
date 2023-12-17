@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 00:40:26 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/17 04:26:56 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/17 05:26:01 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,10 @@ t_matrix	*get_sub_matrix(t_matrix *m, int r, int c)
 	int			l;
 
 	res = new_void_matrix(m->rows - 1, m->columns - 1);
-	k = 0;
-	l = 0;
+	set_2_int_to_null(&k, &i);
 	while (k < res->rows)
 	{
-		j = 0;
-		l = 0;
+		set_2_int_to_null(&l, &j);
 		if (i == r)
 			i++;
 		while (l < res->columns)
@@ -35,11 +33,9 @@ t_matrix	*get_sub_matrix(t_matrix *m, int r, int c)
 				j++;
 			if (i < m->rows && j < m->columns)
 				res->matrix[k][l] = m->matrix[i][j];
-			j++;
-			l++;
+			incr_2_int(&j, &l);
 		}
-		i++;
-		k++;
+		incr_2_int(&i, &k);
 	}
 	return (res);
 }
@@ -55,25 +51,14 @@ static double	get_det_2x2_or_less_matrix(t_matrix *m)
 	return (0);
 }
 
-int	get_sign(int row, int col)
-{
-	if ((row + col) % 2)
-		return (-1);
-	return (1);
-}
-
 double	get_mat_det(t_matrix *m)
 {
 	t_cofactor_info	info;
-	t_matrix		*tmp;
 	int				i;
-	int				res;
+	double			res;
 
 	if (m->rows != m->columns)
-	{
-		printf("PROBLEME\n");
 		return (0);
-	}
 	if (m->rows <= 2)
 		return (get_det_2x2_or_less_matrix(m));
 	i = -1;
@@ -82,19 +67,9 @@ double	get_mat_det(t_matrix *m)
 	while (++i < m->columns)
 	{
 		if (info.row)
-		{
-			tmp = get_sub_matrix(m, info.index, i);
-			res += get_sign(info.index, i) * m->matrix[info.index][i]
-				* get_mat_det(tmp);
-			del_mat(tmp);
-		}
+			update_res(&res, m, info.index, i);
 		if (!info.row)
-		{
-			tmp = get_sub_matrix(m, i, info.index);
-			res += get_sign(i, info.index) * m->matrix[i][info.index]
-				* get_mat_det(tmp);
-			del_mat(tmp);
-		}
+			update_res(&res, m, i, info.index);
 	}
 	return (res);
 }
