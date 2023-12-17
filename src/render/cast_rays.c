@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/17 01:17:22 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 02:04:45 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	get_final_pixel_color(t_app *app, int x, int y)
 	set_pixel_center(app, &pixel_center, x, y);
 	while (sampling_count < SAMPLES_PER_PIXEL)
 	{
-		viewp_pixel = translate_point(pixel_center, pixel_sample(app, x, y));
+		viewp_pixel = translate_point(pixel_center, pixel_sample(app));
 		//tmp = color_add (tmp, trace_ray(app, app->p_data.cam->p,
 					//get_directional_vect(app->p_data.cam->p, viewp_pixel), 0));
 		tmp = trace_ray(app, app->p_data.cam->p,
