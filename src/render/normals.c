@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:15:06 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/17 03:53:34 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 04:08:16 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ t_vec	normal_to_cylinder(void *obj, t_hit_info info)
 	}
 	center_to_hitpoint = get_directional_vect(cy->p, info.hit_point);
 	projected = vect_double_multiply(dot(center_to_hitpoint, cy->vec), cy->vec);
-		// project(center_to_hitpoint, cy->vec);
 	normal = get_directional_vect(get_vec_coord(projected),
 			get_vec_coord(center_to_hitpoint));
 	normalise(&normal);
@@ -62,7 +61,6 @@ t_vec	normal_to_cone(void *obj, t_point p, bool is_cap)
 	t_cone	*cn;
 	t_vec	point_axe;
 	t_ray	tmp;
-	t_point	position;
 	t_vec	point_to_axe;
 	t_vec	perpendicular_vector;
 
@@ -72,8 +70,7 @@ t_vec	normal_to_cone(void *obj, t_point p, bool is_cap)
 	point_axe = get_directional_vect(cn->top, p);
 	tmp.origin = cn->p;
 	tmp.direction = cn->vec;
-	position = get_ray_point(tmp, 0);
-	point_to_axe = get_directional_vect(cn->p, position);
+	point_to_axe = get_directional_vect(cn->p, get_ray_point(tmp, 0));
 	perpendicular_vector = cross_product(cross_product(point_axe, point_to_axe),
 			point_axe);
 	normalise(&perpendicular_vector);
