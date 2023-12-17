@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/17 02:04:45 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 04:08:24 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ t_color	trace_ray(t_app *app, t_point ray_origin, t_vec dir, int rebound_nb)
 	set_ray_infos(&ray, dir, ray_origin);
 	no_tree_intersections(app, &ray, get_interval(HITPOINT_OFFSET, INFINITY));
 	if (ray.hit_info.distance == -1 || !ray.hit_info.obj_content)
-	// le rayon n'intersecte aucun objet
 		return (app->background);
 	ray.hit_info.reflected_ray = reflect_ray(ray.direction,
 			ray.hit_info.outward_normal);
@@ -40,11 +39,6 @@ t_color	trace_ray(t_app *app, t_point ray_origin, t_vec dir, int rebound_nb)
 		return (local_color);
 	/* compute reflected color */
 	// A VERIFIER !!!!!!!!!!!
-	// reflected_ray = reflect_ray(ray.direction, ray.hit_info.outward_normal);
-		// ou juste ray.direction en premier argument ?
-	// reflected_ray = get_incident_ray_of_light(vect_double_multiply(-1,
-				//ray.direction), ray.hit_info.outward_normal);
-		// ou juste ray.direction en premier argument ?
 	reflected_color = trace_ray(app, ray.hit_info.hit_point,
 			ray.hit_info.reflected_ray, rebound_nb + 1);
 	return (color_add(color_scale(local_color, 1
@@ -58,35 +52,18 @@ int	get_final_pixel_color(t_app *app, int x, int y)
 	t_color	pixel_color;
 	t_point	pixel_center;
 	t_point	viewp_pixel;
-	t_color	tmp;
-	int		r;
-	int		g;
-	int		b;
-	double	inv;
 
-	r = 0;
-	g = 0;
-	b = 0;
 	sampling_count = 0;
 	ft_bzero(&pixel_color, sizeof(t_color));
 	set_pixel_center(app, &pixel_center, x, y);
 	while (sampling_count < SAMPLES_PER_PIXEL)
 	{
 		viewp_pixel = translate_point(pixel_center, pixel_sample(app));
-		//tmp = color_add (tmp, trace_ray(app, app->p_data.cam->p,
-					//get_directional_vect(app->p_data.cam->p, viewp_pixel), 0));
-		tmp = trace_ray(app, app->p_data.cam->p,
-				get_directional_vect(app->p_data.cam->p, viewp_pixel), 0);
-		r += tmp.r;
-		g += tmp.g;
-		b += tmp.b;
+		pixel_color = color_add (pixel_color, trace_ray(app, app->p_data.cam->p,
+					get_directional_vect(app->p_data.cam->p, viewp_pixel), 0));
 		sampling_count++;
 	}
-	inv = SAMPLES_PER_PIXEL;
-	pixel_color.r = r / inv;
-	pixel_color.g = g / inv;
-	pixel_color.b = b / inv;
-	// pixel_color = color_scale(pixel_color, 1.0 / SAMPLES_PER_PIXEL);
+	pixel_color = color_scale(pixel_color, 1.0 / SAMPLES_PER_PIXEL);
 	return (pixel_color.hex);
 }
 
