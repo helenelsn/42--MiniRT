@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 19:17:45 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/17 20:51:38 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 21:54:21 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ bool	set_specular(char *str, double *to_mod)
 	if (!str)
 		return (true);
 	if (((ft_strlen(str) < 3)
-			|| !ft_strisfloat(str + 3) && !ft_strisint(str + 3))
+			|| (!ft_strisfloat(str + 3) && !ft_strisint(str + 3)))
 		|| !ft_str_beggin_with(str, "sp="))
 		return (false);
 	*to_mod = atof(str + 3);
