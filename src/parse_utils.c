@@ -3,21 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 05:28:20 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/17 05:28:57 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 06:40:20 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/mini_rt.h"
 
-void	parse_error_occured(t_parse_error e, int fd)
+void	set_parse_error(t_parsing_data *data, t_parse_error e, char *line)
 {
-	ft_printf("Error %d\n", e);
-	if (fd > -1)
-		close(fd);
-	exit(EXIT_FAILURE);
+	data->err = e;
+	printf("Error during parsing");
+	if (e == invalid_args_nb)
+		printf(": bad args nb\n");
+	else if (e == cannot_open_file)
+		printf(": can not open file\n");
+	else if (e == file_content && line)
+		printf("line :\n{%s}\nis not correctly formated\n", line);
+	else if (e == missing_elem)
+		printf(": necessary elem are missing\n");
+	else
+		printf("\n");
 }
 
 void	free_tab(void *arg)

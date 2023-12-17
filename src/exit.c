@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 15:38:52 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/17 04:57:10 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 06:42:43 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	free_lights(t_app *app)
 	t_light	*tmp;
 
 	current = app->p_data.lights;
-	free(app->p_data.mooooo);
+	if (app->p_data.mooooo)
+		free(app->p_data.mooooo);
 	app->p_data.mooooo = NULL;
 	while (current)
 	{
@@ -54,14 +55,19 @@ void	minirt_destroy_display(t_app *app)
 {
 	int	i;
 
-	mlx_destroy_image(app->mlx_data.mlx_ptr, app->mlx_data.image.img);
-	mlx_destroy_window(app->mlx_data.mlx_ptr, app->mlx_data.win_ptr);
-	mlx_destroy_display(app->mlx_data.mlx_ptr);
-	free(app->mlx_data.mlx_ptr);
+	if (app->mlx_data.image.img)
+		mlx_destroy_image(app->mlx_data.mlx_ptr, app->mlx_data.image.img);
+	if (app->mlx_data.win_ptr)
+		mlx_destroy_window(app->mlx_data.mlx_ptr, app->mlx_data.win_ptr);
+	if (app->mlx_data.mlx_ptr)
+		mlx_destroy_display(app->mlx_data.mlx_ptr);
+	if (app->mlx_data.mlx_ptr)
+		free(app->mlx_data.mlx_ptr);
 	free_vlist(app->p_data.planes);
 	free_vlist(app->p_data.objects);
 	free_lights(app);
-	free(app->p_data.cam);
+	if (app->p_data.cam)
+		free(app->p_data.cam);
 	app->p_data.cam = NULL;
 	i = 0;
 	while (i < no_map)

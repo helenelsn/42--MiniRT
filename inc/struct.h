@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:08 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/17 02:24:27 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/17 06:18:53 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,9 @@ typedef enum e_parse_error
 {
 	none,
 	invalid_args_nb,
-	file,
+	cannot_open_file,
 	file_content,
+	missing_elem
 }						t_parse_error;
 
 typedef enum e_normap_type
@@ -369,6 +370,8 @@ typedef struct s_parsing_data
 	t_light				*lights;
 	t_vlist				*objects;
 	t_vlist				*planes;
+	t_parse_error		err;
+	int					line;
 }						t_parsing_data;
 
 typedef struct s_app
