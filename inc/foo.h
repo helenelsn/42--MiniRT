@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/17 19:57:59 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 21:38:36 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,6 @@ void			minirt_destroy_display(t_app *app);
 void			init_app(t_app *app);
 int				close_mlx(void *app);
 void			img_pixel_put(t_image image, int x, int y, int color);
-void			print_elem_selected(int mute, t_type t);
 void			print_usage(int mute);
 int				handle_mouse(int keysym, int x, int y, t_app *app);
 void			redraw(t_app *app);
@@ -215,5 +214,6 @@ t_normal_map	*get_tree_map(bool to_free);
 t_normal_map	*erase_maps(t_normap_type t);
 t_normal_map	*get_wood_map(bool to_free);
 void			free_lights(t_parsing_data *data);
+void			free_vlist(t_vlist *list);
 
 #endif

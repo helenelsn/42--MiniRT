@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:23 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/17 19:30:12 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 20:50:37 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@ void	*add_obj(char **tab, t_parsing_data *data, char *line)
 		elem = create_mood_light(tab, data);
 	else if (ft_strisequal(tab[0], "C"))
 		elem = create_camera(tab, data);
-	else if (ft_strisequal(tab[0], "L"))
+	else if (!BONUS_SIZE && ft_strisequal(tab[0], "L"))
+		elem = create_light(tab, data);
+	else if (BONUS_SIZE && ft_strisequal(tab[0], "l"))
 		elem = create_light(tab, data);
 	else if (ft_strisequal(tab[0], "sp"))
 		elem = create_sphere(tab, data);

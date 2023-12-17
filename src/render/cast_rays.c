@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/17 05:39:33 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 21:41:39 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ t_color	trace_ray(t_app *app, t_point ray_origin, t_vec dir, int rebound_nb)
 	local_color = compute_lighting(app, ray);
 	if (ray.hit_info.obj_mat.reflective <= 0 || rebound_nb == REBOUNDS_LIMIT)
 		return (local_color);
-	/* compute reflected color */
-	// A VERIFIER !!!!!!!!!!!
 	reflected_color = trace_ray(app, ray.hit_info.hit_point,
 			ray.hit_info.reflected_ray, rebound_nb + 1);
 	return (color_add(color_scale(local_color, 1

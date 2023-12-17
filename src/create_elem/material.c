@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 19:17:45 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/17 20:02:37 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 20:51:38 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ bool	set_bonus_options(t_material *mat, char **tab)
 	flag = true;
 	i = 0;
 	size = null_term_tab_len((void **)tab);
+	if (!BONUS_SIZE && size)
+		return (false);
 	while (i < size)
 	{
 		if (tab[i] && tab[i][0] != '\n')

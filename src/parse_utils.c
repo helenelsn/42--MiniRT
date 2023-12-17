@@ -6,16 +6,16 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 05:28:20 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/17 19:19:44 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 21:42:15 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/mini_rt.h"
 
-void 	free_and_exit(t_parsing_data *data)
+void	free_and_exit(t_parsing_data *data)
 {
 	int	i;
-	
+
 	free_vlist(data->planes);
 	free_vlist(data->objects);
 	free_lights(data);
@@ -42,8 +42,8 @@ void	set_parse_error(t_parsing_data *data, t_parse_error e, char *line)
 		printf(": necessary elem are missing\n");
 	else
 		printf("\n");
-	free(line); // ln
-	free_and_exit(data); //ln
+	free(line);
+	free_and_exit(data);
 }
 
 void	free_tab(void *arg)
@@ -65,7 +65,8 @@ int	null_term_tab_len(void **tab)
 	int	i;
 
 	i = 0;
-	while (tab && tab[i])
+	while (tab && tab[i] && ((char **)tab)[i][0]
+		&& ((char **)tab)[i][0] != '\n')
 		i++;
 	return (i);
 }

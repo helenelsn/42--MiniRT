@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_rt.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:13 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/17 03:24:58 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/17 21:13:06 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 # define SAMPLES_PER_PIXEL 1
 # define FOCUS_DIST 5
 # define HITPOINT_OFFSET 1e-7
-# define REBOUNDS_LIMIT 1
+# define REBOUNDS_LIMIT 3
 # define T_INF 0.00001
 # define CHECKERS_HEIGHT 20
 
