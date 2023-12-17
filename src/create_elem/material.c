@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 19:17:45 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/17 01:15:04 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/17 19:13:49 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	set_checkerboard(t_material *mat, char *info)
 {
-	if (!info || (!ft_strisequal(info, "ch") && !ft_strisequal(info, "ch\n")))
+	if (!info || (ft_strlen(info) < 3) ||  (!ft_strisequal(info, "ch") && !ft_strisequal(info, "ch\n")))
 		return (false);
 	mat->textures.checkered = true;
 	return (true);
@@ -22,7 +22,7 @@ bool	set_checkerboard(t_material *mat, char *info)
 
 bool	set_bump_map_type(t_material *mat, char *info)
 {
-	if (!info || !ft_str_beggin_with(info, "b=") || ft_strlen(info) < 3
+	if ((ft_strlen(info) < 2) || !info || !ft_str_beggin_with(info, "b=") || ft_strlen(info) < 3
 		|| ft_strlen(info) > 4)
 		return (false);
 	if (info[2] == 'c')
@@ -45,7 +45,7 @@ bool	set_reflective(char *str, double *to_mod)
 {
 	if (!str)
 		return (true);
-	if ((!ft_strisfloat(str + 3) && !ft_strisint(str + 3))
+	if ((ft_strlen(str) < 3) || (!ft_strisfloat(str + 3) && !ft_strisint(str + 3))
 		|| !ft_str_beggin_with(str, "re="))
 		return (false);
 	*to_mod = atof(str + 3);
@@ -58,7 +58,7 @@ bool	set_specular(char *str, double *to_mod)
 {
 	if (!str)
 		return (true);
-	if ((!ft_strisfloat(str + 3) && !ft_strisint(str + 3))
+	if (((ft_strlen(str) < 3) || !ft_strisfloat(str + 3) && !ft_strisint(str + 3))
 		|| !ft_str_beggin_with(str, "sp="))
 		return (false);
 	*to_mod = atof(str + 3);

@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:23 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/17 19:22:04 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 19:30:12 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	parse_and_create(int fd, t_parsing_data *data)
 			continue ;
 		}
 		sp_line = ft_split(line, ' ');
-		if (sp_line && sp_line[0] && sp_line[0] != '\n')
+		if (sp_line && sp_line[0] && sp_line[0][0] != '\n')
 			elem = add_obj(sp_line, data, line);
 		free(line);
 		free_tab(sp_line);
