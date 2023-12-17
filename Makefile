@@ -1,5 +1,6 @@
 
-NAME = mimirt
+NAME = minirt
+NAME_BONUS = minirt_bonus
 
 CC = cc
 CFLAGS = -MMD -g3 -I/opt/X11/include -I/opt/Xext/include -I$(INCLUDES_DIR) #-Wall -Wextra -Werror
@@ -90,14 +91,21 @@ FILES = \
 		render/color \
 		render/light \
 # Resolving
-		
+
+FILES_BONUS = \
+
+
 SRCS_DIR = src
 SRCS = $(addprefix $(SRCS_DIR)/, $(addsuffix .c, $(FILES))) 
+SRCS_BONUS = $(addprefix $(SRCS_DIR)/, $(addsuffix .c, $(FILES_BONUS))) 
 
 OBJS_DIR = obj
+OBJS_DIR_BONUS = obj_bonus
 OBJS = ${patsubst ${SRCS_DIR}/%.c, ${OBJS_DIR}/%.o, ${SRCS}}
+OBJS_BONUS = ${patsubst ${SRCS_DIR}/%.c, ${OBJS_DIR_BONUS}/%.o, ${SRCS_BONUS}}
 
 DEP_OBJS = $(OBJS:.o=.d)
+DEP_OBJS_BONUS = $(OBJS_BONUS:.o=.d)
 
 LIBS_FOLDER = libs
 
@@ -114,16 +122,17 @@ LIBMATRICE = $(LIBS_FOLDER)/$(LIBMATRICE_DIR)/libmatrice.a
 LIBS = $(MLX) $(LIBSR) $(LIBMATRICE)
 
 INCLUDES_DIR = ./inc/
-# INCLUDES_FILES = fractol.h # ???????????????????
-# INCLUDES = $(addprefix $(INCLUDES_DIR)/, $(INCLUDES_FILES))
 
 all: $(NAME)
 
-bonus: $(NAME)
+bonus: $(NAME_BONUS)
 
 $(NAME): $(LIBS) $(OBJS)
 	$(CC) $(OBJS) $(LIBS) $(MLXFLAGS) -g -o $@
 #@echo "mimirt compiled"
+
+$(NAME_BONUS): $(LIBS) $(OBJS_BONUS)
+	$(CC) $(OBJS_BONUS) $(LIBS) $(MLXFLAGS) -g -o $@
 
 ${OBJS_DIR}/%.o : ${SRCS_DIR}/%.c
 	@mkdir -p $(OBJS_DIR)
@@ -145,16 +154,25 @@ ${OBJS_DIR}/%.o : ${SRCS_DIR}/%.c
 #@mkdir -p $(OBJS_DIR)/checkerboard
 #$(INCLUDES_DIR) 
 
+${OBJS_DIR}/%.o : ${SRCS_DIR}/%.c
+	@mkdir -p $(OBJS_DIR)
+	@mkdir -p $(OBJS_DIR)/camera
+	@mkdir -p $(OBJS_DIR)/create_elem
+	@mkdir -p $(OBJS_DIR)/render
+	@mkdir -p $(OBJS_DIR)/garbage_collector
+	@mkdir -p $(OBJS_DIR)/intersection
+	@mkdir -p $(OBJS_DIR)/mlx_gestion
+	@mkdir -p $(OBJS_DIR)/maths_utils
+	@mkdir -p $(OBJS_DIR)/maths_utils/distances
+	@mkdir -p $(OBJS_DIR)/utils
+	@mkdir -p $(OBJS_DIR)/utils_vec_et_droite
+	@mkdir -p $(OBJS_DIR)/render/shader
+	@mkdir -p $(OBJS_DIR)/render/textures
+	@mkdir -p $(OBJS_DIR)/render/textures/mapping
+	$(CC) $(CFLAGS) -o $@ -c $<
+
 -include $(DEP_OBJS)
-#-include $(DEP_OBJS)/bsp
-#-include $(DEP_OBJS)/create_elem
-#-include $(DEP_OBJS)/dist
-#-include $(DEP_OBJS)/trace_rays
-#-include $(DEP_OBJS)/garbage_collector
-#-include $(DEP_OBJS)/intersection
-#-include $(DEP_OBJS)/mlx_gestion
-#-include $(DEP_OBJS)/utils
-#-include $(DEP_OBJS)/utils_vec_et_droite
+-include $(DEP_OBJS_BONUS)
 @echo "=================================Dependencies: $(DEP_OBJS)"
 
 clean: cleanlibs

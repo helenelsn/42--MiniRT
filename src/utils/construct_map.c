@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   construct_map.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 23:26:42 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/17 03:55:35 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/17 19:04:52 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ bool	construct_map(t_normal_map *map, char *name)
 		i++;
 		line = get_next_line(fd);
 	}
+	free(line); //ln
 	return (true);
 }
 
