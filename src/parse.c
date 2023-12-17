@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:23 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/17 06:45:44 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/17 19:22:04 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,10 @@ void	*add_obj(char **tab, t_parsing_data *data, char *line)
 	else if (ft_strisequal(tab[0], "co"))
 		elem = create_cone(tab, data);
 	if (!elem)
+	{
+		free_tab(tab);
 		set_parse_error(data, file_content, line);
+	}
 	return (elem);
 }
 

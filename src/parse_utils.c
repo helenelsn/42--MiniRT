@@ -3,14 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 05:28:20 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/17 06:40:20 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/17 19:19:44 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/mini_rt.h"
+
+void 	free_and_exit(t_parsing_data *data)
+{
+	int	i;
+	
+	free_vlist(data->planes);
+	free_vlist(data->objects);
+	free_lights(data);
+	if (data->cam)
+		free(data->cam);
+	data->cam = NULL;
+	i = 0;
+	while (i < no_map)
+		erase_maps(i++);
+	exit(EXIT_FAILURE);
+}
 
 void	set_parse_error(t_parsing_data *data, t_parse_error e, char *line)
 {
@@ -26,6 +42,8 @@ void	set_parse_error(t_parsing_data *data, t_parse_error e, char *line)
 		printf(": necessary elem are missing\n");
 	else
 		printf("\n");
+	free(line); // ln
+	free_and_exit(data); //ln
 }
 
 void	free_tab(void *arg)

@@ -3,25 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 15:38:52 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/17 06:42:43 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/17 19:25:18 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/mini_rt.h"
-#include "../inc/struct.h"
 
-void	free_lights(t_app *app)
+void	free_lights(t_parsing_data *data)
 {
 	t_light	*current;
 	t_light	*tmp;
 
-	current = app->p_data.lights;
-	if (app->p_data.mooooo)
-		free(app->p_data.mooooo);
-	app->p_data.mooooo = NULL;
+	current = data->lights;
+	if (data->mooooo)
+		free(data->mooooo);
+	data->mooooo = NULL;
 	while (current)
 	{
 		tmp = current;
@@ -65,7 +64,7 @@ void	minirt_destroy_display(t_app *app)
 		free(app->mlx_data.mlx_ptr);
 	free_vlist(app->p_data.planes);
 	free_vlist(app->p_data.objects);
-	free_lights(app);
+	free_lights(&app->p_data);
 	if (app->p_data.cam)
 		free(app->p_data.cam);
 	app->p_data.cam = NULL;

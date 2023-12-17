@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   foo.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/17 06:28:05 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/17 19:25:35 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,5 +213,6 @@ t_normal_map	*get_terrain_map(bool to_free);
 t_normal_map	*get_tree_map(bool to_free);
 t_normal_map	*erase_maps(t_normap_type t);
 t_normal_map	*get_wood_map(bool to_free);
+void			free_lights(t_parsing_data *data);
 
 #endif
