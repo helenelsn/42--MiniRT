@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 15:54:36 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/16 17:35:57 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 04:09:58 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	compute_specular(t_light *light, t_ray ray, t_color *color,
 	if (r_dot_v <= 0.0)
 		return ;
 	intensity = light->infos.ratio * pow(r_dot_v, ray.hit_info.obj_mat.specular)
-		* n_dot_l; //0.4 *
+		* n_dot_l;
 	*color = color_add(*color, color_scale(color_mult(light->infos.color,
 					ray.hit_info.color), intensity));
 }
