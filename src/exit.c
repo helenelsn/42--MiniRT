@@ -6,13 +6,12 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 15:38:52 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/17 00:54:15 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/17 02:13:44 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/struct.h"
 #include "../inc/mini_rt.h"
-#include "../inc/bsp.h"
 
 void    free_lights(t_app *app)
 {
