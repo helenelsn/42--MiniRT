@@ -6,12 +6,11 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:20 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/17 00:00:19 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 02:37:05 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/mini_rt.h"
-#include "../inc/bsp.h"
 
 int  initialise_mlx_data(t_app *app)
 {

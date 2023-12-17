@@ -6,12 +6,11 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 15:55:39 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/17 02:01:53 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 03:45:18 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/mini_rt.h"
-#include "../../inc/struct.h"
 
 double	get_closest_point(double a, double b)
 {
@@ -48,4 +47,29 @@ bool	solve_quadratic_eq(t_quadratic *eq)
 		eq->t_2 = (-eq->b - sqrt(delta)) / denom;
 	}
 	return (true);
+}
+
+int	solve_quadratic(t_quadratic *f)
+{
+	double	discr;
+	double	res;
+
+	discr = (f->b * f->b) - 4 * f->a * f->c;
+	if (discr < 0.0)
+		return (0);
+	if (discr == 0.0)
+	{
+		f->t_1 = -0.5 * f->b / f->a;
+		f->t_2 = f->t_1;
+	}
+	else
+	{
+		if (f->b > 0.0)
+			res = -0.5 * (f->b + sqrt(discr));
+		else
+			res = -0.5 * (f->b - sqrt(discr));
+		f->t_1 = res / f->a;
+		f->t_2 = f->c / res;
+	}
+	return (1);
 }

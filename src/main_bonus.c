@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 23:32:08 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/17 00:17:04 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 02:37:47 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_renderer*    redraw_bonus(t_app *app)
 {
     t_renderer *threads = init_threads(app);
     if (!threads)
-        return (EXIT_FAILURE);
+        return (NULL);
     launch_threads(threads);
     join_threads(threads);
     free(threads);

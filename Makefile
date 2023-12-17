@@ -31,10 +31,12 @@ FILES = \
 		intersection/set_object_material \
 		intersection/i_plan \
 		intersection/i_cylindre \
+		intersection/i_cylindre_caps \
 		intersection/i_cone \
 		intersection/i_circle \
 		intersection/get_inter \
 		intersection/solving_utils \
+		intersection/solving_utils2 \
 		maths_utils/intervals \
 		maths_utils/distances/distance_point_line \
 		maths_utils/distances/distance_two_lines \
