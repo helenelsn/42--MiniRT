@@ -15,6 +15,7 @@ FILES = \
 		create_elem/cr_sphere \
 		create_elem/cr_cone \
 		create_elem/material \
+		create_elem/utils \
 		exit \
 		garbage_collector/ft_lstnew \
 		garbage_collector/ft_lstadd_front \
