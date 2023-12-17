@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcheck.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 00:01:45 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/04 20:58:24 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 02:45:24 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,19 @@ bool	ft_strisint(char *str)
 		return (false);
 	while (str[i])
 	{
-		if (!ft_isdigit(str[i]) && str[i]!= '\n' )
+		if (!ft_isdigit(str[i]) && str[i] != '\n')
 			flag = false;
 		i++;
 	}
 	return (flag);
+}
+
+void	point_set(bool *point, bool *flag)
+{
+	if (!*point)
+		*point = true;
+	else
+		*flag = false;
 }
 
 bool	ft_strisfloat(char *str)
@@ -45,15 +53,10 @@ bool	ft_strisfloat(char *str)
 		i++;
 	while (str[++i])
 	{
-		if (!ft_isdigit(str[i]) && str[i] != '\n' && str[i] != ' ') // if (!ft_isdigit(str[i]))
+		if (!ft_isdigit(str[i]) && str[i] != '\n' && str[i] != ' ')
 		{
 			if (str[i] == '.')
-			{
-				if (!point)
-					point = true;
-				else
-					flag = false;
-			}
+				point_set(&point, &flag);
 			else
 				flag = false;
 		}
@@ -73,4 +76,3 @@ bool	ft_strisequal(char *s1, char *s2)
 		return (false);
 	return (true);
 }
-

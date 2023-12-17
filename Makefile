@@ -57,6 +57,7 @@ FILES = \
 		utils/normaps_getter \
 		utils/modulo \
 		utils/point3d \
+		utils/point3d2 \
 		utils/ratio \
 		utils/rgb \
 		utils/set_checkers \

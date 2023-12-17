@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/17 03:46:49 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 03:54:48 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,8 +128,8 @@ t_vec			reflect_ray(t_vec v, t_vec n);
 
 /*  ------ camera, coordinates changes, anti-aliasing ------ */
 
-t_vec		pixel_sample(t_app *app);
-void    	set_pixel_center(t_app *app, t_point *pc, int x, int y);
+t_vec			pixel_sample(t_app *app);
+void			set_pixel_center(t_app *app, t_point *pc, int x, int y);
 
 /* --------------- textures, color disruption -------------- */
 
