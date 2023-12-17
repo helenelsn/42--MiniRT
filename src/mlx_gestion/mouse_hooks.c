@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 18:22:41 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/17 01:59:53 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 05:38:44 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,8 @@ t_hit_info	get_hit_info(t_app *app, t_point ray_origin, t_vec dir,
 		int rebound_nb)
 {
 	t_ray	ray;
-	t_vec	reflected_ray;
-	t_color	local_color;
-	double	reflected_color;
 
+	(void)rebound_nb;
 	ft_memset(&ray, 0, sizeof(t_ray));
 	set_ray_infos(&ray, dir, ray_origin);
 	no_tree_intersections(app, &ray, get_interval(HITPOINT_OFFSET, INFINITY));

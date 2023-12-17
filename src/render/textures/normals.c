@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 15:00:07 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/17 01:09:38 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 05:39:59 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ t_vec	get_normal_in_map(t_point_2d uv, t_surface *surf)
 	x = ft_clamp(x, 0, surf->normap->width - 1);
 	y = ft_clamp(y, 0, surf->normap->height - 1);
 	normal = surf->normap->pixels[y * surf->normap->width + x];
-	normal = vect_substract(vect_double_multiply(2, normal), (t_vec){1, 1, 1});
+	normal = vect_substract(vect_double_multiply(2, normal), \
+		(t_vec){1, 1, 1, 1});
 	return (normal);
 }
 

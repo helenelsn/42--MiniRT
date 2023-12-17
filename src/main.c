@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:20 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/17 05:17:59 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 05:27:46 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,6 @@ int	main(int argc, char **argv)
 	ft_bzero(&app, sizeof(t_app));
 	parse(argc, argv, &app.p_data);
 	if (minirt_get_started(&app))
-	return (EXIT_MLX_FAILURE);
+		return (EXIT_MLX_FAILURE);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 15:55:33 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/16 17:32:16 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 05:39:41 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ t_color	compute_lighting(t_app *app, t_ray ray)
 	t_color	color;
 	t_color	effective_color;
 	t_light	*light;
-	double	obj_to_light_dist;
 	t_ray	obj_to_light;
 
 	ft_bzero(&color, sizeof(t_color));

@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/17 05:15:39 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 05:33:54 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,11 @@ t_sphere		*create_sphere(char **tab, t_parsing_data *data);
 t_cone			*create_cone(char **tab, t_parsing_data *data);
 void			set_cone_dep(t_cone *elem);
 void			set_cylindre_dep(t_cylindre *elem);
-// void set_cylindre_dep(t_cone *elem);
 
 //------------------------ DIST ------------------------------//
 double			get_dist_between_droite(t_droite d, t_droite e);
 double			get_dist_droite_point(t_droite d, t_point p);
 double			get_dist_between_points(t_point p, t_point q);
-
 double			ft_min_and_positiv(double a, double b);
 
 //------------------------ VLIST ------------------------------//
@@ -62,7 +60,6 @@ void			my_mlx_pixel_put(t_image *img, int x, int y, int color);
 void			launch_app(t_app *app);
 t_hit_info		get_hit_info(t_app *app, t_point ray_origin, t_vec dir,
 					int rebound_nb);
-
 t_point			*get_elem_point(t_hit_info hit);
 
 /* -------------------- VEC POINT UTILS ------------------- */
@@ -72,7 +69,6 @@ double			pt_get_coord(t_point p, int i);
 void			pt_modify_coord(t_point p, int i, double new_c);
 
 t_point			get_vec_coord(t_vec v);
-
 t_point			point_double_multiply(double n, t_point a);
 t_point			point_addition(t_point a, t_point b);
 t_point			point_substract(t_point a, t_point b);
@@ -80,7 +76,6 @@ void			reset_point(t_point *p, double a);
 void			set_point(t_point *p, double x, double y, double z);
 t_point			double_to_point(double a);
 t_point			translate_point(t_point p, t_vec u);
-
 t_vec			vect_double_multiply(double n, t_vec a);
 t_vec			vect_addition(t_vec a, t_vec b);
 t_vec			vect_substract(t_vec a, t_vec b);
@@ -88,8 +83,8 @@ void			normalise(t_vec *v);
 t_vec			get_directional_vect(t_point origin, t_point dest);
 t_vec			get_unitary_dir_vect(t_point a, t_point b);
 t_vec			get_unit_normal(t_hit_info hi, t_point p);
-
 bool			construct_map(t_normal_map *map, char *name);
+
 /* ------------------- INTERSECTIONS ------------------ */
 
 bool			intersect(t_vlist *obj, t_ray *ray);
@@ -100,9 +95,6 @@ int				intersect_cylinder_covers(t_ray *ray, t_cylindre *cylinder,
 					double *t, t_quadratic *f);
 bool			solve_quadratic_eq(t_quadratic *eq);
 double			get_closest_point(double a, double b);
-
-// bool    	get_inter_for_cylindre(t_cylindre *cy, t_ray d, double *);
-// bool    solve_quadratic_eq(t_quadratic *eq);
 t_point			get_ray_point(t_ray ray, double t);
 void			set_eq(t_plan *p);
 
@@ -151,34 +143,20 @@ double			f__mod_f(double a, int n);
 bool			ft_is_equalsf(const float a, const float b,
 					const float tolerance);
 float			fmodf_positive(float dividend, float divisor);
-
 t_color			color_scale(t_color color, double scale);
 t_color			color_add(t_color c1, t_color c2);
 t_color			color_mult(t_color c1, t_color c2);
-
-/*  ------------------------- exit ------------------------- */
-
 void			minirt_destroy_display(t_app *app);
-
-/*  -------------------- MLX ------------------------ */
-
 void			init_app(t_app *app);
 int				close_mlx(void *app);
-
 void			img_pixel_put(t_image image, int x, int y, int color);
-// void 		launch_app(t_app *arg);
-
 void			print_elem_selected(int mute, t_type t);
 void			print_usage(int mute);
 int				handle_mouse(int keysym, int x, int y, t_app *app);
 void			redraw(t_app *app);
 void			deselect(t_app *app);
-//other
-
-//parse
 bool			set_bonus_options(t_material *mat, char **tab);
 bool			set_checkers(char *str, bool *to_mod);
-
 void			set_ray_infos(t_ray *ray, t_vec direction, t_point ray_origin);
 void			set_specular_in_mat(void *content, t_material *mat, t_type t);
 void			set_color_in_mat(void *content, t_material *mat, t_type t);
@@ -192,24 +170,17 @@ bool			get_rgb(char *str, t_color *c);
 t_parse_error	parse(int ac, char **av, t_parsing_data *data);
 void			free_tab(void *arg);
 int				null_term_tab_len(void **tab);
-
 bool			ft_strisint(char *str);
 bool			ft_strisfloat(char *str);
 bool			ft_strisequal(char *s1, char *s2);
-
 double			ft_atof(char *nptr);
-
-// void	add_hooks(t_app *app);
-
 void			compute_image(t_vlist *obj);
 t_vec			normal_to_cap(t_vec dir_obj, t_point obj_p, t_point hit_p);
 double			dot(t_vec v, t_vec w);
 t_vec			cross_product(t_vec v, t_vec w);
-
 double			get_v_norm(t_vec v);
 t_point			change_base_of_point(t_point v, t_vec trans, t_matrix *rot);
 t_vec			change_base_of_vec(t_vec v, t_vec trans, t_matrix *rot);
-
 int				intersect_plane(t_ray *ray, t_plan *shape, double *t);
 bool			intersect_cone(t_ray *ray, void *object);
 int				intersect_circle(t_ray *ray, t_circle circle, double *t,
@@ -219,7 +190,6 @@ int				solve_quadratic(t_quadratic *f);
 double			ft_min(double a, double b);
 t_normal_map	*get_map_from_type(t_normap_type t);
 void			init_mat(t_material *mat);
-
 void			*draw_scene_routine(void *routine_data);
 t_renderer		*init_threads(t_app *app);
 int				minirt_get_started_bonus(t_app *app);
@@ -235,4 +205,12 @@ void			find_obj_and_replace_mat(t_app *app);
 void			set_coherence(t_app *app);
 int				fill_double(int keycode, double *to_mod, bool point_pushed);
 int				key_press(int keycode, t_app *app);
+void			parse_error_occured(t_parse_error e, int fd);
+t_normal_map	*get_sand_map(bool to_free);
+t_normal_map	*get_cliff_map(bool to_free);
+t_normal_map	*get_terrain_map(bool to_free);
+t_normal_map	*get_tree_map(bool to_free);
+t_normal_map	*erase_maps(t_normap_type t);
+t_normal_map	*get_wood_map(bool to_free);
+
 #endif

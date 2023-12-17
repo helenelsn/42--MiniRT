@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 22:46:45 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/17 01:45:55 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/17 05:47:55 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	number_press(int keycode, t_app *app)
 
 bool	change_elem(t_app *app, double number)
 {
+	
 	if (app->mlx_data.elem_selected && number
 		&& app->mlx_data.elem_hit.obj_type == sphere)
 		((t_sphere *)app->mlx_data.elem_hit.obj_content)->radius = number;
@@ -46,13 +47,16 @@ bool	change_elem(t_app *app, double number)
 			((t_cone *)app->mlx_data.elem_hit.obj_content)->height = number;
 		set_cone_dep((t_cone *)app->mlx_data.elem_hit.obj_content);
 	}
-	return (0);
+	else
+		return (false);
+	return (true);
 }
 
 int	enter_press(int keycode, t_app *app)
 {
 	double	number;
 
+	(void)keycode;
 	number = app->mlx_data.n + app->mlx_data.after_dot / 10;
 	app->mlx_data.n = 0;
 	app->mlx_data.after_dot = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cr_cone.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 18:59:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/17 01:00:35 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/17 05:37:29 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ t_cone	*create_cone(char **tab, t_parsing_data *data)
 {
 	t_material	mat;
 	t_cone		*elem;
-	bool		flag;
 	int			size_tab;
 
 	size_tab = null_term_tab_len((void **)tab);

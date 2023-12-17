@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 02:48:39 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/17 02:48:42 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 05:37:43 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ double	parse_list(t_vlist *list, t_hit_info *closest_obj, t_ray *ray,
 
 void	no_tree_intersections(t_app *app, t_ray *ray, t_interval t)
 {
-	t_vlist		*obj;
 	t_hit_info	closest_obj;
 	double		min_dist;
 

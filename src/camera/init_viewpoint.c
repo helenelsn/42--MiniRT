@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 20:04:36 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/17 04:54:00 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 05:37:05 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ void	set_camera_ref(t_app *app)
 	normalise(&app->p_data.cam->ref.w);
 	if (ft_is_equalsf(fabs(app->p_data.cam->direction.y), 1.f, DBL_EPSILON))
 		app->p_data.cam->ref.u = cross_product((t_vec){0, 0,
-				sign(app->p_data.cam->direction.y)}, app->p_data.cam->ref.w);
+				sign(app->p_data.cam->direction.y), 1}, app->p_data.cam->ref.w);
 	else
-		app->p_data.cam->ref.u = cross_product((t_vec){0, 1, 0},
+		app->p_data.cam->ref.u = cross_product((t_vec){0, 1, 0, 1},
 				app->p_data.cam->ref.w);
 	normalise(&app->p_data.cam->ref.u);
 	app->p_data.cam->ref.v = cross_product(app->p_data.cam->ref.w,
@@ -62,7 +62,6 @@ void	init_viewpoint(t_app *app)
 {
 	t_vec	viewport_u;
 	t_vec	viewport_v;
-	t_vec	translate;
 	t_point	viewp_upper_left;
 
 	set_viewpoint_dimensions(app);

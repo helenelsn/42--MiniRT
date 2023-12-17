@@ -2,7 +2,7 @@
 NAME = mimirt
 
 CC = cc
-CFLAGS = -MMD -g3 -I/opt/X11/include -I/opt/Xext/include -I$(INCLUDES_DIR) #-Wall -Wextra -Werror
+CFLAGS = -MMD -g3 -I/opt/X11/include -I/opt/Xext/include -I$(INCLUDES_DIR) -Wall -Wextra -Werror
 
 FILES = \
 		camera/init_viewpoint \
@@ -67,6 +67,7 @@ FILES = \
 		utils_vec_et_droite/vec_operations \
 		main \
 		parse \
+		parse_utils \
 		render/normals \
 		render/point_sampling \
 		render/cast_rays \

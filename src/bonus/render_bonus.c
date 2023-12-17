@@ -6,12 +6,11 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 23:34:15 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/17 05:19:07 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 05:26:09 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/mini_rt.h"
-#include "../inc/struct.h"
+#include "../../inc/mini_rt.h"
 
 void	*draw_scene_routine(void *routine_data)
 {

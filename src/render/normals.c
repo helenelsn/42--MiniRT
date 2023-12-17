@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:15:06 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/17 04:08:16 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 05:39:17 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_vec	normal_to_sphere(void *obj, t_point p)
 	return (normal);
 }
 
-t_vec	normal_to_plan(void *obj, t_point p)
+t_vec	normal_to_plan(void *obj)
 {
 	t_plan	*pl;
 
@@ -83,7 +83,7 @@ t_vec	get_unit_normal(t_hit_info hi, t_point p)
 	t_vec	normal;
 
 	if (hi.obj_type == plan)
-		normal = normal_to_plan(hi.obj_content, p);
+		normal = normal_to_plan(hi.obj_content);
 	else if (hi.obj_type == cylindre)
 		normal = normal_to_cylinder(hi.obj_content, hi);
 	else if (hi.obj_type == sphere)

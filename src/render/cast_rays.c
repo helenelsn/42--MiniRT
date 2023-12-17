@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 00:04:46 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/17 04:08:24 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 05:39:33 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ t_color	trace_ray(t_app *app, t_point ray_origin, t_vec dir, int rebound_nb)
 {
 	t_ray	ray;
 	t_color	local_color;
-	t_vec	reflected_ray;
 	t_color	reflected_color;
 
 	ft_memset(&ray, 0, sizeof(t_ray));
