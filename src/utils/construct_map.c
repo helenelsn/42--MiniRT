@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 23:26:42 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/16 20:59:20 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/17 01:46:51 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ bool construct_map(t_normal_map *map, char *name)
 	int fd = open(name, O_RDONLY);
 	if (fd == -1)
 	{
-		printf("Error while constructing map %s\n");
+		printf("Error while constructing map %s\n", name);
 		return (false);
 	}
 	char *line;

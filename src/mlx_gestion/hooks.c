@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 22:46:45 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/17 01:40:57 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/17 01:45:55 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	number_press(int keycode, t_app *app)
 		fill_double(keycode, &app->mlx_data.after_dot, true);
 	else
 		fill_double(keycode, &app->mlx_data.n, false);
+	return (keycode);
 }
 
 bool	change_elem(t_app *app, double number)
@@ -45,6 +46,7 @@ bool	change_elem(t_app *app, double number)
 			((t_cone *)app->mlx_data.elem_hit.obj_content)->height = number;
 		set_cone_dep((t_cone *)app->mlx_data.elem_hit.obj_content);
 	}
+	return (0);
 }
 
 int	enter_press(int keycode, t_app *app)

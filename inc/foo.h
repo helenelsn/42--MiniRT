@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   foo.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/17 01:19:14 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 01:47:15 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,4 +229,9 @@ t_renderer*     redraw_bonus(t_app *app);
 t_normal_map *erase_maps(t_normap_type t);
 bool ft_str_beggin_with(char *str, char *beg);
 void init_mat(t_material *mat);
+void	arrow_press(int keycode, t_app *app);
+void	modify_orientation(int keycode, t_app *app);
+void	find_obj_and_replace_mat(t_app *app);
+void	set_coherence(t_app *app);
+int	fill_double(int keycode, double *to_mod, bool point_pushed);
 #endif

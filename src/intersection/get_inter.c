@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/12/16 20:48:25 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/17 01:29:45 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,6 @@ void	no_tree_intersections(t_app *app, t_ray *ray, t_interval t)
 			&& ray->hit_info.distance <= min_dist)
         	{
         	    min_dist = ray->hit_info.distance;
-				// set_color_in_mat(obj->content, &obj->material, obj->type);
-				// set_specular_in_mat(obj->content, &obj->material, obj->type);
         	    copy_obj_properties(obj, &closest_obj, ray->hit_info);
                 set_texture_material(ray, &closest_obj, obj->content);
 			}
@@ -90,8 +88,6 @@ void	no_tree_intersections(t_app *app, t_ray *ray, t_interval t)
 	obj = app->p_data.planes;
 	while (obj)
     {
-		// set_specular_in_mat(obj->content, &obj->material, obj->type);
-		// set_color_in_mat(obj->content, &obj->material, obj->type);
         if (intersect(obj, ray) && ray->hit_info.distance >= t.min
 			&& ray->hit_info.distance < min_dist)
         	{

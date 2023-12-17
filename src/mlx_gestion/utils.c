@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 15:51:47 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/17 01:33:02 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/17 01:47:03 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	fill_double(int keycode, double *to_mod, bool point_pushed)
 	else
 		*to_mod *= 10;
 	*to_mod += keycode - XK_0;
+	return (0);
 }
 
 void	set_coherence(t_app *app)
