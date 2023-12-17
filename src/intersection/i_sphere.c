@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:19:12 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/17 02:07:02 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 03:44:24 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ bool	intersect_sphere(t_ray *ray, void *object)
 	eq.a = dot(ray->direction, ray->direction);
 	eq.b = 2 * dot(center_to_origin, ray->direction);
 	eq.c = dot(center_to_origin, center_to_origin) - sp->radius * sp->radius;
-	if (!solve_quadratic_eq(&eq))
+	if (!solve_quadratic(&eq))
 		return (false);
 	mult = get_closest_point(eq.t_1, eq.t_2);
 	ray->hit_info.hit_point.x = ray->origin.x + ray->direction.x * mult;
