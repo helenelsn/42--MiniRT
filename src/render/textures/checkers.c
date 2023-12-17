@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 14:59:58 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/16 17:39:07 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 01:09:10 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ t_color	checker_color_at(void *object, t_hit_info hit)
 	uv = object_mapping(object, hit);
 	scaled_u = floorf(uv.u * hit.obj_mat.textures.checkerboard.width);
 	scaled_v = floorf(uv.v * hit.obj_mat.textures.checkerboard.height);
-	// if ((floor(scaled_u) + floor(scaled_v)) % 2)
-	// return (hit.obj_mat.textures.checkerboard.color);
 	if (fmodf(scaled_u + scaled_v, 2))
 		return (hit.obj_mat.textures.checkerboard.color);
 	return (hit.obj_mat.color);

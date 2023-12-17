@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   foo.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/17 00:53:24 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/17 00:59:10 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ t_point_2d  spherical_mapping(t_sphere *sp, t_point p);
 /*  ------------------------ utils ------------------------- */
 
 t_interval  get_interval(double min, double max);
-double  	a_mod_b(double a, int n);
+double  	f__mod_f(double a, int n);
 bool	    ft_is_equalsf(const float a, const float b, const float tolerance);
 float	    fmodf_positive(float dividend, float divisor);
 

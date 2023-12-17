@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 19:03:40 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/16 17:38:20 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 01:12:12 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ double	random_double(void)
 void	set_pixel_center(t_app *app, t_point *pc, int x, int y)
 {
 	*pc = translate_point(app->frame.pixel_00,
-			vect_addition(vect_double_multiply(x, app->frame.pixel_delta_u),
-				vect_double_multiply(y, app->frame.pixel_delta_v)));
+			vect_addition(vect_double_multiply(x,
+					app->frame.pixel_delta_u),
+				vect_double_multiply(y,
+					app->frame.pixel_delta_v)));
 }
 
 t_vec	pixel_sample(t_app *app, int x, int y)

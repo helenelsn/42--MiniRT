@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 15:25:26 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/11 15:34:40 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 00:59:10 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int     ft_sign(double n)
     return (1);
 }
 
-double  a_mod_b(double a, int n)
+double  f__mod_f(double a, int n)
 {
     int     k;
     bool    neg;

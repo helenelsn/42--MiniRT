@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   normals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 15:00:07 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/17 00:56:00 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/17 01:09:38 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_vec	get_normal_in_map(t_point_2d uv, t_surface *surf)
 	int				x;
 	int				y;
 	t_vec			normal;
-	
+
 	if (!surf->normap)
 	{
 		surf->t = no_map;
