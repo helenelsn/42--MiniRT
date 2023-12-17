@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_vlstlast.c                                       :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 04:23:30 by srapin            #+#    #+#             */
-/*   Updated: 2023/10/18 22:12:04 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/17 04:07:58 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_vlist	*ft_vlstlast(t_vlist *lst)
 {
-	while (lst && lst->next) /* segfault quand essaie de voir si lst->next est null (car pas initialise ?)*/
+	while (lst && lst->next)
 		lst = lst->next;
 	return (lst);
 }

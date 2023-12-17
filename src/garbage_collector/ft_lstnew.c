@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_vlstnew.c                                        :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 04:11:10 by srapin            #+#    #+#             */
-/*   Updated: 2023/10/18 22:14:27 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/17 04:07:39 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/mini_rt.h"
 
-t_vlist	*ft_vlstnew(void * content, void foo(void *), t_type t)
+t_vlist	*ft_vlstnew(void *content, void foo(void *), t_type t)
 {
 	t_vlist	*new_lst;
 
@@ -23,6 +23,5 @@ t_vlist	*ft_vlstnew(void * content, void foo(void *), t_type t)
 	new_lst->content = content;
 	new_lst->free_foo = foo;
 	new_lst->type = t;
-	// new_lst->material = mat;
 	return (new_lst);
 }

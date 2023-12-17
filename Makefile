@@ -25,7 +25,6 @@ FILES = \
 		garbage_collector/ft_lstdelone \
 		garbage_collector/ft_lstclear \
 		garbage_collector/ft_lstiter \
-		garbage_collector/ft_vlst_del_in_list \
 		garbage_collector/ft_vlstnew_with_mat \
 		intersection/i_sphere \
 		intersection/set_object_material \

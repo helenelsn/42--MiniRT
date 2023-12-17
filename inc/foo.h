@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   foo.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/17 03:54:48 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 04:00:40 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@ bool			intersect(t_vlist *obj, t_ray *ray);
 bool			intersect_plan(t_ray *ray, void *object);
 bool			intersect_sphere(t_ray *ray, void *object);
 bool			intersect_cylindre(t_ray *ray, void *object);
-int				intersect_cylinder_covers(t_ray *ray, t_cylindre *cylinder, double *t,
-					t_quadratic *f);
+int				intersect_cylinder_covers(t_ray *ray, t_cylindre *cylinder,
+					double *t, t_quadratic *f);
 bool			solve_quadratic_eq(t_quadratic *eq);
 double			get_closest_point(double a, double b);
 
