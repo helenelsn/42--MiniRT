@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 01:26:34 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/16 23:43:33 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/17 01:07:36 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,16 @@ void	set_eq(t_plan *p)
 	p->b = p->vec.y;
 	p->c = p->vec.z;
 	p->d = -p->a * p->p.x - p->b * p->p.y - p->c * p->p.z;
-	// printf("a = %f, b= %f, c= %f, d= %f\n", p->a, p->b, p->c, p->d);
 }
 
 t_plan	*create_plan(char **tab, t_parsing_data *data)
 {
-	t_plan *elem;
+	t_plan		*elem;
+	t_material	mat;
+	int			size_tab;
 
-	t_material mat;
 	ft_bzero(&mat, sizeof(t_material));
-	int size_tab = null_term_tab_len((void **)tab);
+	size_tab = null_term_tab_len((void **)tab);
 	if (size_tab < SP_PL_ARG_SIZE || size_tab > SP_PL_ARG_SIZE + BONUS_SIZE)
 		return (NULL);
 	elem = ft_calloc(1, sizeof(t_plan));

@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/17 00:59:10 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 01:19:14 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,4 +227,6 @@ int             initialise_mlx_data(t_app *app);
 int		        get_final_pixel_color(t_app *app, int x, int y);
 t_renderer*     redraw_bonus(t_app *app);
 t_normal_map *erase_maps(t_normap_type t);
+bool ft_str_beggin_with(char *str, char *beg);
+void init_mat(t_material *mat);
 #endif
