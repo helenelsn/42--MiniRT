@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 23:32:08 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/17 22:51:23 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/18 00:04:12 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	minirt_get_started_bonus(t_app *app)
 	}
 	set_aspect_ratio(app);
 	init_viewpoint(app);
-	ft_bzero(&app->background, sizeof(t_color));
+	app->background = (t_color){0xf0eee9};
 	threads = init_threads(app);
 	if (!threads)
 		return (EXIT_FAILURE);
