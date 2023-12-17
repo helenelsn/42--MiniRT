@@ -6,18 +6,18 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 18:15:17 by srapin            #+#    #+#             */
-/*   Updated: 2023/11/08 23:45:57 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/17 04:28:47 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/matrices.h"
-
-void print_mat(t_matrix *m)
+/*
+void	print_mat(t_matrix *m)
 {
 	if (!m)
 	{
 		printf("%p\n", m);
-		return;
+		return ;
 	}
 	printf("r = %d, c = %d\n", m->rows, m->columns);
 	int i = 0;
@@ -35,3 +35,4 @@ void print_mat(t_matrix *m)
 		i++;
 	}
 }
+*/
