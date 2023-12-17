@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_hooks.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 18:22:41 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/17 01:26:13 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/17 01:59:53 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	handle_mouse(int keysym, int x, int y, t_app *app)
 	{
 		hit_info = get_hit_info(app, app->p_data.cam->p,
 				get_directional_vect(app->p_data.cam->p,
-					translate_point(pixel_center, pixel_sample(app, x, y))), 0);
+					translate_point(pixel_center, pixel_sample(app))), 0);
 		if (hit_info.distance > 0)
 		{
 			app->mlx_data.elem_selected = true;
