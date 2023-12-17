@@ -6,18 +6,17 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 01:30:27 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/17 02:27:10 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/17 02:46:35 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/mini_rt.h"
 
-
-static t_normal_map *get_cliff_map(bool to_free)
+static t_normal_map	*get_cliff_map(bool to_free)
 {
-	static t_normal_map *map;
-	static bool flag;
-	
+	static t_normal_map	*map;
+	static bool			flag;
+
 	if (to_free)
 	{
 		if (map)
@@ -25,7 +24,7 @@ static t_normal_map *get_cliff_map(bool to_free)
 			free(map->pixels);
 			free(map);
 		}
-		return NULL;
+		return (NULL);
 	}
 	if (!map)
 	{
@@ -38,15 +37,15 @@ static t_normal_map *get_cliff_map(bool to_free)
 		}
 	}
 	if (!flag)
-		return NULL;
-	return map;
+		return (NULL);
+	return (map);
 }
 
-static t_normal_map *get_sand_map(bool to_free)
+static t_normal_map	*get_sand_map(bool to_free)
 {
-	static t_normal_map *map;
-	static bool flag;
-	
+	static t_normal_map	*map;
+	static bool			flag;
+
 	if (to_free)
 	{
 		if (map)
@@ -54,7 +53,7 @@ static t_normal_map *get_sand_map(bool to_free)
 			free(map->pixels);
 			free(map);
 		}
-		return NULL;
+		return (NULL);
 	}
 	if (!map)
 	{
@@ -67,15 +66,15 @@ static t_normal_map *get_sand_map(bool to_free)
 		}
 	}
 	if (!flag)
-		return NULL;
-	return map;
+		return (NULL);
+	return (map);
 }
 
-static t_normal_map *get_terrain_map(bool to_free)
+static t_normal_map	*get_terrain_map(bool to_free)
 {
-	static t_normal_map *map;
-	static bool flag;
-	
+	static t_normal_map	*map;
+	static bool			flag;
+
 	if (to_free)
 	{
 		if (map)
@@ -83,7 +82,7 @@ static t_normal_map *get_terrain_map(bool to_free)
 			free(map->pixels);
 			free(map);
 		}
-		return NULL;
+		return (NULL);
 	}
 	if (!map)
 	{
@@ -96,15 +95,15 @@ static t_normal_map *get_terrain_map(bool to_free)
 		}
 	}
 	if (!flag)
-		return NULL;
-	return map;
+		return (NULL);
+	return (map);
 }
 
-static t_normal_map *get_tree_map(bool to_free)
+static t_normal_map	*get_tree_map(bool to_free)
 {
-	static t_normal_map *map;
-	static bool flag;
-	
+	static t_normal_map	*map;
+	static bool			flag;
+
 	if (to_free)
 	{
 		if (map)
@@ -112,7 +111,7 @@ static t_normal_map *get_tree_map(bool to_free)
 			free(map->pixels);
 			free(map);
 		}
-		return NULL;
+		return (NULL);
 	}
 	if (!map)
 	{
@@ -125,15 +124,15 @@ static t_normal_map *get_tree_map(bool to_free)
 		}
 	}
 	if (!flag)
-		return NULL;
-	return map;
+		return (NULL);
+	return (map);
 }
 
-static t_normal_map *get_wood_map(bool to_free)
+static t_normal_map	*get_wood_map(bool to_free)
 {
-	static t_normal_map *map;
-	static bool flag;
-	
+	static t_normal_map	*map;
+	static bool			flag;
+
 	if (to_free)
 	{
 		if (map)
@@ -141,7 +140,7 @@ static t_normal_map *get_wood_map(bool to_free)
 			free(map->pixels);
 			free(map);
 		}
-		return NULL;
+		return (NULL);
 	}
 	if (!map)
 	{
@@ -154,14 +153,14 @@ static t_normal_map *get_wood_map(bool to_free)
 		}
 	}
 	if (!flag)
-		return NULL;
-	return map;
+		return (NULL);
+	return (map);
 }
 
-t_normal_map *get_map_from_type(t_normap_type t)
+t_normal_map	*get_map_from_type(t_normap_type t)
 {
 	if (t == cliff)
-		return get_cliff_map(false);
+		return (get_cliff_map(false));
 	if (t == sand)
 		return get_sand_map(false);
 	if (t == terrain)
@@ -171,10 +170,9 @@ t_normal_map *get_map_from_type(t_normap_type t)
 	if (t == tree)
 		return get_tree_map(false);
 	return (NULL);
-	
 }
 
-t_normal_map *erase_maps(t_normap_type t)
+t_normal_map	*erase_maps(t_normap_type t)
 {
 	if (t == cliff)
 		return get_cliff_map(true);
@@ -187,5 +185,4 @@ t_normal_map *erase_maps(t_normap_type t)
 	if (t == tree)
 		return get_tree_map(true);
 	return (NULL);
-	
 }

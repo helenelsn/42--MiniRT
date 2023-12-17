@@ -1,38 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   modulo.c                                           :+:      :+:    :+:   */
+/*   point3d2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/11 15:25:26 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/17 02:46:27 by srapin           ###   ########.fr       */
+/*   Created: 2023/12/17 02:47:33 by srapin            #+#    #+#             */
+/*   Updated: 2023/12/17 02:49:42 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/mini_rt.h"
 
-int	ft_sign(double n)
+t_point	double_to_point(double a)
 {
-	if (n < 0.0)
-		return (-1);
-	return (1);
+	t_point	p;
+
+	p.x = a;
+	p.y = a;
+	p.z = a;
+	return (p);
 }
 
-double	f__mod_f(double a, int n)
+void	reset_point(t_point *p, double a)
 {
-	int		k;
-	bool	neg;
+	p->x = a;
+	p->y = a;
+	p->z = a;
+}
 
-	if (!n)
-		return (0);
-	k = 0;
-	if (a < 0.0)
-		neg = true;
-	a = fabs(a);
-	while (k * n < a)
-		k++;
-	if (neg)
-		return (k * n - a);
-	return (a - (k - 1) * n);
+void	set_point(t_point *p, double x, double y, double z)
+{
+	p->x = x;
+	p->y = y;
+	p->z = z;
+}
+
+t_point	translate_point(t_point p, t_vec u)
+{
+	t_point	newp;
+
+	newp.x = p.x + u.x;
+	newp.y = p.y + u.y;
+	newp.z = p.z + u.z;
+	return (newp);
 }
