@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   foo.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/17 05:33:54 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 06:28:05 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ t_vec			get_vec_from_point(t_point p, t_point q);
 int				get_fov(char *str);
 int				create_rgb(unsigned char r, unsigned char g, unsigned char b);
 bool			get_rgb(char *str, t_color *c);
-t_parse_error	parse(int ac, char **av, t_parsing_data *data);
+void			parse(int ac, char **av, t_parsing_data *data);
 void			free_tab(void *arg);
 int				null_term_tab_len(void **tab);
 bool			ft_strisint(char *str);
@@ -205,7 +205,8 @@ void			find_obj_and_replace_mat(t_app *app);
 void			set_coherence(t_app *app);
 int				fill_double(int keycode, double *to_mod, bool point_pushed);
 int				key_press(int keycode, t_app *app);
-void			parse_error_occured(t_parse_error e, int fd);
+void			set_parse_error(t_parsing_data *data, t_parse_error e,
+					char *line);
 t_normal_map	*get_sand_map(bool to_free);
 t_normal_map	*get_cliff_map(bool to_free);
 t_normal_map	*get_terrain_map(bool to_free);

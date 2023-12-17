@@ -2,7 +2,7 @@
 NAME = mimirt
 
 CC = cc
-CFLAGS = -MMD -g3 -I/opt/X11/include -I/opt/Xext/include -I$(INCLUDES_DIR) -Wall -Wextra -Werror
+CFLAGS = -MMD -g3 -I/opt/X11/include -I/opt/Xext/include -I$(INCLUDES_DIR) #-Wall -Wextra -Werror
 
 FILES = \
 		camera/init_viewpoint \
