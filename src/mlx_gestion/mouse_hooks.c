@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 18:22:41 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/17 05:38:44 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 06:22:31 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	handle_mouse(int keysym, int x, int y, t_app *app)
 		{
 			app->mlx_data.elem_selected = true;
 			app->mlx_data.elem_hit = hit_info;
+			print_usage(app->mlx_data.mute);
 			print_elem_selected(app->mlx_data.mute,
 				app->mlx_data.elem_hit.obj_type);
 		}
