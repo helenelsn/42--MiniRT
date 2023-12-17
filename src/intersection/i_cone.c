@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 19:29:00 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/17 00:28:53 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 02:10:25 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	cut_cone_surface(t_cone *cone, t_point hit_point, double *t)
 	return (0);
 }
 
-
 int	intersect_entire_cone(t_ray *ray, t_cone *cone, t_quadratic *f)
 {
 	t_vec	w;
@@ -42,18 +41,18 @@ int	intersect_entire_cone(t_ray *ray, t_cone *cone, t_quadratic *f)
 	dot_w_h = dot(w, (cone->vec));
 	dot_w_h_squared = pow2(dot_w_h);
 	f->a = 1 - m * pow2(dot_ray_dir_h) - pow2(dot_ray_dir_h);
-	f->b = 2 * (dot((ray->direction), w) - m
-			* dot_ray_dir_h * dot_w_h - dot_ray_dir_h * dot_w_h);
+	f->b = 2 * (dot((ray->direction), w) - m * dot_ray_dir_h * dot_w_h
+			- dot_ray_dir_h * dot_w_h);
 	f->c = dot(w, w) - m * dot_w_h_squared - dot_w_h_squared;
 	return (solve_quadratic(f));
 }
 
-
-bool    get_inter_for_cone(t_cone *co, t_ray *r, double *d)
+bool	get_inter_for_cone(t_cone *co, t_ray *r, double *d)
 {
-    t_quadratic	f;
-	double		t_base = -1;
+	t_quadratic	f;
+	double		t_base;
 
+	t_base = -1;
 	if (!intersect_entire_cone(r, co, &f))
 		return (false);
 	if (dot((co->vec), (r->direction)) > 0)
@@ -67,39 +66,32 @@ bool    get_inter_for_cone(t_cone *co, t_ray *r, double *d)
 		cut_cone_surface(co, get_ray_point(*r, f.t_2), &f.t_2);
 		*d = ft_min_and_positiv(f.t_1, f.t_2);
 	}
-	intersect_circle(r, (t_circle) {co->cover_plane, co->p, co->radius}, &t_base, *d);
+	intersect_circle(r, (t_circle){co->cover_plane, co->p, co->radius}, &t_base,
+		*d);
 	*d = ft_min_and_positiv(*d, t_base);
 	if (*d != t_base)
 		r->hit_info.cap_hit = false;
 	return (*d > 0.0);
 }
 
-bool    intersect_cone(t_ray *ray, void *object)
+bool	intersect_cone(t_ray *ray, void *object)
 {
-    t_cone      *co;
-    t_point  res;
-    double t = 0.0;
-    
-    
-    co = object;
-	int flag = get_inter_for_cone(co, ray, &t);
-	// if (t && t != 1)
-	// 	printf("res =%f\n ", t);
-	
-    if (!flag)
-        return false;
-		// printf("res =%d ", flag);
-    ray->hit_info.coef  = t;
-    if (ray->hit_info.coef <= 0.0)
-        return false;
+	t_cone	*co;
+	t_point	res;
+	double	t;
+	int		flag;
 
-    res = get_ray_point(*ray, ray->hit_info.coef);
-    ray->hit_info.hit_point = res;
-    ray->hit_info.distance = get_dist_between_points(ray->origin, ray->hit_info.hit_point);
-	// if (t!= 1)
-	// printf("end of %s %f\n", __func__, ray->hit_info.distance);	
-
-    // printf("---------------------- intersected plan\n");
-
-    return (true);
+	co = object;
+	t = 0.0;
+	flag = get_inter_for_cone(co, ray, &t);
+	if (!flag)
+		return (false);
+	ray->hit_info.coef = t;
+	if (ray->hit_info.coef <= 0.0)
+		return (false);
+	res = get_ray_point(*ray, ray->hit_info.coef);
+	ray->hit_info.hit_point = res;
+	ray->hit_info.distance = get_dist_between_points(ray->origin,
+			ray->hit_info.hit_point);
+	return (true);
 }

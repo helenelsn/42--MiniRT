@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   i_cylindre.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 00:52:41 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/16 01:25:48 by srapin           ###   ########.fr       */
+/*   Updated: 2023/12/17 02:08:48 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ int	intersect_cylinder_tube(t_ray *ray, t_cylindre *cylinder, t_quadratic *f)
 	return (solve_quadratic(f));
 }
 
-
 int	cut_cylinder(t_ray *ray, t_cylindre *cylinder, double *t)
 {
 	t_vec	hit_to_center;
@@ -120,12 +119,9 @@ int	intersect_cylinder_covers(t_ray *ray, t_cylindre *cylinder, double *t,
 {
 	double	t_1;
 	double	t_2;
-    t_point tmp;
 
 	intersect_plane(ray, (void *)&(cylinder->cover_planes[0]), &t_1);
 	intersect_plane(ray, (void *)&(cylinder->cover_planes[1]), &t_2);
-    // t_1 = get_inter_for_plan(&cylinder->cover_planes[0], (t_droite) {ray->origin, ray->direction}, &tmp);
-    // t_2 = get_inter_for_plan(&cylinder->cover_planes[0], (t_droite) {ray->origin, ray->direction}, &tmp);
 	*t = ft_min_and_positiv(t_1, t_2);
 	return (*t >= 0.0 && ((*t > f->t_1 && *t < f->t_2)
 			|| (*t < f->t_1 && *t > f->t_2)));
@@ -136,14 +132,6 @@ bool    get_inter_for_cylindre(t_cylindre *cy, t_ray *r, double *d)
     t_quadratic q;
     double t_cover;
     double t;
-
-    
-    t_vec	w;
-	double	dot_ray_dir_cyl_dir;
-	double	dot_w_cylinder_dir;
-    t_point tmp;
-    // printf("\n from hier");
-    // normalise(&r.direction);
     
 	if (!intersect_cylinder_tube(r, cy, &q))
 		return (false);
@@ -158,9 +146,7 @@ bool    get_inter_for_cylindre(t_cylindre *cy, t_ray *r, double *d)
 			r->hit_info.cap_hit = true;
 	}
     *d = t;
-    // return t > 0;
     return true;
-
 }
 
 bool    intersect_cylindre(t_ray *ray, void *object)
@@ -170,24 +156,18 @@ bool    intersect_cylindre(t_ray *ray, void *object)
     t_point  res;
     double t;
     
-    
     cy = object;
     d.p = ray->origin;
     d.v = ray->direction;
-
     if (!get_inter_for_cylindre(cy, ray, &t))
         return false;
     ray->hit_info.coef  = t;
     if (ray->hit_info.coef <= 0)
         return false;
-
     res.x = ray->origin.x + ray->hit_info.coef * ray->direction.x;
     res.y = ray->origin.y + ray->hit_info.coef * ray->direction.y;
     res.z = ray->origin.z + ray->hit_info.coef * ray->direction.z;
     ray->hit_info.hit_point = res;
     ray->hit_info.distance = get_dist_between_points(ray->origin, ray->hit_info.hit_point);
-
-    // printf("---------------------- intersected plan\n");
-
     return (true);
 }
