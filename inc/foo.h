@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:16 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/17 19:25:35 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/17 19:57:59 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,7 @@ int				get_final_pixel_color(t_app *app, int x, int y);
 void			redraw_bonus(t_app *app);
 t_normal_map	*erase_maps(t_normap_type t);
 bool			ft_str_beggin_with(char *str, char *beg);
+bool			ft_str_end_with(char *str, char *end);
 void			init_mat(t_material *mat);
 void			arrow_press(int keycode, t_app *app);
 void			modify_orientation(int keycode, t_app *app);
