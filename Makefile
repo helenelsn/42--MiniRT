@@ -6,7 +6,7 @@
 #    By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 01:48:56 by hlesny            #+#    #+#              #
-#    Updated: 2023/12/18 01:48:58 by hlesny           ###   ########.fr        #
+#    Updated: 2023/12/18 02:57:38 by hlesny           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,11 +16,9 @@ BONUS_DIR = ./mimi_rt_bonus
 
 all:
 	make -C $(NORMAL_DIR)
-	@cp $(NORMAL_DIR)/miniRT .
 
 bonus:
 	make -C $(BONUS_DIR)
-	@cp $(BONUS_DIR)/miniRT_bonus .
 
 clean:
 	make clean -C $(NORMAL_DIR)

@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 00:48:26 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/17 22:51:23 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/18 02:51:07 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ bool	get_vec_from_str(char *str, t_vec *p)
 		i = 0;
 		while (i < 3)
 		{
-			if (!ft_strisfloat(sp[i]) || -1 > atof(str) || 1 < atof(str))
+			if (!ft_strisfloat(sp[i]) || -1 > atof(sp[i]) || 1 < atof(sp[i]))
 				flag = false;
 			i++;
 		}
