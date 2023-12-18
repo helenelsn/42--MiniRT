@@ -6,12 +6,11 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 18:23:11 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/17 22:51:23 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/18 01:47:32 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/mini_rt_bonus.h"
-
 
 void	redraw(t_app *app)
 {

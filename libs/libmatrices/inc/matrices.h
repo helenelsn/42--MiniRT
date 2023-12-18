@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 20:52:41 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/17 23:00:20 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/18 01:46:18 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define MATRICES_H
 
 # include "../../../mimi_rt/inc/struct.h"
-#include <stdarg.h>
-#include "../../libft/ft_printf.h"
+# include <stdarg.h>
+# include "../../libft/ft_printf.h"
 
 typedef struct s_cofactor_calc
 {

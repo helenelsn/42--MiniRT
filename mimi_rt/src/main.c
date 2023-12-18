@@ -6,7 +6,7 @@
 /*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:20 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/18 00:24:42 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/18 00:43:41 by hlesny           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	minirt_get_started(t_app *app)
 	}
 	set_aspect_ratio(app);
 	init_viewpoint(app);
-	app->background = (t_color){0xb2d1cf};
+	ft_bzero(&app->background, sizeof(t_color));
 	draw_scene(app);
 	mlx_put_image_to_window(app->mlx_data.mlx_ptr, app->mlx_data.win_ptr,
 		app->mlx_data.image.img, 0, 0);
