@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 05:25:32 by hlesny            #+#    #+#             */
-/*   Updated: 2023/12/17 22:51:23 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/21 00:42:46 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/mini_rt_bonus.h"
+# include <pthread.h>
 
 t_renderer	*init_threads(t_app *app)
 {

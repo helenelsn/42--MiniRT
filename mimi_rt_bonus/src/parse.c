@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 15:55:23 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/17 22:51:23 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/21 00:33:19 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	parse_and_create(int fd, t_parsing_data *data)
 {
 	char	*line;
 	char	**sp_line;
-	void	*elem;
+	// void	*elem;
 
 	line = get_next_line(fd);
 	while (line)
@@ -70,7 +70,7 @@ void	parse_and_create(int fd, t_parsing_data *data)
 		}
 		sp_line = ft_split(line, ' ');
 		if (sp_line && sp_line[0] && sp_line[0][0] != '\n')
-			elem = add_obj(sp_line, data, line);
+			add_obj(sp_line, data, line);
 		free(line);
 		free_tab(sp_line);
 		line = get_next_line(fd);

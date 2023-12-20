@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+         #
+#    By: srapin <srapin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 01:48:39 by hlesny            #+#    #+#              #
-#    Updated: 2023/12/18 01:48:44 by hlesny           ###   ########.fr        #
+#    Updated: 2023/12/21 00:46:56 by srapin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = miniRT_bonus
 
 CC = cc
-CFLAGS = -MMD -g3 -I/opt/X11/include -I/opt/Xext/include -I$(INCLUDES_DIR) -Wall -Wextra -Werror
+CFLAGS =  -MMD -g3 -I/opt/X11/include -I/opt/Xext/include -I$(INCLUDES_DIR) -Wall -Wextra -Werror -pthread 
 
 FILES = \
 		camera/init_viewpoint \
@@ -125,7 +125,7 @@ all: $(NAME)
 
 
 $(NAME): $(LIBS) $(OBJS)
-	$(CC) $(OBJS) $(LIBS) $(MLXFLAGS) -g -o $@
+	$(CC) $(OBJS) $(LIBS) $(MLXFLAGS) $(CFLAGS) -g -o $@
 
 ${OBJS_DIR}/%.o : ${SRCS_DIR}/%.c
 	@mkdir -p $(OBJS_DIR)

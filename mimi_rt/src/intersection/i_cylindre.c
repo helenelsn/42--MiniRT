@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   i_cylindre.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 00:52:41 by srapin            #+#    #+#             */
-/*   Updated: 2023/12/17 03:46:55 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/21 00:40:11 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,10 @@ bool	get_inter_for_cylindre(t_cylindre *cy, t_ray *r, double *d)
 bool	intersect_cylindre(t_ray *ray, void *object)
 {
 	t_cylindre	*cy;
-	t_droite	d;
 	t_point		res;
 	double		t;
 
 	cy = object;
-	d.p = ray->origin;
-	d.v = ray->direction;
 	if (!get_inter_for_cylindre(cy, ray, &t))
 		return (false);
 	ray->hit_info.coef = t;
