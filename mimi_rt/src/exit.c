@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlesny <hlesny@student.42.fr>              +#+  +:+       +#+        */
+/*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 15:38:52 by Helene            #+#    #+#             */
-/*   Updated: 2023/12/17 19:25:18 by hlesny           ###   ########.fr       */
+/*   Updated: 2023/12/21 00:25:08 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,5 @@ void	minirt_destroy_display(t_app *app)
 	i = 0;
 	while (i < no_map)
 		erase_maps(i++);
+	exit(0);
 }
